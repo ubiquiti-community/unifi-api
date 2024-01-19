@@ -20,7 +20,7 @@ jobs:
       - run: go run ./cmd/openapi
       - uses: hatamiarash7/openapi-generator@v0.3.0
         with:
-          generator: html
+          generator: html2
           openapi-file: assets/openapi.yaml
           output-dir: _site
       - name: Fix permissions
