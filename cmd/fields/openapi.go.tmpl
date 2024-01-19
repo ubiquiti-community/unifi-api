@@ -39,6 +39,8 @@ func main() {
 
 	reflector.Spec.WithServers(server)
 
+	reflector.Spec.SetAPIKeySecurity("cookieAuth", "X-CSRF-TOKEN", openapi.InHeader, "X-CSRF-TOKEN")
+
 	addOperations()
 
 	schema, err := reflector.Spec.MarshalYAML()
