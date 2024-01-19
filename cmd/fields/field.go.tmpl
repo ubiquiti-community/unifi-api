@@ -188,7 +188,7 @@ func add{{ .StructName }}() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/{{ .ResourcePath }}/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/rest/{{ .ResourcePath }}/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
