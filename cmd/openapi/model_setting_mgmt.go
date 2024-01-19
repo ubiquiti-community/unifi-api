@@ -97,15 +97,6 @@ func (dst *SettingMgmtXSshKeys) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingMgmtGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingMgmtUpdateRequest struct {
-	*SettingMgmt
-	Site string `path:"site"`
-}
-
 type SettingMgmtResponse struct {
 	Meta meta          `json:"meta"`
 	Data []SettingMgmt `json:"data"`
@@ -114,13 +105,12 @@ type SettingMgmtResponse struct {
 func addSettingMgmt() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/mgmt")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/mgmt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingMgmt")
 	getOp.SetTags("SettingMgmt")
-	getOp.AddReqStructure(new(SettingMgmtGetRequest))
 	getOp.AddRespStructure(new(SettingMgmtResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -132,13 +122,13 @@ func addSettingMgmt() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/mgmt")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/mgmt")
+	updateOp.AddReqStructure(new(SettingMgmt))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingMgmt")
 	updateOp.SetTags("SettingMgmt")
-	updateOp.AddReqStructure(new(SettingMgmtUpdateRequest))
 	updateOp.AddRespStructure(new(SettingMgmtResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

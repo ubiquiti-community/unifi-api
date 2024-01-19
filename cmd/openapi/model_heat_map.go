@@ -52,28 +52,16 @@ func (dst *HeatMap) UnmarshalJSON(b []byte) error {
 }
 
 type HeatMapGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type HeatMapDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type HeatMapUpdateRequest struct {
 	*HeatMap
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type HeatMapListRequest struct {
-	Site string `path:"site"`
-}
-
-type HeatMapCreateRequest struct {
-	*HeatMap
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type HeatMapResponse struct {
@@ -84,13 +72,13 @@ type HeatMapResponse struct {
 func addHeatMap() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/heatmap/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/heatmap/{id}")
+	getOp.AddReqStructure(new(HeatMapGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetHeatMap")
 	getOp.SetTags("HeatMap")
-	getOp.AddReqStructure(new(HeatMapGetRequest))
 	getOp.AddRespStructure(new(HeatMapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -102,13 +90,13 @@ func addHeatMap() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/heatmap/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/heatmap/{id}")
+	updateOp.AddReqStructure(new(HeatMapUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateHeatMap")
 	updateOp.SetTags("HeatMap")
-	updateOp.AddReqStructure(new(HeatMapUpdateRequest))
 	updateOp.AddRespStructure(new(HeatMapResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -119,13 +107,13 @@ func addHeatMap() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/heatmap")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/heatmap")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListHeatMap")
 	listOp.SetTags("HeatMap")
-	listOp.AddReqStructure(new(HeatMapListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(HeatMapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -136,13 +124,13 @@ func addHeatMap() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/heatmap")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/heatmap")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateHeatMap")
 	createOp.SetTags("HeatMap")
-	createOp.AddReqStructure(new(HeatMapCreateRequest))
+	createOp.AddReqStructure(new(HeatMap))
 	createOp.AddRespStructure(new(HeatMapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -153,7 +141,7 @@ func addHeatMap() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/heatmap/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/heatmap/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

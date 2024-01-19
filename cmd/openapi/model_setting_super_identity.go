@@ -51,15 +51,6 @@ func (dst *SettingSuperIdentity) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperIdentityGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperIdentityUpdateRequest struct {
-	*SettingSuperIdentity
-	Site string `path:"site"`
-}
-
 type SettingSuperIdentityResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingSuperIdentity `json:"data"`
@@ -68,13 +59,12 @@ type SettingSuperIdentityResponse struct {
 func addSettingSuperIdentity() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_identity")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_identity")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperIdentity")
 	getOp.SetTags("SettingSuperIdentity")
-	getOp.AddReqStructure(new(SettingSuperIdentityGetRequest))
 	getOp.AddRespStructure(new(SettingSuperIdentityResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -86,13 +76,13 @@ func addSettingSuperIdentity() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_identity")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_identity")
+	updateOp.AddReqStructure(new(SettingSuperIdentity))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperIdentity")
 	updateOp.SetTags("SettingSuperIdentity")
-	updateOp.AddReqStructure(new(SettingSuperIdentityUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperIdentityResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

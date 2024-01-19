@@ -50,15 +50,6 @@ func (dst *SettingSuperMail) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperMailGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperMailUpdateRequest struct {
-	*SettingSuperMail
-	Site string `path:"site"`
-}
-
 type SettingSuperMailResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingSuperMail `json:"data"`
@@ -67,13 +58,12 @@ type SettingSuperMailResponse struct {
 func addSettingSuperMail() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_mail")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_mail")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperMail")
 	getOp.SetTags("SettingSuperMail")
-	getOp.AddReqStructure(new(SettingSuperMailGetRequest))
 	getOp.AddRespStructure(new(SettingSuperMailResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -85,13 +75,13 @@ func addSettingSuperMail() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_mail")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_mail")
+	updateOp.AddReqStructure(new(SettingSuperMail))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperMail")
 	updateOp.SetTags("SettingSuperMail")
-	updateOp.AddReqStructure(new(SettingSuperMailUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperMailResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -91,28 +91,16 @@ func (dst *FirewallRule) UnmarshalJSON(b []byte) error {
 }
 
 type FirewallRuleGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type FirewallRuleDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type FirewallRuleUpdateRequest struct {
 	*FirewallRule
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type FirewallRuleListRequest struct {
-	Site string `path:"site"`
-}
-
-type FirewallRuleCreateRequest struct {
-	*FirewallRule
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type FirewallRuleResponse struct {
@@ -123,13 +111,13 @@ type FirewallRuleResponse struct {
 func addFirewallRule() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/firewallrule/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/firewallrule/{id}")
+	getOp.AddReqStructure(new(FirewallRuleGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetFirewallRule")
 	getOp.SetTags("FirewallRule")
-	getOp.AddReqStructure(new(FirewallRuleGetRequest))
 	getOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -141,13 +129,13 @@ func addFirewallRule() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/firewallrule/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/firewallrule/{id}")
+	updateOp.AddReqStructure(new(FirewallRuleUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateFirewallRule")
 	updateOp.SetTags("FirewallRule")
-	updateOp.AddReqStructure(new(FirewallRuleUpdateRequest))
 	updateOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -158,13 +146,13 @@ func addFirewallRule() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/firewallrule")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/firewallrule")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListFirewallRule")
 	listOp.SetTags("FirewallRule")
-	listOp.AddReqStructure(new(FirewallRuleListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -175,13 +163,13 @@ func addFirewallRule() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/firewallrule")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/firewallrule")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateFirewallRule")
 	createOp.SetTags("FirewallRule")
-	createOp.AddReqStructure(new(FirewallRuleCreateRequest))
+	createOp.AddReqStructure(new(FirewallRule))
 	createOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -192,7 +180,7 @@ func addFirewallRule() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/firewallrule/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/firewallrule/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

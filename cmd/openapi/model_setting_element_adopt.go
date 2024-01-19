@@ -52,15 +52,6 @@ func (dst *SettingElementAdopt) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingElementAdoptGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingElementAdoptUpdateRequest struct {
-	*SettingElementAdopt
-	Site string `path:"site"`
-}
-
 type SettingElementAdoptResponse struct {
 	Meta meta                  `json:"meta"`
 	Data []SettingElementAdopt `json:"data"`
@@ -69,13 +60,12 @@ type SettingElementAdoptResponse struct {
 func addSettingElementAdopt() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/element_adopt")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/element_adopt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingElementAdopt")
 	getOp.SetTags("SettingElementAdopt")
-	getOp.AddReqStructure(new(SettingElementAdoptGetRequest))
 	getOp.AddRespStructure(new(SettingElementAdoptResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -87,13 +77,13 @@ func addSettingElementAdopt() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/element_adopt")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/element_adopt")
+	updateOp.AddReqStructure(new(SettingElementAdopt))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingElementAdopt")
 	updateOp.SetTags("SettingElementAdopt")
-	updateOp.AddReqStructure(new(SettingElementAdoptUpdateRequest))
 	updateOp.AddRespStructure(new(SettingElementAdoptResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

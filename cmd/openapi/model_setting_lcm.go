@@ -59,15 +59,6 @@ func (dst *SettingLcm) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingLcmGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingLcmUpdateRequest struct {
-	*SettingLcm
-	Site string `path:"site"`
-}
-
 type SettingLcmResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingLcm `json:"data"`
@@ -76,13 +67,12 @@ type SettingLcmResponse struct {
 func addSettingLcm() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/lcm")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/lcm")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingLcm")
 	getOp.SetTags("SettingLcm")
-	getOp.AddReqStructure(new(SettingLcmGetRequest))
 	getOp.AddRespStructure(new(SettingLcmResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -94,13 +84,13 @@ func addSettingLcm() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/lcm")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/lcm")
+	updateOp.AddReqStructure(new(SettingLcm))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingLcm")
 	updateOp.SetTags("SettingLcm")
-	updateOp.AddReqStructure(new(SettingLcmUpdateRequest))
 	updateOp.AddRespStructure(new(SettingLcmResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

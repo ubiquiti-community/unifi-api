@@ -242,28 +242,16 @@ func (dst *WLANScheduleWithDuration) UnmarshalJSON(b []byte) error {
 }
 
 type WLANGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type WLANDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type WLANUpdateRequest struct {
 	*WLAN
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type WLANListRequest struct {
-	Site string `path:"site"`
-}
-
-type WLANCreateRequest struct {
-	*WLAN
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type WLANResponse struct {
@@ -274,13 +262,13 @@ type WLANResponse struct {
 func addWLAN() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/wlanconf/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/wlanconf/{id}")
+	getOp.AddReqStructure(new(WLANGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetWLAN")
 	getOp.SetTags("WLAN")
-	getOp.AddReqStructure(new(WLANGetRequest))
 	getOp.AddRespStructure(new(WLANResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -292,13 +280,13 @@ func addWLAN() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/wlanconf/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/wlanconf/{id}")
+	updateOp.AddReqStructure(new(WLANUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateWLAN")
 	updateOp.SetTags("WLAN")
-	updateOp.AddReqStructure(new(WLANUpdateRequest))
 	updateOp.AddRespStructure(new(WLANResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -309,13 +297,13 @@ func addWLAN() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/wlanconf")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/wlanconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListWLAN")
 	listOp.SetTags("WLAN")
-	listOp.AddReqStructure(new(WLANListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(WLANResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -326,13 +314,13 @@ func addWLAN() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/wlanconf")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/wlanconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateWLAN")
 	createOp.SetTags("WLAN")
-	createOp.AddReqStructure(new(WLANCreateRequest))
+	createOp.AddReqStructure(new(WLAN))
 	createOp.AddRespStructure(new(WLANResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -343,7 +331,7 @@ func addWLAN() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/wlanconf/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/wlanconf/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -49,28 +49,16 @@ func (dst *WLANGroup) UnmarshalJSON(b []byte) error {
 }
 
 type WLANGroupGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type WLANGroupDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type WLANGroupUpdateRequest struct {
 	*WLANGroup
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type WLANGroupListRequest struct {
-	Site string `path:"site"`
-}
-
-type WLANGroupCreateRequest struct {
-	*WLANGroup
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type WLANGroupResponse struct {
@@ -81,13 +69,13 @@ type WLANGroupResponse struct {
 func addWLANGroup() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/wlangroup/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/wlangroup/{id}")
+	getOp.AddReqStructure(new(WLANGroupGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetWLANGroup")
 	getOp.SetTags("WLANGroup")
-	getOp.AddReqStructure(new(WLANGroupGetRequest))
 	getOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -99,13 +87,13 @@ func addWLANGroup() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/wlangroup/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/wlangroup/{id}")
+	updateOp.AddReqStructure(new(WLANGroupUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateWLANGroup")
 	updateOp.SetTags("WLANGroup")
-	updateOp.AddReqStructure(new(WLANGroupUpdateRequest))
 	updateOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -116,13 +104,13 @@ func addWLANGroup() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/wlangroup")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/wlangroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListWLANGroup")
 	listOp.SetTags("WLANGroup")
-	listOp.AddReqStructure(new(WLANGroupListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -133,13 +121,13 @@ func addWLANGroup() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/wlangroup")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/wlangroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateWLANGroup")
 	createOp.SetTags("WLANGroup")
-	createOp.AddReqStructure(new(WLANGroupCreateRequest))
+	createOp.AddReqStructure(new(WLANGroup))
 	createOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -150,7 +138,7 @@ func addWLANGroup() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/wlangroup/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/wlangroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

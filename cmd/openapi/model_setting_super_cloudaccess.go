@@ -56,15 +56,6 @@ func (dst *SettingSuperCloudaccess) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperCloudaccessGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperCloudaccessUpdateRequest struct {
-	*SettingSuperCloudaccess
-	Site string `path:"site"`
-}
-
 type SettingSuperCloudaccessResponse struct {
 	Meta meta                      `json:"meta"`
 	Data []SettingSuperCloudaccess `json:"data"`
@@ -73,13 +64,12 @@ type SettingSuperCloudaccessResponse struct {
 func addSettingSuperCloudaccess() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_cloudaccess")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_cloudaccess")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperCloudaccess")
 	getOp.SetTags("SettingSuperCloudaccess")
-	getOp.AddReqStructure(new(SettingSuperCloudaccessGetRequest))
 	getOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -91,13 +81,13 @@ func addSettingSuperCloudaccess() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_cloudaccess")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_cloudaccess")
+	updateOp.AddReqStructure(new(SettingSuperCloudaccess))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperCloudaccess")
 	updateOp.SetTags("SettingSuperCloudaccess")
-	updateOp.AddReqStructure(new(SettingSuperCloudaccessUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

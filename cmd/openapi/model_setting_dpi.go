@@ -51,15 +51,6 @@ func (dst *SettingDpi) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingDpiGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingDpiUpdateRequest struct {
-	*SettingDpi
-	Site string `path:"site"`
-}
-
 type SettingDpiResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingDpi `json:"data"`
@@ -68,13 +59,12 @@ type SettingDpiResponse struct {
 func addSettingDpi() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/dpi")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/dpi")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingDpi")
 	getOp.SetTags("SettingDpi")
-	getOp.AddReqStructure(new(SettingDpiGetRequest))
 	getOp.AddRespStructure(new(SettingDpiResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -86,13 +76,13 @@ func addSettingDpi() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/dpi")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/dpi")
+	updateOp.AddReqStructure(new(SettingDpi))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingDpi")
 	updateOp.SetTags("SettingDpi")
-	updateOp.AddReqStructure(new(SettingDpiUpdateRequest))
 	updateOp.AddRespStructure(new(SettingDpiResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -227,15 +227,6 @@ func (dst *SettingIpsWhitelist) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingIpsGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingIpsUpdateRequest struct {
-	*SettingIps
-	Site string `path:"site"`
-}
-
 type SettingIpsResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingIps `json:"data"`
@@ -244,13 +235,12 @@ type SettingIpsResponse struct {
 func addSettingIps() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/ips")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ips")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingIps")
 	getOp.SetTags("SettingIps")
-	getOp.AddReqStructure(new(SettingIpsGetRequest))
 	getOp.AddRespStructure(new(SettingIpsResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -262,13 +252,13 @@ func addSettingIps() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/ips")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ips")
+	updateOp.AddReqStructure(new(SettingIps))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingIps")
 	updateOp.SetTags("SettingIps")
-	updateOp.AddReqStructure(new(SettingIpsUpdateRequest))
 	updateOp.AddRespStructure(new(SettingIpsResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

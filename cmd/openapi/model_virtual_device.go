@@ -54,28 +54,16 @@ func (dst *VirtualDevice) UnmarshalJSON(b []byte) error {
 }
 
 type VirtualDeviceGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type VirtualDeviceDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type VirtualDeviceUpdateRequest struct {
 	*VirtualDevice
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type VirtualDeviceListRequest struct {
-	Site string `path:"site"`
-}
-
-type VirtualDeviceCreateRequest struct {
-	*VirtualDevice
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type VirtualDeviceResponse struct {
@@ -86,13 +74,13 @@ type VirtualDeviceResponse struct {
 func addVirtualDevice() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/virtualdevice/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/virtualdevice/{id}")
+	getOp.AddReqStructure(new(VirtualDeviceGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetVirtualDevice")
 	getOp.SetTags("VirtualDevice")
-	getOp.AddReqStructure(new(VirtualDeviceGetRequest))
 	getOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -104,13 +92,13 @@ func addVirtualDevice() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/virtualdevice/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/virtualdevice/{id}")
+	updateOp.AddReqStructure(new(VirtualDeviceUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateVirtualDevice")
 	updateOp.SetTags("VirtualDevice")
-	updateOp.AddReqStructure(new(VirtualDeviceUpdateRequest))
 	updateOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -121,13 +109,13 @@ func addVirtualDevice() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/virtualdevice")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/virtualdevice")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListVirtualDevice")
 	listOp.SetTags("VirtualDevice")
-	listOp.AddReqStructure(new(VirtualDeviceListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -138,13 +126,13 @@ func addVirtualDevice() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/virtualdevice")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/virtualdevice")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateVirtualDevice")
 	createOp.SetTags("VirtualDevice")
-	createOp.AddReqStructure(new(VirtualDeviceCreateRequest))
+	createOp.AddReqStructure(new(VirtualDevice))
 	createOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -155,7 +143,7 @@ func addVirtualDevice() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/virtualdevice/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/virtualdevice/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

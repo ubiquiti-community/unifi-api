@@ -50,15 +50,6 @@ func (dst *SettingNetworkOptimization) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingNetworkOptimizationGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingNetworkOptimizationUpdateRequest struct {
-	*SettingNetworkOptimization
-	Site string `path:"site"`
-}
-
 type SettingNetworkOptimizationResponse struct {
 	Meta meta                         `json:"meta"`
 	Data []SettingNetworkOptimization `json:"data"`
@@ -67,13 +58,12 @@ type SettingNetworkOptimizationResponse struct {
 func addSettingNetworkOptimization() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/network_optimization")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/network_optimization")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingNetworkOptimization")
 	getOp.SetTags("SettingNetworkOptimization")
-	getOp.AddReqStructure(new(SettingNetworkOptimizationGetRequest))
 	getOp.AddRespStructure(new(SettingNetworkOptimizationResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -85,13 +75,13 @@ func addSettingNetworkOptimization() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/network_optimization")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/network_optimization")
+	updateOp.AddReqStructure(new(SettingNetworkOptimization))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingNetworkOptimization")
 	updateOp.SetTags("SettingNetworkOptimization")
-	updateOp.AddReqStructure(new(SettingNetworkOptimizationUpdateRequest))
 	updateOp.AddRespStructure(new(SettingNetworkOptimizationResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

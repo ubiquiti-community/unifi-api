@@ -52,15 +52,6 @@ func (dst *SettingSuperFwupdate) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperFwupdateGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperFwupdateUpdateRequest struct {
-	*SettingSuperFwupdate
-	Site string `path:"site"`
-}
-
 type SettingSuperFwupdateResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingSuperFwupdate `json:"data"`
@@ -69,13 +60,12 @@ type SettingSuperFwupdateResponse struct {
 func addSettingSuperFwupdate() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_fwupdate")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_fwupdate")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperFwupdate")
 	getOp.SetTags("SettingSuperFwupdate")
-	getOp.AddReqStructure(new(SettingSuperFwupdateGetRequest))
 	getOp.AddRespStructure(new(SettingSuperFwupdateResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -87,13 +77,13 @@ func addSettingSuperFwupdate() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_fwupdate")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_fwupdate")
+	updateOp.AddReqStructure(new(SettingSuperFwupdate))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperFwupdate")
 	updateOp.SetTags("SettingSuperFwupdate")
-	updateOp.AddReqStructure(new(SettingSuperFwupdateUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperFwupdateResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

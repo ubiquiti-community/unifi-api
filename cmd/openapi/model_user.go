@@ -70,28 +70,16 @@ func (dst *User) UnmarshalJSON(b []byte) error {
 }
 
 type UserGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type UserDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type UserUpdateRequest struct {
 	*User
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type UserListRequest struct {
-	Site string `path:"site"`
-}
-
-type UserCreateRequest struct {
-	*User
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type UserResponse struct {
@@ -102,13 +90,13 @@ type UserResponse struct {
 func addUser() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/user/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/user/{id}")
+	getOp.AddReqStructure(new(UserGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetUser")
 	getOp.SetTags("User")
-	getOp.AddReqStructure(new(UserGetRequest))
 	getOp.AddRespStructure(new(UserResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -120,13 +108,13 @@ func addUser() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/user/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/user/{id}")
+	updateOp.AddReqStructure(new(UserUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateUser")
 	updateOp.SetTags("User")
-	updateOp.AddReqStructure(new(UserUpdateRequest))
 	updateOp.AddRespStructure(new(UserResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -137,13 +125,13 @@ func addUser() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/user")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/user")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListUser")
 	listOp.SetTags("User")
-	listOp.AddReqStructure(new(UserListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(UserResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -154,13 +142,13 @@ func addUser() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/user")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/user")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateUser")
 	createOp.SetTags("User")
-	createOp.AddReqStructure(new(UserCreateRequest))
+	createOp.AddReqStructure(new(User))
 	createOp.AddRespStructure(new(UserResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -171,7 +159,7 @@ func addUser() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/user/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/user/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

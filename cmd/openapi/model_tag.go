@@ -50,28 +50,16 @@ func (dst *Tag) UnmarshalJSON(b []byte) error {
 }
 
 type TagGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type TagDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type TagUpdateRequest struct {
 	*Tag
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type TagListRequest struct {
-	Site string `path:"site"`
-}
-
-type TagCreateRequest struct {
-	*Tag
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type TagResponse struct {
@@ -82,13 +70,13 @@ type TagResponse struct {
 func addTag() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/tag/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/tag/{id}")
+	getOp.AddReqStructure(new(TagGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetTag")
 	getOp.SetTags("Tag")
-	getOp.AddReqStructure(new(TagGetRequest))
 	getOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -100,13 +88,13 @@ func addTag() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/tag/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/tag/{id}")
+	updateOp.AddReqStructure(new(TagUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateTag")
 	updateOp.SetTags("Tag")
-	updateOp.AddReqStructure(new(TagUpdateRequest))
 	updateOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -117,13 +105,13 @@ func addTag() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/tag")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/tag")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListTag")
 	listOp.SetTags("Tag")
-	listOp.AddReqStructure(new(TagListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -134,13 +122,13 @@ func addTag() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/tag")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/tag")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateTag")
 	createOp.SetTags("Tag")
-	createOp.AddReqStructure(new(TagCreateRequest))
+	createOp.AddReqStructure(new(Tag))
 	createOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -151,7 +139,7 @@ func addTag() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/tag/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/tag/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -57,15 +57,6 @@ func (dst *SettingGlobalSwitch) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingGlobalSwitchGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingGlobalSwitchUpdateRequest struct {
-	*SettingGlobalSwitch
-	Site string `path:"site"`
-}
-
 type SettingGlobalSwitchResponse struct {
 	Meta meta                  `json:"meta"`
 	Data []SettingGlobalSwitch `json:"data"`
@@ -74,13 +65,12 @@ type SettingGlobalSwitchResponse struct {
 func addSettingGlobalSwitch() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/global_switch")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/global_switch")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingGlobalSwitch")
 	getOp.SetTags("SettingGlobalSwitch")
-	getOp.AddReqStructure(new(SettingGlobalSwitchGetRequest))
 	getOp.AddRespStructure(new(SettingGlobalSwitchResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -92,13 +82,13 @@ func addSettingGlobalSwitch() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/global_switch")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/global_switch")
+	updateOp.AddReqStructure(new(SettingGlobalSwitch))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingGlobalSwitch")
 	updateOp.SetTags("SettingGlobalSwitch")
-	updateOp.AddReqStructure(new(SettingGlobalSwitchUpdateRequest))
 	updateOp.AddRespStructure(new(SettingGlobalSwitchResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -55,15 +55,6 @@ func (dst *SettingBroadcast) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingBroadcastGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingBroadcastUpdateRequest struct {
-	*SettingBroadcast
-	Site string `path:"site"`
-}
-
 type SettingBroadcastResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingBroadcast `json:"data"`
@@ -72,13 +63,12 @@ type SettingBroadcastResponse struct {
 func addSettingBroadcast() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/broadcast")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/broadcast")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingBroadcast")
 	getOp.SetTags("SettingBroadcast")
-	getOp.AddReqStructure(new(SettingBroadcastGetRequest))
 	getOp.AddRespStructure(new(SettingBroadcastResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -90,13 +80,13 @@ func addSettingBroadcast() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/broadcast")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/broadcast")
+	updateOp.AddReqStructure(new(SettingBroadcast))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingBroadcast")
 	updateOp.SetTags("SettingBroadcast")
-	updateOp.AddReqStructure(new(SettingBroadcastUpdateRequest))
 	updateOp.AddRespStructure(new(SettingBroadcastResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

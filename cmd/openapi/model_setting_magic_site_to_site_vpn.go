@@ -50,15 +50,6 @@ func (dst *SettingMagicSiteToSiteVpn) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingMagicSiteToSiteVpnGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingMagicSiteToSiteVpnUpdateRequest struct {
-	*SettingMagicSiteToSiteVpn
-	Site string `path:"site"`
-}
-
 type SettingMagicSiteToSiteVpnResponse struct {
 	Meta meta                        `json:"meta"`
 	Data []SettingMagicSiteToSiteVpn `json:"data"`
@@ -67,13 +58,12 @@ type SettingMagicSiteToSiteVpnResponse struct {
 func addSettingMagicSiteToSiteVpn() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/magic_site_to_site_vpn")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/magic_site_to_site_vpn")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingMagicSiteToSiteVpn")
 	getOp.SetTags("SettingMagicSiteToSiteVpn")
-	getOp.AddReqStructure(new(SettingMagicSiteToSiteVpnGetRequest))
 	getOp.AddRespStructure(new(SettingMagicSiteToSiteVpnResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -85,13 +75,13 @@ func addSettingMagicSiteToSiteVpn() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/magic_site_to_site_vpn")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/magic_site_to_site_vpn")
+	updateOp.AddReqStructure(new(SettingMagicSiteToSiteVpn))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingMagicSiteToSiteVpn")
 	updateOp.SetTags("SettingMagicSiteToSiteVpn")
-	updateOp.AddReqStructure(new(SettingMagicSiteToSiteVpnUpdateRequest))
 	updateOp.AddRespStructure(new(SettingMagicSiteToSiteVpnResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

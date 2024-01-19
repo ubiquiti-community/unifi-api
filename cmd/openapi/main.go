@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/swaggest/openapi-go"
 	"github.com/swaggest/openapi-go/openapi3"
 )
 
@@ -34,10 +35,15 @@ func main() {
 	server.WithVariablesItem("domain", openapi3.ServerVariable{
 		Default: "unifi.ui.com",
 	})
+	server.WithVariablesItem("site", openapi3.ServerVariable{
+		Default: "default",
+	})
 	server.WithDescription("Unifi Controller API")
-	server.WithURL("https://{domain}/proxy/network/api")
+	server.WithURL("https://{domain}/proxy/network/api/s/{site}")
 
 	reflector.Spec.WithServers(server)
+
+	reflector.Spec.SetAPIKeySecurity("cookieAuth", "X-CSRF-TOKEN", openapi.InHeader, "X-CSRF-TOKEN")
 
 	addOperations()
 

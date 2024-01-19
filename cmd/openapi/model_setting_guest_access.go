@@ -159,15 +159,6 @@ func (dst *SettingGuestAccess) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingGuestAccessGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingGuestAccessUpdateRequest struct {
-	*SettingGuestAccess
-	Site string `path:"site"`
-}
-
 type SettingGuestAccessResponse struct {
 	Meta meta                 `json:"meta"`
 	Data []SettingGuestAccess `json:"data"`
@@ -176,13 +167,12 @@ type SettingGuestAccessResponse struct {
 func addSettingGuestAccess() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/guest_access")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/guest_access")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingGuestAccess")
 	getOp.SetTags("SettingGuestAccess")
-	getOp.AddReqStructure(new(SettingGuestAccessGetRequest))
 	getOp.AddRespStructure(new(SettingGuestAccessResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -194,13 +184,13 @@ func addSettingGuestAccess() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/guest_access")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/guest_access")
+	updateOp.AddReqStructure(new(SettingGuestAccess))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingGuestAccess")
 	updateOp.SetTags("SettingGuestAccess")
-	updateOp.AddReqStructure(new(SettingGuestAccessUpdateRequest))
 	updateOp.AddRespStructure(new(SettingGuestAccessResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

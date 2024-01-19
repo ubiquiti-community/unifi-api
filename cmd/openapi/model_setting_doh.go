@@ -51,15 +51,6 @@ func (dst *SettingDoh) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingDohGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingDohUpdateRequest struct {
-	*SettingDoh
-	Site string `path:"site"`
-}
-
 type SettingDohResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingDoh `json:"data"`
@@ -68,13 +59,12 @@ type SettingDohResponse struct {
 func addSettingDoh() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/doh")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/doh")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingDoh")
 	getOp.SetTags("SettingDoh")
-	getOp.AddReqStructure(new(SettingDohGetRequest))
 	getOp.AddRespStructure(new(SettingDohResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -86,13 +76,13 @@ func addSettingDoh() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/doh")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/doh")
+	updateOp.AddReqStructure(new(SettingDoh))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingDoh")
 	updateOp.SetTags("SettingDoh")
-	updateOp.AddReqStructure(new(SettingDohUpdateRequest))
 	updateOp.AddRespStructure(new(SettingDohResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

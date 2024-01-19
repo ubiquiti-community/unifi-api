@@ -71,28 +71,16 @@ func (dst *DpiApp) UnmarshalJSON(b []byte) error {
 }
 
 type DpiAppGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DpiAppDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DpiAppUpdateRequest struct {
 	*DpiApp
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type DpiAppListRequest struct {
-	Site string `path:"site"`
-}
-
-type DpiAppCreateRequest struct {
-	*DpiApp
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type DpiAppResponse struct {
@@ -103,13 +91,13 @@ type DpiAppResponse struct {
 func addDpiApp() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dpiapp/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dpiapp/{id}")
+	getOp.AddReqStructure(new(DpiAppGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetDpiApp")
 	getOp.SetTags("DpiApp")
-	getOp.AddReqStructure(new(DpiAppGetRequest))
 	getOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -121,13 +109,13 @@ func addDpiApp() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/dpiapp/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/dpiapp/{id}")
+	updateOp.AddReqStructure(new(DpiAppUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDpiApp")
 	updateOp.SetTags("DpiApp")
-	updateOp.AddReqStructure(new(DpiAppUpdateRequest))
 	updateOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -138,13 +126,13 @@ func addDpiApp() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dpiapp")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dpiapp")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDpiApp")
 	listOp.SetTags("DpiApp")
-	listOp.AddReqStructure(new(DpiAppListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -155,13 +143,13 @@ func addDpiApp() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/dpiapp")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/dpiapp")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDpiApp")
 	createOp.SetTags("DpiApp")
-	createOp.AddReqStructure(new(DpiAppCreateRequest))
+	createOp.AddReqStructure(new(DpiApp))
 	createOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -172,7 +160,7 @@ func addDpiApp() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/dpiapp/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/dpiapp/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

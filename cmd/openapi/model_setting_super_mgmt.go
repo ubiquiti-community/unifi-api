@@ -115,15 +115,6 @@ func (dst *SettingSuperMgmt) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperMgmtGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperMgmtUpdateRequest struct {
-	*SettingSuperMgmt
-	Site string `path:"site"`
-}
-
 type SettingSuperMgmtResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingSuperMgmt `json:"data"`
@@ -132,13 +123,12 @@ type SettingSuperMgmtResponse struct {
 func addSettingSuperMgmt() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_mgmt")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_mgmt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperMgmt")
 	getOp.SetTags("SettingSuperMgmt")
-	getOp.AddReqStructure(new(SettingSuperMgmtGetRequest))
 	getOp.AddRespStructure(new(SettingSuperMgmtResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -150,13 +140,13 @@ func addSettingSuperMgmt() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_mgmt")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_mgmt")
+	updateOp.AddReqStructure(new(SettingSuperMgmt))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperMgmt")
 	updateOp.SetTags("SettingSuperMgmt")
-	updateOp.AddReqStructure(new(SettingSuperMgmtUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperMgmtResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

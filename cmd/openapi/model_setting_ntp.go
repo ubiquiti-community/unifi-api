@@ -54,15 +54,6 @@ func (dst *SettingNtp) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingNtpGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingNtpUpdateRequest struct {
-	*SettingNtp
-	Site string `path:"site"`
-}
-
 type SettingNtpResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingNtp `json:"data"`
@@ -71,13 +62,12 @@ type SettingNtpResponse struct {
 func addSettingNtp() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/ntp")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ntp")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingNtp")
 	getOp.SetTags("SettingNtp")
-	getOp.AddReqStructure(new(SettingNtpGetRequest))
 	getOp.AddRespStructure(new(SettingNtpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -89,13 +79,13 @@ func addSettingNtp() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/ntp")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ntp")
+	updateOp.AddReqStructure(new(SettingNtp))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingNtp")
 	updateOp.SetTags("SettingNtp")
-	updateOp.AddReqStructure(new(SettingNtpUpdateRequest))
 	updateOp.AddRespStructure(new(SettingNtpResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

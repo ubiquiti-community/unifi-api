@@ -51,15 +51,6 @@ func (dst *SettingTeleport) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingTeleportGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingTeleportUpdateRequest struct {
-	*SettingTeleport
-	Site string `path:"site"`
-}
-
 type SettingTeleportResponse struct {
 	Meta meta              `json:"meta"`
 	Data []SettingTeleport `json:"data"`
@@ -68,13 +59,12 @@ type SettingTeleportResponse struct {
 func addSettingTeleport() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/teleport")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/teleport")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingTeleport")
 	getOp.SetTags("SettingTeleport")
-	getOp.AddReqStructure(new(SettingTeleportGetRequest))
 	getOp.AddRespStructure(new(SettingTeleportResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -86,13 +76,13 @@ func addSettingTeleport() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/teleport")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/teleport")
+	updateOp.AddReqStructure(new(SettingTeleport))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingTeleport")
 	updateOp.SetTags("SettingTeleport")
-	updateOp.AddReqStructure(new(SettingTeleportUpdateRequest))
 	updateOp.AddRespStructure(new(SettingTeleportResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -50,15 +50,6 @@ func (dst *SettingPorta) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingPortaGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingPortaUpdateRequest struct {
-	*SettingPorta
-	Site string `path:"site"`
-}
-
 type SettingPortaResponse struct {
 	Meta meta           `json:"meta"`
 	Data []SettingPorta `json:"data"`
@@ -67,13 +58,12 @@ type SettingPortaResponse struct {
 func addSettingPorta() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/porta")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/porta")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingPorta")
 	getOp.SetTags("SettingPorta")
-	getOp.AddReqStructure(new(SettingPortaGetRequest))
 	getOp.AddRespStructure(new(SettingPortaResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -85,13 +75,13 @@ func addSettingPorta() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/porta")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/porta")
+	updateOp.AddReqStructure(new(SettingPorta))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingPorta")
 	updateOp.SetTags("SettingPorta")
-	updateOp.AddReqStructure(new(SettingPortaUpdateRequest))
 	updateOp.AddRespStructure(new(SettingPortaResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -409,28 +409,16 @@ func (dst *NetworkWANProviderCapabilities) UnmarshalJSON(b []byte) error {
 }
 
 type NetworkGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type NetworkDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type NetworkUpdateRequest struct {
 	*Network
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type NetworkListRequest struct {
-	Site string `path:"site"`
-}
-
-type NetworkCreateRequest struct {
-	*Network
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type NetworkResponse struct {
@@ -441,13 +429,13 @@ type NetworkResponse struct {
 func addNetwork() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/networkconf/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/networkconf/{id}")
+	getOp.AddReqStructure(new(NetworkGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetNetwork")
 	getOp.SetTags("Network")
-	getOp.AddReqStructure(new(NetworkGetRequest))
 	getOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -459,13 +447,13 @@ func addNetwork() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/networkconf/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/networkconf/{id}")
+	updateOp.AddReqStructure(new(NetworkUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateNetwork")
 	updateOp.SetTags("Network")
-	updateOp.AddReqStructure(new(NetworkUpdateRequest))
 	updateOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -476,13 +464,13 @@ func addNetwork() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/networkconf")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/networkconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListNetwork")
 	listOp.SetTags("Network")
-	listOp.AddReqStructure(new(NetworkListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -493,13 +481,13 @@ func addNetwork() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/networkconf")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/networkconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateNetwork")
 	createOp.SetTags("Network")
-	createOp.AddReqStructure(new(NetworkCreateRequest))
+	createOp.AddReqStructure(new(Network))
 	createOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -510,7 +498,7 @@ func addNetwork() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/networkconf/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/networkconf/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

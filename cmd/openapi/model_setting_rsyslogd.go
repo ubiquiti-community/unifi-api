@@ -63,15 +63,6 @@ func (dst *SettingRsyslogd) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingRsyslogdGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingRsyslogdUpdateRequest struct {
-	*SettingRsyslogd
-	Site string `path:"site"`
-}
-
 type SettingRsyslogdResponse struct {
 	Meta meta              `json:"meta"`
 	Data []SettingRsyslogd `json:"data"`
@@ -80,13 +71,12 @@ type SettingRsyslogdResponse struct {
 func addSettingRsyslogd() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/rsyslogd")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/rsyslogd")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingRsyslogd")
 	getOp.SetTags("SettingRsyslogd")
-	getOp.AddReqStructure(new(SettingRsyslogdGetRequest))
 	getOp.AddRespStructure(new(SettingRsyslogdResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -98,13 +88,13 @@ func addSettingRsyslogd() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/rsyslogd")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/rsyslogd")
+	updateOp.AddReqStructure(new(SettingRsyslogd))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingRsyslogd")
 	updateOp.SetTags("SettingRsyslogd")
-	updateOp.AddReqStructure(new(SettingRsyslogdUpdateRequest))
 	updateOp.AddRespStructure(new(SettingRsyslogdResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

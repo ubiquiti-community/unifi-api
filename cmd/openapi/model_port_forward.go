@@ -58,28 +58,16 @@ func (dst *PortForward) UnmarshalJSON(b []byte) error {
 }
 
 type PortForwardGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type PortForwardDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type PortForwardUpdateRequest struct {
 	*PortForward
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type PortForwardListRequest struct {
-	Site string `path:"site"`
-}
-
-type PortForwardCreateRequest struct {
-	*PortForward
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type PortForwardResponse struct {
@@ -90,13 +78,13 @@ type PortForwardResponse struct {
 func addPortForward() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/portforward/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/portforward/{id}")
+	getOp.AddReqStructure(new(PortForwardGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetPortForward")
 	getOp.SetTags("PortForward")
-	getOp.AddReqStructure(new(PortForwardGetRequest))
 	getOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -108,13 +96,13 @@ func addPortForward() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/portforward/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/portforward/{id}")
+	updateOp.AddReqStructure(new(PortForwardUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdatePortForward")
 	updateOp.SetTags("PortForward")
-	updateOp.AddReqStructure(new(PortForwardUpdateRequest))
 	updateOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -125,13 +113,13 @@ func addPortForward() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/portforward")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/portforward")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListPortForward")
 	listOp.SetTags("PortForward")
-	listOp.AddReqStructure(new(PortForwardListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -142,13 +130,13 @@ func addPortForward() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/portforward")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/portforward")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreatePortForward")
 	createOp.SetTags("PortForward")
-	createOp.AddReqStructure(new(PortForwardCreateRequest))
+	createOp.AddReqStructure(new(PortForward))
 	createOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -159,7 +147,7 @@ func addPortForward() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/portforward/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/portforward/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

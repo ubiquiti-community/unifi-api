@@ -51,15 +51,6 @@ func (dst *SettingAutoSpeedtest) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingAutoSpeedtestGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingAutoSpeedtestUpdateRequest struct {
-	*SettingAutoSpeedtest
-	Site string `path:"site"`
-}
-
 type SettingAutoSpeedtestResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingAutoSpeedtest `json:"data"`
@@ -68,13 +59,12 @@ type SettingAutoSpeedtestResponse struct {
 func addSettingAutoSpeedtest() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/auto_speedtest")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/auto_speedtest")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingAutoSpeedtest")
 	getOp.SetTags("SettingAutoSpeedtest")
-	getOp.AddReqStructure(new(SettingAutoSpeedtestGetRequest))
 	getOp.AddRespStructure(new(SettingAutoSpeedtestResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -86,13 +76,13 @@ func addSettingAutoSpeedtest() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/auto_speedtest")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/auto_speedtest")
+	updateOp.AddReqStructure(new(SettingAutoSpeedtest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingAutoSpeedtest")
 	updateOp.SetTags("SettingAutoSpeedtest")
-	updateOp.AddReqStructure(new(SettingAutoSpeedtestUpdateRequest))
 	updateOp.AddRespStructure(new(SettingAutoSpeedtestResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

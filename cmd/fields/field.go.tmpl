@@ -68,39 +68,18 @@ func (dst *{{ $k }}) UnmarshalJSON(b []byte) error {
 }
 {{ end }}
 
-{{- if .IsSetting }}
+{{- if not .IsSetting }}
 type {{ .StructName }}GetRequest struct {
-	Site string `path:"site"`
-}
-
-type {{ .StructName }}UpdateRequest struct {
-	*{{ .StructName }}
-	Site string `path:"site"`
-}
-{{- else }}
-type {{ .StructName }}GetRequest struct {
-	Site string `path:"site"`
 	ID string `path:"id"`
 }
 
 type {{ .StructName }}DeleteRequest struct {
-	Site string `path:"site"`
 	ID string `path:"id"`
 }
 
 type {{ .StructName }}UpdateRequest struct {
 	*{{ .StructName }}
-	Site string `path:"site"`
 	ID string `path:"id",json:"_id,omitempty"`
-}
-
-type {{ .StructName }}ListRequest struct {
-	Site string `path:"site"`
-}
-
-type {{ .StructName }}CreateRequest struct {
-	*{{ .StructName }}
-	Site string `path:"site"`
 }
 {{- end }}
 
@@ -112,16 +91,16 @@ type {{ .StructName }}Response struct{
 func add{{ .StructName }}() {
 	// Get
 	{{ if .IsSetting }}
-	getOp, err := reflector.NewOperationContext(http.MethodGet,  "/s/{site}/get/setting/{{ .ResourcePath }}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet,  "/get/setting/{{ .ResourcePath }}")
 	{{- else }}
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}")
+	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
 	{{- end }}
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("Get{{ .StructName }}")
 	getOp.SetTags("{{ .StructName }}")
-	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
 	getOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -133,16 +112,17 @@ func add{{ .StructName }}() {
 
 	// Update
 	{{ if .IsSetting }}
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/{{ .ResourcePath }}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/{{ .ResourcePath }}")
+	updateOp.AddReqStructure(new({{ .StructName }}))
 	{{- else }}
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/{{ .ResourcePath }}/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/{{ .ResourcePath }}/{id}")
+	updateOp.AddReqStructure(new({{ .StructName }}UpdateRequest))
 	{{- end }}
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("Update{{ .StructName }}")
 	updateOp.SetTags("{{ .StructName }}")
-	updateOp.AddReqStructure(new({{ .StructName }}UpdateRequest))
 	updateOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -154,13 +134,13 @@ func add{{ .StructName }}() {
 	
 	{{ if not .IsSetting }}
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/{{ if eq .StructName "Device" }}stat/{{else if eq .StructName "APGroup" }}{{ else }}rest/{{ end }}{{ .ResourcePath }}")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/{{ if eq .StructName "Device" }}stat/{{else if eq .StructName "APGroup" }}{{ else }}rest/{{ end }}{{ .ResourcePath }}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("List{{ .StructName }}")
 	listOp.SetTags("{{ .StructName }}")
-	listOp.AddReqStructure(new({{ .StructName }}ListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -171,13 +151,13 @@ func add{{ .StructName }}() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/{{ .ResourcePath }}")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/{{ .ResourcePath }}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("Create{{ .StructName }}")
 	createOp.SetTags("{{ .StructName }}")
-	createOp.AddReqStructure(new({{ .StructName }}CreateRequest))
+	createOp.AddReqStructure(new({{ .StructName }}))
 	createOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -188,7 +168,7 @@ func add{{ .StructName }}() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/rest/{{ .ResourcePath }}/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/{{ .ResourcePath }}/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -56,28 +56,16 @@ func (dst *DHCPOption) UnmarshalJSON(b []byte) error {
 }
 
 type DHCPOptionGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DHCPOptionDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DHCPOptionUpdateRequest struct {
 	*DHCPOption
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type DHCPOptionListRequest struct {
-	Site string `path:"site"`
-}
-
-type DHCPOptionCreateRequest struct {
-	*DHCPOption
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type DHCPOptionResponse struct {
@@ -88,13 +76,13 @@ type DHCPOptionResponse struct {
 func addDHCPOption() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dhcpoption/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dhcpoption/{id}")
+	getOp.AddReqStructure(new(DHCPOptionGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetDHCPOption")
 	getOp.SetTags("DHCPOption")
-	getOp.AddReqStructure(new(DHCPOptionGetRequest))
 	getOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -106,13 +94,13 @@ func addDHCPOption() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/dhcpoption/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/dhcpoption/{id}")
+	updateOp.AddReqStructure(new(DHCPOptionUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDHCPOption")
 	updateOp.SetTags("DHCPOption")
-	updateOp.AddReqStructure(new(DHCPOptionUpdateRequest))
 	updateOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -123,13 +111,13 @@ func addDHCPOption() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dhcpoption")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dhcpoption")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDHCPOption")
 	listOp.SetTags("DHCPOption")
-	listOp.AddReqStructure(new(DHCPOptionListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -140,13 +128,13 @@ func addDHCPOption() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/dhcpoption")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/dhcpoption")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDHCPOption")
 	createOp.SetTags("DHCPOption")
-	createOp.AddReqStructure(new(DHCPOptionCreateRequest))
+	createOp.AddReqStructure(new(DHCPOption))
 	createOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -157,7 +145,7 @@ func addDHCPOption() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/dhcpoption/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/dhcpoption/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

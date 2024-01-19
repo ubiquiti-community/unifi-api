@@ -55,15 +55,6 @@ func (dst *SettingSuperSdn) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingSuperSdnGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingSuperSdnUpdateRequest struct {
-	*SettingSuperSdn
-	Site string `path:"site"`
-}
-
 type SettingSuperSdnResponse struct {
 	Meta meta              `json:"meta"`
 	Data []SettingSuperSdn `json:"data"`
@@ -72,13 +63,12 @@ type SettingSuperSdnResponse struct {
 func addSettingSuperSdn() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/super_sdn")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_sdn")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingSuperSdn")
 	getOp.SetTags("SettingSuperSdn")
-	getOp.AddReqStructure(new(SettingSuperSdnGetRequest))
 	getOp.AddRespStructure(new(SettingSuperSdnResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -90,13 +80,13 @@ func addSettingSuperSdn() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/super_sdn")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_sdn")
+	updateOp.AddReqStructure(new(SettingSuperSdn))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperSdn")
 	updateOp.SetTags("SettingSuperSdn")
-	updateOp.AddReqStructure(new(SettingSuperSdnUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperSdnResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

@@ -140,15 +140,6 @@ func (dst *SettingUsg) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-type SettingUsgGetRequest struct {
-	Site string `path:"site"`
-}
-
-type SettingUsgUpdateRequest struct {
-	*SettingUsg
-	Site string `path:"site"`
-}
-
 type SettingUsgResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingUsg `json:"data"`
@@ -157,13 +148,12 @@ type SettingUsgResponse struct {
 func addSettingUsg() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/get/setting/usg")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/usg")
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetSettingUsg")
 	getOp.SetTags("SettingUsg")
-	getOp.AddReqStructure(new(SettingUsgGetRequest))
 	getOp.AddRespStructure(new(SettingUsgResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -175,13 +165,13 @@ func addSettingUsg() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/usg")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/usg")
+	updateOp.AddReqStructure(new(SettingUsg))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingUsg")
 	updateOp.SetTags("SettingUsg")
-	updateOp.AddReqStructure(new(SettingUsgUpdateRequest))
 	updateOp.AddRespStructure(new(SettingUsgResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true

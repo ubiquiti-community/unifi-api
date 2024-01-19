@@ -90,28 +90,16 @@ func (dst *HotspotPackage) UnmarshalJSON(b []byte) error {
 }
 
 type HotspotPackageGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type HotspotPackageDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type HotspotPackageUpdateRequest struct {
 	*HotspotPackage
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type HotspotPackageListRequest struct {
-	Site string `path:"site"`
-}
-
-type HotspotPackageCreateRequest struct {
-	*HotspotPackage
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type HotspotPackageResponse struct {
@@ -122,13 +110,13 @@ type HotspotPackageResponse struct {
 func addHotspotPackage() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/hotspotpackage/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/hotspotpackage/{id}")
+	getOp.AddReqStructure(new(HotspotPackageGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetHotspotPackage")
 	getOp.SetTags("HotspotPackage")
-	getOp.AddReqStructure(new(HotspotPackageGetRequest))
 	getOp.AddRespStructure(new(HotspotPackageResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -140,13 +128,13 @@ func addHotspotPackage() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/hotspotpackage/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/hotspotpackage/{id}")
+	updateOp.AddReqStructure(new(HotspotPackageUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateHotspotPackage")
 	updateOp.SetTags("HotspotPackage")
-	updateOp.AddReqStructure(new(HotspotPackageUpdateRequest))
 	updateOp.AddRespStructure(new(HotspotPackageResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -157,13 +145,13 @@ func addHotspotPackage() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/hotspotpackage")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/hotspotpackage")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListHotspotPackage")
 	listOp.SetTags("HotspotPackage")
-	listOp.AddReqStructure(new(HotspotPackageListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(HotspotPackageResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -174,13 +162,13 @@ func addHotspotPackage() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/hotspotpackage")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/hotspotpackage")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateHotspotPackage")
 	createOp.SetTags("HotspotPackage")
-	createOp.AddReqStructure(new(HotspotPackageCreateRequest))
+	createOp.AddReqStructure(new(HotspotPackage))
 	createOp.AddRespStructure(new(HotspotPackageResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -191,7 +179,7 @@ func addHotspotPackage() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/hotspotpackage/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/hotspotpackage/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

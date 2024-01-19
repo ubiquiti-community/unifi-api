@@ -76,28 +76,16 @@ func (dst *DashboardModules) UnmarshalJSON(b []byte) error {
 }
 
 type DashboardGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DashboardDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type DashboardUpdateRequest struct {
 	*Dashboard
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type DashboardListRequest struct {
-	Site string `path:"site"`
-}
-
-type DashboardCreateRequest struct {
-	*Dashboard
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type DashboardResponse struct {
@@ -108,13 +96,13 @@ type DashboardResponse struct {
 func addDashboard() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dashboard/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dashboard/{id}")
+	getOp.AddReqStructure(new(DashboardGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetDashboard")
 	getOp.SetTags("Dashboard")
-	getOp.AddReqStructure(new(DashboardGetRequest))
 	getOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -126,13 +114,13 @@ func addDashboard() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/dashboard/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/dashboard/{id}")
+	updateOp.AddReqStructure(new(DashboardUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDashboard")
 	updateOp.SetTags("Dashboard")
-	updateOp.AddReqStructure(new(DashboardUpdateRequest))
 	updateOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -143,13 +131,13 @@ func addDashboard() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/dashboard")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dashboard")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDashboard")
 	listOp.SetTags("Dashboard")
-	listOp.AddReqStructure(new(DashboardListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -160,13 +148,13 @@ func addDashboard() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/dashboard")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/dashboard")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDashboard")
 	createOp.SetTags("Dashboard")
-	createOp.AddReqStructure(new(DashboardCreateRequest))
+	createOp.AddReqStructure(new(Dashboard))
 	createOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -177,7 +165,7 @@ func addDashboard() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/dashboard/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/dashboard/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

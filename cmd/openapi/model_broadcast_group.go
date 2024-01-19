@@ -50,28 +50,16 @@ func (dst *BroadcastGroup) UnmarshalJSON(b []byte) error {
 }
 
 type BroadcastGroupGetRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type BroadcastGroupDeleteRequest struct {
-	Site string `path:"site"`
-	ID   string `path:"id"`
+	ID string `path:"id"`
 }
 
 type BroadcastGroupUpdateRequest struct {
 	*BroadcastGroup
-	Site string `path:"site"`
-	ID   string `path:"id",json:"_id,omitempty"`
-}
-
-type BroadcastGroupListRequest struct {
-	Site string `path:"site"`
-}
-
-type BroadcastGroupCreateRequest struct {
-	*BroadcastGroup
-	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
 }
 
 type BroadcastGroupResponse struct {
@@ -82,13 +70,13 @@ type BroadcastGroupResponse struct {
 func addBroadcastGroup() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/broadcastgroup/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/broadcastgroup/{id}")
+	getOp.AddReqStructure(new(BroadcastGroupGetRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	getOp.SetID("GetBroadcastGroup")
 	getOp.SetTags("BroadcastGroup")
-	getOp.AddReqStructure(new(BroadcastGroupGetRequest))
 	getOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -100,13 +88,13 @@ func addBroadcastGroup() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/broadcastgroup/{id}")
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/broadcastgroup/{id}")
+	updateOp.AddReqStructure(new(BroadcastGroupUpdateRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateBroadcastGroup")
 	updateOp.SetTags("BroadcastGroup")
-	updateOp.AddReqStructure(new(BroadcastGroupUpdateRequest))
 	updateOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -117,13 +105,13 @@ func addBroadcastGroup() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/rest/broadcastgroup")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/broadcastgroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListBroadcastGroup")
 	listOp.SetTags("BroadcastGroup")
-	listOp.AddReqStructure(new(BroadcastGroupListRequest))
+	listOp.AddReqStructure(nil)
 	listOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -134,13 +122,13 @@ func addBroadcastGroup() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/broadcastgroup")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/broadcastgroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateBroadcastGroup")
 	createOp.SetTags("BroadcastGroup")
-	createOp.AddReqStructure(new(BroadcastGroupCreateRequest))
+	createOp.AddReqStructure(new(BroadcastGroup))
 	createOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
 		cu.IsDefault = true
@@ -151,7 +139,7 @@ func addBroadcastGroup() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/broadcastgroup/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/broadcastgroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
