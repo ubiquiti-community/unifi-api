@@ -37,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	os.WriteFile(filepath.Join("bin", "openapi", "openapi.yaml"), schema, 0777)
+	os.WriteFile(filepath.Join("assets", "openapi.yaml"), schema, 0777)
 
 	fmt.Println(string(schema))
 }

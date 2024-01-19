@@ -30,6 +30,9 @@ jobs:
           done
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          name: github-pages
+          path: _site
 
   deploy:
     needs: build
