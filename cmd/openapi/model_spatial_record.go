@@ -129,6 +129,8 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSpatialRecord")
+	getOp.SetTags("SpatialRecord")
 	getOp.AddReqStructure(new(SpatialRecordGetRequest))
 	getOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -145,6 +147,8 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSpatialRecord")
+	updateOp.SetTags("SpatialRecord")
 	updateOp.AddReqStructure(new(SpatialRecordUpdateRequest))
 	updateOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -160,6 +164,8 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListSpatialRecord")
+	listOp.SetTags("SpatialRecord")
 	listOp.AddReqStructure(new(SpatialRecordListRequest))
 	listOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -175,6 +181,8 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateSpatialRecord")
+	createOp.SetTags("SpatialRecord")
 	createOp.AddReqStructure(new(SpatialRecordCreateRequest))
 	createOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -190,6 +198,8 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteSpatialRecord")
+	deleteOp.SetTags("SpatialRecord")
 	deleteOp.AddReqStructure(new(SpatialRecordDeleteRequest))
 	deleteOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

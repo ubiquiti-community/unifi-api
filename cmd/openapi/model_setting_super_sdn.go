@@ -76,6 +76,8 @@ func addSettingSuperSdn() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperSdn")
+	getOp.SetTags("SettingSuperSdn")
 	getOp.AddReqStructure(new(SettingSuperSdnGetRequest))
 	getOp.AddRespStructure(new(SettingSuperSdnResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -92,6 +94,8 @@ func addSettingSuperSdn() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperSdn")
+	updateOp.SetTags("SettingSuperSdn")
 	updateOp.AddReqStructure(new(SettingSuperSdnUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperSdnResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

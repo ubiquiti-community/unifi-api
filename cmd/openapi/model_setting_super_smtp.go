@@ -82,6 +82,8 @@ func addSettingSuperSmtp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperSmtp")
+	getOp.SetTags("SettingSuperSmtp")
 	getOp.AddReqStructure(new(SettingSuperSmtpGetRequest))
 	getOp.AddRespStructure(new(SettingSuperSmtpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -98,6 +100,8 @@ func addSettingSuperSmtp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperSmtp")
+	updateOp.SetTags("SettingSuperSmtp")
 	updateOp.AddReqStructure(new(SettingSuperSmtpUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperSmtpResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

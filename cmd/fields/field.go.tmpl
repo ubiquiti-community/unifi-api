@@ -119,6 +119,8 @@ func add{{ .StructName }}() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("Get{{ .StructName }}")
+	getOp.SetTags("{{ .StructName }}")
 	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
 	getOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -138,6 +140,8 @@ func add{{ .StructName }}() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("Update{{ .StructName }}")
+	updateOp.SetTags("{{ .StructName }}")
 	updateOp.AddReqStructure(new({{ .StructName }}UpdateRequest))
 	updateOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -154,6 +158,8 @@ func add{{ .StructName }}() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("List{{ .StructName }}")
+	listOp.SetTags("{{ .StructName }}")
 	listOp.AddReqStructure(new({{ .StructName }}ListRequest))
 	listOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -169,6 +175,8 @@ func add{{ .StructName }}() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("Create{{ .StructName }}")
+	createOp.SetTags("{{ .StructName }}")
 	createOp.AddReqStructure(new({{ .StructName }}CreateRequest))
 	createOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -184,6 +192,8 @@ func add{{ .StructName }}() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("Delete{{ .StructName }}")
+	deleteOp.SetTags("{{ .StructName }}")
 	deleteOp.AddReqStructure(new({{ .StructName }}DeleteRequest))
 	deleteOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

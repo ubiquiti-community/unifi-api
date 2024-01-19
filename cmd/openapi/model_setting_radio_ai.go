@@ -104,6 +104,8 @@ func addSettingRadioAi() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingRadioAi")
+	getOp.SetTags("SettingRadioAi")
 	getOp.AddReqStructure(new(SettingRadioAiGetRequest))
 	getOp.AddRespStructure(new(SettingRadioAiResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -120,6 +122,8 @@ func addSettingRadioAi() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingRadioAi")
+	updateOp.SetTags("SettingRadioAi")
 	updateOp.AddReqStructure(new(SettingRadioAiUpdateRequest))
 	updateOp.AddRespStructure(new(SettingRadioAiResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

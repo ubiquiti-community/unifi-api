@@ -147,6 +147,8 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetRADIUSProfile")
+	getOp.SetTags("RADIUSProfile")
 	getOp.AddReqStructure(new(RADIUSProfileGetRequest))
 	getOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -163,6 +165,8 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateRADIUSProfile")
+	updateOp.SetTags("RADIUSProfile")
 	updateOp.AddReqStructure(new(RADIUSProfileUpdateRequest))
 	updateOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -178,6 +182,8 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListRADIUSProfile")
+	listOp.SetTags("RADIUSProfile")
 	listOp.AddReqStructure(new(RADIUSProfileListRequest))
 	listOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -193,6 +199,8 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateRADIUSProfile")
+	createOp.SetTags("RADIUSProfile")
 	createOp.AddReqStructure(new(RADIUSProfileCreateRequest))
 	createOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -208,6 +216,8 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteRADIUSProfile")
+	deleteOp.SetTags("RADIUSProfile")
 	deleteOp.AddReqStructure(new(RADIUSProfileDeleteRequest))
 	deleteOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

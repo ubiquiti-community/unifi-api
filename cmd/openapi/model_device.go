@@ -521,6 +521,8 @@ func addDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetDevice")
+	getOp.SetTags("Device")
 	getOp.AddReqStructure(new(DeviceGetRequest))
 	getOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -537,6 +539,8 @@ func addDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateDevice")
+	updateOp.SetTags("Device")
 	updateOp.AddReqStructure(new(DeviceUpdateRequest))
 	updateOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -552,6 +556,8 @@ func addDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListDevice")
+	listOp.SetTags("Device")
 	listOp.AddReqStructure(new(DeviceListRequest))
 	listOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -567,6 +573,8 @@ func addDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateDevice")
+	createOp.SetTags("Device")
 	createOp.AddReqStructure(new(DeviceCreateRequest))
 	createOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -582,6 +590,8 @@ func addDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteDevice")
+	deleteOp.SetTags("Device")
 	deleteOp.AddReqStructure(new(DeviceDeleteRequest))
 	deleteOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

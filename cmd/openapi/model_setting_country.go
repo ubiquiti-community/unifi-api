@@ -74,6 +74,8 @@ func addSettingCountry() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingCountry")
+	getOp.SetTags("SettingCountry")
 	getOp.AddReqStructure(new(SettingCountryGetRequest))
 	getOp.AddRespStructure(new(SettingCountryResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -90,6 +92,8 @@ func addSettingCountry() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingCountry")
+	updateOp.SetTags("SettingCountry")
 	updateOp.AddReqStructure(new(SettingCountryUpdateRequest))
 	updateOp.AddRespStructure(new(SettingCountryResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

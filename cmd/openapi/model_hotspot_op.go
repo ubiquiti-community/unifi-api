@@ -87,6 +87,8 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetHotspotOp")
+	getOp.SetTags("HotspotOp")
 	getOp.AddReqStructure(new(HotspotOpGetRequest))
 	getOp.AddRespStructure(new(HotspotOpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -103,6 +105,8 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateHotspotOp")
+	updateOp.SetTags("HotspotOp")
 	updateOp.AddReqStructure(new(HotspotOpUpdateRequest))
 	updateOp.AddRespStructure(new(HotspotOpResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -118,6 +122,8 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListHotspotOp")
+	listOp.SetTags("HotspotOp")
 	listOp.AddReqStructure(new(HotspotOpListRequest))
 	listOp.AddRespStructure(new(HotspotOpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -133,6 +139,8 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateHotspotOp")
+	createOp.SetTags("HotspotOp")
 	createOp.AddReqStructure(new(HotspotOpCreateRequest))
 	createOp.AddRespStructure(new(HotspotOpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -148,6 +156,8 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteHotspotOp")
+	deleteOp.SetTags("HotspotOp")
 	deleteOp.AddReqStructure(new(HotspotOpDeleteRequest))
 	deleteOp.AddRespStructure(new(HotspotOpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

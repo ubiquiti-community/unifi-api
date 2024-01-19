@@ -93,6 +93,8 @@ func addSettingGlobalAp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingGlobalAp")
+	getOp.SetTags("SettingGlobalAp")
 	getOp.AddReqStructure(new(SettingGlobalApGetRequest))
 	getOp.AddRespStructure(new(SettingGlobalApResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -109,6 +111,8 @@ func addSettingGlobalAp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingGlobalAp")
+	updateOp.SetTags("SettingGlobalAp")
 	updateOp.AddReqStructure(new(SettingGlobalApUpdateRequest))
 	updateOp.AddRespStructure(new(SettingGlobalApResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

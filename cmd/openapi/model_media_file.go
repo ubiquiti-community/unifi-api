@@ -85,6 +85,8 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetMediaFile")
+	getOp.SetTags("MediaFile")
 	getOp.AddReqStructure(new(MediaFileGetRequest))
 	getOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -101,6 +103,8 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateMediaFile")
+	updateOp.SetTags("MediaFile")
 	updateOp.AddReqStructure(new(MediaFileUpdateRequest))
 	updateOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -116,6 +120,8 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListMediaFile")
+	listOp.SetTags("MediaFile")
 	listOp.AddReqStructure(new(MediaFileListRequest))
 	listOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -131,6 +137,8 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateMediaFile")
+	createOp.SetTags("MediaFile")
 	createOp.AddReqStructure(new(MediaFileCreateRequest))
 	createOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -146,6 +154,8 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteMediaFile")
+	deleteOp.SetTags("MediaFile")
 	deleteOp.AddReqStructure(new(MediaFileDeleteRequest))
 	deleteOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

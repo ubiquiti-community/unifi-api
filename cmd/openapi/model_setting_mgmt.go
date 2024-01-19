@@ -118,6 +118,8 @@ func addSettingMgmt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingMgmt")
+	getOp.SetTags("SettingMgmt")
 	getOp.AddReqStructure(new(SettingMgmtGetRequest))
 	getOp.AddRespStructure(new(SettingMgmtResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -134,6 +136,8 @@ func addSettingMgmt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingMgmt")
+	updateOp.SetTags("SettingMgmt")
 	updateOp.AddReqStructure(new(SettingMgmtUpdateRequest))
 	updateOp.AddRespStructure(new(SettingMgmtResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

@@ -85,6 +85,8 @@ func addWLANGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetWLANGroup")
+	getOp.SetTags("WLANGroup")
 	getOp.AddReqStructure(new(WLANGroupGetRequest))
 	getOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -101,6 +103,8 @@ func addWLANGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateWLANGroup")
+	updateOp.SetTags("WLANGroup")
 	updateOp.AddReqStructure(new(WLANGroupUpdateRequest))
 	updateOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -116,6 +120,8 @@ func addWLANGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListWLANGroup")
+	listOp.SetTags("WLANGroup")
 	listOp.AddReqStructure(new(WLANGroupListRequest))
 	listOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -131,6 +137,8 @@ func addWLANGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateWLANGroup")
+	createOp.SetTags("WLANGroup")
 	createOp.AddReqStructure(new(WLANGroupCreateRequest))
 	createOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -146,6 +154,8 @@ func addWLANGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteWLANGroup")
+	deleteOp.SetTags("WLANGroup")
 	deleteOp.AddReqStructure(new(WLANGroupDeleteRequest))
 	deleteOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

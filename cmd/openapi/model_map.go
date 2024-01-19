@@ -102,6 +102,8 @@ func addMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetMap")
+	getOp.SetTags("Map")
 	getOp.AddReqStructure(new(MapGetRequest))
 	getOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -118,6 +120,8 @@ func addMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateMap")
+	updateOp.SetTags("Map")
 	updateOp.AddReqStructure(new(MapUpdateRequest))
 	updateOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -133,6 +137,8 @@ func addMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListMap")
+	listOp.SetTags("Map")
 	listOp.AddReqStructure(new(MapListRequest))
 	listOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -148,6 +154,8 @@ func addMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateMap")
+	createOp.SetTags("Map")
 	createOp.AddReqStructure(new(MapCreateRequest))
 	createOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -163,6 +171,8 @@ func addMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteMap")
+	deleteOp.SetTags("Map")
 	deleteOp.AddReqStructure(new(MapDeleteRequest))
 	deleteOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

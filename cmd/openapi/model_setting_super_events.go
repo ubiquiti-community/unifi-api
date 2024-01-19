@@ -71,6 +71,8 @@ func addSettingSuperEvents() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperEvents")
+	getOp.SetTags("SettingSuperEvents")
 	getOp.AddReqStructure(new(SettingSuperEventsGetRequest))
 	getOp.AddRespStructure(new(SettingSuperEventsResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingSuperEvents() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperEvents")
+	updateOp.SetTags("SettingSuperEvents")
 	updateOp.AddReqStructure(new(SettingSuperEventsUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperEventsResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

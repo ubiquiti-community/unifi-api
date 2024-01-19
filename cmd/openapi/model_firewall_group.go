@@ -87,6 +87,8 @@ func addFirewallGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetFirewallGroup")
+	getOp.SetTags("FirewallGroup")
 	getOp.AddReqStructure(new(FirewallGroupGetRequest))
 	getOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -103,6 +105,8 @@ func addFirewallGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateFirewallGroup")
+	updateOp.SetTags("FirewallGroup")
 	updateOp.AddReqStructure(new(FirewallGroupUpdateRequest))
 	updateOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -118,6 +122,8 @@ func addFirewallGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListFirewallGroup")
+	listOp.SetTags("FirewallGroup")
 	listOp.AddReqStructure(new(FirewallGroupListRequest))
 	listOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -133,6 +139,8 @@ func addFirewallGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateFirewallGroup")
+	createOp.SetTags("FirewallGroup")
 	createOp.AddReqStructure(new(FirewallGroupCreateRequest))
 	createOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -148,6 +156,8 @@ func addFirewallGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteFirewallGroup")
+	deleteOp.SetTags("FirewallGroup")
 	deleteOp.AddReqStructure(new(FirewallGroupDeleteRequest))
 	deleteOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

@@ -72,6 +72,8 @@ func addSettingSuperIdentity() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperIdentity")
+	getOp.SetTags("SettingSuperIdentity")
 	getOp.AddReqStructure(new(SettingSuperIdentityGetRequest))
 	getOp.AddRespStructure(new(SettingSuperIdentityResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -88,6 +90,8 @@ func addSettingSuperIdentity() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperIdentity")
+	updateOp.SetTags("SettingSuperIdentity")
 	updateOp.AddReqStructure(new(SettingSuperIdentityUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperIdentityResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

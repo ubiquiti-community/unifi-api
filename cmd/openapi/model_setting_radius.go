@@ -85,6 +85,8 @@ func addSettingRadius() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingRadius")
+	getOp.SetTags("SettingRadius")
 	getOp.AddReqStructure(new(SettingRadiusGetRequest))
 	getOp.AddRespStructure(new(SettingRadiusResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -101,6 +103,8 @@ func addSettingRadius() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingRadius")
+	updateOp.SetTags("SettingRadius")
 	updateOp.AddReqStructure(new(SettingRadiusUpdateRequest))
 	updateOp.AddRespStructure(new(SettingRadiusResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

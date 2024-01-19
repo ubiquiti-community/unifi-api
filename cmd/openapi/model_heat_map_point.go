@@ -89,6 +89,8 @@ func addHeatMapPoint() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetHeatMapPoint")
+	getOp.SetTags("HeatMapPoint")
 	getOp.AddReqStructure(new(HeatMapPointGetRequest))
 	getOp.AddRespStructure(new(HeatMapPointResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -105,6 +107,8 @@ func addHeatMapPoint() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateHeatMapPoint")
+	updateOp.SetTags("HeatMapPoint")
 	updateOp.AddReqStructure(new(HeatMapPointUpdateRequest))
 	updateOp.AddRespStructure(new(HeatMapPointResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -120,6 +124,8 @@ func addHeatMapPoint() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListHeatMapPoint")
+	listOp.SetTags("HeatMapPoint")
 	listOp.AddReqStructure(new(HeatMapPointListRequest))
 	listOp.AddRespStructure(new(HeatMapPointResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -135,6 +141,8 @@ func addHeatMapPoint() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateHeatMapPoint")
+	createOp.SetTags("HeatMapPoint")
 	createOp.AddReqStructure(new(HeatMapPointCreateRequest))
 	createOp.AddRespStructure(new(HeatMapPointResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -150,6 +158,8 @@ func addHeatMapPoint() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteHeatMapPoint")
+	deleteOp.SetTags("HeatMapPoint")
 	deleteOp.AddReqStructure(new(HeatMapPointDeleteRequest))
 	deleteOp.AddRespStructure(new(HeatMapPointResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

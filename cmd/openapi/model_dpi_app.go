@@ -107,6 +107,8 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetDpiApp")
+	getOp.SetTags("DpiApp")
 	getOp.AddReqStructure(new(DpiAppGetRequest))
 	getOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -123,6 +125,8 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateDpiApp")
+	updateOp.SetTags("DpiApp")
 	updateOp.AddReqStructure(new(DpiAppUpdateRequest))
 	updateOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -138,6 +142,8 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListDpiApp")
+	listOp.SetTags("DpiApp")
 	listOp.AddReqStructure(new(DpiAppListRequest))
 	listOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -153,6 +159,8 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateDpiApp")
+	createOp.SetTags("DpiApp")
 	createOp.AddReqStructure(new(DpiAppCreateRequest))
 	createOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -168,6 +176,8 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteDpiApp")
+	deleteOp.SetTags("DpiApp")
 	deleteOp.AddReqStructure(new(DpiAppDeleteRequest))
 	deleteOp.AddRespStructure(new(DpiAppResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

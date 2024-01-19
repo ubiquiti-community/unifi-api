@@ -97,6 +97,8 @@ func addRouting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetRouting")
+	getOp.SetTags("Routing")
 	getOp.AddReqStructure(new(RoutingGetRequest))
 	getOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -113,6 +115,8 @@ func addRouting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateRouting")
+	updateOp.SetTags("Routing")
 	updateOp.AddReqStructure(new(RoutingUpdateRequest))
 	updateOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -128,6 +132,8 @@ func addRouting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListRouting")
+	listOp.SetTags("Routing")
 	listOp.AddReqStructure(new(RoutingListRequest))
 	listOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -143,6 +149,8 @@ func addRouting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateRouting")
+	createOp.SetTags("Routing")
 	createOp.AddReqStructure(new(RoutingCreateRequest))
 	createOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -158,6 +166,8 @@ func addRouting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteRouting")
+	deleteOp.SetTags("Routing")
 	deleteOp.AddReqStructure(new(RoutingDeleteRequest))
 	deleteOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

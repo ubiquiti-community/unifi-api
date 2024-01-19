@@ -75,6 +75,8 @@ func addSettingNtp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingNtp")
+	getOp.SetTags("SettingNtp")
 	getOp.AddReqStructure(new(SettingNtpGetRequest))
 	getOp.AddRespStructure(new(SettingNtpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -91,6 +93,8 @@ func addSettingNtp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingNtp")
+	updateOp.SetTags("SettingNtp")
 	updateOp.AddReqStructure(new(SettingNtpUpdateRequest))
 	updateOp.AddRespStructure(new(SettingNtpResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

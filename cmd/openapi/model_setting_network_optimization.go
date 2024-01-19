@@ -71,6 +71,8 @@ func addSettingNetworkOptimization() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingNetworkOptimization")
+	getOp.SetTags("SettingNetworkOptimization")
 	getOp.AddReqStructure(new(SettingNetworkOptimizationGetRequest))
 	getOp.AddRespStructure(new(SettingNetworkOptimizationResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingNetworkOptimization() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingNetworkOptimization")
+	updateOp.SetTags("SettingNetworkOptimization")
 	updateOp.AddReqStructure(new(SettingNetworkOptimizationUpdateRequest))
 	updateOp.AddRespStructure(new(SettingNetworkOptimizationResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

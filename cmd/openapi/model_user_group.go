@@ -92,6 +92,8 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetUserGroup")
+	getOp.SetTags("UserGroup")
 	getOp.AddReqStructure(new(UserGroupGetRequest))
 	getOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -108,6 +110,8 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateUserGroup")
+	updateOp.SetTags("UserGroup")
 	updateOp.AddReqStructure(new(UserGroupUpdateRequest))
 	updateOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -123,6 +127,8 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListUserGroup")
+	listOp.SetTags("UserGroup")
 	listOp.AddReqStructure(new(UserGroupListRequest))
 	listOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -138,6 +144,8 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateUserGroup")
+	createOp.SetTags("UserGroup")
 	createOp.AddReqStructure(new(UserGroupCreateRequest))
 	createOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -153,6 +161,8 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteUserGroup")
+	deleteOp.SetTags("UserGroup")
 	deleteOp.AddReqStructure(new(UserGroupDeleteRequest))
 	deleteOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

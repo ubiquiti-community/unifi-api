@@ -161,6 +161,8 @@ func addSettingUsg() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingUsg")
+	getOp.SetTags("SettingUsg")
 	getOp.AddReqStructure(new(SettingUsgGetRequest))
 	getOp.AddRespStructure(new(SettingUsgResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -177,6 +179,8 @@ func addSettingUsg() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingUsg")
+	updateOp.SetTags("SettingUsg")
 	updateOp.AddReqStructure(new(SettingUsgUpdateRequest))
 	updateOp.AddRespStructure(new(SettingUsgResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

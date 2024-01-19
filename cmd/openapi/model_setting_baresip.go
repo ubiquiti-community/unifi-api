@@ -74,6 +74,8 @@ func addSettingBaresip() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingBaresip")
+	getOp.SetTags("SettingBaresip")
 	getOp.AddReqStructure(new(SettingBaresipGetRequest))
 	getOp.AddRespStructure(new(SettingBaresipResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -90,6 +92,8 @@ func addSettingBaresip() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingBaresip")
+	updateOp.SetTags("SettingBaresip")
 	updateOp.AddReqStructure(new(SettingBaresipUpdateRequest))
 	updateOp.AddRespStructure(new(SettingBaresipResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

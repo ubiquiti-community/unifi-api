@@ -90,6 +90,8 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetVirtualDevice")
+	getOp.SetTags("VirtualDevice")
 	getOp.AddReqStructure(new(VirtualDeviceGetRequest))
 	getOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -106,6 +108,8 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateVirtualDevice")
+	updateOp.SetTags("VirtualDevice")
 	updateOp.AddReqStructure(new(VirtualDeviceUpdateRequest))
 	updateOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -121,6 +125,8 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListVirtualDevice")
+	listOp.SetTags("VirtualDevice")
 	listOp.AddReqStructure(new(VirtualDeviceListRequest))
 	listOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -136,6 +142,8 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateVirtualDevice")
+	createOp.SetTags("VirtualDevice")
 	createOp.AddReqStructure(new(VirtualDeviceCreateRequest))
 	createOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -151,6 +159,8 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteVirtualDevice")
+	deleteOp.SetTags("VirtualDevice")
 	deleteOp.AddReqStructure(new(VirtualDeviceDeleteRequest))
 	deleteOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

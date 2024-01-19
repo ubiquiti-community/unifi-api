@@ -73,6 +73,8 @@ func addSettingSuperFwupdate() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperFwupdate")
+	getOp.SetTags("SettingSuperFwupdate")
 	getOp.AddReqStructure(new(SettingSuperFwupdateGetRequest))
 	getOp.AddRespStructure(new(SettingSuperFwupdateResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -89,6 +91,8 @@ func addSettingSuperFwupdate() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperFwupdate")
+	updateOp.SetTags("SettingSuperFwupdate")
 	updateOp.AddReqStructure(new(SettingSuperFwupdateUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperFwupdateResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

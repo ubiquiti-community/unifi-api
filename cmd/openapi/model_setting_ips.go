@@ -248,6 +248,8 @@ func addSettingIps() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingIps")
+	getOp.SetTags("SettingIps")
 	getOp.AddReqStructure(new(SettingIpsGetRequest))
 	getOp.AddRespStructure(new(SettingIpsResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -264,6 +266,8 @@ func addSettingIps() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingIps")
+	updateOp.SetTags("SettingIps")
 	updateOp.AddReqStructure(new(SettingIpsUpdateRequest))
 	updateOp.AddRespStructure(new(SettingIpsResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

@@ -136,6 +136,8 @@ func addSettingSuperMgmt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperMgmt")
+	getOp.SetTags("SettingSuperMgmt")
 	getOp.AddReqStructure(new(SettingSuperMgmtGetRequest))
 	getOp.AddRespStructure(new(SettingSuperMgmtResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -152,6 +154,8 @@ func addSettingSuperMgmt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperMgmt")
+	updateOp.SetTags("SettingSuperMgmt")
 	updateOp.AddReqStructure(new(SettingSuperMgmtUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperMgmtResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

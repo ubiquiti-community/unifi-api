@@ -112,6 +112,8 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetDashboard")
+	getOp.SetTags("Dashboard")
 	getOp.AddReqStructure(new(DashboardGetRequest))
 	getOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -128,6 +130,8 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateDashboard")
+	updateOp.SetTags("Dashboard")
 	updateOp.AddReqStructure(new(DashboardUpdateRequest))
 	updateOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -143,6 +147,8 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListDashboard")
+	listOp.SetTags("Dashboard")
 	listOp.AddReqStructure(new(DashboardListRequest))
 	listOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -158,6 +164,8 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateDashboard")
+	createOp.SetTags("Dashboard")
 	createOp.AddReqStructure(new(DashboardCreateRequest))
 	createOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -173,6 +181,8 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteDashboard")
+	deleteOp.SetTags("Dashboard")
 	deleteOp.AddReqStructure(new(DashboardDeleteRequest))
 	deleteOp.AddRespStructure(new(DashboardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

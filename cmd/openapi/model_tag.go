@@ -86,6 +86,8 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetTag")
+	getOp.SetTags("Tag")
 	getOp.AddReqStructure(new(TagGetRequest))
 	getOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -102,6 +104,8 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateTag")
+	updateOp.SetTags("Tag")
 	updateOp.AddReqStructure(new(TagUpdateRequest))
 	updateOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -117,6 +121,8 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListTag")
+	listOp.SetTags("Tag")
 	listOp.AddReqStructure(new(TagListRequest))
 	listOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -132,6 +138,8 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateTag")
+	createOp.SetTags("Tag")
 	createOp.AddReqStructure(new(TagCreateRequest))
 	createOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -147,6 +155,8 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteTag")
+	deleteOp.SetTags("Tag")
 	deleteOp.AddReqStructure(new(TagDeleteRequest))
 	deleteOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

@@ -71,6 +71,8 @@ func addSettingLocale() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingLocale")
+	getOp.SetTags("SettingLocale")
 	getOp.AddReqStructure(new(SettingLocaleGetRequest))
 	getOp.AddRespStructure(new(SettingLocaleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingLocale() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingLocale")
+	updateOp.SetTags("SettingLocale")
 	updateOp.AddReqStructure(new(SettingLocaleUpdateRequest))
 	updateOp.AddRespStructure(new(SettingLocaleResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

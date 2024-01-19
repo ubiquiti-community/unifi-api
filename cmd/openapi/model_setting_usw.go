@@ -71,6 +71,8 @@ func addSettingUsw() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingUsw")
+	getOp.SetTags("SettingUsw")
 	getOp.AddReqStructure(new(SettingUswGetRequest))
 	getOp.AddRespStructure(new(SettingUswResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingUsw() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingUsw")
+	updateOp.SetTags("SettingUsw")
 	updateOp.AddReqStructure(new(SettingUswUpdateRequest))
 	updateOp.AddRespStructure(new(SettingUswResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

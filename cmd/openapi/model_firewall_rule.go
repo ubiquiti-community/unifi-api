@@ -127,6 +127,8 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetFirewallRule")
+	getOp.SetTags("FirewallRule")
 	getOp.AddReqStructure(new(FirewallRuleGetRequest))
 	getOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -143,6 +145,8 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateFirewallRule")
+	updateOp.SetTags("FirewallRule")
 	updateOp.AddReqStructure(new(FirewallRuleUpdateRequest))
 	updateOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -158,6 +162,8 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListFirewallRule")
+	listOp.SetTags("FirewallRule")
 	listOp.AddReqStructure(new(FirewallRuleListRequest))
 	listOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -173,6 +179,8 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateFirewallRule")
+	createOp.SetTags("FirewallRule")
 	createOp.AddReqStructure(new(FirewallRuleCreateRequest))
 	createOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -188,6 +196,8 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteFirewallRule")
+	deleteOp.SetTags("FirewallRule")
 	deleteOp.AddReqStructure(new(FirewallRuleDeleteRequest))
 	deleteOp.AddRespStructure(new(FirewallRuleResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

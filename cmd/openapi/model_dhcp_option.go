@@ -92,6 +92,8 @@ func addDHCPOption() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetDHCPOption")
+	getOp.SetTags("DHCPOption")
 	getOp.AddReqStructure(new(DHCPOptionGetRequest))
 	getOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -108,6 +110,8 @@ func addDHCPOption() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateDHCPOption")
+	updateOp.SetTags("DHCPOption")
 	updateOp.AddReqStructure(new(DHCPOptionUpdateRequest))
 	updateOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -123,6 +127,8 @@ func addDHCPOption() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListDHCPOption")
+	listOp.SetTags("DHCPOption")
 	listOp.AddReqStructure(new(DHCPOptionListRequest))
 	listOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -138,6 +144,8 @@ func addDHCPOption() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateDHCPOption")
+	createOp.SetTags("DHCPOption")
 	createOp.AddReqStructure(new(DHCPOptionCreateRequest))
 	createOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -153,6 +161,8 @@ func addDHCPOption() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteDHCPOption")
+	deleteOp.SetTags("DHCPOption")
 	deleteOp.AddReqStructure(new(DHCPOptionDeleteRequest))
 	deleteOp.AddRespStructure(new(DHCPOptionResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

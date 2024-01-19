@@ -76,6 +76,8 @@ func addSettingConnectivity() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingConnectivity")
+	getOp.SetTags("SettingConnectivity")
 	getOp.AddReqStructure(new(SettingConnectivityGetRequest))
 	getOp.AddRespStructure(new(SettingConnectivityResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -92,6 +94,8 @@ func addSettingConnectivity() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingConnectivity")
+	updateOp.SetTags("SettingConnectivity")
 	updateOp.AddReqStructure(new(SettingConnectivityUpdateRequest))
 	updateOp.AddRespStructure(new(SettingConnectivityResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

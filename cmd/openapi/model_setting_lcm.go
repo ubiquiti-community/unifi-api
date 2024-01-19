@@ -80,6 +80,8 @@ func addSettingLcm() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingLcm")
+	getOp.SetTags("SettingLcm")
 	getOp.AddReqStructure(new(SettingLcmGetRequest))
 	getOp.AddRespStructure(new(SettingLcmResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -96,6 +98,8 @@ func addSettingLcm() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingLcm")
+	updateOp.SetTags("SettingLcm")
 	updateOp.AddReqStructure(new(SettingLcmUpdateRequest))
 	updateOp.AddRespStructure(new(SettingLcmResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

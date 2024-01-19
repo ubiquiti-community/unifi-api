@@ -71,6 +71,8 @@ func addSettingMagicSiteToSiteVpn() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingMagicSiteToSiteVpn")
+	getOp.SetTags("SettingMagicSiteToSiteVpn")
 	getOp.AddReqStructure(new(SettingMagicSiteToSiteVpnGetRequest))
 	getOp.AddRespStructure(new(SettingMagicSiteToSiteVpnResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingMagicSiteToSiteVpn() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingMagicSiteToSiteVpn")
+	updateOp.SetTags("SettingMagicSiteToSiteVpn")
 	updateOp.AddReqStructure(new(SettingMagicSiteToSiteVpnUpdateRequest))
 	updateOp.AddRespStructure(new(SettingMagicSiteToSiteVpnResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

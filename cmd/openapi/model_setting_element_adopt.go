@@ -73,6 +73,8 @@ func addSettingElementAdopt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingElementAdopt")
+	getOp.SetTags("SettingElementAdopt")
 	getOp.AddReqStructure(new(SettingElementAdoptGetRequest))
 	getOp.AddRespStructure(new(SettingElementAdoptResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -89,6 +91,8 @@ func addSettingElementAdopt() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingElementAdopt")
+	updateOp.SetTags("SettingElementAdopt")
 	updateOp.AddReqStructure(new(SettingElementAdoptUpdateRequest))
 	updateOp.AddRespStructure(new(SettingElementAdoptResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

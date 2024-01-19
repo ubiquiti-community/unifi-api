@@ -445,6 +445,8 @@ func addNetwork() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetNetwork")
+	getOp.SetTags("Network")
 	getOp.AddReqStructure(new(NetworkGetRequest))
 	getOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -461,6 +463,8 @@ func addNetwork() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateNetwork")
+	updateOp.SetTags("Network")
 	updateOp.AddReqStructure(new(NetworkUpdateRequest))
 	updateOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -476,6 +480,8 @@ func addNetwork() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListNetwork")
+	listOp.SetTags("Network")
 	listOp.AddReqStructure(new(NetworkListRequest))
 	listOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -491,6 +497,8 @@ func addNetwork() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateNetwork")
+	createOp.SetTags("Network")
 	createOp.AddReqStructure(new(NetworkCreateRequest))
 	createOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -506,6 +514,8 @@ func addNetwork() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteNetwork")
+	deleteOp.SetTags("Network")
 	deleteOp.AddReqStructure(new(NetworkDeleteRequest))
 	deleteOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

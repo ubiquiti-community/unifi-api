@@ -72,6 +72,8 @@ func addSettingTeleport() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingTeleport")
+	getOp.SetTags("SettingTeleport")
 	getOp.AddReqStructure(new(SettingTeleportGetRequest))
 	getOp.AddRespStructure(new(SettingTeleportResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -88,6 +90,8 @@ func addSettingTeleport() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingTeleport")
+	updateOp.SetTags("SettingTeleport")
 	updateOp.AddReqStructure(new(SettingTeleportUpdateRequest))
 	updateOp.AddRespStructure(new(SettingTeleportResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

@@ -30,6 +30,15 @@ var reflector = openapi3.Reflector{
 func main() {
 	reflector.Spec.SetDescription("Unifi Controller API")
 
+	server := openapi3.Server{}
+	server.WithVariablesItem("domain", openapi3.ServerVariable{
+		Default: "unifi.ui.com",
+	})
+	server.WithDescription("Unifi Controller API")
+	server.WithURL("https://{domain}/proxy/network/api")
+
+	reflector.Spec.WithServers(server)
+
 	addOperations()
 
 	schema, err := reflector.Spec.MarshalYAML()

@@ -84,6 +84,8 @@ func addSettingRsyslogd() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingRsyslogd")
+	getOp.SetTags("SettingRsyslogd")
 	getOp.AddReqStructure(new(SettingRsyslogdGetRequest))
 	getOp.AddRespStructure(new(SettingRsyslogdResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -100,6 +102,8 @@ func addSettingRsyslogd() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingRsyslogd")
+	updateOp.SetTags("SettingRsyslogd")
 	updateOp.AddReqStructure(new(SettingRsyslogdUpdateRequest))
 	updateOp.AddRespStructure(new(SettingRsyslogdResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

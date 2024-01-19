@@ -180,6 +180,8 @@ func addSettingGuestAccess() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingGuestAccess")
+	getOp.SetTags("SettingGuestAccess")
 	getOp.AddReqStructure(new(SettingGuestAccessGetRequest))
 	getOp.AddRespStructure(new(SettingGuestAccessResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -196,6 +198,8 @@ func addSettingGuestAccess() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingGuestAccess")
+	updateOp.SetTags("SettingGuestAccess")
 	updateOp.AddReqStructure(new(SettingGuestAccessUpdateRequest))
 	updateOp.AddRespStructure(new(SettingGuestAccessResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

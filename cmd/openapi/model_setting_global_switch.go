@@ -78,6 +78,8 @@ func addSettingGlobalSwitch() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingGlobalSwitch")
+	getOp.SetTags("SettingGlobalSwitch")
 	getOp.AddReqStructure(new(SettingGlobalSwitchGetRequest))
 	getOp.AddRespStructure(new(SettingGlobalSwitchResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -94,6 +96,8 @@ func addSettingGlobalSwitch() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingGlobalSwitch")
+	updateOp.SetTags("SettingGlobalSwitch")
 	updateOp.AddReqStructure(new(SettingGlobalSwitchUpdateRequest))
 	updateOp.AddRespStructure(new(SettingGlobalSwitchResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

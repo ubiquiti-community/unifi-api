@@ -3,9 +3,16 @@ info:
   description: Unifi Controller API
   title: Unifi API
   version: 8.0.26
+servers:
+- description: Unifi Controller API
+  url: https://{domain}/proxy/network/api
+  variables:
+    domain:
+      default: unifi.ui.com
 paths:
   /s/{site}/get/setting/account/{id}:
     delete:
+      operationId: DeleteAccount
       parameters:
       - in: path
         name: site
@@ -41,8 +48,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Account
   /s/{site}/get/setting/auto_speedtest:
     get:
+      operationId: GetSettingAutoSpeedtest
       parameters:
       - in: path
         name: site
@@ -73,8 +83,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingAutoSpeedtest
   /s/{site}/get/setting/baresip:
     get:
+      operationId: GetSettingBaresip
       parameters:
       - in: path
         name: site
@@ -105,8 +118,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingBaresip
   /s/{site}/get/setting/broadcast:
     get:
+      operationId: GetSettingBroadcast
       parameters:
       - in: path
         name: site
@@ -137,8 +153,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingBroadcast
   /s/{site}/get/setting/broadcastgroup/{id}:
     delete:
+      operationId: DeleteBroadcastGroup
       parameters:
       - in: path
         name: site
@@ -174,8 +193,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - BroadcastGroup
   /s/{site}/get/setting/channelplan/{id}:
     delete:
+      operationId: DeleteChannelPlan
       parameters:
       - in: path
         name: site
@@ -211,8 +233,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ChannelPlan
   /s/{site}/get/setting/connectivity:
     get:
+      operationId: GetSettingConnectivity
       parameters:
       - in: path
         name: site
@@ -243,8 +268,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingConnectivity
   /s/{site}/get/setting/country:
     get:
+      operationId: GetSettingCountry
       parameters:
       - in: path
         name: site
@@ -275,8 +303,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingCountry
   /s/{site}/get/setting/dashboard/{id}:
     delete:
+      operationId: DeleteDashboard
       parameters:
       - in: path
         name: site
@@ -312,8 +343,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Dashboard
   /s/{site}/get/setting/device/{id}:
     delete:
+      operationId: DeleteDevice
       parameters:
       - in: path
         name: site
@@ -349,8 +383,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Device
   /s/{site}/get/setting/dhcpoption/{id}:
     delete:
+      operationId: DeleteDHCPOption
       parameters:
       - in: path
         name: site
@@ -386,8 +423,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DHCPOption
   /s/{site}/get/setting/doh:
     get:
+      operationId: GetSettingDoh
       parameters:
       - in: path
         name: site
@@ -418,8 +458,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingDoh
   /s/{site}/get/setting/dpi:
     get:
+      operationId: GetSettingDpi
       parameters:
       - in: path
         name: site
@@ -450,8 +493,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingDpi
   /s/{site}/get/setting/dpiapp/{id}:
     delete:
+      operationId: DeleteDpiApp
       parameters:
       - in: path
         name: site
@@ -487,8 +533,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiApp
   /s/{site}/get/setting/dpigroup/{id}:
     delete:
+      operationId: DeleteDpiGroup
       parameters:
       - in: path
         name: site
@@ -524,8 +573,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiGroup
   /s/{site}/get/setting/dynamicdns/{id}:
     delete:
+      operationId: DeleteDynamicDNS
       parameters:
       - in: path
         name: site
@@ -561,8 +613,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DynamicDNS
   /s/{site}/get/setting/element_adopt:
     get:
+      operationId: GetSettingElementAdopt
       parameters:
       - in: path
         name: site
@@ -593,8 +648,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingElementAdopt
   /s/{site}/get/setting/ether_lighting:
     get:
+      operationId: GetSettingEtherLighting
       parameters:
       - in: path
         name: site
@@ -625,8 +683,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingEtherLighting
   /s/{site}/get/setting/firewallgroup/{id}:
     delete:
+      operationId: DeleteFirewallGroup
       parameters:
       - in: path
         name: site
@@ -662,8 +723,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallGroup
   /s/{site}/get/setting/firewallrule/{id}:
     delete:
+      operationId: DeleteFirewallRule
       parameters:
       - in: path
         name: site
@@ -699,8 +763,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallRule
   /s/{site}/get/setting/global_ap:
     get:
+      operationId: GetSettingGlobalAp
       parameters:
       - in: path
         name: site
@@ -731,8 +798,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGlobalAp
   /s/{site}/get/setting/global_switch:
     get:
+      operationId: GetSettingGlobalSwitch
       parameters:
       - in: path
         name: site
@@ -763,8 +833,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGlobalSwitch
   /s/{site}/get/setting/guest_access:
     get:
+      operationId: GetSettingGuestAccess
       parameters:
       - in: path
         name: site
@@ -795,8 +868,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGuestAccess
   /s/{site}/get/setting/heatmap/{id}:
     delete:
+      operationId: DeleteHeatMap
       parameters:
       - in: path
         name: site
@@ -832,8 +908,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMap
   /s/{site}/get/setting/heatmappoint/{id}:
     delete:
+      operationId: DeleteHeatMapPoint
       parameters:
       - in: path
         name: site
@@ -869,8 +948,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMapPoint
   /s/{site}/get/setting/hotspot2conf/{id}:
     delete:
+      operationId: DeleteHotspot2Conf
       parameters:
       - in: path
         name: site
@@ -906,8 +988,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Hotspot2Conf
   /s/{site}/get/setting/hotspotop/{id}:
     delete:
+      operationId: DeleteHotspotOp
       parameters:
       - in: path
         name: site
@@ -943,8 +1028,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotOp
   /s/{site}/get/setting/hotspotpackage/{id}:
     delete:
+      operationId: DeleteHotspotPackage
       parameters:
       - in: path
         name: site
@@ -980,8 +1068,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotPackage
   /s/{site}/get/setting/ips:
     get:
+      operationId: GetSettingIps
       parameters:
       - in: path
         name: site
@@ -1012,8 +1103,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingIps
   /s/{site}/get/setting/lcm:
     get:
+      operationId: GetSettingLcm
       parameters:
       - in: path
         name: site
@@ -1044,8 +1138,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingLcm
   /s/{site}/get/setting/locale:
     get:
+      operationId: GetSettingLocale
       parameters:
       - in: path
         name: site
@@ -1076,8 +1173,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingLocale
   /s/{site}/get/setting/magic_site_to_site_vpn:
     get:
+      operationId: GetSettingMagicSiteToSiteVpn
       parameters:
       - in: path
         name: site
@@ -1108,8 +1208,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingMagicSiteToSiteVpn
   /s/{site}/get/setting/map/{id}:
     delete:
+      operationId: DeleteMap
       parameters:
       - in: path
         name: site
@@ -1145,8 +1248,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Map
   /s/{site}/get/setting/mediafile/{id}:
     delete:
+      operationId: DeleteMediaFile
       parameters:
       - in: path
         name: site
@@ -1182,8 +1288,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - MediaFile
   /s/{site}/get/setting/mgmt:
     get:
+      operationId: GetSettingMgmt
       parameters:
       - in: path
         name: site
@@ -1214,8 +1323,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingMgmt
   /s/{site}/get/setting/network_optimization:
     get:
+      operationId: GetSettingNetworkOptimization
       parameters:
       - in: path
         name: site
@@ -1246,8 +1358,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingNetworkOptimization
   /s/{site}/get/setting/networkconf/{id}:
     delete:
+      operationId: DeleteNetwork
       parameters:
       - in: path
         name: site
@@ -1283,8 +1398,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Network
   /s/{site}/get/setting/ntp:
     get:
+      operationId: GetSettingNtp
       parameters:
       - in: path
         name: site
@@ -1315,8 +1433,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingNtp
   /s/{site}/get/setting/porta:
     get:
+      operationId: GetSettingPorta
       parameters:
       - in: path
         name: site
@@ -1347,8 +1468,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingPorta
   /s/{site}/get/setting/portconf/{id}:
     delete:
+      operationId: DeletePortProfile
       parameters:
       - in: path
         name: site
@@ -1384,8 +1508,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortProfile
   /s/{site}/get/setting/portforward/{id}:
     delete:
+      operationId: DeletePortForward
       parameters:
       - in: path
         name: site
@@ -1421,8 +1548,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortForward
   /s/{site}/get/setting/radio_ai:
     get:
+      operationId: GetSettingRadioAi
       parameters:
       - in: path
         name: site
@@ -1453,8 +1583,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRadioAi
   /s/{site}/get/setting/radius:
     get:
+      operationId: GetSettingRadius
       parameters:
       - in: path
         name: site
@@ -1485,8 +1618,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRadius
   /s/{site}/get/setting/radiusprofile/{id}:
     delete:
+      operationId: DeleteRADIUSProfile
       parameters:
       - in: path
         name: site
@@ -1522,8 +1658,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - RADIUSProfile
   /s/{site}/get/setting/routing/{id}:
     delete:
+      operationId: DeleteRouting
       parameters:
       - in: path
         name: site
@@ -1559,8 +1698,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Routing
   /s/{site}/get/setting/rsyslogd:
     get:
+      operationId: GetSettingRsyslogd
       parameters:
       - in: path
         name: site
@@ -1591,8 +1733,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRsyslogd
   /s/{site}/get/setting/scheduletask/{id}:
     delete:
+      operationId: DeleteScheduleTask
       parameters:
       - in: path
         name: site
@@ -1628,8 +1773,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ScheduleTask
   /s/{site}/get/setting/snmp:
     get:
+      operationId: GetSettingSnmp
       parameters:
       - in: path
         name: site
@@ -1660,8 +1808,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSnmp
   /s/{site}/get/setting/spatialrecord/{id}:
     delete:
+      operationId: DeleteSpatialRecord
       parameters:
       - in: path
         name: site
@@ -1697,8 +1848,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SpatialRecord
   /s/{site}/get/setting/super_cloudaccess:
     get:
+      operationId: GetSettingSuperCloudaccess
       parameters:
       - in: path
         name: site
@@ -1729,8 +1883,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperCloudaccess
   /s/{site}/get/setting/super_events:
     get:
+      operationId: GetSettingSuperEvents
       parameters:
       - in: path
         name: site
@@ -1761,8 +1918,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperEvents
   /s/{site}/get/setting/super_fwupdate:
     get:
+      operationId: GetSettingSuperFwupdate
       parameters:
       - in: path
         name: site
@@ -1793,8 +1953,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperFwupdate
   /s/{site}/get/setting/super_identity:
     get:
+      operationId: GetSettingSuperIdentity
       parameters:
       - in: path
         name: site
@@ -1825,8 +1988,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperIdentity
   /s/{site}/get/setting/super_mail:
     get:
+      operationId: GetSettingSuperMail
       parameters:
       - in: path
         name: site
@@ -1857,8 +2023,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperMail
   /s/{site}/get/setting/super_mgmt:
     get:
+      operationId: GetSettingSuperMgmt
       parameters:
       - in: path
         name: site
@@ -1889,8 +2058,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperMgmt
   /s/{site}/get/setting/super_sdn:
     get:
+      operationId: GetSettingSuperSdn
       parameters:
       - in: path
         name: site
@@ -1921,8 +2093,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperSdn
   /s/{site}/get/setting/super_smtp:
     get:
+      operationId: GetSettingSuperSmtp
       parameters:
       - in: path
         name: site
@@ -1953,8 +2128,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperSmtp
   /s/{site}/get/setting/tag/{id}:
     delete:
+      operationId: DeleteTag
       parameters:
       - in: path
         name: site
@@ -1990,8 +2168,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Tag
   /s/{site}/get/setting/teleport:
     get:
+      operationId: GetSettingTeleport
       parameters:
       - in: path
         name: site
@@ -2022,8 +2203,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingTeleport
   /s/{site}/get/setting/user/{id}:
     delete:
+      operationId: DeleteUser
       parameters:
       - in: path
         name: site
@@ -2059,8 +2243,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - User
   /s/{site}/get/setting/usergroup/{id}:
     delete:
+      operationId: DeleteUserGroup
       parameters:
       - in: path
         name: site
@@ -2096,8 +2283,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - UserGroup
   /s/{site}/get/setting/usg:
     get:
+      operationId: GetSettingUsg
       parameters:
       - in: path
         name: site
@@ -2128,8 +2318,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingUsg
   /s/{site}/get/setting/usw:
     get:
+      operationId: GetSettingUsw
       parameters:
       - in: path
         name: site
@@ -2160,8 +2353,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingUsw
   /s/{site}/get/setting/virtualdevice/{id}:
     delete:
+      operationId: DeleteVirtualDevice
       parameters:
       - in: path
         name: site
@@ -2197,8 +2393,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - VirtualDevice
   /s/{site}/get/setting/wlanconf/{id}:
     delete:
+      operationId: DeleteWLAN
       parameters:
       - in: path
         name: site
@@ -2234,8 +2433,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLAN
   /s/{site}/get/setting/wlangroup/{id}:
     delete:
+      operationId: DeleteWLANGroup
       parameters:
       - in: path
         name: site
@@ -2271,8 +2473,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLANGroup
   /s/{site}/rest/account:
     get:
+      operationId: ListAccount
       parameters:
       - in: path
         name: site
@@ -2303,7 +2508,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Account
     post:
+      operationId: CreateAccount
       parameters:
       - in: path
         name: site
@@ -2339,8 +2547,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Account
   /s/{site}/rest/account/{id}:
     get:
+      operationId: GetAccount
       parameters:
       - in: path
         name: site
@@ -2376,7 +2587,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Account
     put:
+      operationId: UpdateAccount
       parameters:
       - in: path
         name: site
@@ -2417,8 +2631,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Account
   /s/{site}/rest/broadcastgroup:
     get:
+      operationId: ListBroadcastGroup
       parameters:
       - in: path
         name: site
@@ -2449,7 +2666,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - BroadcastGroup
     post:
+      operationId: CreateBroadcastGroup
       parameters:
       - in: path
         name: site
@@ -2485,8 +2705,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - BroadcastGroup
   /s/{site}/rest/broadcastgroup/{id}:
     get:
+      operationId: GetBroadcastGroup
       parameters:
       - in: path
         name: site
@@ -2522,7 +2745,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - BroadcastGroup
     put:
+      operationId: UpdateBroadcastGroup
       parameters:
       - in: path
         name: site
@@ -2563,8 +2789,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - BroadcastGroup
   /s/{site}/rest/channelplan:
     get:
+      operationId: ListChannelPlan
       parameters:
       - in: path
         name: site
@@ -2595,7 +2824,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ChannelPlan
     post:
+      operationId: CreateChannelPlan
       parameters:
       - in: path
         name: site
@@ -2631,8 +2863,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ChannelPlan
   /s/{site}/rest/channelplan/{id}:
     get:
+      operationId: GetChannelPlan
       parameters:
       - in: path
         name: site
@@ -2668,7 +2903,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ChannelPlan
     put:
+      operationId: UpdateChannelPlan
       parameters:
       - in: path
         name: site
@@ -2709,8 +2947,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ChannelPlan
   /s/{site}/rest/dashboard:
     get:
+      operationId: ListDashboard
       parameters:
       - in: path
         name: site
@@ -2741,7 +2982,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Dashboard
     post:
+      operationId: CreateDashboard
       parameters:
       - in: path
         name: site
@@ -2777,8 +3021,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Dashboard
   /s/{site}/rest/dashboard/{id}:
     get:
+      operationId: GetDashboard
       parameters:
       - in: path
         name: site
@@ -2814,7 +3061,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Dashboard
     put:
+      operationId: UpdateDashboard
       parameters:
       - in: path
         name: site
@@ -2855,8 +3105,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Dashboard
   /s/{site}/rest/device:
     post:
+      operationId: CreateDevice
       parameters:
       - in: path
         name: site
@@ -2892,8 +3145,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Device
   /s/{site}/rest/device/{id}:
     put:
+      operationId: UpdateDevice
       parameters:
       - in: path
         name: site
@@ -2934,8 +3190,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Device
   /s/{site}/rest/dhcpoption:
     get:
+      operationId: ListDHCPOption
       parameters:
       - in: path
         name: site
@@ -2966,7 +3225,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DHCPOption
     post:
+      operationId: CreateDHCPOption
       parameters:
       - in: path
         name: site
@@ -3002,8 +3264,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DHCPOption
   /s/{site}/rest/dhcpoption/{id}:
     get:
+      operationId: GetDHCPOption
       parameters:
       - in: path
         name: site
@@ -3039,7 +3304,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DHCPOption
     put:
+      operationId: UpdateDHCPOption
       parameters:
       - in: path
         name: site
@@ -3080,8 +3348,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DHCPOption
   /s/{site}/rest/dpiapp:
     get:
+      operationId: ListDpiApp
       parameters:
       - in: path
         name: site
@@ -3112,7 +3383,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiApp
     post:
+      operationId: CreateDpiApp
       parameters:
       - in: path
         name: site
@@ -3148,8 +3422,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiApp
   /s/{site}/rest/dpiapp/{id}:
     get:
+      operationId: GetDpiApp
       parameters:
       - in: path
         name: site
@@ -3185,7 +3462,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiApp
     put:
+      operationId: UpdateDpiApp
       parameters:
       - in: path
         name: site
@@ -3226,8 +3506,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiApp
   /s/{site}/rest/dpigroup:
     get:
+      operationId: ListDpiGroup
       parameters:
       - in: path
         name: site
@@ -3258,7 +3541,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiGroup
     post:
+      operationId: CreateDpiGroup
       parameters:
       - in: path
         name: site
@@ -3294,8 +3580,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiGroup
   /s/{site}/rest/dpigroup/{id}:
     get:
+      operationId: GetDpiGroup
       parameters:
       - in: path
         name: site
@@ -3331,7 +3620,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiGroup
     put:
+      operationId: UpdateDpiGroup
       parameters:
       - in: path
         name: site
@@ -3372,8 +3664,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DpiGroup
   /s/{site}/rest/dynamicdns:
     get:
+      operationId: ListDynamicDNS
       parameters:
       - in: path
         name: site
@@ -3404,7 +3699,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DynamicDNS
     post:
+      operationId: CreateDynamicDNS
       parameters:
       - in: path
         name: site
@@ -3440,8 +3738,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DynamicDNS
   /s/{site}/rest/dynamicdns/{id}:
     get:
+      operationId: GetDynamicDNS
       parameters:
       - in: path
         name: site
@@ -3477,7 +3778,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DynamicDNS
     put:
+      operationId: UpdateDynamicDNS
       parameters:
       - in: path
         name: site
@@ -3518,8 +3822,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - DynamicDNS
   /s/{site}/rest/firewallgroup:
     get:
+      operationId: ListFirewallGroup
       parameters:
       - in: path
         name: site
@@ -3550,7 +3857,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallGroup
     post:
+      operationId: CreateFirewallGroup
       parameters:
       - in: path
         name: site
@@ -3586,8 +3896,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallGroup
   /s/{site}/rest/firewallgroup/{id}:
     get:
+      operationId: GetFirewallGroup
       parameters:
       - in: path
         name: site
@@ -3623,7 +3936,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallGroup
     put:
+      operationId: UpdateFirewallGroup
       parameters:
       - in: path
         name: site
@@ -3664,8 +3980,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallGroup
   /s/{site}/rest/firewallrule:
     get:
+      operationId: ListFirewallRule
       parameters:
       - in: path
         name: site
@@ -3696,7 +4015,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallRule
     post:
+      operationId: CreateFirewallRule
       parameters:
       - in: path
         name: site
@@ -3732,8 +4054,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallRule
   /s/{site}/rest/firewallrule/{id}:
     get:
+      operationId: GetFirewallRule
       parameters:
       - in: path
         name: site
@@ -3769,7 +4094,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallRule
     put:
+      operationId: UpdateFirewallRule
       parameters:
       - in: path
         name: site
@@ -3810,8 +4138,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - FirewallRule
   /s/{site}/rest/heatmap:
     get:
+      operationId: ListHeatMap
       parameters:
       - in: path
         name: site
@@ -3842,7 +4173,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMap
     post:
+      operationId: CreateHeatMap
       parameters:
       - in: path
         name: site
@@ -3878,8 +4212,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMap
   /s/{site}/rest/heatmap/{id}:
     get:
+      operationId: GetHeatMap
       parameters:
       - in: path
         name: site
@@ -3915,7 +4252,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMap
     put:
+      operationId: UpdateHeatMap
       parameters:
       - in: path
         name: site
@@ -3956,8 +4296,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMap
   /s/{site}/rest/heatmappoint:
     get:
+      operationId: ListHeatMapPoint
       parameters:
       - in: path
         name: site
@@ -3988,7 +4331,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMapPoint
     post:
+      operationId: CreateHeatMapPoint
       parameters:
       - in: path
         name: site
@@ -4024,8 +4370,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMapPoint
   /s/{site}/rest/heatmappoint/{id}:
     get:
+      operationId: GetHeatMapPoint
       parameters:
       - in: path
         name: site
@@ -4061,7 +4410,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMapPoint
     put:
+      operationId: UpdateHeatMapPoint
       parameters:
       - in: path
         name: site
@@ -4102,8 +4454,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HeatMapPoint
   /s/{site}/rest/hotspot2conf:
     get:
+      operationId: ListHotspot2Conf
       parameters:
       - in: path
         name: site
@@ -4134,7 +4489,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Hotspot2Conf
     post:
+      operationId: CreateHotspot2Conf
       parameters:
       - in: path
         name: site
@@ -4170,8 +4528,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Hotspot2Conf
   /s/{site}/rest/hotspot2conf/{id}:
     get:
+      operationId: GetHotspot2Conf
       parameters:
       - in: path
         name: site
@@ -4207,7 +4568,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Hotspot2Conf
     put:
+      operationId: UpdateHotspot2Conf
       parameters:
       - in: path
         name: site
@@ -4248,8 +4612,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Hotspot2Conf
   /s/{site}/rest/hotspotop:
     get:
+      operationId: ListHotspotOp
       parameters:
       - in: path
         name: site
@@ -4280,7 +4647,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotOp
     post:
+      operationId: CreateHotspotOp
       parameters:
       - in: path
         name: site
@@ -4316,8 +4686,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotOp
   /s/{site}/rest/hotspotop/{id}:
     get:
+      operationId: GetHotspotOp
       parameters:
       - in: path
         name: site
@@ -4353,7 +4726,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotOp
     put:
+      operationId: UpdateHotspotOp
       parameters:
       - in: path
         name: site
@@ -4394,8 +4770,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotOp
   /s/{site}/rest/hotspotpackage:
     get:
+      operationId: ListHotspotPackage
       parameters:
       - in: path
         name: site
@@ -4426,7 +4805,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotPackage
     post:
+      operationId: CreateHotspotPackage
       parameters:
       - in: path
         name: site
@@ -4462,8 +4844,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotPackage
   /s/{site}/rest/hotspotpackage/{id}:
     get:
+      operationId: GetHotspotPackage
       parameters:
       - in: path
         name: site
@@ -4499,7 +4884,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotPackage
     put:
+      operationId: UpdateHotspotPackage
       parameters:
       - in: path
         name: site
@@ -4540,8 +4928,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - HotspotPackage
   /s/{site}/rest/map:
     get:
+      operationId: ListMap
       parameters:
       - in: path
         name: site
@@ -4572,7 +4963,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Map
     post:
+      operationId: CreateMap
       parameters:
       - in: path
         name: site
@@ -4608,8 +5002,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Map
   /s/{site}/rest/map/{id}:
     get:
+      operationId: GetMap
       parameters:
       - in: path
         name: site
@@ -4645,7 +5042,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Map
     put:
+      operationId: UpdateMap
       parameters:
       - in: path
         name: site
@@ -4686,8 +5086,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Map
   /s/{site}/rest/mediafile:
     get:
+      operationId: ListMediaFile
       parameters:
       - in: path
         name: site
@@ -4718,7 +5121,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - MediaFile
     post:
+      operationId: CreateMediaFile
       parameters:
       - in: path
         name: site
@@ -4754,8 +5160,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - MediaFile
   /s/{site}/rest/mediafile/{id}:
     get:
+      operationId: GetMediaFile
       parameters:
       - in: path
         name: site
@@ -4791,7 +5200,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - MediaFile
     put:
+      operationId: UpdateMediaFile
       parameters:
       - in: path
         name: site
@@ -4832,8 +5244,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - MediaFile
   /s/{site}/rest/networkconf:
     get:
+      operationId: ListNetwork
       parameters:
       - in: path
         name: site
@@ -4864,7 +5279,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Network
     post:
+      operationId: CreateNetwork
       parameters:
       - in: path
         name: site
@@ -4900,8 +5318,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Network
   /s/{site}/rest/networkconf/{id}:
     get:
+      operationId: GetNetwork
       parameters:
       - in: path
         name: site
@@ -4937,7 +5358,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Network
     put:
+      operationId: UpdateNetwork
       parameters:
       - in: path
         name: site
@@ -4978,8 +5402,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Network
   /s/{site}/rest/portconf:
     get:
+      operationId: ListPortProfile
       parameters:
       - in: path
         name: site
@@ -5010,7 +5437,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortProfile
     post:
+      operationId: CreatePortProfile
       parameters:
       - in: path
         name: site
@@ -5046,8 +5476,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortProfile
   /s/{site}/rest/portconf/{id}:
     get:
+      operationId: GetPortProfile
       parameters:
       - in: path
         name: site
@@ -5083,7 +5516,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortProfile
     put:
+      operationId: UpdatePortProfile
       parameters:
       - in: path
         name: site
@@ -5124,8 +5560,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortProfile
   /s/{site}/rest/portforward:
     get:
+      operationId: ListPortForward
       parameters:
       - in: path
         name: site
@@ -5156,7 +5595,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortForward
     post:
+      operationId: CreatePortForward
       parameters:
       - in: path
         name: site
@@ -5192,8 +5634,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortForward
   /s/{site}/rest/portforward/{id}:
     get:
+      operationId: GetPortForward
       parameters:
       - in: path
         name: site
@@ -5229,7 +5674,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortForward
     put:
+      operationId: UpdatePortForward
       parameters:
       - in: path
         name: site
@@ -5270,8 +5718,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - PortForward
   /s/{site}/rest/radiusprofile:
     get:
+      operationId: ListRADIUSProfile
       parameters:
       - in: path
         name: site
@@ -5302,7 +5753,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - RADIUSProfile
     post:
+      operationId: CreateRADIUSProfile
       parameters:
       - in: path
         name: site
@@ -5338,8 +5792,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - RADIUSProfile
   /s/{site}/rest/radiusprofile/{id}:
     get:
+      operationId: GetRADIUSProfile
       parameters:
       - in: path
         name: site
@@ -5375,7 +5832,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - RADIUSProfile
     put:
+      operationId: UpdateRADIUSProfile
       parameters:
       - in: path
         name: site
@@ -5416,8 +5876,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - RADIUSProfile
   /s/{site}/rest/routing:
     get:
+      operationId: ListRouting
       parameters:
       - in: path
         name: site
@@ -5448,7 +5911,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Routing
     post:
+      operationId: CreateRouting
       parameters:
       - in: path
         name: site
@@ -5484,8 +5950,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Routing
   /s/{site}/rest/routing/{id}:
     get:
+      operationId: GetRouting
       parameters:
       - in: path
         name: site
@@ -5521,7 +5990,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Routing
     put:
+      operationId: UpdateRouting
       parameters:
       - in: path
         name: site
@@ -5562,8 +6034,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Routing
   /s/{site}/rest/scheduletask:
     get:
+      operationId: ListScheduleTask
       parameters:
       - in: path
         name: site
@@ -5594,7 +6069,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ScheduleTask
     post:
+      operationId: CreateScheduleTask
       parameters:
       - in: path
         name: site
@@ -5630,8 +6108,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ScheduleTask
   /s/{site}/rest/scheduletask/{id}:
     get:
+      operationId: GetScheduleTask
       parameters:
       - in: path
         name: site
@@ -5667,7 +6148,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ScheduleTask
     put:
+      operationId: UpdateScheduleTask
       parameters:
       - in: path
         name: site
@@ -5708,8 +6192,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - ScheduleTask
   /s/{site}/rest/spatialrecord:
     get:
+      operationId: ListSpatialRecord
       parameters:
       - in: path
         name: site
@@ -5740,7 +6227,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SpatialRecord
     post:
+      operationId: CreateSpatialRecord
       parameters:
       - in: path
         name: site
@@ -5776,8 +6266,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SpatialRecord
   /s/{site}/rest/spatialrecord/{id}:
     get:
+      operationId: GetSpatialRecord
       parameters:
       - in: path
         name: site
@@ -5813,7 +6306,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SpatialRecord
     put:
+      operationId: UpdateSpatialRecord
       parameters:
       - in: path
         name: site
@@ -5854,8 +6350,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SpatialRecord
   /s/{site}/rest/tag:
     get:
+      operationId: ListTag
       parameters:
       - in: path
         name: site
@@ -5886,7 +6385,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Tag
     post:
+      operationId: CreateTag
       parameters:
       - in: path
         name: site
@@ -5922,8 +6424,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Tag
   /s/{site}/rest/tag/{id}:
     get:
+      operationId: GetTag
       parameters:
       - in: path
         name: site
@@ -5959,7 +6464,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Tag
     put:
+      operationId: UpdateTag
       parameters:
       - in: path
         name: site
@@ -6000,8 +6508,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Tag
   /s/{site}/rest/user:
     get:
+      operationId: ListUser
       parameters:
       - in: path
         name: site
@@ -6032,7 +6543,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - User
     post:
+      operationId: CreateUser
       parameters:
       - in: path
         name: site
@@ -6068,8 +6582,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - User
   /s/{site}/rest/user/{id}:
     get:
+      operationId: GetUser
       parameters:
       - in: path
         name: site
@@ -6105,7 +6622,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - User
     put:
+      operationId: UpdateUser
       parameters:
       - in: path
         name: site
@@ -6146,8 +6666,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - User
   /s/{site}/rest/usergroup:
     get:
+      operationId: ListUserGroup
       parameters:
       - in: path
         name: site
@@ -6178,7 +6701,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - UserGroup
     post:
+      operationId: CreateUserGroup
       parameters:
       - in: path
         name: site
@@ -6214,8 +6740,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - UserGroup
   /s/{site}/rest/usergroup/{id}:
     get:
+      operationId: GetUserGroup
       parameters:
       - in: path
         name: site
@@ -6251,7 +6780,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - UserGroup
     put:
+      operationId: UpdateUserGroup
       parameters:
       - in: path
         name: site
@@ -6292,8 +6824,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - UserGroup
   /s/{site}/rest/virtualdevice:
     get:
+      operationId: ListVirtualDevice
       parameters:
       - in: path
         name: site
@@ -6324,7 +6859,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - VirtualDevice
     post:
+      operationId: CreateVirtualDevice
       parameters:
       - in: path
         name: site
@@ -6360,8 +6898,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - VirtualDevice
   /s/{site}/rest/virtualdevice/{id}:
     get:
+      operationId: GetVirtualDevice
       parameters:
       - in: path
         name: site
@@ -6397,7 +6938,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - VirtualDevice
     put:
+      operationId: UpdateVirtualDevice
       parameters:
       - in: path
         name: site
@@ -6438,8 +6982,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - VirtualDevice
   /s/{site}/rest/wlanconf:
     get:
+      operationId: ListWLAN
       parameters:
       - in: path
         name: site
@@ -6470,7 +7017,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLAN
     post:
+      operationId: CreateWLAN
       parameters:
       - in: path
         name: site
@@ -6506,8 +7056,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLAN
   /s/{site}/rest/wlanconf/{id}:
     get:
+      operationId: GetWLAN
       parameters:
       - in: path
         name: site
@@ -6543,7 +7096,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLAN
     put:
+      operationId: UpdateWLAN
       parameters:
       - in: path
         name: site
@@ -6584,8 +7140,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLAN
   /s/{site}/rest/wlangroup:
     get:
+      operationId: ListWLANGroup
       parameters:
       - in: path
         name: site
@@ -6616,7 +7175,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLANGroup
     post:
+      operationId: CreateWLANGroup
       parameters:
       - in: path
         name: site
@@ -6652,8 +7214,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLANGroup
   /s/{site}/rest/wlangroup/{id}:
     get:
+      operationId: GetWLANGroup
       parameters:
       - in: path
         name: site
@@ -6689,7 +7254,10 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLANGroup
     put:
+      operationId: UpdateWLANGroup
       parameters:
       - in: path
         name: site
@@ -6730,8 +7298,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - WLANGroup
   /s/{site}/set/setting/auto_speedtest:
     put:
+      operationId: UpdateSettingAutoSpeedtest
       parameters:
       - in: path
         name: site
@@ -6767,8 +7338,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingAutoSpeedtest
   /s/{site}/set/setting/baresip:
     put:
+      operationId: UpdateSettingBaresip
       parameters:
       - in: path
         name: site
@@ -6804,8 +7378,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingBaresip
   /s/{site}/set/setting/broadcast:
     put:
+      operationId: UpdateSettingBroadcast
       parameters:
       - in: path
         name: site
@@ -6841,8 +7418,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingBroadcast
   /s/{site}/set/setting/connectivity:
     put:
+      operationId: UpdateSettingConnectivity
       parameters:
       - in: path
         name: site
@@ -6878,8 +7458,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingConnectivity
   /s/{site}/set/setting/country:
     put:
+      operationId: UpdateSettingCountry
       parameters:
       - in: path
         name: site
@@ -6915,8 +7498,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingCountry
   /s/{site}/set/setting/doh:
     put:
+      operationId: UpdateSettingDoh
       parameters:
       - in: path
         name: site
@@ -6952,8 +7538,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingDoh
   /s/{site}/set/setting/dpi:
     put:
+      operationId: UpdateSettingDpi
       parameters:
       - in: path
         name: site
@@ -6989,8 +7578,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingDpi
   /s/{site}/set/setting/element_adopt:
     put:
+      operationId: UpdateSettingElementAdopt
       parameters:
       - in: path
         name: site
@@ -7026,8 +7618,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingElementAdopt
   /s/{site}/set/setting/ether_lighting:
     put:
+      operationId: UpdateSettingEtherLighting
       parameters:
       - in: path
         name: site
@@ -7063,8 +7658,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingEtherLighting
   /s/{site}/set/setting/global_ap:
     put:
+      operationId: UpdateSettingGlobalAp
       parameters:
       - in: path
         name: site
@@ -7100,8 +7698,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGlobalAp
   /s/{site}/set/setting/global_switch:
     put:
+      operationId: UpdateSettingGlobalSwitch
       parameters:
       - in: path
         name: site
@@ -7137,8 +7738,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGlobalSwitch
   /s/{site}/set/setting/guest_access:
     put:
+      operationId: UpdateSettingGuestAccess
       parameters:
       - in: path
         name: site
@@ -7174,8 +7778,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingGuestAccess
   /s/{site}/set/setting/ips:
     put:
+      operationId: UpdateSettingIps
       parameters:
       - in: path
         name: site
@@ -7211,8 +7818,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingIps
   /s/{site}/set/setting/lcm:
     put:
+      operationId: UpdateSettingLcm
       parameters:
       - in: path
         name: site
@@ -7248,8 +7858,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingLcm
   /s/{site}/set/setting/locale:
     put:
+      operationId: UpdateSettingLocale
       parameters:
       - in: path
         name: site
@@ -7285,8 +7898,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingLocale
   /s/{site}/set/setting/magic_site_to_site_vpn:
     put:
+      operationId: UpdateSettingMagicSiteToSiteVpn
       parameters:
       - in: path
         name: site
@@ -7322,8 +7938,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingMagicSiteToSiteVpn
   /s/{site}/set/setting/mgmt:
     put:
+      operationId: UpdateSettingMgmt
       parameters:
       - in: path
         name: site
@@ -7359,8 +7978,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingMgmt
   /s/{site}/set/setting/network_optimization:
     put:
+      operationId: UpdateSettingNetworkOptimization
       parameters:
       - in: path
         name: site
@@ -7396,8 +8018,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingNetworkOptimization
   /s/{site}/set/setting/ntp:
     put:
+      operationId: UpdateSettingNtp
       parameters:
       - in: path
         name: site
@@ -7433,8 +8058,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingNtp
   /s/{site}/set/setting/porta:
     put:
+      operationId: UpdateSettingPorta
       parameters:
       - in: path
         name: site
@@ -7470,8 +8098,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingPorta
   /s/{site}/set/setting/radio_ai:
     put:
+      operationId: UpdateSettingRadioAi
       parameters:
       - in: path
         name: site
@@ -7507,8 +8138,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRadioAi
   /s/{site}/set/setting/radius:
     put:
+      operationId: UpdateSettingRadius
       parameters:
       - in: path
         name: site
@@ -7544,8 +8178,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRadius
   /s/{site}/set/setting/rsyslogd:
     put:
+      operationId: UpdateSettingRsyslogd
       parameters:
       - in: path
         name: site
@@ -7581,8 +8218,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingRsyslogd
   /s/{site}/set/setting/snmp:
     put:
+      operationId: UpdateSettingSnmp
       parameters:
       - in: path
         name: site
@@ -7618,8 +8258,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSnmp
   /s/{site}/set/setting/super_cloudaccess:
     put:
+      operationId: UpdateSettingSuperCloudaccess
       parameters:
       - in: path
         name: site
@@ -7655,8 +8298,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperCloudaccess
   /s/{site}/set/setting/super_events:
     put:
+      operationId: UpdateSettingSuperEvents
       parameters:
       - in: path
         name: site
@@ -7692,8 +8338,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperEvents
   /s/{site}/set/setting/super_fwupdate:
     put:
+      operationId: UpdateSettingSuperFwupdate
       parameters:
       - in: path
         name: site
@@ -7729,8 +8378,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperFwupdate
   /s/{site}/set/setting/super_identity:
     put:
+      operationId: UpdateSettingSuperIdentity
       parameters:
       - in: path
         name: site
@@ -7766,8 +8418,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperIdentity
   /s/{site}/set/setting/super_mail:
     put:
+      operationId: UpdateSettingSuperMail
       parameters:
       - in: path
         name: site
@@ -7803,8 +8458,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperMail
   /s/{site}/set/setting/super_mgmt:
     put:
+      operationId: UpdateSettingSuperMgmt
       parameters:
       - in: path
         name: site
@@ -7840,8 +8498,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperMgmt
   /s/{site}/set/setting/super_sdn:
     put:
+      operationId: UpdateSettingSuperSdn
       parameters:
       - in: path
         name: site
@@ -7877,8 +8538,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperSdn
   /s/{site}/set/setting/super_smtp:
     put:
+      operationId: UpdateSettingSuperSmtp
       parameters:
       - in: path
         name: site
@@ -7914,8 +8578,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingSuperSmtp
   /s/{site}/set/setting/teleport:
     put:
+      operationId: UpdateSettingTeleport
       parameters:
       - in: path
         name: site
@@ -7951,8 +8618,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingTeleport
   /s/{site}/set/setting/usg:
     put:
+      operationId: UpdateSettingUsg
       parameters:
       - in: path
         name: site
@@ -7988,8 +8658,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingUsg
   /s/{site}/set/setting/usw:
     put:
+      operationId: UpdateSettingUsw
       parameters:
       - in: path
         name: site
@@ -8025,8 +8698,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - SettingUsw
   /s/{site}/stat/device:
     get:
+      operationId: ListDevice
       parameters:
       - in: path
         name: site
@@ -8057,8 +8733,11 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Device
   /s/{site}/stat/device/{id}:
     get:
+      operationId: GetDevice
       parameters:
       - in: path
         name: site
@@ -8094,6 +8773,8 @@ paths:
                     $ref: '#/components/schemas/Meta'
                 type: object
           description: ""
+      tags:
+      - Device
 components:
   schemas:
     Account:

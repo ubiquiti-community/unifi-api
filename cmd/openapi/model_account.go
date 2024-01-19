@@ -99,6 +99,8 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetAccount")
+	getOp.SetTags("Account")
 	getOp.AddReqStructure(new(AccountGetRequest))
 	getOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -115,6 +117,8 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateAccount")
+	updateOp.SetTags("Account")
 	updateOp.AddReqStructure(new(AccountUpdateRequest))
 	updateOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -130,6 +134,8 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListAccount")
+	listOp.SetTags("Account")
 	listOp.AddReqStructure(new(AccountListRequest))
 	listOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -145,6 +151,8 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateAccount")
+	createOp.SetTags("Account")
 	createOp.AddReqStructure(new(AccountCreateRequest))
 	createOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -160,6 +168,8 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteAccount")
+	deleteOp.SetTags("Account")
 	deleteOp.AddReqStructure(new(AccountDeleteRequest))
 	deleteOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

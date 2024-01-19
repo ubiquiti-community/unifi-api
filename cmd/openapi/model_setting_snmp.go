@@ -75,6 +75,8 @@ func addSettingSnmp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSnmp")
+	getOp.SetTags("SettingSnmp")
 	getOp.AddReqStructure(new(SettingSnmpGetRequest))
 	getOp.AddRespStructure(new(SettingSnmpResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -91,6 +93,8 @@ func addSettingSnmp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSnmp")
+	updateOp.SetTags("SettingSnmp")
 	updateOp.AddReqStructure(new(SettingSnmpUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSnmpResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

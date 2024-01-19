@@ -94,6 +94,8 @@ func addPortForward() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetPortForward")
+	getOp.SetTags("PortForward")
 	getOp.AddReqStructure(new(PortForwardGetRequest))
 	getOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -110,6 +112,8 @@ func addPortForward() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdatePortForward")
+	updateOp.SetTags("PortForward")
 	updateOp.AddReqStructure(new(PortForwardUpdateRequest))
 	updateOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -125,6 +129,8 @@ func addPortForward() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListPortForward")
+	listOp.SetTags("PortForward")
 	listOp.AddReqStructure(new(PortForwardListRequest))
 	listOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -140,6 +146,8 @@ func addPortForward() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreatePortForward")
+	createOp.SetTags("PortForward")
 	createOp.AddReqStructure(new(PortForwardCreateRequest))
 	createOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -155,6 +163,8 @@ func addPortForward() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeletePortForward")
+	deleteOp.SetTags("PortForward")
 	deleteOp.AddReqStructure(new(PortForwardDeleteRequest))
 	deleteOp.AddRespStructure(new(PortForwardResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

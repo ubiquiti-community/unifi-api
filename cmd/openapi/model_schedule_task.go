@@ -109,6 +109,8 @@ func addScheduleTask() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetScheduleTask")
+	getOp.SetTags("ScheduleTask")
 	getOp.AddReqStructure(new(ScheduleTaskGetRequest))
 	getOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -125,6 +127,8 @@ func addScheduleTask() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateScheduleTask")
+	updateOp.SetTags("ScheduleTask")
 	updateOp.AddReqStructure(new(ScheduleTaskUpdateRequest))
 	updateOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -140,6 +144,8 @@ func addScheduleTask() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListScheduleTask")
+	listOp.SetTags("ScheduleTask")
 	listOp.AddReqStructure(new(ScheduleTaskListRequest))
 	listOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -155,6 +161,8 @@ func addScheduleTask() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateScheduleTask")
+	createOp.SetTags("ScheduleTask")
 	createOp.AddReqStructure(new(ScheduleTaskCreateRequest))
 	createOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -170,6 +178,8 @@ func addScheduleTask() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteScheduleTask")
+	deleteOp.SetTags("ScheduleTask")
 	deleteOp.AddReqStructure(new(ScheduleTaskDeleteRequest))
 	deleteOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

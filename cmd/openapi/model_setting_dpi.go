@@ -72,6 +72,8 @@ func addSettingDpi() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingDpi")
+	getOp.SetTags("SettingDpi")
 	getOp.AddReqStructure(new(SettingDpiGetRequest))
 	getOp.AddRespStructure(new(SettingDpiResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -88,6 +90,8 @@ func addSettingDpi() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingDpi")
+	updateOp.SetTags("SettingDpi")
 	updateOp.AddReqStructure(new(SettingDpiUpdateRequest))
 	updateOp.AddRespStructure(new(SettingDpiResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

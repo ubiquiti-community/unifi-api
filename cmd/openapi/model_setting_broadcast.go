@@ -76,6 +76,8 @@ func addSettingBroadcast() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingBroadcast")
+	getOp.SetTags("SettingBroadcast")
 	getOp.AddReqStructure(new(SettingBroadcastGetRequest))
 	getOp.AddRespStructure(new(SettingBroadcastResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -92,6 +94,8 @@ func addSettingBroadcast() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingBroadcast")
+	updateOp.SetTags("SettingBroadcast")
 	updateOp.AddReqStructure(new(SettingBroadcastUpdateRequest))
 	updateOp.AddRespStructure(new(SettingBroadcastResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

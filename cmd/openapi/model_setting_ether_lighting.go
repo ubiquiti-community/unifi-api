@@ -114,6 +114,8 @@ func addSettingEtherLighting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingEtherLighting")
+	getOp.SetTags("SettingEtherLighting")
 	getOp.AddReqStructure(new(SettingEtherLightingGetRequest))
 	getOp.AddRespStructure(new(SettingEtherLightingResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -130,6 +132,8 @@ func addSettingEtherLighting() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingEtherLighting")
+	updateOp.SetTags("SettingEtherLighting")
 	updateOp.AddReqStructure(new(SettingEtherLightingUpdateRequest))
 	updateOp.AddRespStructure(new(SettingEtherLightingResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

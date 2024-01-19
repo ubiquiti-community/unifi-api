@@ -77,6 +77,8 @@ func addSettingSuperCloudaccess() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingSuperCloudaccess")
+	getOp.SetTags("SettingSuperCloudaccess")
 	getOp.AddReqStructure(new(SettingSuperCloudaccessGetRequest))
 	getOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -93,6 +95,8 @@ func addSettingSuperCloudaccess() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingSuperCloudaccess")
+	updateOp.SetTags("SettingSuperCloudaccess")
 	updateOp.AddReqStructure(new(SettingSuperCloudaccessUpdateRequest))
 	updateOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

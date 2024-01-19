@@ -87,6 +87,8 @@ func addDpiGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetDpiGroup")
+	getOp.SetTags("DpiGroup")
 	getOp.AddReqStructure(new(DpiGroupGetRequest))
 	getOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -103,6 +105,8 @@ func addDpiGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateDpiGroup")
+	updateOp.SetTags("DpiGroup")
 	updateOp.AddReqStructure(new(DpiGroupUpdateRequest))
 	updateOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -118,6 +122,8 @@ func addDpiGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListDpiGroup")
+	listOp.SetTags("DpiGroup")
 	listOp.AddReqStructure(new(DpiGroupListRequest))
 	listOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -133,6 +139,8 @@ func addDpiGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateDpiGroup")
+	createOp.SetTags("DpiGroup")
 	createOp.AddReqStructure(new(DpiGroupCreateRequest))
 	createOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -148,6 +156,8 @@ func addDpiGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteDpiGroup")
+	deleteOp.SetTags("DpiGroup")
 	deleteOp.AddReqStructure(new(DpiGroupDeleteRequest))
 	deleteOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

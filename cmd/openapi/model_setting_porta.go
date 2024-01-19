@@ -71,6 +71,8 @@ func addSettingPorta() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingPorta")
+	getOp.SetTags("SettingPorta")
 	getOp.AddReqStructure(new(SettingPortaGetRequest))
 	getOp.AddRespStructure(new(SettingPortaResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -87,6 +89,8 @@ func addSettingPorta() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingPorta")
+	updateOp.SetTags("SettingPorta")
 	updateOp.AddReqStructure(new(SettingPortaUpdateRequest))
 	updateOp.AddRespStructure(new(SettingPortaResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

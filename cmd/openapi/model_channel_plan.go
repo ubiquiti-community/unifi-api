@@ -229,6 +229,8 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetChannelPlan")
+	getOp.SetTags("ChannelPlan")
 	getOp.AddReqStructure(new(ChannelPlanGetRequest))
 	getOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -245,6 +247,8 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateChannelPlan")
+	updateOp.SetTags("ChannelPlan")
 	updateOp.AddReqStructure(new(ChannelPlanUpdateRequest))
 	updateOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -260,6 +264,8 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListChannelPlan")
+	listOp.SetTags("ChannelPlan")
 	listOp.AddReqStructure(new(ChannelPlanListRequest))
 	listOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -275,6 +281,8 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateChannelPlan")
+	createOp.SetTags("ChannelPlan")
 	createOp.AddReqStructure(new(ChannelPlanCreateRequest))
 	createOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -290,6 +298,8 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteChannelPlan")
+	deleteOp.SetTags("ChannelPlan")
 	deleteOp.AddReqStructure(new(ChannelPlanDeleteRequest))
 	deleteOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

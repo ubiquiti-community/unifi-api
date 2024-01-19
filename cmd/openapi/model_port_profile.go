@@ -148,6 +148,8 @@ func addPortProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetPortProfile")
+	getOp.SetTags("PortProfile")
 	getOp.AddReqStructure(new(PortProfileGetRequest))
 	getOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -164,6 +166,8 @@ func addPortProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdatePortProfile")
+	updateOp.SetTags("PortProfile")
 	updateOp.AddReqStructure(new(PortProfileUpdateRequest))
 	updateOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -179,6 +183,8 @@ func addPortProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListPortProfile")
+	listOp.SetTags("PortProfile")
 	listOp.AddReqStructure(new(PortProfileListRequest))
 	listOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -194,6 +200,8 @@ func addPortProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreatePortProfile")
+	createOp.SetTags("PortProfile")
 	createOp.AddReqStructure(new(PortProfileCreateRequest))
 	createOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -209,6 +217,8 @@ func addPortProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeletePortProfile")
+	deleteOp.SetTags("PortProfile")
 	deleteOp.AddReqStructure(new(PortProfileDeleteRequest))
 	deleteOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

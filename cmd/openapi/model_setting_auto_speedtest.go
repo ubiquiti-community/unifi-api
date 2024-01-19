@@ -72,6 +72,8 @@ func addSettingAutoSpeedtest() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingAutoSpeedtest")
+	getOp.SetTags("SettingAutoSpeedtest")
 	getOp.AddReqStructure(new(SettingAutoSpeedtestGetRequest))
 	getOp.AddRespStructure(new(SettingAutoSpeedtestResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -88,6 +90,8 @@ func addSettingAutoSpeedtest() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingAutoSpeedtest")
+	updateOp.SetTags("SettingAutoSpeedtest")
 	updateOp.AddReqStructure(new(SettingAutoSpeedtestUpdateRequest))
 	updateOp.AddRespStructure(new(SettingAutoSpeedtestResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

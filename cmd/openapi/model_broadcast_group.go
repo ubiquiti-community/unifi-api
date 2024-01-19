@@ -86,6 +86,8 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetBroadcastGroup")
+	getOp.SetTags("BroadcastGroup")
 	getOp.AddReqStructure(new(BroadcastGroupGetRequest))
 	getOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -102,6 +104,8 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateBroadcastGroup")
+	updateOp.SetTags("BroadcastGroup")
 	updateOp.AddReqStructure(new(BroadcastGroupUpdateRequest))
 	updateOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -117,6 +121,8 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	listOp.SetID("ListBroadcastGroup")
+	listOp.SetTags("BroadcastGroup")
 	listOp.AddReqStructure(new(BroadcastGroupListRequest))
 	listOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -132,6 +138,8 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	createOp.SetID("CreateBroadcastGroup")
+	createOp.SetTags("BroadcastGroup")
 	createOp.AddReqStructure(new(BroadcastGroupCreateRequest))
 	createOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -147,6 +155,8 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	deleteOp.SetID("DeleteBroadcastGroup")
+	deleteOp.SetTags("BroadcastGroup")
 	deleteOp.AddReqStructure(new(BroadcastGroupDeleteRequest))
 	deleteOp.AddRespStructure(new(BroadcastGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
 	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {

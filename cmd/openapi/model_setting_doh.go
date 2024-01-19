@@ -72,6 +72,8 @@ func addSettingDoh() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	getOp.SetID("GetSettingDoh")
+	getOp.SetTags("SettingDoh")
 	getOp.AddReqStructure(new(SettingDohGetRequest))
 	getOp.AddRespStructure(new(SettingDohResponse), openapi.WithHTTPStatus(http.StatusOK))
 	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
@@ -88,6 +90,8 @@ func addSettingDoh() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	updateOp.SetID("UpdateSettingDoh")
+	updateOp.SetTags("SettingDoh")
 	updateOp.AddReqStructure(new(SettingDohUpdateRequest))
 	updateOp.AddRespStructure(new(SettingDohResponse), openapi.WithHTTPStatus(http.StatusCreated))
 	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
