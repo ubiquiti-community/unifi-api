@@ -1,52 +1,53 @@
 ---
-  on:
-    workflow_dispatch: {}
-    pull_request: {}
-    push:
-      branches:
-        - main
-      tags:
-        - v*
-  
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-go@v5
-        - run: go run cmd/fields
-        - run: go generate cmd/openapi/main.go
-        - run: go run cmd/openapi
-        - uses: hatamiarash7/openapi-generator@v0.3.0
-          with:
-            generator: html
-            openapi-file: assets/openapi.yaml
-            output-dir: _site
-        - name: Fix permissions
-          run: |
-            chmod -c -R +rX "_site/" | while read line; do
-              echo "::warning title=Invalid file permissions automatically fixed::$line"
-            done
-        - name: Upload Pages artifact
-          uses: actions/upload-pages-artifact@v2
-  
-    deploy:
-      needs: build
-      runs-on: ubuntu-latest
+name: Deploy to GitHub Pages
+on:
+  workflow_dispatch: {}
+  pull_request: {}
+  push:
+    branches:
+      - main
+    tags:
+      - v*
 
-      # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-      permissions:
-        pages: write      # to deploy to Pages
-        id-token: write   # to verify the deployment originates from an appropriate source
-  
-      # Deploy to the github-pages environment
-      environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - run: go run cmd/fields
+      - run: go generate cmd/openapi/main.go
+      - run: go run cmd/openapi
+      - uses: hatamiarash7/openapi-generator@v0.3.0
+        with:
+          generator: html
+          openapi-file: assets/openapi.yaml
+          output-dir: _site
+      - name: Fix permissions
+        run: |
+          chmod -c -R +rX "_site/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
 
-      steps:
-        - name: Deploy to GitHub Pages
-          id: deployment
-          uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   
