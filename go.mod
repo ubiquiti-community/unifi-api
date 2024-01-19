@@ -2,8 +2,6 @@ module github.com/ubiquiti-community/unifi-api
 
 go 1.21
 
-toolchain go1.21.4
-
 require (
 	github.com/golangci/golangci-lint v1.55.2
 	github.com/goreleaser/goreleaser v1.21.2
