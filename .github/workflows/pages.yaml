@@ -18,11 +18,16 @@ jobs:
       - run: go run ./cmd/fields -latest
       - run: go generate ./cmd/openapi/main.go
       - run: go run ./cmd/openapi
-      - uses: hatamiarash7/openapi-generator@v0.3.0
+      - name: Generate Swagger UI
+        uses: Legion2/swagger-ui-action@v1
         with:
-          generator: html2
-          openapi-file: assets/openapi.yaml
-          output-dir: _site
+          output: _site
+          spec-file: assets/openapi.yaml
+      # - uses: hatamiarash7/openapi-generator@v0.3.0
+      #   with:
+      #     generator: html2
+      #     openapi-file: assets/openapi.yaml
+      #     output-dir: _site
       - name: Fix permissions
         run: |
           chmod -c -R +rX "_site/" | while read line; do
