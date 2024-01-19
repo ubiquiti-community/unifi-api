@@ -15,9 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-      - run: go run cmd/fields
-      - run: go generate cmd/openapi/main.go
-      - run: go run cmd/openapi
+      - run: go run ./cmd/fields -latest
+      - run: go generate ./cmd/openapi/main.go
+      - run: go run ./cmd/openapi
       - uses: hatamiarash7/openapi-generator@v0.3.0
         with:
           generator: html
