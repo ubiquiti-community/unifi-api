@@ -1,0 +1,44 @@
+---
+linters:
+  enable-all: true
+  disable:
+    - 'depguard'
+    - 'tagliatelle'
+
+    # Temporary
+    - 'cyclop'
+    - 'dupl'
+    - 'exhaustruct'
+    - 'forbidigo'
+    - 'funlen'
+    - 'gochecknoglobals'
+    - 'gocognit'
+    - 'goconst'
+    - 'gocritic'
+    - 'gocyclo'
+    - 'godox'
+    - 'goerr113'
+    - 'gomnd'
+    - 'gosec'
+    - 'lll'
+    - 'maintidx'
+    - 'nestif'
+    - 'nlreturn'
+    - 'paralleltest'
+    - 'revive'
+    - 'stylecheck'
+    - 'varnamelen'
+    - 'wrapcheck'
+    - 'wsl'
+
+    # Deprecated
+    - 'deadcode'
+    - 'exhaustivestruct'
+    - 'golint'
+    - 'ifshort'
+    - 'interfacer'
+    - 'maligned'
+    - 'nosnakecase'
+    - 'scopelint'
+    - 'structcheck'
+    - 'varcheck'

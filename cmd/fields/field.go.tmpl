@@ -1,0 +1,197 @@
+{{- $structName := .StructName }}
+
+{{ define "field" }}
+	{{ .FieldName }} {{ if .IsArray }}[]{{end}}{{ .FieldType }} `json:"{{ .JSONName }}{{ if .OmitEmpty }},omitempty{{ end }}"` {{ if .FieldValidation }}// {{ .FieldValidation }}{{ end }} {{- end }}
+{{ define "field-customUnmarshalType" }}
+	{{- if eq .CustomUnmarshalType "" }}{{else}}
+			{{ .FieldName }} {{ if .IsArray }}[]{{end}}{{ .CustomUnmarshalType }} `json:"{{ .JSONName }}"`{{ end }} {{- end }}
+{{ define "typecast" }}
+	{{- if ne .CustomUnmarshalFunc "" }}
+		dst.{{ .FieldName }}= {{ .CustomUnmarshalFunc }}(aux.{{ .FieldName }})
+	{{- else if eq .CustomUnmarshalType "" }}{{else}}
+		{{- if .IsArray }}
+		dst.{{ .FieldName }}= make([]{{ .FieldType }}, len(aux.{{ .FieldName }}))
+		for i, v := range aux.{{ .FieldName }} {
+				dst.{{ .FieldName }}[i] = {{ .FieldType }}(v)
+		}
+		{{- else }}
+		dst.{{ .FieldName }} = {{ .FieldType }}(aux.{{ .FieldName }})
+		{{- end }}{{- end }}{{- end }}
+// Code generated from ace.jar fields *.json files
+// DO NOT EDIT.
+
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/swaggest/openapi-go"
+)
+
+// just to fix compile issues with the import
+var (
+	_ context.Context
+	_ fmt.Formatter
+	_ json.Marshaler
+)
+
+{{ range $k, $v := .Types }}
+type {{ $k }} struct {
+	{{ range $fk, $fv := $v.Fields }}{{ if not $fv }}
+	{{ else }}{{- template "field" $fv }}{{ end }}{{ end }}
+}
+
+func (dst *{{ $k }}) UnmarshalJSON(b []byte) error {
+	type Alias {{ $k }}
+	aux := &struct {
+			{{- range $fk, $fv := $v.Fields }}{{ if not $fv }}
+			{{- else }}{{- template "field-customUnmarshalType" $fv }}{{ end }}{{- end }}
+
+		*Alias
+	}{
+		Alias: (*Alias)(dst),
+	}
+
+	err := json.Unmarshal(b, &aux)
+	if err != nil {
+		return fmt.Errorf("unable to unmarshal alias: %w", err)
+	}
+
+		{{- range $fk, $fv := $v.Fields }}{{ if not $fv }}
+		{{- else }}{{- template "typecast" $fv }}{{ end }}{{ end }}
+
+	return nil
+}
+{{ end }}
+
+{{- if .IsSetting }}
+type {{ .StructName }}GetRequest struct {
+	Site string `path:"site"`
+}
+
+type {{ .StructName }}UpdateRequest struct {
+	*{{ .StructName }}
+	Site string `path:"site"`
+}
+{{- else }}
+type {{ .StructName }}GetRequest struct {
+	Site string `path:"site"`
+	ID string `path:"id"`
+}
+
+type {{ .StructName }}DeleteRequest struct {
+	Site string `path:"site"`
+	ID string `path:"id"`
+}
+
+type {{ .StructName }}UpdateRequest struct {
+	*{{ .StructName }}
+	Site string `path:"site"`
+	ID string `path:"id",json:"_id,omitempty"`
+}
+
+type {{ .StructName }}ListRequest struct {
+	Site string `path:"site"`
+}
+
+type {{ .StructName }}CreateRequest struct {
+	*{{ .StructName }}
+	Site string `path:"site"`
+}
+{{- end }}
+
+type {{ .StructName }}Response struct{
+	Meta meta          `json:"meta"`
+	Data []{{ .StructName }} `json:"data"`
+}
+
+func add{{ .StructName }}() {
+	// Get
+	{{ if .IsSetting }}
+	getOp, err := reflector.NewOperationContext(http.MethodGet,  "/s/{site}/get/setting/{{ .ResourcePath }}")
+	{{- else }}
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}")
+	{{- end }}
+	if err != nil {
+		log.Fatal(err)
+	}
+	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
+	getOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
+	getOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
+		cu.IsDefault = true
+	})
+	err = reflector.AddOperation(getOp)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Update
+	{{ if .IsSetting }}
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/set/setting/{{ .ResourcePath }}")
+	{{- else }}
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{site}/rest/{{ .ResourcePath }}/{id}")
+	{{- end }}
+	if err != nil {
+		log.Fatal(err)
+	}
+	updateOp.AddReqStructure(new({{ .StructName }}UpdateRequest))
+	updateOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusCreated))
+	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
+		cu.IsDefault = true
+	})
+	err = reflector.AddOperation(updateOp)
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	{{ if not .IsSetting }}
+	// List
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{site}/{{ if eq .StructName "Device" }}stat/{{else if eq .StructName "APGroup" }}{{ else }}rest/{{ end }}{{ .ResourcePath }}")
+	if err != nil {
+		log.Fatal(err)
+	}
+	listOp.AddReqStructure(new({{ .StructName }}ListRequest))
+	listOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
+	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
+		cu.IsDefault = true
+	})
+	err = reflector.AddOperation(listOp)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Create
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{site}/rest/{{ .ResourcePath }}")
+	if err != nil {
+		log.Fatal(err)
+	}
+	createOp.AddReqStructure(new({{ .StructName }}CreateRequest))
+	createOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
+	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
+		cu.IsDefault = true
+	})
+	err = reflector.AddOperation(createOp)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Delete
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{site}/get/setting/{{ .ResourcePath }}/{id}")
+	if err != nil {
+		log.Fatal(err)
+	}
+	deleteOp.AddReqStructure(new({{ .StructName }}DeleteRequest))
+	deleteOp.AddRespStructure(new({{ .StructName }}Response), openapi.WithHTTPStatus(http.StatusOK))
+	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
+		cu.IsDefault = true
+	})
+	err = reflector.AddOperation(deleteOp)
+	if err != nil {
+		log.Fatal(err)
+	}
+	{{- end }}
+}
