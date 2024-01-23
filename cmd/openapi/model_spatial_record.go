@@ -138,10 +138,13 @@ func addSpatialRecord() {
 	}
 	updateOp.SetID("UpdateSpatialRecord")
 	updateOp.SetTags("SpatialRecord")
-	updateOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)
@@ -155,10 +158,13 @@ func addSpatialRecord() {
 	listOp.SetID("ListSpatialRecord")
 	listOp.SetTags("SpatialRecord")
 	listOp.AddReqStructure(nil)
-	listOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
-	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	listOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		listOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(listOp)
 	if err != nil {
 		log.Fatal(err)
@@ -172,10 +178,13 @@ func addSpatialRecord() {
 	createOp.SetID("CreateSpatialRecord")
 	createOp.SetTags("SpatialRecord")
 	createOp.AddReqStructure(new(SpatialRecord))
-	createOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
-	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	getOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		getOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(createOp)
 	if err != nil {
 		log.Fatal(err)
@@ -189,10 +198,13 @@ func addSpatialRecord() {
 	deleteOp.SetID("DeleteSpatialRecord")
 	deleteOp.SetTags("SpatialRecord")
 	deleteOp.AddReqStructure(new(SpatialRecordDeleteRequest))
-	deleteOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK))
-	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	deleteOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		deleteOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(deleteOp)
 	if err != nil {
 		log.Fatal(err)

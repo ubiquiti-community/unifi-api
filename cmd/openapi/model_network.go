@@ -454,10 +454,13 @@ func addNetwork() {
 	}
 	updateOp.SetID("UpdateNetwork")
 	updateOp.SetTags("Network")
-	updateOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)
@@ -471,10 +474,13 @@ func addNetwork() {
 	listOp.SetID("ListNetwork")
 	listOp.SetTags("Network")
 	listOp.AddReqStructure(nil)
-	listOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
-	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	listOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		listOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(listOp)
 	if err != nil {
 		log.Fatal(err)
@@ -488,10 +494,13 @@ func addNetwork() {
 	createOp.SetID("CreateNetwork")
 	createOp.SetTags("Network")
 	createOp.AddReqStructure(new(Network))
-	createOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
-	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	getOp.AddRespStructure(new(NetworkResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		getOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(createOp)
 	if err != nil {
 		log.Fatal(err)
@@ -505,10 +514,13 @@ func addNetwork() {
 	deleteOp.SetID("DeleteNetwork")
 	deleteOp.SetTags("Network")
 	deleteOp.AddReqStructure(new(NetworkDeleteRequest))
-	deleteOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK))
-	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	deleteOp.AddRespStructure(new(NetworkResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		deleteOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(deleteOp)
 	if err != nil {
 		log.Fatal(err)

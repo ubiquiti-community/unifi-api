@@ -94,10 +94,13 @@ func addWLANGroup() {
 	}
 	updateOp.SetID("UpdateWLANGroup")
 	updateOp.SetTags("WLANGroup")
-	updateOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)
@@ -111,10 +114,13 @@ func addWLANGroup() {
 	listOp.SetID("ListWLANGroup")
 	listOp.SetTags("WLANGroup")
 	listOp.AddReqStructure(nil)
-	listOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
-	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	listOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		listOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(listOp)
 	if err != nil {
 		log.Fatal(err)
@@ -128,10 +134,13 @@ func addWLANGroup() {
 	createOp.SetID("CreateWLANGroup")
 	createOp.SetTags("WLANGroup")
 	createOp.AddReqStructure(new(WLANGroup))
-	createOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
-	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	getOp.AddRespStructure(new(WLANGroupResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		getOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(createOp)
 	if err != nil {
 		log.Fatal(err)
@@ -145,10 +154,13 @@ func addWLANGroup() {
 	deleteOp.SetID("DeleteWLANGroup")
 	deleteOp.SetTags("WLANGroup")
 	deleteOp.AddReqStructure(new(WLANGroupDeleteRequest))
-	deleteOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK))
-	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	deleteOp.AddRespStructure(new(WLANGroupResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		deleteOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(deleteOp)
 	if err != nil {
 		log.Fatal(err)

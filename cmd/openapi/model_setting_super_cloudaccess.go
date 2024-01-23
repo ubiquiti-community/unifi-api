@@ -88,10 +88,13 @@ func addSettingSuperCloudaccess() {
 	}
 	updateOp.SetID("UpdateSettingSuperCloudaccess")
 	updateOp.SetTags("SettingSuperCloudaccess")
-	updateOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(SettingSuperCloudaccessResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)

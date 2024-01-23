@@ -95,10 +95,13 @@ func addTag() {
 	}
 	updateOp.SetID("UpdateTag")
 	updateOp.SetTags("Tag")
-	updateOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)
@@ -112,10 +115,13 @@ func addTag() {
 	listOp.SetID("ListTag")
 	listOp.SetTags("Tag")
 	listOp.AddReqStructure(nil)
-	listOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
-	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	listOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		listOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(listOp)
 	if err != nil {
 		log.Fatal(err)
@@ -129,10 +135,13 @@ func addTag() {
 	createOp.SetID("CreateTag")
 	createOp.SetTags("Tag")
 	createOp.AddReqStructure(new(Tag))
-	createOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
-	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	getOp.AddRespStructure(new(TagResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		getOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(createOp)
 	if err != nil {
 		log.Fatal(err)
@@ -146,10 +155,13 @@ func addTag() {
 	deleteOp.SetID("DeleteTag")
 	deleteOp.SetTags("Tag")
 	deleteOp.AddReqStructure(new(TagDeleteRequest))
-	deleteOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK))
-	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	deleteOp.AddRespStructure(new(TagResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		deleteOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(deleteOp)
 	if err != nil {
 		log.Fatal(err)

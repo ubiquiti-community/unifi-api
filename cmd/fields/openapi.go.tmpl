@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/swaggest/openapi-go"
-	"github.com/swaggest/openapi-go/openapi3"
+	"github.com/swaggest/openapi-go/openapi31"
 )
 
 type meta struct {
@@ -18,10 +18,10 @@ type meta struct {
 	Message string `json:"msg"`
 }
 
-var reflector = openapi3.Reflector{
-	Spec: &openapi3.Spec{
-		Openapi: "3.0.3",
-		Info: openapi3.Info{
+var reflector = openapi31.Reflector{
+	Spec: &openapi31.Spec{
+		Openapi: "3.1.0",
+		Info: openapi31.Info{
 			Title:   "Unifi API",
 			Version: UnifiVersion,
 		},
@@ -31,15 +31,32 @@ var reflector = openapi3.Reflector{
 func main() {
 	reflector.Spec.SetDescription("Unifi Controller API")
 
-	server := openapi3.Server{}
-	server.WithVariablesItem("domain", openapi3.ServerVariable{
+	server := openapi31.Server{}
+	server.WithVariablesItem("scheme", openapi31.ServerVariable{
+		Default: "https",
+		Enum: []string{
+			"http",
+			"https",
+		},
+	})
+	server.WithVariablesItem("host", openapi31.ServerVariable{
 		Default: "unifi.ui.com",
 	})
-	server.WithVariablesItem("site", openapi3.ServerVariable{
+	server.WithVariablesItem("port", openapi31.ServerVariable{
+		Default: "443",
+	})
+	server.WithVariablesItem("basepath", openapi31.ServerVariable{
+		Default: "proxy/network/api",
+		Enum: 	[]string{
+			"proxy/network/api",
+			"api",
+		},
+	})
+	server.WithVariablesItem("site", openapi31.ServerVariable{
 		Default: "default",
 	})
+	server.WithURL("{scheme}://{host}:{port}/{basepath}/s/{site}")
 	server.WithDescription("Unifi Controller API")
-	server.WithURL("https://{domain}/proxy/network/api/s/{site}")
 
 	reflector.Spec.WithServers(server)
 

@@ -106,10 +106,13 @@ func addRouting() {
 	}
 	updateOp.SetID("UpdateRouting")
 	updateOp.SetTags("Routing")
-	updateOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusCreated))
-	updateOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	updateOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		updateOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(updateOp)
 	if err != nil {
 		log.Fatal(err)
@@ -123,10 +126,13 @@ func addRouting() {
 	listOp.SetID("ListRouting")
 	listOp.SetTags("Routing")
 	listOp.AddReqStructure(nil)
-	listOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
-	listOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	listOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		listOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(listOp)
 	if err != nil {
 		log.Fatal(err)
@@ -140,10 +146,13 @@ func addRouting() {
 	createOp.SetID("CreateRouting")
 	createOp.SetTags("Routing")
 	createOp.AddReqStructure(new(Routing))
-	createOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
-	createOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	getOp.AddRespStructure(new(RoutingResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		getOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(createOp)
 	if err != nil {
 		log.Fatal(err)
@@ -157,10 +166,13 @@ func addRouting() {
 	deleteOp.SetID("DeleteRouting")
 	deleteOp.SetTags("Routing")
 	deleteOp.AddReqStructure(new(RoutingDeleteRequest))
-	deleteOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK))
-	deleteOp.AddRespStructure(ErrorResponse, func(cu *openapi.ContentUnit) {
-		cu.IsDefault = true
-	})
+
+	deleteOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
+
+	for _, status := range []int{http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound, http.StatusConflict, http.StatusTooManyRequests, http.StatusInternalServerError} {
+		deleteOp.AddRespStructure(ErrorResponse, openapi.WithContentType("application/json"), openapi.WithHTTPStatus(status))
+	}
+
 	err = reflector.AddOperation(deleteOp)
 	if err != nil {
 		log.Fatal(err)
