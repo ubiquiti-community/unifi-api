@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/go-version v1.6.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/stretchr/testify v1.8.4
-	github.com/swaggest/openapi-go v0.2.45
+	github.com/swaggest/openapi-go v0.2.46
 	github.com/ulikunitz/xz v0.5.11
 	github.com/xor-gate/ar v0.0.0-20170530204233-5c72ae81e2b7
 	golang.org/x/tools v0.17.0
@@ -330,7 +330,7 @@ require (
 	github.com/stbenjam/no-sprintf-host-port v0.1.1 // indirect
 	github.com/stretchr/objx v0.5.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/swaggest/jsonschema-go v0.3.64 // indirect
+	github.com/swaggest/jsonschema-go v0.3.66 // indirect
 	github.com/swaggest/refl v1.3.0 // indirect
 	github.com/t-yuki/gocover-cobertura v0.0.0-20180217150009-aaee18c8195c // indirect
 	github.com/tdakkota/asciicheck v0.2.0 // indirect
