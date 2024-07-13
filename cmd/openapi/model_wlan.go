@@ -64,6 +64,7 @@ type WLAN struct {
 	MinrateNgDataRateKbps       int                        `json:"minrate_ng_data_rate_kbps,omitempty"`
 	MinrateNgEnabled            bool                       `json:"minrate_ng_enabled"`
 	MinrateSettingPreference    string                     `json:"minrate_setting_preference,omitempty"` // auto|manual
+	MloEnabled                  bool                       `json:"mlo_enabled"`
 	MulticastEnhanceEnabled     bool                       `json:"mcastenhance_enabled"`
 	Name                        string                     `json:"name,omitempty"` // .{1,32}
 	NameCombineEnabled          bool                       `json:"name_combine_enabled"`

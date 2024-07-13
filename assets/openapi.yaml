@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   description: Unifi Controller API
   title: Unifi API
-  version: 8.0.26
+  version: 8.2.93
 servers:
 - description: Unifi Controller API
   url: '{scheme}://{host}:{port}/{basepath}/s/{site}'
@@ -174,6 +174,36 @@ paths:
           description: ""
       tags:
       - SettingCountry
+  /get/setting/dashboard:
+    get:
+      operationId: GetSettingDashboard
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingDashboardResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: ""
+      tags:
+      - SettingDashboard
   /get/setting/doh:
     get:
       operationId: GetSettingDoh
@@ -294,6 +324,36 @@ paths:
           description: ""
       tags:
       - SettingEtherLighting
+  /get/setting/evaluation_score:
+    get:
+      operationId: GetSettingEvaluationScore
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingEvaluationScoreResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: ""
+      tags:
+      - SettingEvaluationScore
   /get/setting/global_ap:
     get:
       operationId: GetSettingGlobalAp
@@ -324,6 +384,36 @@ paths:
           description: ""
       tags:
       - SettingGlobalAp
+  /get/setting/global_nat:
+    get:
+      operationId: GetSettingGlobalNat
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingGlobalNatResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: ""
+      tags:
+      - SettingGlobalNat
   /get/setting/global_switch:
     get:
       operationId: GetSettingGlobalSwitch
@@ -744,6 +834,36 @@ paths:
           description: ""
       tags:
       - SettingSnmp
+  /get/setting/ssl_inspection:
+    get:
+      operationId: GetSettingSslInspection
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingSslInspectionResponse'
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: ""
+      tags:
+      - SettingSslInspection
   /get/setting/super_cloudaccess:
     get:
       operationId: GetSettingSuperCloudaccess
@@ -16404,6 +16524,149 @@ paths:
           description: Created
       tags:
       - SettingCountry
+  /set/setting/dashboard:
+    put:
+      operationId: UpdateSettingDashboard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingDashboard'
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Too Many Requests
+        "500":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Internal Server Error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingDashboardResponse'
+          description: Created
+      tags:
+      - SettingDashboard
   /set/setting/doh:
     put:
       operationId: UpdateSettingDoh
@@ -16976,6 +17239,149 @@ paths:
           description: Created
       tags:
       - SettingEtherLighting
+  /set/setting/evaluation_score:
+    put:
+      operationId: UpdateSettingEvaluationScore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingEvaluationScore'
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Too Many Requests
+        "500":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Internal Server Error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingEvaluationScoreResponse'
+          description: Created
+      tags:
+      - SettingEvaluationScore
   /set/setting/global_ap:
     put:
       operationId: UpdateSettingGlobalAp
@@ -17119,6 +17525,149 @@ paths:
           description: Created
       tags:
       - SettingGlobalAp
+  /set/setting/global_nat:
+    put:
+      operationId: UpdateSettingGlobalNat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingGlobalNat'
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Too Many Requests
+        "500":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Internal Server Error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingGlobalNatResponse'
+          description: Created
+      tags:
+      - SettingGlobalNat
   /set/setting/global_switch:
     put:
       operationId: UpdateSettingGlobalSwitch
@@ -19121,6 +19670,149 @@ paths:
           description: Created
       tags:
       - SettingSnmp
+  /set/setting/ssl_inspection:
+    put:
+      operationId: UpdateSettingSslInspection
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingSslInspection'
+      responses:
+        "400":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Too Many Requests
+        "500":
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        meta:
+                          $ref: '#/components/schemas/Meta'
+                      type: object
+                    type:
+                    - array
+                    - "null"
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                type: object
+          description: Internal Server Error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingSslInspectionResponse'
+          description: Created
+      tags:
+      - SettingSslInspection
   /set/setting/super_cloudaccess:
     put:
       operationId: UpdateSettingSuperCloudaccess
@@ -21417,6 +22109,10 @@ components:
           type: array
         outlet_power_cycle_enabled:
           type: boolean
+        peer_to_peer_mode:
+          type: string
+        poe_mode:
+          type: string
         port_overrides:
           items:
             $ref: '#/components/schemas/DevicePortOverrides'
@@ -21492,6 +22188,8 @@ components:
       type: object
     DeviceEtherLighting:
       properties:
+        behavior:
+          type: string
         brightness:
           type: integer
         mode:
@@ -21533,6 +22231,8 @@ components:
           items:
             type: string
           type: array
+        fec_mode:
+          type: string
         forward:
           type: string
         full_duplex:
@@ -21573,6 +22273,8 @@ components:
           type: integer
         priority_queue4_level:
           type: integer
+        qos_profile:
+          $ref: '#/components/schemas/DeviceQOSProfile'
         setting_preference:
           type: string
         speed:
@@ -21602,6 +22304,48 @@ components:
         tagged_vlan_mgmt:
           type: string
         voice_networkconf_id:
+          type: string
+      type: object
+    DeviceQOSMarking:
+      properties:
+        cos_code:
+          type: integer
+        dscp_code:
+          type: integer
+        ip_precedence_code:
+          type: integer
+        queue:
+          type: integer
+      type: object
+    DeviceQOSMatching:
+      properties:
+        cos_code:
+          type: integer
+        dscp_code:
+          type: integer
+        dst_port:
+          type: integer
+        ip_precedence_code:
+          type: integer
+        protocol:
+          type: string
+        src_port:
+          type: integer
+      type: object
+    DeviceQOSPolicies:
+      properties:
+        qos_marking:
+          $ref: '#/components/schemas/DeviceQOSMarking'
+        qos_matching:
+          $ref: '#/components/schemas/DeviceQOSMatching'
+      type: object
+    DeviceQOSProfile:
+      properties:
+        qos_policies:
+          items:
+            $ref: '#/components/schemas/DeviceQOSPolicies'
+          type: array
+        qos_profile_mode:
           type: string
       type: object
     DeviceRadioIDentifiers:
@@ -21813,6 +22557,10 @@ components:
           type: array
         outlet_power_cycle_enabled:
           type: boolean
+        peer_to_peer_mode:
+          type: string
+        poe_mode:
+          type: string
         port_overrides:
           items:
             $ref: '#/components/schemas/DevicePortOverrides'
@@ -23251,6 +23999,8 @@ components:
           type: string
         dhcpd_boot_server:
           type: string
+        dhcpd_conflict_checking:
+          type: boolean
         dhcpd_dns_1:
           type: string
         dhcpd_dns_2:
@@ -23415,6 +24165,10 @@ components:
           type: boolean
         ipsec_separate_ikev2_networks:
           type: boolean
+        ipsec_tunnel_ip:
+          type: string
+        ipsec_tunnel_ip_enabled:
+          type: boolean
         ipv6_client_address_assignment:
           type: string
         ipv6_interface_type:
@@ -23477,6 +24231,8 @@ components:
           type: string
         openvpn_configuration_filename:
           type: string
+        openvpn_encryption_cipher:
+          type: string
         openvpn_interface:
           type: string
         openvpn_local_address:
@@ -23515,6 +24271,8 @@ components:
           items:
             type: string
           type: array
+        remote_vpn_dynamic_subnets_enabled:
+          type: boolean
         remote_vpn_subnets:
           items:
             type: string
@@ -23712,6 +24470,12 @@ components:
       properties:
         ip_address:
           type: string
+        ip_address_pool:
+          items:
+            type: string
+          type: array
+        mode:
+          type: string
         wan_network_group:
           type: string
       type: object
@@ -23748,6 +24512,8 @@ components:
           type: string
         dhcpd_boot_server:
           type: string
+        dhcpd_conflict_checking:
+          type: boolean
         dhcpd_dns_1:
           type: string
         dhcpd_dns_2:
@@ -23912,6 +24678,10 @@ components:
           type: boolean
         ipsec_separate_ikev2_networks:
           type: boolean
+        ipsec_tunnel_ip:
+          type: string
+        ipsec_tunnel_ip_enabled:
+          type: boolean
         ipv6_client_address_assignment:
           type: string
         ipv6_interface_type:
@@ -23974,6 +24744,8 @@ components:
           type: string
         openvpn_configuration_filename:
           type: string
+        openvpn_encryption_cipher:
+          type: string
         openvpn_interface:
           type: string
         openvpn_local_address:
@@ -24012,6 +24784,8 @@ components:
           items:
             type: string
           type: array
+        remote_vpn_dynamic_subnets_enabled:
+          type: boolean
         remote_vpn_subnets:
           items:
             type: string
@@ -24326,6 +25100,8 @@ components:
           items:
             type: string
           type: array
+        fec_mode:
+          type: string
         forward:
           type: string
         full_duplex:
@@ -24360,6 +25136,8 @@ components:
           type: integer
         priority_queue4_level:
           type: integer
+        qos_profile:
+          $ref: '#/components/schemas/PortProfileQOSProfile'
         setting_preference:
           type: string
         site_id:
@@ -24391,6 +25169,48 @@ components:
         tagged_vlan_mgmt:
           type: string
         voice_networkconf_id:
+          type: string
+      type: object
+    PortProfileQOSMarking:
+      properties:
+        cos_code:
+          type: integer
+        dscp_code:
+          type: integer
+        ip_precedence_code:
+          type: integer
+        queue:
+          type: integer
+      type: object
+    PortProfileQOSMatching:
+      properties:
+        cos_code:
+          type: integer
+        dscp_code:
+          type: integer
+        dst_port:
+          type: integer
+        ip_precedence_code:
+          type: integer
+        protocol:
+          type: string
+        src_port:
+          type: integer
+      type: object
+    PortProfileQOSPolicies:
+      properties:
+        qos_marking:
+          $ref: '#/components/schemas/PortProfileQOSMarking'
+        qos_matching:
+          $ref: '#/components/schemas/PortProfileQOSMatching'
+      type: object
+    PortProfileQOSProfile:
+      properties:
+        qos_policies:
+          items:
+            $ref: '#/components/schemas/PortProfileQOSPolicies'
+          type: array
+        qos_profile_mode:
           type: string
       type: object
     PortProfileResponse:
@@ -24430,6 +25250,8 @@ components:
           items:
             type: string
           type: array
+        fec_mode:
+          type: string
         forward:
           type: string
         full_duplex:
@@ -24464,6 +25286,8 @@ components:
           type: integer
         priority_queue4_level:
           type: integer
+        qos_profile:
+          $ref: '#/components/schemas/PortProfileQOSProfile'
         setting_preference:
           type: string
         site_id:
@@ -24933,6 +25757,45 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
       type: object
+    SettingDashboard:
+      properties:
+        _id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        layout_preference:
+          type: string
+        site_id:
+          type: string
+        widgets:
+          items:
+            $ref: '#/components/schemas/SettingDashboardWidgets'
+          type: array
+      type: object
+    SettingDashboardResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SettingDashboard'
+          type:
+          - array
+          - "null"
+        meta:
+          $ref: '#/components/schemas/Meta'
+      type: object
+    SettingDashboardWidgets:
+      properties:
+        name:
+          type: string
+      type: object
     SettingDoh:
       properties:
         _id:
@@ -25083,6 +25946,38 @@ components:
         raw_color_hex:
           type: string
       type: object
+    SettingEvaluationScore:
+      properties:
+        _id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        dismissed_ids:
+          items:
+            type: string
+          type: array
+        key:
+          type: string
+        site_id:
+          type: string
+      type: object
+    SettingEvaluationScoreResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SettingEvaluationScore'
+          type:
+          - array
+          - "null"
+        meta:
+          $ref: '#/components/schemas/Meta'
+      type: object
     SettingGlobalAp:
       properties:
         _id:
@@ -25133,10 +26028,52 @@ components:
         meta:
           $ref: '#/components/schemas/Meta'
       type: object
+    SettingGlobalNat:
+      properties:
+        _id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        excluded_network_ids:
+          items:
+            type: string
+          type: array
+        key:
+          type: string
+        mode:
+          type: string
+        site_id:
+          type: string
+      type: object
+    SettingGlobalNatResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SettingGlobalNat'
+          type:
+          - array
+          - "null"
+        meta:
+          $ref: '#/components/schemas/Meta'
+      type: object
     SettingGlobalSwitch:
       properties:
         _id:
           type: string
+        acl_device_isolation:
+          items:
+            type: string
+          type: array
+        acl_l3_isolation:
+          items:
+            $ref: '#/components/schemas/SettingGlobalSwitchAclL3Isolation'
+          type: array
         attr_hidden:
           type: boolean
         attr_hidden_id:
@@ -25167,6 +26104,15 @@ components:
           items:
             type: string
           type: array
+      type: object
+    SettingGlobalSwitchAclL3Isolation:
+      properties:
+        destination_networks:
+          items:
+            type: string
+          type: array
+        source_network:
+          type: string
       type: object
     SettingGlobalSwitchResponse:
       properties:
@@ -25851,6 +26797,10 @@ components:
           type: boolean
         auto_adjust_channels_to_country:
           type: boolean
+        channels_6e:
+          items:
+            type: integer
+          type: array
         channels_na:
           items:
             type: integer
@@ -26027,6 +26977,36 @@ components:
         data:
           items:
             $ref: '#/components/schemas/SettingSnmp'
+          type:
+          - array
+          - "null"
+        meta:
+          $ref: '#/components/schemas/Meta'
+      type: object
+    SettingSslInspection:
+      properties:
+        _id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        site_id:
+          type: string
+        state:
+          type: string
+      type: object
+    SettingSslInspectionResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SettingSslInspection'
           type:
           - array
           - "null"
@@ -27056,6 +28036,8 @@ components:
           type: boolean
         minrate_setting_preference:
           type: string
+        mlo_enabled:
+          type: boolean
         name:
           type: string
         name_combine_enabled:
@@ -27356,6 +28338,8 @@ components:
           type: boolean
         minrate_setting_preference:
           type: string
+        mlo_enabled:
+          type: boolean
         name:
           type: string
         name_combine_enabled:
