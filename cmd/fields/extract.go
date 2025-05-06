@@ -54,7 +54,7 @@ func downloadJar(url *url.URL, outputDir string) (string, error) {
 		}
 	}
 	if uncompressedReader == nil {
-		return "", fmt.Errorf("unable to find .deb data file")
+		return "", errors.New("unable to find .deb data file")
 	}
 
 	tarReader := tar.NewReader(uncompressedReader)
@@ -86,7 +86,7 @@ func downloadJar(url *url.URL, outputDir string) (string, error) {
 	}
 
 	if aceJar == nil {
-		return "", fmt.Errorf("unable to find ace.jar")
+		return "", errors.New("unable to find ace.jar")
 	}
 
 	defer aceJar.Close()
@@ -139,7 +139,7 @@ func extractJSON(jarFile, fieldsDir string) error {
 		return fmt.Errorf("unable to open settings file: %w", err)
 	}
 
-	var settings map[string]interface{}
+	var settings map[string]any
 	err = json.Unmarshal(settingsData, &settings)
 	if err != nil {
 		return fmt.Errorf("unable to unmarshal settings: %w", err)
@@ -153,7 +153,7 @@ func extractJSON(jarFile, fieldsDir string) error {
 			return fmt.Errorf("unable to marshal setting %q: %w", k, err)
 		}
 
-		err = os.WriteFile(filepath.Join(fieldsDir, fileName), data, 0o755)
+		err = os.WriteFile(filepath.Join(fieldsDir, fileName), data, DIR_PERM)
 		if err != nil {
 			return fmt.Errorf("unable to write new settings file: %w", err)
 		}

@@ -2,4 +2,4 @@
 
 package main
 
-const UnifiVersion = "8.2.93"
+const UnifiVersion = "9.1.120"

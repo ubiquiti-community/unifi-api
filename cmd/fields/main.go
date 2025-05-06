@@ -22,6 +22,11 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+const (
+	WRITE_FILE_PERM = 0o644
+	DIR_PERM        = 0o755
+)
+
 type replacement struct {
 	Old string
 	New string
@@ -247,7 +252,7 @@ func main() {
 			panic(err)
 		}
 
-		err = os.MkdirAll(fieldsDir, 0o755)
+		err = os.MkdirAll(fieldsDir, DIR_PERM)
 		if err != nil {
 			panic(err)
 		}
@@ -282,7 +287,7 @@ func main() {
 		panic(err)
 	}
 
-	var structs []string
+	var structs []string = []string{}
 
 	for _, fieldsFile := range fieldsFiles {
 		name := fieldsFile.Name()
@@ -436,7 +441,7 @@ func main() {
 		}
 
 		_ = os.Remove(filepath.Join(outDir, goFile))
-		if err = os.WriteFile(filepath.Join(outDir, goFile), ([]byte)(code), 0o644); err != nil {
+		if err = os.WriteFile(filepath.Join(outDir, goFile), ([]byte)(code), WRITE_FILE_PERM); err != nil {
 			panic(err)
 		}
 
@@ -451,7 +456,7 @@ func main() {
 	}
 
 	_ = os.Remove(openApiFile)
-	if err := os.WriteFile(openApiFile, ([]byte)(oapiData), 0o644); err != nil {
+	if err := os.WriteFile(openApiFile, ([]byte)(oapiData), WRITE_FILE_PERM); err != nil {
 		panic(err)
 	}
 
@@ -469,14 +474,14 @@ const UnifiVersion = %q
 		panic(err)
 	}
 
-	if err := os.WriteFile(filepath.Join(outDir, "version.generated.go"), versionGo, 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(outDir, "version.generated.go"), versionGo, WRITE_FILE_PERM); err != nil {
 		panic(err)
 	}
 
 	fmt.Printf("%s\n", outDir)
 }
 
-var funcMap = map[string]interface{}{"list": func(args ...interface{}) []interface{} {
+var funcMap = map[string]any{"list": func(args ...any) []any {
 	return args
 }}
 
@@ -484,7 +489,7 @@ func (r *Resource) IsSetting() bool {
 	return strings.HasPrefix(r.StructName, "Setting")
 }
 
-func (r *Resource) processFields(fields map[string]interface{}) {
+func (r *Resource) processFields(fields map[string]any) {
 	t := r.Types[r.StructName]
 	for name, validation := range fields {
 		fieldInfo, err := r.fieldInfoFromValidation(name, validation)
@@ -496,7 +501,7 @@ func (r *Resource) processFields(fields map[string]interface{}) {
 	}
 }
 
-func (r *Resource) fieldInfoFromValidation(name string, validation interface{}) (*FieldInfo, error) {
+func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldInfo, error) {
 	fieldName := strcase.ToCamel(name)
 	fieldName = cleanName(fieldName, fieldReps)
 
@@ -504,7 +509,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation interface{}) 
 	var fieldInfo *FieldInfo
 
 	switch validation := validation.(type) {
-	case []interface{}:
+	case []any:
 		if len(validation) == 0 {
 			fieldInfo = NewFieldInfo(fieldName, name, "string", "", false, true, "")
 			err := r.FieldProcessor(fieldName, fieldInfo)
@@ -525,7 +530,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation interface{}) 
 		err = r.FieldProcessor(fieldName, fieldInfo)
 		return fieldInfo, err
 
-	case map[string]interface{}:
+	case map[string]any:
 		typeName := r.StructName + fieldName
 
 		result := NewFieldInfo(fieldName, name, typeName, "", true, false, "")
@@ -589,7 +594,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation interface{}) 
 }
 
 func (r *Resource) processJSON(b []byte) error {
-	var fields map[string]interface{}
+	var fields map[string]any
 	err := json.Unmarshal(b, &fields)
 	if err != nil {
 		return err
@@ -635,7 +640,7 @@ func generateOpenApi(stubs *[]string) (string, error) {
 
 	tpl := template.Must(template.New("openapi.go.tmpl").Parse(openapiTemplate))
 
-	err = tpl.Execute(writer, map[string]interface{}{
+	err = tpl.Execute(writer, map[string]any{
 		"Structs": stubs,
 	})
 	if err != nil {

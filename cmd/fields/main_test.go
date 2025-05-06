@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	assert "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestFieldInfoFromValidation(t *testing.T) {
@@ -12,7 +13,7 @@ func TestFieldInfoFromValidation(t *testing.T) {
 		expectedType      string
 		expectedComment   string
 		expectedOmitEmpty bool
-		validation        interface{}
+		validation        any
 	}{
 		{"string", "", true, ""},
 		{"string", "default|custom", true, "default|custom"},
@@ -151,7 +152,7 @@ func TestResourceTypes(t *testing.T) {
 
 		err := resource.processJSON(([]byte)(testData))
 
-		assert.Empty(t, err, "No error processing JSON")
+		require.NoError(t, err, "No error processing JSON")
 		assert.Equal(t, expectation.StructName, resource.StructName)
 		assert.Equal(t, expectation.ResourcePath, resource.ResourcePath)
 		assert.Equal(t, expectation.Types, resource.Types)

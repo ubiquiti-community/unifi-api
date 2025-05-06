@@ -3,6 +3,7 @@
 
 # goreleaser
 /dist/
+.DS_Store
 
 assets/v*
 

@@ -54,7 +54,7 @@ func (l firmwareUpdateApiResponseEmbeddedFirmwareDataLink) MarshalJSON() ([]byte
 }
 
 func (l *firmwareUpdateApiResponseEmbeddedFirmwareDataLink) UnmarshalJSON(j []byte) error {
-	var m map[string]interface{}
+	var m map[string]any
 
 	err := json.Unmarshal(j, &m)
 	if err != nil {
@@ -62,7 +62,11 @@ func (l *firmwareUpdateApiResponseEmbeddedFirmwareDataLink) UnmarshalJSON(j []by
 	}
 
 	if href := m["href"]; href != nil {
-		url, err := url.Parse(href.(string))
+		shref, ok := href.(string)
+		if !ok {
+			return fmt.Errorf("expected href to be a string, got %T", href)
+		}
+		url, err := url.Parse(shref)
 		if err != nil {
 			return err
 		}
