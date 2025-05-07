@@ -50,6 +50,11 @@ func (dst *SettingPorta) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingPortaUpdateRequest struct {
+	*SettingPorta
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingPortaResponse struct {
 	Meta meta           `json:"meta"`
 	Data []SettingPorta `json:"data"`
@@ -58,7 +63,8 @@ type SettingPortaResponse struct {
 func addSettingPorta() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/porta")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/porta")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,13 +81,13 @@ func addSettingPorta() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/porta")
-	updateOp.AddReqStructure(new(SettingPorta))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/porta")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingPorta")
 	updateOp.SetTags("SettingPorta")
+	updateOp.AddReqStructure(new(SettingPortaUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingPortaResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

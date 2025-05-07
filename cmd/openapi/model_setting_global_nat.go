@@ -51,6 +51,11 @@ func (dst *SettingGlobalNat) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingGlobalNatUpdateRequest struct {
+	*SettingGlobalNat
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingGlobalNatResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingGlobalNat `json:"data"`
@@ -59,7 +64,8 @@ type SettingGlobalNatResponse struct {
 func addSettingGlobalNat() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/global_nat")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/global_nat")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,13 +82,13 @@ func addSettingGlobalNat() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/global_nat")
-	updateOp.AddReqStructure(new(SettingGlobalNat))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/global_nat")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingGlobalNat")
 	updateOp.SetTags("SettingGlobalNat")
+	updateOp.AddReqStructure(new(SettingGlobalNatUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingGlobalNatResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

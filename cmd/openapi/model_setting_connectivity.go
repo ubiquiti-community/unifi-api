@@ -55,6 +55,11 @@ func (dst *SettingConnectivity) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingConnectivityUpdateRequest struct {
+	*SettingConnectivity
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingConnectivityResponse struct {
 	Meta meta                  `json:"meta"`
 	Data []SettingConnectivity `json:"data"`
@@ -63,7 +68,8 @@ type SettingConnectivityResponse struct {
 func addSettingConnectivity() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/connectivity")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/connectivity")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,13 +86,13 @@ func addSettingConnectivity() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/connectivity")
-	updateOp.AddReqStructure(new(SettingConnectivity))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/connectivity")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingConnectivity")
 	updateOp.SetTags("SettingConnectivity")
+	updateOp.AddReqStructure(new(SettingConnectivityUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingConnectivityResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

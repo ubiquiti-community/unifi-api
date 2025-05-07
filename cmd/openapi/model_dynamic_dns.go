@@ -56,16 +56,28 @@ func (dst *DynamicDNS) UnmarshalJSON(b []byte) error {
 }
 
 type DynamicDNSGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type DynamicDNSListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type DynamicDNSCreateRequest struct {
+	*DynamicDNS
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type DynamicDNSDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type DynamicDNSUpdateRequest struct {
 	*DynamicDNS
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type DynamicDNSResponse struct {
@@ -76,7 +88,7 @@ type DynamicDNSResponse struct {
 func addDynamicDNS() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dynamicdns/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dynamicdns/{id}")
 	getOp.AddReqStructure(new(DynamicDNSGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -94,13 +106,13 @@ func addDynamicDNS() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/dynamicdns/{id}")
-	updateOp.AddReqStructure(new(DynamicDNSUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/dynamicdns/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDynamicDNS")
 	updateOp.SetTags("DynamicDNS")
+	updateOp.AddReqStructure(new(DynamicDNSUpdateRequest))
 
 	updateOp.AddRespStructure(new(DynamicDNSResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -114,13 +126,13 @@ func addDynamicDNS() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dynamicdns")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dynamicdns")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDynamicDNS")
 	listOp.SetTags("DynamicDNS")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(DynamicDNSListRequest))
 
 	listOp.AddRespStructure(new(DynamicDNSResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -134,13 +146,13 @@ func addDynamicDNS() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/dynamicdns")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/dynamicdns")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDynamicDNS")
 	createOp.SetTags("DynamicDNS")
-	createOp.AddReqStructure(new(DynamicDNS))
+	createOp.AddReqStructure(new(DynamicDNSCreateRequest))
 
 	getOp.AddRespStructure(new(DynamicDNSResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -154,7 +166,7 @@ func addDynamicDNS() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/dynamicdns/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/dynamicdns/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

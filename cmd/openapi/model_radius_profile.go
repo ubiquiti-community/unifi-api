@@ -139,16 +139,28 @@ func (dst *RADIUSProfileXCaCrts) UnmarshalJSON(b []byte) error {
 }
 
 type RADIUSProfileGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type RADIUSProfileListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type RADIUSProfileCreateRequest struct {
+	*RADIUSProfile
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type RADIUSProfileDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type RADIUSProfileUpdateRequest struct {
 	*RADIUSProfile
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type RADIUSProfileResponse struct {
@@ -159,7 +171,7 @@ type RADIUSProfileResponse struct {
 func addRADIUSProfile() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/radiusprofile/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/radiusprofile/{id}")
 	getOp.AddReqStructure(new(RADIUSProfileGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -177,13 +189,13 @@ func addRADIUSProfile() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/radiusprofile/{id}")
-	updateOp.AddReqStructure(new(RADIUSProfileUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/radiusprofile/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateRADIUSProfile")
 	updateOp.SetTags("RADIUSProfile")
+	updateOp.AddReqStructure(new(RADIUSProfileUpdateRequest))
 
 	updateOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -197,13 +209,13 @@ func addRADIUSProfile() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/radiusprofile")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/radiusprofile")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListRADIUSProfile")
 	listOp.SetTags("RADIUSProfile")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(RADIUSProfileListRequest))
 
 	listOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -217,13 +229,13 @@ func addRADIUSProfile() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/radiusprofile")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/radiusprofile")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateRADIUSProfile")
 	createOp.SetTags("RADIUSProfile")
-	createOp.AddReqStructure(new(RADIUSProfile))
+	createOp.AddReqStructure(new(RADIUSProfileCreateRequest))
 
 	getOp.AddRespStructure(new(RADIUSProfileResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -237,7 +249,7 @@ func addRADIUSProfile() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/radiusprofile/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/radiusprofile/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

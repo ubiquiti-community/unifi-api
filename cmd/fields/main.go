@@ -257,6 +257,8 @@ func main() {
 			panic(err)
 		}
 
+		defer os.RemoveAll(fieldsDir)
+
 		// download fields, create
 		jarFile, err := downloadJar(unifiDownloadUrl, fieldsDir)
 		if err != nil {
@@ -461,13 +463,13 @@ func main() {
 	}
 
 	// Write version file.
-	versionGo := []byte(fmt.Sprintf(`
+	versionGo := fmt.Appendf(nil, `
 // Generated code. DO NOT EDIT.
 
 package main
 
 const UnifiVersion = %q
-`, unifiVersion))
+`, unifiVersion)
 
 	versionGo, err = format.Source(versionGo)
 	if err != nil {

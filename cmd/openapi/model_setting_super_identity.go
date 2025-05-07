@@ -51,6 +51,11 @@ func (dst *SettingSuperIdentity) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingSuperIdentityUpdateRequest struct {
+	*SettingSuperIdentity
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingSuperIdentityResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingSuperIdentity `json:"data"`
@@ -59,7 +64,8 @@ type SettingSuperIdentityResponse struct {
 func addSettingSuperIdentity() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_identity")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/super_identity")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -76,13 +82,13 @@ func addSettingSuperIdentity() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_identity")
-	updateOp.AddReqStructure(new(SettingSuperIdentity))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/super_identity")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperIdentity")
 	updateOp.SetTags("SettingSuperIdentity")
+	updateOp.AddReqStructure(new(SettingSuperIdentityUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingSuperIdentityResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

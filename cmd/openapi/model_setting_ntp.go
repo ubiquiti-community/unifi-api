@@ -54,6 +54,11 @@ func (dst *SettingNtp) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingNtpUpdateRequest struct {
+	*SettingNtp
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingNtpResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingNtp `json:"data"`
@@ -62,7 +67,8 @@ type SettingNtpResponse struct {
 func addSettingNtp() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ntp")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/ntp")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -79,13 +85,13 @@ func addSettingNtp() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ntp")
-	updateOp.AddReqStructure(new(SettingNtp))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/ntp")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingNtp")
 	updateOp.SetTags("SettingNtp")
+	updateOp.AddReqStructure(new(SettingNtpUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingNtpResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

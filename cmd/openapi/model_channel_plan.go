@@ -193,16 +193,28 @@ func (dst *ChannelPlanSiteBlacklistedChannels) UnmarshalJSON(b []byte) error {
 }
 
 type ChannelPlanGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type ChannelPlanListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type ChannelPlanCreateRequest struct {
+	*ChannelPlan
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type ChannelPlanDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type ChannelPlanUpdateRequest struct {
 	*ChannelPlan
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type ChannelPlanResponse struct {
@@ -213,7 +225,7 @@ type ChannelPlanResponse struct {
 func addChannelPlan() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/channelplan/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/channelplan/{id}")
 	getOp.AddReqStructure(new(ChannelPlanGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -231,13 +243,13 @@ func addChannelPlan() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/channelplan/{id}")
-	updateOp.AddReqStructure(new(ChannelPlanUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/channelplan/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateChannelPlan")
 	updateOp.SetTags("ChannelPlan")
+	updateOp.AddReqStructure(new(ChannelPlanUpdateRequest))
 
 	updateOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -251,13 +263,13 @@ func addChannelPlan() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/channelplan")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/channelplan")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListChannelPlan")
 	listOp.SetTags("ChannelPlan")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(ChannelPlanListRequest))
 
 	listOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -271,13 +283,13 @@ func addChannelPlan() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/channelplan")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/channelplan")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateChannelPlan")
 	createOp.SetTags("ChannelPlan")
-	createOp.AddReqStructure(new(ChannelPlan))
+	createOp.AddReqStructure(new(ChannelPlanCreateRequest))
 
 	getOp.AddRespStructure(new(ChannelPlanResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -291,7 +303,7 @@ func addChannelPlan() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/channelplan/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/channelplan/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -13,6 +13,10 @@ import (
 	"github.com/swaggest/openapi-go/openapi31"
 )
 
+type SiteRequest struct {
+	SiteID string `path:"siteId"`
+}
+
 type meta struct {
 	RC      string `json:"rc"`
 	Message string `json:"msg"`
@@ -28,39 +32,31 @@ var reflector = openapi31.Reflector{
 	},
 }
 
-func main() {
-	reflector.Spec.SetDescription("Unifi Controller API")
-
+func getServer() openapi31.Server {
 	server := openapi31.Server{}
-	server.WithVariablesItem("scheme", openapi31.ServerVariable{
-		Default: "https",
-		Enum: []string{
-			"http",
-			"https",
-		},
-	})
 	server.WithVariablesItem("host", openapi31.ServerVariable{
 		Default: "unifi.ui.com",
 	})
 	server.WithVariablesItem("port", openapi31.ServerVariable{
-		Default: "443",
+		Default: "4443",
 	})
-	server.WithVariablesItem("basepath", openapi31.ServerVariable{
-		Default: "proxy/network/api",
-		Enum: []string{
-			"proxy/network/api",
-			"api",
-		},
-	})
-	server.WithVariablesItem("site", openapi31.ServerVariable{
-		Default: "default",
-	})
-	server.WithURL("{scheme}://{host}:{port}/{basepath}/s/{site}")
 	server.WithDescription("Unifi Controller API")
 
-	reflector.Spec.WithServers(server)
+	return server
+}
 
-	reflector.Spec.SetAPIKeySecurity("cookieAuth", "X-CSRF-TOKEN", openapi.InHeader, "X-CSRF-TOKEN")
+func main() {
+	reflector.Spec.SetDescription("Unifi Controller API")
+
+	server1 := getServer()
+	server1.WithURL("https://{host}:{port}/proxy/network/api")
+
+	server2 := getServer()
+	server2.WithURL("https://{host}:{port}/api")
+
+	reflector.Spec.WithServers(server1, server2)
+
+	reflector.Spec.SetAPIKeySecurity("apiKeyAuth", "X-API-KEY", openapi.InHeader, "X-API-KEY")
 
 	addOperations()
 
@@ -76,8 +72,8 @@ func main() {
 
 var PathMappings = map[string]map[string]string{
 	"Id": {
-		"site": "Site",
-		"id":   "_id",
+		"siteId": "SiteID",
+		"id":     "_id",
 	},
 	"Site": {},
 }
@@ -246,7 +242,7 @@ func (e *booleanishString) UnmarshalJSON(b []byte) error {
 		*e = booleanishString(false)
 		return nil
 	}
-	return errors.New("Could not unmarshal JSON value.")
+	return errors.New("could not unmarshal JSON value.")
 }
 
 //go:generate go run golang.org/x/tools/cmd/stringer -trimprefix DeviceState -type DeviceState

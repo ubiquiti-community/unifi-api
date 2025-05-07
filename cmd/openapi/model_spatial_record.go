@@ -93,16 +93,28 @@ func (dst *SpatialRecordPosition) UnmarshalJSON(b []byte) error {
 }
 
 type SpatialRecordGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type SpatialRecordListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type SpatialRecordCreateRequest struct {
+	*SpatialRecord
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type SpatialRecordDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type SpatialRecordUpdateRequest struct {
 	*SpatialRecord
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type SpatialRecordResponse struct {
@@ -113,7 +125,7 @@ type SpatialRecordResponse struct {
 func addSpatialRecord() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/spatialrecord/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/spatialrecord/{id}")
 	getOp.AddReqStructure(new(SpatialRecordGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -131,13 +143,13 @@ func addSpatialRecord() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/spatialrecord/{id}")
-	updateOp.AddReqStructure(new(SpatialRecordUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/spatialrecord/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSpatialRecord")
 	updateOp.SetTags("SpatialRecord")
+	updateOp.AddReqStructure(new(SpatialRecordUpdateRequest))
 
 	updateOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -151,13 +163,13 @@ func addSpatialRecord() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/spatialrecord")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/spatialrecord")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListSpatialRecord")
 	listOp.SetTags("SpatialRecord")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(SpatialRecordListRequest))
 
 	listOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -171,13 +183,13 @@ func addSpatialRecord() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/spatialrecord")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/spatialrecord")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateSpatialRecord")
 	createOp.SetTags("SpatialRecord")
-	createOp.AddReqStructure(new(SpatialRecord))
+	createOp.AddReqStructure(new(SpatialRecordCreateRequest))
 
 	getOp.AddRespStructure(new(SpatialRecordResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -191,7 +203,7 @@ func addSpatialRecord() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/spatialrecord/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/spatialrecord/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

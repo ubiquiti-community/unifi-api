@@ -53,6 +53,11 @@ func (dst *SettingCountry) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingCountryUpdateRequest struct {
+	*SettingCountry
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingCountryResponse struct {
 	Meta meta             `json:"meta"`
 	Data []SettingCountry `json:"data"`
@@ -61,7 +66,8 @@ type SettingCountryResponse struct {
 func addSettingCountry() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/country")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/country")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -78,13 +84,13 @@ func addSettingCountry() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/country")
-	updateOp.AddReqStructure(new(SettingCountry))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/country")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingCountry")
 	updateOp.SetTags("SettingCountry")
+	updateOp.AddReqStructure(new(SettingCountryUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingCountryResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

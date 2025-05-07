@@ -53,6 +53,11 @@ func (dst *SettingTrafficFlow) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingTrafficFlowUpdateRequest struct {
+	*SettingTrafficFlow
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingTrafficFlowResponse struct {
 	Meta meta                 `json:"meta"`
 	Data []SettingTrafficFlow `json:"data"`
@@ -61,7 +66,8 @@ type SettingTrafficFlowResponse struct {
 func addSettingTrafficFlow() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/traffic_flow")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/traffic_flow")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -78,13 +84,13 @@ func addSettingTrafficFlow() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/traffic_flow")
-	updateOp.AddReqStructure(new(SettingTrafficFlow))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/traffic_flow")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingTrafficFlow")
 	updateOp.SetTags("SettingTrafficFlow")
+	updateOp.AddReqStructure(new(SettingTrafficFlowUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingTrafficFlowResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

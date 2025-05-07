@@ -64,6 +64,11 @@ func (dst *SettingRadius) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingRadiusUpdateRequest struct {
+	*SettingRadius
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingRadiusResponse struct {
 	Meta meta            `json:"meta"`
 	Data []SettingRadius `json:"data"`
@@ -72,7 +77,8 @@ type SettingRadiusResponse struct {
 func addSettingRadius() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/radius")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/radius")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -89,13 +95,13 @@ func addSettingRadius() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/radius")
-	updateOp.AddReqStructure(new(SettingRadius))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/radius")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingRadius")
 	updateOp.SetTags("SettingRadius")
+	updateOp.AddReqStructure(new(SettingRadiusUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingRadiusResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

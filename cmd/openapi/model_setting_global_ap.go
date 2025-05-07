@@ -72,6 +72,11 @@ func (dst *SettingGlobalAp) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingGlobalApUpdateRequest struct {
+	*SettingGlobalAp
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingGlobalApResponse struct {
 	Meta meta              `json:"meta"`
 	Data []SettingGlobalAp `json:"data"`
@@ -80,7 +85,8 @@ type SettingGlobalApResponse struct {
 func addSettingGlobalAp() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/global_ap")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/global_ap")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,13 +103,13 @@ func addSettingGlobalAp() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/global_ap")
-	updateOp.AddReqStructure(new(SettingGlobalAp))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/global_ap")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingGlobalAp")
 	updateOp.SetTags("SettingGlobalAp")
+	updateOp.AddReqStructure(new(SettingGlobalApUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingGlobalApResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

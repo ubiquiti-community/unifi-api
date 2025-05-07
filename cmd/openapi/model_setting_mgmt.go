@@ -97,6 +97,11 @@ func (dst *SettingMgmtXSshKeys) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingMgmtUpdateRequest struct {
+	*SettingMgmt
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingMgmtResponse struct {
 	Meta meta          `json:"meta"`
 	Data []SettingMgmt `json:"data"`
@@ -105,7 +110,8 @@ type SettingMgmtResponse struct {
 func addSettingMgmt() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/mgmt")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/mgmt")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -122,13 +128,13 @@ func addSettingMgmt() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/mgmt")
-	updateOp.AddReqStructure(new(SettingMgmt))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/mgmt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingMgmt")
 	updateOp.SetTags("SettingMgmt")
+	updateOp.AddReqStructure(new(SettingMgmtUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingMgmtResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

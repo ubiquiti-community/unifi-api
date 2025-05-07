@@ -162,6 +162,11 @@ func (dst *SettingUsgDNSVerification) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingUsgUpdateRequest struct {
+	*SettingUsg
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingUsgResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingUsg `json:"data"`
@@ -170,7 +175,8 @@ type SettingUsgResponse struct {
 func addSettingUsg() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/usg")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/usg")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -187,13 +193,13 @@ func addSettingUsg() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/usg")
-	updateOp.AddReqStructure(new(SettingUsg))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/usg")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingUsg")
 	updateOp.SetTags("SettingUsg")
+	updateOp.AddReqStructure(new(SettingUsgUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingUsgResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

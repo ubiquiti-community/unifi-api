@@ -55,6 +55,11 @@ func (dst *SettingBroadcast) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingBroadcastUpdateRequest struct {
+	*SettingBroadcast
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingBroadcastResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingBroadcast `json:"data"`
@@ -63,7 +68,8 @@ type SettingBroadcastResponse struct {
 func addSettingBroadcast() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/broadcast")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/broadcast")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -80,13 +86,13 @@ func addSettingBroadcast() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/broadcast")
-	updateOp.AddReqStructure(new(SettingBroadcast))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/broadcast")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingBroadcast")
 	updateOp.SetTags("SettingBroadcast")
+	updateOp.AddReqStructure(new(SettingBroadcastUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingBroadcastResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

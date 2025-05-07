@@ -72,6 +72,11 @@ func (dst *SettingDashboardWidgets) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingDashboardUpdateRequest struct {
+	*SettingDashboard
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingDashboardResponse struct {
 	Meta meta               `json:"meta"`
 	Data []SettingDashboard `json:"data"`
@@ -80,7 +85,8 @@ type SettingDashboardResponse struct {
 func addSettingDashboard() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/dashboard")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/dashboard")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,13 +103,13 @@ func addSettingDashboard() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/dashboard")
-	updateOp.AddReqStructure(new(SettingDashboard))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/dashboard")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingDashboard")
 	updateOp.SetTags("SettingDashboard")
+	updateOp.AddReqStructure(new(SettingDashboardUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingDashboardResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

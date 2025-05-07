@@ -51,16 +51,28 @@ func (dst *FirewallGroup) UnmarshalJSON(b []byte) error {
 }
 
 type FirewallGroupGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type FirewallGroupListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type FirewallGroupCreateRequest struct {
+	*FirewallGroup
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type FirewallGroupDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type FirewallGroupUpdateRequest struct {
 	*FirewallGroup
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type FirewallGroupResponse struct {
@@ -71,7 +83,7 @@ type FirewallGroupResponse struct {
 func addFirewallGroup() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/firewallgroup/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/firewallgroup/{id}")
 	getOp.AddReqStructure(new(FirewallGroupGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -89,13 +101,13 @@ func addFirewallGroup() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/firewallgroup/{id}")
-	updateOp.AddReqStructure(new(FirewallGroupUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/firewallgroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateFirewallGroup")
 	updateOp.SetTags("FirewallGroup")
+	updateOp.AddReqStructure(new(FirewallGroupUpdateRequest))
 
 	updateOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -109,13 +121,13 @@ func addFirewallGroup() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/firewallgroup")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/firewallgroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListFirewallGroup")
 	listOp.SetTags("FirewallGroup")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(FirewallGroupListRequest))
 
 	listOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -129,13 +141,13 @@ func addFirewallGroup() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/firewallgroup")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/firewallgroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateFirewallGroup")
 	createOp.SetTags("FirewallGroup")
-	createOp.AddReqStructure(new(FirewallGroup))
+	createOp.AddReqStructure(new(FirewallGroupCreateRequest))
 
 	getOp.AddRespStructure(new(FirewallGroupResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -149,7 +161,7 @@ func addFirewallGroup() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/firewallgroup/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/firewallgroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

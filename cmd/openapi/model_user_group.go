@@ -56,16 +56,28 @@ func (dst *UserGroup) UnmarshalJSON(b []byte) error {
 }
 
 type UserGroupGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type UserGroupListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type UserGroupCreateRequest struct {
+	*UserGroup
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type UserGroupDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type UserGroupUpdateRequest struct {
 	*UserGroup
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type UserGroupResponse struct {
@@ -76,7 +88,7 @@ type UserGroupResponse struct {
 func addUserGroup() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/usergroup/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/usergroup/{id}")
 	getOp.AddReqStructure(new(UserGroupGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -94,13 +106,13 @@ func addUserGroup() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/usergroup/{id}")
-	updateOp.AddReqStructure(new(UserGroupUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/usergroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateUserGroup")
 	updateOp.SetTags("UserGroup")
+	updateOp.AddReqStructure(new(UserGroupUpdateRequest))
 
 	updateOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -114,13 +126,13 @@ func addUserGroup() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/usergroup")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/usergroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListUserGroup")
 	listOp.SetTags("UserGroup")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(UserGroupListRequest))
 
 	listOp.AddRespStructure(new(UserGroupResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -134,13 +146,13 @@ func addUserGroup() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/usergroup")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/usergroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateUserGroup")
 	createOp.SetTags("UserGroup")
-	createOp.AddReqStructure(new(UserGroup))
+	createOp.AddReqStructure(new(UserGroupCreateRequest))
 
 	getOp.AddRespStructure(new(UserGroupResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -154,7 +166,7 @@ func addUserGroup() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/usergroup/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/usergroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

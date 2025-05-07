@@ -226,6 +226,11 @@ func (dst *SettingIpsWhitelist) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingIpsUpdateRequest struct {
+	*SettingIps
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingIpsResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingIps `json:"data"`
@@ -234,7 +239,8 @@ type SettingIpsResponse struct {
 func addSettingIps() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ips")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/ips")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -251,13 +257,13 @@ func addSettingIps() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ips")
-	updateOp.AddReqStructure(new(SettingIps))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/ips")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingIps")
 	updateOp.SetTags("SettingIps")
+	updateOp.AddReqStructure(new(SettingIpsUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingIpsResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

@@ -54,16 +54,28 @@ func (dst *VirtualDevice) UnmarshalJSON(b []byte) error {
 }
 
 type VirtualDeviceGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type VirtualDeviceListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type VirtualDeviceCreateRequest struct {
+	*VirtualDevice
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type VirtualDeviceDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type VirtualDeviceUpdateRequest struct {
 	*VirtualDevice
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type VirtualDeviceResponse struct {
@@ -74,7 +86,7 @@ type VirtualDeviceResponse struct {
 func addVirtualDevice() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/virtualdevice/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/virtualdevice/{id}")
 	getOp.AddReqStructure(new(VirtualDeviceGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -92,13 +104,13 @@ func addVirtualDevice() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/virtualdevice/{id}")
-	updateOp.AddReqStructure(new(VirtualDeviceUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/virtualdevice/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateVirtualDevice")
 	updateOp.SetTags("VirtualDevice")
+	updateOp.AddReqStructure(new(VirtualDeviceUpdateRequest))
 
 	updateOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -112,13 +124,13 @@ func addVirtualDevice() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/virtualdevice")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/virtualdevice")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListVirtualDevice")
 	listOp.SetTags("VirtualDevice")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(VirtualDeviceListRequest))
 
 	listOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -132,13 +144,13 @@ func addVirtualDevice() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/virtualdevice")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/virtualdevice")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateVirtualDevice")
 	createOp.SetTags("VirtualDevice")
-	createOp.AddReqStructure(new(VirtualDevice))
+	createOp.AddReqStructure(new(VirtualDeviceCreateRequest))
 
 	getOp.AddRespStructure(new(VirtualDeviceResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -152,7 +164,7 @@ func addVirtualDevice() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/virtualdevice/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/virtualdevice/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

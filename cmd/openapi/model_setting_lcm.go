@@ -59,6 +59,11 @@ func (dst *SettingLcm) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingLcmUpdateRequest struct {
+	*SettingLcm
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingLcmResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingLcm `json:"data"`
@@ -67,7 +72,8 @@ type SettingLcmResponse struct {
 func addSettingLcm() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/lcm")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/lcm")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -84,13 +90,13 @@ func addSettingLcm() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/lcm")
-	updateOp.AddReqStructure(new(SettingLcm))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/lcm")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingLcm")
 	updateOp.SetTags("SettingLcm")
+	updateOp.AddReqStructure(new(SettingLcmUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingLcmResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

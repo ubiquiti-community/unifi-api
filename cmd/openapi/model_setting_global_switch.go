@@ -82,6 +82,11 @@ func (dst *SettingGlobalSwitchAclL3Isolation) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingGlobalSwitchUpdateRequest struct {
+	*SettingGlobalSwitch
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingGlobalSwitchResponse struct {
 	Meta meta                  `json:"meta"`
 	Data []SettingGlobalSwitch `json:"data"`
@@ -90,7 +95,8 @@ type SettingGlobalSwitchResponse struct {
 func addSettingGlobalSwitch() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/global_switch")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/global_switch")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -107,13 +113,13 @@ func addSettingGlobalSwitch() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/global_switch")
-	updateOp.AddReqStructure(new(SettingGlobalSwitch))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/global_switch")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingGlobalSwitch")
 	updateOp.SetTags("SettingGlobalSwitch")
+	updateOp.AddReqStructure(new(SettingGlobalSwitchUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingGlobalSwitchResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

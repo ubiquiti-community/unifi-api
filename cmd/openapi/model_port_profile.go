@@ -225,16 +225,28 @@ func (dst *PortProfileQOSProfile) UnmarshalJSON(b []byte) error {
 }
 
 type PortProfileGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type PortProfileListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type PortProfileCreateRequest struct {
+	*PortProfile
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type PortProfileDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type PortProfileUpdateRequest struct {
 	*PortProfile
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type PortProfileResponse struct {
@@ -245,7 +257,7 @@ type PortProfileResponse struct {
 func addPortProfile() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/portconf/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/portconf/{id}")
 	getOp.AddReqStructure(new(PortProfileGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -263,13 +275,13 @@ func addPortProfile() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/portconf/{id}")
-	updateOp.AddReqStructure(new(PortProfileUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/portconf/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdatePortProfile")
 	updateOp.SetTags("PortProfile")
+	updateOp.AddReqStructure(new(PortProfileUpdateRequest))
 
 	updateOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -283,13 +295,13 @@ func addPortProfile() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/portconf")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/portconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListPortProfile")
 	listOp.SetTags("PortProfile")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(PortProfileListRequest))
 
 	listOp.AddRespStructure(new(PortProfileResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -303,13 +315,13 @@ func addPortProfile() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/portconf")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/portconf")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreatePortProfile")
 	createOp.SetTags("PortProfile")
-	createOp.AddReqStructure(new(PortProfile))
+	createOp.AddReqStructure(new(PortProfileCreateRequest))
 
 	getOp.AddRespStructure(new(PortProfileResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -323,7 +335,7 @@ func addPortProfile() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/portconf/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/portconf/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

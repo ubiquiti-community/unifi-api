@@ -592,16 +592,28 @@ func (dst *DeviceRpsPortTable) UnmarshalJSON(b []byte) error {
 }
 
 type DeviceGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type DeviceListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type DeviceCreateRequest struct {
+	*Device
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type DeviceDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type DeviceUpdateRequest struct {
 	*Device
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type DeviceResponse struct {
@@ -612,7 +624,7 @@ type DeviceResponse struct {
 func addDevice() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/stat/device/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/stat/device/{id}")
 	getOp.AddReqStructure(new(DeviceGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -630,13 +642,13 @@ func addDevice() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/device/{id}")
-	updateOp.AddReqStructure(new(DeviceUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/device/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDevice")
 	updateOp.SetTags("Device")
+	updateOp.AddReqStructure(new(DeviceUpdateRequest))
 
 	updateOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -650,13 +662,13 @@ func addDevice() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/stat/device")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/stat/device")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDevice")
 	listOp.SetTags("Device")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(DeviceListRequest))
 
 	listOp.AddRespStructure(new(DeviceResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -670,13 +682,13 @@ func addDevice() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/device")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/device")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDevice")
 	createOp.SetTags("Device")
-	createOp.AddReqStructure(new(Device))
+	createOp.AddReqStructure(new(DeviceCreateRequest))
 
 	getOp.AddRespStructure(new(DeviceResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -690,7 +702,7 @@ func addDevice() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/device/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/device/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

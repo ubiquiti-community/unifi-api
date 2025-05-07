@@ -144,6 +144,11 @@ func (dst *SettingRadioAiRadiosConfiguration) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingRadioAiUpdateRequest struct {
+	*SettingRadioAi
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingRadioAiResponse struct {
 	Meta meta             `json:"meta"`
 	Data []SettingRadioAi `json:"data"`
@@ -152,7 +157,8 @@ type SettingRadioAiResponse struct {
 func addSettingRadioAi() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/radio_ai")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/radio_ai")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -169,13 +175,13 @@ func addSettingRadioAi() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/radio_ai")
-	updateOp.AddReqStructure(new(SettingRadioAi))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/radio_ai")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingRadioAi")
 	updateOp.SetTags("SettingRadioAi")
+	updateOp.AddReqStructure(new(SettingRadioAiUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingRadioAiResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

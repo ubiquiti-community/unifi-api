@@ -73,6 +73,11 @@ func (dst *SettingNetflow) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingNetflowUpdateRequest struct {
+	*SettingNetflow
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingNetflowResponse struct {
 	Meta meta             `json:"meta"`
 	Data []SettingNetflow `json:"data"`
@@ -81,7 +86,8 @@ type SettingNetflowResponse struct {
 func addSettingNetflow() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/netflow")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/netflow")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -98,13 +104,13 @@ func addSettingNetflow() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/netflow")
-	updateOp.AddReqStructure(new(SettingNetflow))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/netflow")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingNetflow")
 	updateOp.SetTags("SettingNetflow")
+	updateOp.AddReqStructure(new(SettingNetflowUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingNetflowResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

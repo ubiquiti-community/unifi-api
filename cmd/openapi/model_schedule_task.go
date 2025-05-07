@@ -73,16 +73,28 @@ func (dst *ScheduleTaskUpgradeTargets) UnmarshalJSON(b []byte) error {
 }
 
 type ScheduleTaskGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type ScheduleTaskListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type ScheduleTaskCreateRequest struct {
+	*ScheduleTask
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type ScheduleTaskDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type ScheduleTaskUpdateRequest struct {
 	*ScheduleTask
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type ScheduleTaskResponse struct {
@@ -93,7 +105,7 @@ type ScheduleTaskResponse struct {
 func addScheduleTask() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/scheduletask/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/scheduletask/{id}")
 	getOp.AddReqStructure(new(ScheduleTaskGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -111,13 +123,13 @@ func addScheduleTask() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/scheduletask/{id}")
-	updateOp.AddReqStructure(new(ScheduleTaskUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/scheduletask/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateScheduleTask")
 	updateOp.SetTags("ScheduleTask")
+	updateOp.AddReqStructure(new(ScheduleTaskUpdateRequest))
 
 	updateOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -131,13 +143,13 @@ func addScheduleTask() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/scheduletask")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/scheduletask")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListScheduleTask")
 	listOp.SetTags("ScheduleTask")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(ScheduleTaskListRequest))
 
 	listOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -151,13 +163,13 @@ func addScheduleTask() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/scheduletask")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/scheduletask")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateScheduleTask")
 	createOp.SetTags("ScheduleTask")
-	createOp.AddReqStructure(new(ScheduleTask))
+	createOp.AddReqStructure(new(ScheduleTaskCreateRequest))
 
 	getOp.AddRespStructure(new(ScheduleTaskResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -171,7 +183,7 @@ func addScheduleTask() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/scheduletask/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/scheduletask/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -66,16 +66,28 @@ func (dst *Map) UnmarshalJSON(b []byte) error {
 }
 
 type MapGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type MapListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type MapCreateRequest struct {
+	*Map
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type MapDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type MapUpdateRequest struct {
 	*Map
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type MapResponse struct {
@@ -86,7 +98,7 @@ type MapResponse struct {
 func addMap() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/map/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/map/{id}")
 	getOp.AddReqStructure(new(MapGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -104,13 +116,13 @@ func addMap() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/map/{id}")
-	updateOp.AddReqStructure(new(MapUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/map/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateMap")
 	updateOp.SetTags("Map")
+	updateOp.AddReqStructure(new(MapUpdateRequest))
 
 	updateOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -124,13 +136,13 @@ func addMap() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/map")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/map")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListMap")
 	listOp.SetTags("Map")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(MapListRequest))
 
 	listOp.AddRespStructure(new(MapResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -144,13 +156,13 @@ func addMap() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/map")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/map")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateMap")
 	createOp.SetTags("Map")
-	createOp.AddReqStructure(new(Map))
+	createOp.AddReqStructure(new(MapCreateRequest))
 
 	getOp.AddRespStructure(new(MapResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -164,7 +176,7 @@ func addMap() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/map/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/map/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

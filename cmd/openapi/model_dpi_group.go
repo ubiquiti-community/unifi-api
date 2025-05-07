@@ -51,16 +51,28 @@ func (dst *DpiGroup) UnmarshalJSON(b []byte) error {
 }
 
 type DpiGroupGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type DpiGroupListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type DpiGroupCreateRequest struct {
+	*DpiGroup
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type DpiGroupDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type DpiGroupUpdateRequest struct {
 	*DpiGroup
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type DpiGroupResponse struct {
@@ -71,7 +83,7 @@ type DpiGroupResponse struct {
 func addDpiGroup() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dpigroup/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dpigroup/{id}")
 	getOp.AddReqStructure(new(DpiGroupGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -89,13 +101,13 @@ func addDpiGroup() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/dpigroup/{id}")
-	updateOp.AddReqStructure(new(DpiGroupUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/dpigroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateDpiGroup")
 	updateOp.SetTags("DpiGroup")
+	updateOp.AddReqStructure(new(DpiGroupUpdateRequest))
 
 	updateOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -109,13 +121,13 @@ func addDpiGroup() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/dpigroup")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dpigroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListDpiGroup")
 	listOp.SetTags("DpiGroup")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(DpiGroupListRequest))
 
 	listOp.AddRespStructure(new(DpiGroupResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -129,13 +141,13 @@ func addDpiGroup() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/dpigroup")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/dpigroup")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateDpiGroup")
 	createOp.SetTags("DpiGroup")
-	createOp.AddReqStructure(new(DpiGroup))
+	createOp.AddReqStructure(new(DpiGroupCreateRequest))
 
 	getOp.AddRespStructure(new(DpiGroupResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -149,7 +161,7 @@ func addDpiGroup() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/dpigroup/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/dpigroup/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

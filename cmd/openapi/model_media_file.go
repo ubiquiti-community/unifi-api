@@ -49,16 +49,28 @@ func (dst *MediaFile) UnmarshalJSON(b []byte) error {
 }
 
 type MediaFileGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type MediaFileListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type MediaFileCreateRequest struct {
+	*MediaFile
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type MediaFileDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type MediaFileUpdateRequest struct {
 	*MediaFile
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type MediaFileResponse struct {
@@ -69,7 +81,7 @@ type MediaFileResponse struct {
 func addMediaFile() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/mediafile/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/mediafile/{id}")
 	getOp.AddReqStructure(new(MediaFileGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -87,13 +99,13 @@ func addMediaFile() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/mediafile/{id}")
-	updateOp.AddReqStructure(new(MediaFileUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/mediafile/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateMediaFile")
 	updateOp.SetTags("MediaFile")
+	updateOp.AddReqStructure(new(MediaFileUpdateRequest))
 
 	updateOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -107,13 +119,13 @@ func addMediaFile() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/mediafile")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/mediafile")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListMediaFile")
 	listOp.SetTags("MediaFile")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(MediaFileListRequest))
 
 	listOp.AddRespStructure(new(MediaFileResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -127,13 +139,13 @@ func addMediaFile() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/mediafile")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/mediafile")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateMediaFile")
 	createOp.SetTags("MediaFile")
-	createOp.AddReqStructure(new(MediaFile))
+	createOp.AddReqStructure(new(MediaFileCreateRequest))
 
 	getOp.AddRespStructure(new(MediaFileResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -147,7 +159,7 @@ func addMediaFile() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/mediafile/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/mediafile/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -61,16 +61,28 @@ func (dst *Routing) UnmarshalJSON(b []byte) error {
 }
 
 type RoutingGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type RoutingListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type RoutingCreateRequest struct {
+	*Routing
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type RoutingDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type RoutingUpdateRequest struct {
 	*Routing
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type RoutingResponse struct {
@@ -81,7 +93,7 @@ type RoutingResponse struct {
 func addRouting() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/routing/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/routing/{id}")
 	getOp.AddReqStructure(new(RoutingGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -99,13 +111,13 @@ func addRouting() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/routing/{id}")
-	updateOp.AddReqStructure(new(RoutingUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/routing/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateRouting")
 	updateOp.SetTags("Routing")
+	updateOp.AddReqStructure(new(RoutingUpdateRequest))
 
 	updateOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -119,13 +131,13 @@ func addRouting() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/routing")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/routing")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListRouting")
 	listOp.SetTags("Routing")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(RoutingListRequest))
 
 	listOp.AddRespStructure(new(RoutingResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -139,13 +151,13 @@ func addRouting() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/routing")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/routing")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateRouting")
 	createOp.SetTags("Routing")
-	createOp.AddReqStructure(new(Routing))
+	createOp.AddReqStructure(new(RoutingCreateRequest))
 
 	getOp.AddRespStructure(new(RoutingResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -159,7 +171,7 @@ func addRouting() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/routing/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/routing/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -65,16 +65,28 @@ func (dst *Account) UnmarshalJSON(b []byte) error {
 }
 
 type AccountGetRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
+}
+
+type AccountListRequest struct {
+	SiteID string `path:"siteId"`
+}
+
+type AccountCreateRequest struct {
+	*Account
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
 }
 
 type AccountDeleteRequest struct {
-	ID string `path:"id"`
+	SiteID string `path:"siteId"`
+	ID     string `path:"id"`
 }
 
 type AccountUpdateRequest struct {
 	*Account
-	ID string `path:"id",json:"_id,omitempty"`
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+	ID     string `path:"id" json:"_id,omitempty"`
 }
 
 type AccountResponse struct {
@@ -85,7 +97,7 @@ type AccountResponse struct {
 func addAccount() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/account/{id}")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/account/{id}")
 	getOp.AddReqStructure(new(AccountGetRequest))
 	if err != nil {
 		log.Fatal(err)
@@ -103,13 +115,13 @@ func addAccount() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/rest/account/{id}")
-	updateOp.AddReqStructure(new(AccountUpdateRequest))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/account/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateAccount")
 	updateOp.SetTags("Account")
+	updateOp.AddReqStructure(new(AccountUpdateRequest))
 
 	updateOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -123,13 +135,13 @@ func addAccount() {
 	}
 
 	// List
-	listOp, err := reflector.NewOperationContext(http.MethodGet, "/rest/account")
+	listOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/account")
 	if err != nil {
 		log.Fatal(err)
 	}
 	listOp.SetID("ListAccount")
 	listOp.SetTags("Account")
-	listOp.AddReqStructure(nil)
+	listOp.AddReqStructure(new(AccountListRequest))
 
 	listOp.AddRespStructure(new(AccountResponse), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -143,13 +155,13 @@ func addAccount() {
 	}
 
 	// Create
-	createOp, err := reflector.NewOperationContext(http.MethodPost, "/rest/account")
+	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/account")
 	if err != nil {
 		log.Fatal(err)
 	}
 	createOp.SetID("CreateAccount")
 	createOp.SetTags("Account")
-	createOp.AddReqStructure(new(Account))
+	createOp.AddReqStructure(new(AccountCreateRequest))
 
 	getOp.AddRespStructure(new(AccountResponse), openapi.WithContentType("application/json"), openapi.WithHTTPStatus(http.StatusOK), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
@@ -163,7 +175,7 @@ func addAccount() {
 	}
 
 	// Delete
-	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/rest/account/{id}")
+	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/account/{id}")
 	if err != nil {
 		log.Fatal(err)
 	}

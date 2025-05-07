@@ -50,6 +50,11 @@ func (dst *SettingSuperEvents) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingSuperEventsUpdateRequest struct {
+	*SettingSuperEvents
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingSuperEventsResponse struct {
 	Meta meta                 `json:"meta"`
 	Data []SettingSuperEvents `json:"data"`
@@ -58,7 +63,8 @@ type SettingSuperEventsResponse struct {
 func addSettingSuperEvents() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/super_events")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/super_events")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,13 +81,13 @@ func addSettingSuperEvents() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/super_events")
-	updateOp.AddReqStructure(new(SettingSuperEvents))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/super_events")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSuperEvents")
 	updateOp.SetTags("SettingSuperEvents")
+	updateOp.AddReqStructure(new(SettingSuperEventsUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingSuperEventsResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

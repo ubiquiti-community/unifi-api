@@ -50,6 +50,11 @@ func (dst *SettingLocale) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingLocaleUpdateRequest struct {
+	*SettingLocale
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingLocaleResponse struct {
 	Meta meta            `json:"meta"`
 	Data []SettingLocale `json:"data"`
@@ -58,7 +63,8 @@ type SettingLocaleResponse struct {
 func addSettingLocale() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/locale")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/locale")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,13 +81,13 @@ func addSettingLocale() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/locale")
-	updateOp.AddReqStructure(new(SettingLocale))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/locale")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingLocale")
 	updateOp.SetTags("SettingLocale")
+	updateOp.AddReqStructure(new(SettingLocaleUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingLocaleResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

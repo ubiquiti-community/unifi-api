@@ -54,6 +54,11 @@ func (dst *SettingSnmp) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingSnmpUpdateRequest struct {
+	*SettingSnmp
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingSnmpResponse struct {
 	Meta meta          `json:"meta"`
 	Data []SettingSnmp `json:"data"`
@@ -62,7 +67,8 @@ type SettingSnmpResponse struct {
 func addSettingSnmp() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/snmp")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/snmp")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -79,13 +85,13 @@ func addSettingSnmp() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/snmp")
-	updateOp.AddReqStructure(new(SettingSnmp))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/snmp")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSnmp")
 	updateOp.SetTags("SettingSnmp")
+	updateOp.AddReqStructure(new(SettingSnmpUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingSnmpResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

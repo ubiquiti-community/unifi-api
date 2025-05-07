@@ -93,6 +93,11 @@ func (dst *SettingEtherLightingSpeedOverrides) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingEtherLightingUpdateRequest struct {
+	*SettingEtherLighting
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingEtherLightingResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingEtherLighting `json:"data"`
@@ -101,7 +106,8 @@ type SettingEtherLightingResponse struct {
 func addSettingEtherLighting() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ether_lighting")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/ether_lighting")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -118,13 +124,13 @@ func addSettingEtherLighting() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ether_lighting")
-	updateOp.AddReqStructure(new(SettingEtherLighting))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/ether_lighting")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingEtherLighting")
 	updateOp.SetTags("SettingEtherLighting")
+	updateOp.AddReqStructure(new(SettingEtherLightingUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingEtherLightingResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

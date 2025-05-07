@@ -53,6 +53,11 @@ func (dst *SettingBaresip) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingBaresipUpdateRequest struct {
+	*SettingBaresip
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingBaresipResponse struct {
 	Meta meta             `json:"meta"`
 	Data []SettingBaresip `json:"data"`
@@ -61,7 +66,8 @@ type SettingBaresipResponse struct {
 func addSettingBaresip() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/baresip")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/baresip")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -78,13 +84,13 @@ func addSettingBaresip() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/baresip")
-	updateOp.AddReqStructure(new(SettingBaresip))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/baresip")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingBaresip")
 	updateOp.SetTags("SettingBaresip")
+	updateOp.AddReqStructure(new(SettingBaresipUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingBaresipResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

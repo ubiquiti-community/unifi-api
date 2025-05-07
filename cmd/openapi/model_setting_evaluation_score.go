@@ -50,6 +50,11 @@ func (dst *SettingEvaluationScore) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingEvaluationScoreUpdateRequest struct {
+	*SettingEvaluationScore
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingEvaluationScoreResponse struct {
 	Meta meta                     `json:"meta"`
 	Data []SettingEvaluationScore `json:"data"`
@@ -58,7 +63,8 @@ type SettingEvaluationScoreResponse struct {
 func addSettingEvaluationScore() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/evaluation_score")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/evaluation_score")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,13 +81,13 @@ func addSettingEvaluationScore() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/evaluation_score")
-	updateOp.AddReqStructure(new(SettingEvaluationScore))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/evaluation_score")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingEvaluationScore")
 	updateOp.SetTags("SettingEvaluationScore")
+	updateOp.AddReqStructure(new(SettingEvaluationScoreUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingEvaluationScoreResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

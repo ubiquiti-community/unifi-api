@@ -50,6 +50,11 @@ func (dst *SettingSslInspection) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingSslInspectionUpdateRequest struct {
+	*SettingSslInspection
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingSslInspectionResponse struct {
 	Meta meta                   `json:"meta"`
 	Data []SettingSslInspection `json:"data"`
@@ -58,7 +63,8 @@ type SettingSslInspectionResponse struct {
 func addSettingSslInspection() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/ssl_inspection")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/ssl_inspection")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,13 +81,13 @@ func addSettingSslInspection() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/ssl_inspection")
-	updateOp.AddReqStructure(new(SettingSslInspection))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/ssl_inspection")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingSslInspection")
 	updateOp.SetTags("SettingSslInspection")
+	updateOp.AddReqStructure(new(SettingSslInspectionUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingSslInspectionResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

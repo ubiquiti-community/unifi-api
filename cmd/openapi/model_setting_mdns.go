@@ -92,6 +92,11 @@ func (dst *SettingMdnsPredefinedServices) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingMdnsUpdateRequest struct {
+	*SettingMdns
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingMdnsResponse struct {
 	Meta meta          `json:"meta"`
 	Data []SettingMdns `json:"data"`
@@ -100,7 +105,8 @@ type SettingMdnsResponse struct {
 func addSettingMdns() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/mdns")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/mdns")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -117,13 +123,13 @@ func addSettingMdns() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/mdns")
-	updateOp.AddReqStructure(new(SettingMdns))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/mdns")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingMdns")
 	updateOp.SetTags("SettingMdns")
+	updateOp.AddReqStructure(new(SettingMdnsUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingMdnsResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 

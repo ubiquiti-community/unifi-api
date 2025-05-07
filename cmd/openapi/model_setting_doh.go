@@ -74,6 +74,11 @@ func (dst *SettingDohCustomServers) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+type SettingDohUpdateRequest struct {
+	*SettingDoh
+	SiteID string `path:"siteId" json:"site_id,omitempty"`
+}
+
 type SettingDohResponse struct {
 	Meta meta         `json:"meta"`
 	Data []SettingDoh `json:"data"`
@@ -82,7 +87,8 @@ type SettingDohResponse struct {
 func addSettingDoh() {
 	// Get
 
-	getOp, err := reflector.NewOperationContext(http.MethodGet, "/get/setting/doh")
+	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/doh")
+	getOp.AddReqStructure(new(SiteRequest))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -99,13 +105,13 @@ func addSettingDoh() {
 
 	// Update
 
-	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/set/setting/doh")
-	updateOp.AddReqStructure(new(SettingDoh))
+	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/doh")
 	if err != nil {
 		log.Fatal(err)
 	}
 	updateOp.SetID("UpdateSettingDoh")
 	updateOp.SetTags("SettingDoh")
+	updateOp.AddReqStructure(new(SettingDohUpdateRequest))
 
 	updateOp.AddRespStructure(new(SettingDohResponse), openapi.WithHTTPStatus(http.StatusCreated), func(cu *openapi.ContentUnit) { cu.IsDefault = true })
 
