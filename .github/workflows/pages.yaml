@@ -15,14 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-      - run: go run ./cmd/fields -latest
-      - run: go generate ./cmd/openapi/main.go
-      - run: go run ./cmd/openapi
+      - run: go generate ./...
       - name: Generate Swagger UI
         uses: Legion2/swagger-ui-action@v1
         with:
           output: _site
           spec-file: assets/openapi.yaml
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - uses: hatamiarash7/openapi-generator@v0.3.0
       #   with:
       #     generator: html2
@@ -35,9 +34,6 @@ jobs:
           done
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          name: github-pages
-          path: _site
 
   deploy:
     needs: build
@@ -57,5 +53,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  
