@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -622,10 +623,18 @@ type DeviceResponse struct {
 }
 
 func addDevice() {
+	resourceName := strcase.SnakeCase("Device")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/stat/device/{id}")
 	getOp.AddReqStructure(new(DeviceGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/stat/device/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

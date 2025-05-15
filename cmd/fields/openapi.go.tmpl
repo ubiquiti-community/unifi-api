@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"log"
@@ -11,6 +12,7 @@ import (
 
 	"github.com/swaggest/openapi-go"
 	"github.com/swaggest/openapi-go/openapi31"
+	"gopkg.in/yaml.v3"
 )
 
 type SiteRequest struct {
@@ -20,6 +22,18 @@ type SiteRequest struct {
 type meta struct {
 	RC      string `json:"rc"`
 	Message string `json:"msg"`
+}
+
+var generatorConfig = struct {
+	Provider    struct{ Name string `yaml:"name"` } `yaml:"provider"`
+	Resources   map[string]any 											`yaml:"resources"`
+	DataSources map[string]any 											`yaml:"data_sources"`
+}{
+	Provider: struct{ Name string `yaml:"name"` }{
+		Name: "unifi",
+	},
+	Resources:   map[string]any{},
+	DataSources: map[string]any{},
 }
 
 var reflector = openapi31.Reflector{
@@ -68,6 +82,12 @@ func main() {
 	os.WriteFile(filepath.Join("assets", "openapi.yaml"), schema, 0777)
 
 	fmt.Println(string(schema))
+
+	buf := new(bytes.Buffer)
+	if err := yaml.NewEncoder(buf).Encode(generatorConfig); err != nil {
+		log.Fatal(err)
+	}
+	os.WriteFile(filepath.Join("assets", "generator_config.yml"), buf.Bytes(), 0777)
 }
 
 var PathMappings = map[string]map[string]string{

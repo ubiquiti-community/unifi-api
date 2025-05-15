@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -155,10 +156,18 @@ type SettingRadioAiResponse struct {
 }
 
 func addSettingRadioAi() {
+	resourceName := strcase.SnakeCase("SettingRadioAi")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/radio_ai")
 	getOp.AddReqStructure(new(SiteRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/get/setting/radio_ai",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -30,6 +30,7 @@ import (
 	"net/http"
 
 	"github.com/swaggest/openapi-go"
+	"github.com/stoewer/go-strcase"
 )
 
 // just to fix compile issues with the import
@@ -106,13 +107,27 @@ type {{ .StructName }}Response struct{
 }
 
 func add{{ .StructName }}() {
+	resourceName := strcase.SnakeCase("{{ .StructName }}")
+
 	// Get
 	{{ if .IsSetting }}
 	getOp, err := reflector.NewOperationContext(http.MethodGet,  "/s/{siteId}/get/setting/{{ .ResourcePath }}")
 	getOp.AddReqStructure(new(SiteRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path": "/s/{siteId}/get/setting/{{ .ResourcePath }}",
+			"method": "GET",
+		},
+	}
 	{{- else }}
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}")
 	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path": "/s/{siteId}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}",
+			"method": "GET",
+		},
+	}
 	{{- end }}
 	if err != nil {
 		log.Fatal(err)

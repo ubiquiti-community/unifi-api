@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -95,10 +96,18 @@ type AccountResponse struct {
 }
 
 func addAccount() {
+	resourceName := strcase.SnakeCase("Account")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/account/{id}")
 	getOp.AddReqStructure(new(AccountGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/account/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

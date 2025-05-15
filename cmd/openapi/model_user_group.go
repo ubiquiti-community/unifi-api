@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -86,10 +87,18 @@ type UserGroupResponse struct {
 }
 
 func addUserGroup() {
+	resourceName := strcase.SnakeCase("UserGroup")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/usergroup/{id}")
 	getOp.AddReqStructure(new(UserGroupGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/usergroup/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

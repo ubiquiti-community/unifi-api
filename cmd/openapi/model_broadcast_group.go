@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -80,10 +81,18 @@ type BroadcastGroupResponse struct {
 }
 
 func addBroadcastGroup() {
+	resourceName := strcase.SnakeCase("BroadcastGroup")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/broadcastgroup/{id}")
 	getOp.AddReqStructure(new(BroadcastGroupGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/broadcastgroup/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

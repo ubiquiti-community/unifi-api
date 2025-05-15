@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -63,10 +64,18 @@ type SettingElementAdoptResponse struct {
 }
 
 func addSettingElementAdopt() {
+	resourceName := strcase.SnakeCase("SettingElementAdopt")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/element_adopt")
 	getOp.AddReqStructure(new(SiteRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/get/setting/element_adopt",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -223,10 +224,18 @@ type ChannelPlanResponse struct {
 }
 
 func addChannelPlan() {
+	resourceName := strcase.SnakeCase("ChannelPlan")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/channelplan/{id}")
 	getOp.AddReqStructure(new(ChannelPlanGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/channelplan/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

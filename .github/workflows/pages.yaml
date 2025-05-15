@@ -16,11 +16,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
       - run: go generate ./...
+      - run: |
+          mkdir -p _site
+          cp assets/openapi.yaml _site/
+          jq --null-input '{url: "http", specPath: "openapi.yaml"}' > ./assets/swagger-config.json
       - name: Generate Swagger UI
         uses: Legion2/swagger-ui-action@v1
         with:
           output: _site
-          spec-file: assets/openapi.yaml
+          swagger-config-file: assets/openapi.yaml
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - uses: hatamiarash7/openapi-generator@v0.3.0
       #   with:

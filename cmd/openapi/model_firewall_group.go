@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -81,10 +82,18 @@ type FirewallGroupResponse struct {
 }
 
 func addFirewallGroup() {
+	resourceName := strcase.SnakeCase("FirewallGroup")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/firewallgroup/{id}")
 	getOp.AddReqStructure(new(FirewallGroupGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/firewallgroup/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

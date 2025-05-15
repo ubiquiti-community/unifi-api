@@ -1,0 +1,296 @@
+provider:
+    name: unifi
+resources: {}
+data_sources:
+    account:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/account/{id}
+    broadcast_group:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/broadcastgroup/{id}
+    channel_plan:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/channelplan/{id}
+    dashboard:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/dashboard/{id}
+    device:
+        read:
+            method: GET
+            path: /s/{siteId}/stat/device/{id}
+    dhcp_option:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/dhcpoption/{id}
+    dpi_app:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/dpiapp/{id}
+    dpi_group:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/dpigroup/{id}
+    dynamic_dns:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/dynamicdns/{id}
+    firewall_group:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/firewallgroup/{id}
+    firewall_rule:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/firewallrule/{id}
+    heat_map:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/heatmap/{id}
+    heat_map_point:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/heatmappoint/{id}
+    hotspot_op:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/hotspotop/{id}
+    hotspot_package:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/hotspotpackage/{id}
+    hotspot2conf:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/hotspot2conf/{id}
+    map:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/map/{id}
+    media_file:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/mediafile/{id}
+    network:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/networkconf/{id}
+    port_forward:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/portforward/{id}
+    port_profile:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/portconf/{id}
+    radius_profile:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/radiusprofile/{id}
+    routing:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/routing/{id}
+    schedule_task:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/scheduletask/{id}
+    setting_auto_speedtest:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/auto_speedtest
+    setting_baresip:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/baresip
+    setting_broadcast:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/broadcast
+    setting_connectivity:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/connectivity
+    setting_country:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/country
+    setting_dashboard:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/dashboard
+    setting_doh:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/doh
+    setting_dpi:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/dpi
+    setting_element_adopt:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/element_adopt
+    setting_ether_lighting:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/ether_lighting
+    setting_evaluation_score:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/evaluation_score
+    setting_global_ap:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/global_ap
+    setting_global_nat:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/global_nat
+    setting_global_switch:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/global_switch
+    setting_guest_access:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/guest_access
+    setting_ips:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/ips
+    setting_lcm:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/lcm
+    setting_locale:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/locale
+    setting_magic_site_to_site_vpn:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/magic_site_to_site_vpn
+    setting_mdns:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/mdns
+    setting_mgmt:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/mgmt
+    setting_netflow:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/netflow
+    setting_network_optimization:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/network_optimization
+    setting_ntp:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/ntp
+    setting_porta:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/porta
+    setting_radio_ai:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/radio_ai
+    setting_radius:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/radius
+    setting_rsyslogd:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/rsyslogd
+    setting_snmp:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/snmp
+    setting_ssl_inspection:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/ssl_inspection
+    setting_super_cloudaccess:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_cloudaccess
+    setting_super_events:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_events
+    setting_super_fwupdate:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_fwupdate
+    setting_super_identity:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_identity
+    setting_super_mail:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_mail
+    setting_super_mgmt:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_mgmt
+    setting_super_sdn:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_sdn
+    setting_super_smtp:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/super_smtp
+    setting_teleport:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/teleport
+    setting_traffic_flow:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/traffic_flow
+    setting_usg:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/usg
+    setting_usw:
+        read:
+            method: GET
+            path: /s/{siteId}/get/setting/usw
+    spatial_record:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/spatialrecord/{id}
+    tag:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/tag/{id}
+    user:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/user/{id}
+    user_group:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/usergroup/{id}
+    virtual_device:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/virtualdevice/{id}
+    wlan:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/wlanconf/{id}
+    wlan_group:
+        read:
+            method: GET
+            path: /s/{siteId}/rest/wlangroup/{id}

@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -86,10 +87,18 @@ type DHCPOptionResponse struct {
 }
 
 func addDHCPOption() {
+	resourceName := strcase.SnakeCase("DHCPOption")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dhcpoption/{id}")
 	getOp.AddReqStructure(new(DHCPOptionGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/dhcpoption/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

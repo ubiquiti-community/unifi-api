@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -169,10 +170,18 @@ type RADIUSProfileResponse struct {
 }
 
 func addRADIUSProfile() {
+	resourceName := strcase.SnakeCase("RADIUSProfile")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/radiusprofile/{id}")
 	getOp.AddReqStructure(new(RADIUSProfileGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/radiusprofile/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

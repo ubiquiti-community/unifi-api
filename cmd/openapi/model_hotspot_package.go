@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -120,10 +121,18 @@ type HotspotPackageResponse struct {
 }
 
 func addHotspotPackage() {
+	resourceName := strcase.SnakeCase("HotspotPackage")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/hotspotpackage/{id}")
 	getOp.AddReqStructure(new(HotspotPackageGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/hotspotpackage/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/stoewer/go-strcase"
 	"github.com/swaggest/openapi-go"
 )
 
@@ -103,10 +104,18 @@ type ScheduleTaskResponse struct {
 }
 
 func addScheduleTask() {
+	resourceName := strcase.SnakeCase("ScheduleTask")
+
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/scheduletask/{id}")
 	getOp.AddReqStructure(new(ScheduleTaskGetRequest))
+	generatorConfig.DataSources[resourceName] = map[string]any{
+		"read": map[string]any{
+			"path":   "/s/{siteId}/rest/scheduletask/{id}",
+			"method": "GET",
+		},
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
