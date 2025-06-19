@@ -108,16 +108,19 @@ type DashboardResponse struct {
 
 func addDashboard() {
 	resourceName := strcase.SnakeCase("Dashboard")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dashboard/{id}")
 	getOp.AddReqStructure(new(DashboardGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/dashboard/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/dashboard/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -136,6 +139,10 @@ func addDashboard() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/dashboard/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dashboard/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -175,6 +182,11 @@ func addDashboard() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dashboard",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/dashboard")
 	if err != nil {
 		log.Fatal(err)
@@ -195,6 +207,11 @@ func addDashboard() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dashboard/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/dashboard/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -213,4 +230,6 @@ func addDashboard() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

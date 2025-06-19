@@ -63,16 +63,19 @@ type SettingNetworkOptimizationResponse struct {
 
 func addSettingNetworkOptimization() {
 	resourceName := strcase.SnakeCase("SettingNetworkOptimization")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/network_optimization")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/get/setting/network_optimization",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/get/setting/network_optimization",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -90,6 +93,14 @@ func addSettingNetworkOptimization() {
 
 	// Update
 
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/network_optimization",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/network_optimization",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/network_optimization")
 	if err != nil {
 		log.Fatal(err)
@@ -109,4 +120,5 @@ func addSettingNetworkOptimization() {
 		log.Fatal(err)
 	}
 
+	generatorConfig.Resources[resourceName] = resourceObj
 }

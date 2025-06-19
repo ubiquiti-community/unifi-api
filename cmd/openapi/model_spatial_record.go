@@ -125,16 +125,19 @@ type SpatialRecordResponse struct {
 
 func addSpatialRecord() {
 	resourceName := strcase.SnakeCase("SpatialRecord")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/spatialrecord/{id}")
 	getOp.AddReqStructure(new(SpatialRecordGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/spatialrecord/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/spatialrecord/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -153,6 +156,10 @@ func addSpatialRecord() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/spatialrecord/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/spatialrecord/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -192,6 +199,11 @@ func addSpatialRecord() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/spatialrecord",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/spatialrecord")
 	if err != nil {
 		log.Fatal(err)
@@ -212,6 +224,11 @@ func addSpatialRecord() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/spatialrecord/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/spatialrecord/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -230,4 +247,6 @@ func addSpatialRecord() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

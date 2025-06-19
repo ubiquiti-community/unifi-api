@@ -503,16 +503,19 @@ type WLANResponse struct {
 
 func addWLAN() {
 	resourceName := strcase.SnakeCase("WLAN")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/wlanconf/{id}")
 	getOp.AddReqStructure(new(WLANGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/wlanconf/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/wlanconf/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -531,6 +534,10 @@ func addWLAN() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/wlanconf/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/wlanconf/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -570,6 +577,11 @@ func addWLAN() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/wlanconf",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/wlanconf")
 	if err != nil {
 		log.Fatal(err)
@@ -590,6 +602,11 @@ func addWLAN() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/wlanconf/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/wlanconf/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -608,4 +625,6 @@ func addWLAN() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

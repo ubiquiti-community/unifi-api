@@ -78,16 +78,19 @@ type SettingRsyslogdResponse struct {
 
 func addSettingRsyslogd() {
 	resourceName := strcase.SnakeCase("SettingRsyslogd")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/rsyslogd")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/get/setting/rsyslogd",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/get/setting/rsyslogd",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -105,6 +108,14 @@ func addSettingRsyslogd() {
 
 	// Update
 
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/rsyslogd",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/rsyslogd",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/rsyslogd")
 	if err != nil {
 		log.Fatal(err)
@@ -124,4 +135,5 @@ func addSettingRsyslogd() {
 		log.Fatal(err)
 	}
 
+	generatorConfig.Resources[resourceName] = resourceObj
 }

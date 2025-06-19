@@ -63,16 +63,19 @@ type SettingEvaluationScoreResponse struct {
 
 func addSettingEvaluationScore() {
 	resourceName := strcase.SnakeCase("SettingEvaluationScore")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/evaluation_score")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/get/setting/evaluation_score",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/get/setting/evaluation_score",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -90,6 +93,14 @@ func addSettingEvaluationScore() {
 
 	// Update
 
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/evaluation_score",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/evaluation_score",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/evaluation_score")
 	if err != nil {
 		log.Fatal(err)
@@ -109,4 +120,5 @@ func addSettingEvaluationScore() {
 		log.Fatal(err)
 	}
 
+	generatorConfig.Resources[resourceName] = resourceObj
 }

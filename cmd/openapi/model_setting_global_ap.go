@@ -85,16 +85,19 @@ type SettingGlobalApResponse struct {
 
 func addSettingGlobalAp() {
 	resourceName := strcase.SnakeCase("SettingGlobalAp")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/global_ap")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/get/setting/global_ap",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/get/setting/global_ap",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -112,6 +115,14 @@ func addSettingGlobalAp() {
 
 	// Update
 
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/global_ap",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/global_ap",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/global_ap")
 	if err != nil {
 		log.Fatal(err)
@@ -131,4 +142,5 @@ func addSettingGlobalAp() {
 		log.Fatal(err)
 	}
 
+	generatorConfig.Resources[resourceName] = resourceObj
 }

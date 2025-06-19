@@ -225,16 +225,19 @@ type ChannelPlanResponse struct {
 
 func addChannelPlan() {
 	resourceName := strcase.SnakeCase("ChannelPlan")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/channelplan/{id}")
 	getOp.AddReqStructure(new(ChannelPlanGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/channelplan/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/channelplan/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -253,6 +256,10 @@ func addChannelPlan() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/channelplan/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/channelplan/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -292,6 +299,11 @@ func addChannelPlan() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/channelplan",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/channelplan")
 	if err != nil {
 		log.Fatal(err)
@@ -312,6 +324,11 @@ func addChannelPlan() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/channelplan/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/channelplan/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -330,4 +347,6 @@ func addChannelPlan() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

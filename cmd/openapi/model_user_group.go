@@ -88,16 +88,19 @@ type UserGroupResponse struct {
 
 func addUserGroup() {
 	resourceName := strcase.SnakeCase("UserGroup")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/usergroup/{id}")
 	getOp.AddReqStructure(new(UserGroupGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/usergroup/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/usergroup/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -116,6 +119,10 @@ func addUserGroup() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/usergroup/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/usergroup/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -155,6 +162,11 @@ func addUserGroup() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/usergroup",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/usergroup")
 	if err != nil {
 		log.Fatal(err)
@@ -175,6 +187,11 @@ func addUserGroup() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/usergroup/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/usergroup/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -193,4 +210,6 @@ func addUserGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

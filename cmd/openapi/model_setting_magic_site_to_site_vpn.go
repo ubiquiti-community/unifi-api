@@ -63,16 +63,19 @@ type SettingMagicSiteToSiteVpnResponse struct {
 
 func addSettingMagicSiteToSiteVpn() {
 	resourceName := strcase.SnakeCase("SettingMagicSiteToSiteVpn")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/get/setting/magic_site_to_site_vpn")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/get/setting/magic_site_to_site_vpn",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/get/setting/magic_site_to_site_vpn",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -90,6 +93,14 @@ func addSettingMagicSiteToSiteVpn() {
 
 	// Update
 
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/magic_site_to_site_vpn",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/set/setting/magic_site_to_site_vpn",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/magic_site_to_site_vpn")
 	if err != nil {
 		log.Fatal(err)
@@ -109,4 +120,5 @@ func addSettingMagicSiteToSiteVpn() {
 		log.Fatal(err)
 	}
 
+	generatorConfig.Resources[resourceName] = resourceObj
 }

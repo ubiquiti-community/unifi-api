@@ -86,16 +86,19 @@ type VirtualDeviceResponse struct {
 
 func addVirtualDevice() {
 	resourceName := strcase.SnakeCase("VirtualDevice")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/virtualdevice/{id}")
 	getOp.AddReqStructure(new(VirtualDeviceGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/virtualdevice/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/virtualdevice/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -114,6 +117,10 @@ func addVirtualDevice() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/virtualdevice/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/virtualdevice/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -153,6 +160,11 @@ func addVirtualDevice() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/virtualdevice",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/virtualdevice")
 	if err != nil {
 		log.Fatal(err)
@@ -173,6 +185,11 @@ func addVirtualDevice() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/virtualdevice/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/virtualdevice/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -191,4 +208,6 @@ func addVirtualDevice() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

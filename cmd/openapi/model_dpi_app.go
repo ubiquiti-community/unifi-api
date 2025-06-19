@@ -103,16 +103,19 @@ type DpiAppResponse struct {
 
 func addDpiApp() {
 	resourceName := strcase.SnakeCase("DpiApp")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/dpiapp/{id}")
 	getOp.AddReqStructure(new(DpiAppGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/dpiapp/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/dpiapp/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -131,6 +134,10 @@ func addDpiApp() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/dpiapp/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dpiapp/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -170,6 +177,11 @@ func addDpiApp() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dpiapp",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/dpiapp")
 	if err != nil {
 		log.Fatal(err)
@@ -190,6 +202,11 @@ func addDpiApp() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/dpiapp/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/dpiapp/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -208,4 +225,6 @@ func addDpiApp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

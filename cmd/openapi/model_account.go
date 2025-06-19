@@ -97,16 +97,19 @@ type AccountResponse struct {
 
 func addAccount() {
 	resourceName := strcase.SnakeCase("Account")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/account/{id}")
 	getOp.AddReqStructure(new(AccountGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/account/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/account/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -125,6 +128,10 @@ func addAccount() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/account/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/account/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -164,6 +171,11 @@ func addAccount() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/account",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/account")
 	if err != nil {
 		log.Fatal(err)
@@ -184,6 +196,11 @@ func addAccount() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/account/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/account/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -202,4 +219,6 @@ func addAccount() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

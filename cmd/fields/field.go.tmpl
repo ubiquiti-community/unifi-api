@@ -108,25 +108,30 @@ type {{ .StructName }}Response struct{
 
 func add{{ .StructName }}() {
 	resourceName := strcase.SnakeCase("{{ .StructName }}")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 	{{ if .IsSetting }}
 	getOp, err := reflector.NewOperationContext(http.MethodGet,  "/s/{siteId}/get/setting/{{ .ResourcePath }}")
 	getOp.AddReqStructure(new(SiteRequest))
+	getObj = map[string]any{
+		"path": "/s/{siteId}/get/setting/{{ .ResourcePath }}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path": "/s/{siteId}/get/setting/{{ .ResourcePath }}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	{{- else }}
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}")
 	getOp.AddReqStructure(new({{ .StructName }}GetRequest))
+	getObj = map[string]any{
+		"path": "/s/{siteId}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path": "/s/{siteId}/{{ if eq .StructName "Device" }}stat{{ else }}rest{{ end }}/{{ .ResourcePath }}/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	{{- end }}
 	if err != nil {
@@ -145,9 +150,21 @@ func add{{ .StructName }}() {
 
 	// Update
 	{{ if .IsSetting }}
+	resourceObj["create"] = map[string]any{
+		"path": "/s/{siteId}/set/setting/{{ .ResourcePath }}",
+		"method": "POST",
+	}
+	resourceObj["update"] = map[string]any{
+		"path": "/s/{siteId}/set/setting/{{ .ResourcePath }}",
+		"method": "PUT",
+	}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/set/setting/{{ .ResourcePath }}")
 	{{- else }}
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/{{ .ResourcePath }}/{id}")
+	resourceObj["update"] = map[string]any{
+		"path": "/s/{siteId}/rest/{{ .ResourcePath }}/{id}",
+		"method": "PUT",
+	}
 	{{- end }}
 	if err != nil {
 		log.Fatal(err)
@@ -189,6 +206,11 @@ func add{{ .StructName }}() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path": "/s/{siteId}/rest/{{ .ResourcePath }}",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/{{ .ResourcePath }}")
 	if err != nil {
 		log.Fatal(err)
@@ -209,6 +231,11 @@ func add{{ .StructName }}() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path": "/s/{siteId}/rest/{{ .ResourcePath }}/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/{{ .ResourcePath }}/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -228,4 +255,6 @@ func add{{ .StructName }}() {
 		log.Fatal(err)
 	}
 	{{- end }}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

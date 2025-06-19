@@ -113,16 +113,19 @@ type FirewallRuleResponse struct {
 
 func addFirewallRule() {
 	resourceName := strcase.SnakeCase("FirewallRule")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/firewallrule/{id}")
 	getOp.AddReqStructure(new(FirewallRuleGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/firewallrule/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/firewallrule/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -141,6 +144,10 @@ func addFirewallRule() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/firewallrule/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/firewallrule/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -180,6 +187,11 @@ func addFirewallRule() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/firewallrule",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/firewallrule")
 	if err != nil {
 		log.Fatal(err)
@@ -200,6 +212,11 @@ func addFirewallRule() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/firewallrule/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/firewallrule/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -218,4 +235,6 @@ func addFirewallRule() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

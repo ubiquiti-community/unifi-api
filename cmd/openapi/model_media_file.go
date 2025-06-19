@@ -81,16 +81,19 @@ type MediaFileResponse struct {
 
 func addMediaFile() {
 	resourceName := strcase.SnakeCase("MediaFile")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/mediafile/{id}")
 	getOp.AddReqStructure(new(MediaFileGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/mediafile/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/mediafile/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -109,6 +112,10 @@ func addMediaFile() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/mediafile/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/mediafile/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -148,6 +155,11 @@ func addMediaFile() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/mediafile",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/mediafile")
 	if err != nil {
 		log.Fatal(err)
@@ -168,6 +180,11 @@ func addMediaFile() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/mediafile/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/mediafile/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -186,4 +203,6 @@ func addMediaFile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

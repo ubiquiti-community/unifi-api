@@ -82,16 +82,19 @@ type TagResponse struct {
 
 func addTag() {
 	resourceName := strcase.SnakeCase("Tag")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/tag/{id}")
 	getOp.AddReqStructure(new(TagGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/tag/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/tag/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -110,6 +113,10 @@ func addTag() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/tag/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/tag/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -149,6 +156,11 @@ func addTag() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/tag",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/tag")
 	if err != nil {
 		log.Fatal(err)
@@ -169,6 +181,11 @@ func addTag() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/tag/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/tag/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -187,4 +204,6 @@ func addTag() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

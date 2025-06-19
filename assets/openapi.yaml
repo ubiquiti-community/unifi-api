@@ -5,29 +5,28 @@ info:
   version: 9.1.120
 servers:
 - description: Unifi Controller API
-  url: https://{host}:{port}/proxy/network/api
+  url: https://{host}:{port}/proxy/network/api/s/{siteId}
   variables:
     host:
       default: unifi.ui.com
     port:
       default: "4443"
+    siteId:
+      default: default
 - description: Unifi Controller API
-  url: https://{host}:{port}/api
+  url: https://{host}:{port}/api/s/{siteId}
   variables:
     host:
       default: unifi.ui.com
     port:
       default: "4443"
+    siteId:
+      default: default
 paths:
-  /s/{siteId}/get/setting/auto_speedtest:
+  /get/setting/auto_speedtest:
     get:
       operationId: GetSettingAutoSpeedtest
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -55,15 +54,10 @@ paths:
           description: ""
       tags:
       - SettingAutoSpeedtest
-  /s/{siteId}/get/setting/baresip:
+  /get/setting/baresip:
     get:
       operationId: GetSettingBaresip
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -91,15 +85,10 @@ paths:
           description: ""
       tags:
       - SettingBaresip
-  /s/{siteId}/get/setting/broadcast:
+  /get/setting/broadcast:
     get:
       operationId: GetSettingBroadcast
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -127,15 +116,10 @@ paths:
           description: ""
       tags:
       - SettingBroadcast
-  /s/{siteId}/get/setting/connectivity:
+  /get/setting/connectivity:
     get:
       operationId: GetSettingConnectivity
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -163,15 +147,10 @@ paths:
           description: ""
       tags:
       - SettingConnectivity
-  /s/{siteId}/get/setting/country:
+  /get/setting/country:
     get:
       operationId: GetSettingCountry
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -199,15 +178,10 @@ paths:
           description: ""
       tags:
       - SettingCountry
-  /s/{siteId}/get/setting/dashboard:
+  /get/setting/dashboard:
     get:
       operationId: GetSettingDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -235,15 +209,10 @@ paths:
           description: ""
       tags:
       - SettingDashboard
-  /s/{siteId}/get/setting/doh:
+  /get/setting/doh:
     get:
       operationId: GetSettingDoh
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -271,15 +240,10 @@ paths:
           description: ""
       tags:
       - SettingDoh
-  /s/{siteId}/get/setting/dpi:
+  /get/setting/dpi:
     get:
       operationId: GetSettingDpi
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -307,15 +271,10 @@ paths:
           description: ""
       tags:
       - SettingDpi
-  /s/{siteId}/get/setting/element_adopt:
+  /get/setting/element_adopt:
     get:
       operationId: GetSettingElementAdopt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -343,15 +302,10 @@ paths:
           description: ""
       tags:
       - SettingElementAdopt
-  /s/{siteId}/get/setting/ether_lighting:
+  /get/setting/ether_lighting:
     get:
       operationId: GetSettingEtherLighting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -379,15 +333,10 @@ paths:
           description: ""
       tags:
       - SettingEtherLighting
-  /s/{siteId}/get/setting/evaluation_score:
+  /get/setting/evaluation_score:
     get:
       operationId: GetSettingEvaluationScore
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -415,15 +364,10 @@ paths:
           description: ""
       tags:
       - SettingEvaluationScore
-  /s/{siteId}/get/setting/global_ap:
+  /get/setting/global_ap:
     get:
       operationId: GetSettingGlobalAp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -451,15 +395,10 @@ paths:
           description: ""
       tags:
       - SettingGlobalAp
-  /s/{siteId}/get/setting/global_nat:
+  /get/setting/global_nat:
     get:
       operationId: GetSettingGlobalNat
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -487,15 +426,10 @@ paths:
           description: ""
       tags:
       - SettingGlobalNat
-  /s/{siteId}/get/setting/global_switch:
+  /get/setting/global_switch:
     get:
       operationId: GetSettingGlobalSwitch
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -523,15 +457,10 @@ paths:
           description: ""
       tags:
       - SettingGlobalSwitch
-  /s/{siteId}/get/setting/guest_access:
+  /get/setting/guest_access:
     get:
       operationId: GetSettingGuestAccess
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -559,15 +488,10 @@ paths:
           description: ""
       tags:
       - SettingGuestAccess
-  /s/{siteId}/get/setting/ips:
+  /get/setting/ips:
     get:
       operationId: GetSettingIps
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -595,15 +519,10 @@ paths:
           description: ""
       tags:
       - SettingIps
-  /s/{siteId}/get/setting/lcm:
+  /get/setting/lcm:
     get:
       operationId: GetSettingLcm
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -631,15 +550,10 @@ paths:
           description: ""
       tags:
       - SettingLcm
-  /s/{siteId}/get/setting/locale:
+  /get/setting/locale:
     get:
       operationId: GetSettingLocale
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -667,15 +581,10 @@ paths:
           description: ""
       tags:
       - SettingLocale
-  /s/{siteId}/get/setting/magic_site_to_site_vpn:
+  /get/setting/magic_site_to_site_vpn:
     get:
       operationId: GetSettingMagicSiteToSiteVpn
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -703,15 +612,10 @@ paths:
           description: ""
       tags:
       - SettingMagicSiteToSiteVpn
-  /s/{siteId}/get/setting/mdns:
+  /get/setting/mdns:
     get:
       operationId: GetSettingMdns
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -739,15 +643,10 @@ paths:
           description: ""
       tags:
       - SettingMdns
-  /s/{siteId}/get/setting/mgmt:
+  /get/setting/mgmt:
     get:
       operationId: GetSettingMgmt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -775,15 +674,10 @@ paths:
           description: ""
       tags:
       - SettingMgmt
-  /s/{siteId}/get/setting/netflow:
+  /get/setting/netflow:
     get:
       operationId: GetSettingNetflow
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -811,15 +705,10 @@ paths:
           description: ""
       tags:
       - SettingNetflow
-  /s/{siteId}/get/setting/network_optimization:
+  /get/setting/network_optimization:
     get:
       operationId: GetSettingNetworkOptimization
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -847,15 +736,10 @@ paths:
           description: ""
       tags:
       - SettingNetworkOptimization
-  /s/{siteId}/get/setting/ntp:
+  /get/setting/ntp:
     get:
       operationId: GetSettingNtp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -883,15 +767,10 @@ paths:
           description: ""
       tags:
       - SettingNtp
-  /s/{siteId}/get/setting/porta:
+  /get/setting/porta:
     get:
       operationId: GetSettingPorta
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -919,15 +798,10 @@ paths:
           description: ""
       tags:
       - SettingPorta
-  /s/{siteId}/get/setting/radio_ai:
+  /get/setting/radio_ai:
     get:
       operationId: GetSettingRadioAi
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -955,15 +829,10 @@ paths:
           description: ""
       tags:
       - SettingRadioAi
-  /s/{siteId}/get/setting/radius:
+  /get/setting/radius:
     get:
       operationId: GetSettingRadius
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -991,15 +860,10 @@ paths:
           description: ""
       tags:
       - SettingRadius
-  /s/{siteId}/get/setting/rsyslogd:
+  /get/setting/rsyslogd:
     get:
       operationId: GetSettingRsyslogd
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1027,15 +891,10 @@ paths:
           description: ""
       tags:
       - SettingRsyslogd
-  /s/{siteId}/get/setting/snmp:
+  /get/setting/snmp:
     get:
       operationId: GetSettingSnmp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1063,15 +922,10 @@ paths:
           description: ""
       tags:
       - SettingSnmp
-  /s/{siteId}/get/setting/ssl_inspection:
+  /get/setting/ssl_inspection:
     get:
       operationId: GetSettingSslInspection
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1099,15 +953,10 @@ paths:
           description: ""
       tags:
       - SettingSslInspection
-  /s/{siteId}/get/setting/super_cloudaccess:
+  /get/setting/super_cloudaccess:
     get:
       operationId: GetSettingSuperCloudaccess
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1135,15 +984,10 @@ paths:
           description: ""
       tags:
       - SettingSuperCloudaccess
-  /s/{siteId}/get/setting/super_events:
+  /get/setting/super_events:
     get:
       operationId: GetSettingSuperEvents
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1171,15 +1015,10 @@ paths:
           description: ""
       tags:
       - SettingSuperEvents
-  /s/{siteId}/get/setting/super_fwupdate:
+  /get/setting/super_fwupdate:
     get:
       operationId: GetSettingSuperFwupdate
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1207,15 +1046,10 @@ paths:
           description: ""
       tags:
       - SettingSuperFwupdate
-  /s/{siteId}/get/setting/super_identity:
+  /get/setting/super_identity:
     get:
       operationId: GetSettingSuperIdentity
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1243,15 +1077,10 @@ paths:
           description: ""
       tags:
       - SettingSuperIdentity
-  /s/{siteId}/get/setting/super_mail:
+  /get/setting/super_mail:
     get:
       operationId: GetSettingSuperMail
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1279,15 +1108,10 @@ paths:
           description: ""
       tags:
       - SettingSuperMail
-  /s/{siteId}/get/setting/super_mgmt:
+  /get/setting/super_mgmt:
     get:
       operationId: GetSettingSuperMgmt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1315,15 +1139,10 @@ paths:
           description: ""
       tags:
       - SettingSuperMgmt
-  /s/{siteId}/get/setting/super_sdn:
+  /get/setting/super_sdn:
     get:
       operationId: GetSettingSuperSdn
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1351,15 +1170,10 @@ paths:
           description: ""
       tags:
       - SettingSuperSdn
-  /s/{siteId}/get/setting/super_smtp:
+  /get/setting/super_smtp:
     get:
       operationId: GetSettingSuperSmtp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1387,15 +1201,10 @@ paths:
           description: ""
       tags:
       - SettingSuperSmtp
-  /s/{siteId}/get/setting/teleport:
+  /get/setting/teleport:
     get:
       operationId: GetSettingTeleport
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1423,15 +1232,10 @@ paths:
           description: ""
       tags:
       - SettingTeleport
-  /s/{siteId}/get/setting/traffic_flow:
+  /get/setting/traffic_flow:
     get:
       operationId: GetSettingTrafficFlow
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1459,15 +1263,10 @@ paths:
           description: ""
       tags:
       - SettingTrafficFlow
-  /s/{siteId}/get/setting/usg:
+  /get/setting/usg:
     get:
       operationId: GetSettingUsg
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1495,15 +1294,10 @@ paths:
           description: ""
       tags:
       - SettingUsg
-  /s/{siteId}/get/setting/usw:
+  /get/setting/usw:
     get:
       operationId: GetSettingUsw
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -1531,15 +1325,10 @@ paths:
           description: ""
       tags:
       - SettingUsw
-  /s/{siteId}/rest/account:
+  /rest/account:
     get:
       operationId: ListAccount
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -1678,11 +1467,6 @@ paths:
     post:
       operationId: CreateAccount
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -1693,15 +1477,10 @@ paths:
           description: No Content
       tags:
       - Account
-  /s/{siteId}/rest/account/{id}:
+  /rest/account/{id}:
     delete:
       operationId: DeleteAccount
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -1846,11 +1625,6 @@ paths:
       operationId: GetAccount
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -1885,11 +1659,6 @@ paths:
     put:
       operationId: UpdateAccount
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -2035,15 +1804,10 @@ paths:
           description: Created
       tags:
       - Account
-  /s/{siteId}/rest/broadcastgroup:
+  /rest/broadcastgroup:
     get:
       operationId: ListBroadcastGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -2182,11 +1946,6 @@ paths:
     post:
       operationId: CreateBroadcastGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -2197,15 +1956,10 @@ paths:
           description: No Content
       tags:
       - BroadcastGroup
-  /s/{siteId}/rest/broadcastgroup/{id}:
+  /rest/broadcastgroup/{id}:
     delete:
       operationId: DeleteBroadcastGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -2350,11 +2104,6 @@ paths:
       operationId: GetBroadcastGroup
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -2389,11 +2138,6 @@ paths:
     put:
       operationId: UpdateBroadcastGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -2539,15 +2283,10 @@ paths:
           description: Created
       tags:
       - BroadcastGroup
-  /s/{siteId}/rest/channelplan:
+  /rest/channelplan:
     get:
       operationId: ListChannelPlan
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -2686,11 +2425,6 @@ paths:
     post:
       operationId: CreateChannelPlan
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -2701,15 +2435,10 @@ paths:
           description: No Content
       tags:
       - ChannelPlan
-  /s/{siteId}/rest/channelplan/{id}:
+  /rest/channelplan/{id}:
     delete:
       operationId: DeleteChannelPlan
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -2854,11 +2583,6 @@ paths:
       operationId: GetChannelPlan
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -2893,11 +2617,6 @@ paths:
     put:
       operationId: UpdateChannelPlan
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -3043,15 +2762,10 @@ paths:
           description: Created
       tags:
       - ChannelPlan
-  /s/{siteId}/rest/dashboard:
+  /rest/dashboard:
     get:
       operationId: ListDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -3190,11 +2904,6 @@ paths:
     post:
       operationId: CreateDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -3205,15 +2914,10 @@ paths:
           description: No Content
       tags:
       - Dashboard
-  /s/{siteId}/rest/dashboard/{id}:
+  /rest/dashboard/{id}:
     delete:
       operationId: DeleteDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -3358,11 +3062,6 @@ paths:
       operationId: GetDashboard
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -3397,11 +3096,6 @@ paths:
     put:
       operationId: UpdateDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -3547,15 +3241,10 @@ paths:
           description: Created
       tags:
       - Dashboard
-  /s/{siteId}/rest/device:
+  /rest/device:
     post:
       operationId: CreateDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -3566,15 +3255,10 @@ paths:
           description: No Content
       tags:
       - Device
-  /s/{siteId}/rest/device/{id}:
+  /rest/device/{id}:
     delete:
       operationId: DeleteDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -3718,11 +3402,6 @@ paths:
     put:
       operationId: UpdateDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -3868,15 +3547,10 @@ paths:
           description: Created
       tags:
       - Device
-  /s/{siteId}/rest/dhcpoption:
+  /rest/dhcpoption:
     get:
       operationId: ListDHCPOption
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -4015,11 +3689,6 @@ paths:
     post:
       operationId: CreateDHCPOption
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -4030,15 +3699,10 @@ paths:
           description: No Content
       tags:
       - DHCPOption
-  /s/{siteId}/rest/dhcpoption/{id}:
+  /rest/dhcpoption/{id}:
     delete:
       operationId: DeleteDHCPOption
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -4183,11 +3847,6 @@ paths:
       operationId: GetDHCPOption
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -4222,11 +3881,6 @@ paths:
     put:
       operationId: UpdateDHCPOption
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -4372,15 +4026,10 @@ paths:
           description: Created
       tags:
       - DHCPOption
-  /s/{siteId}/rest/dpiapp:
+  /rest/dpiapp:
     get:
       operationId: ListDpiApp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -4519,11 +4168,6 @@ paths:
     post:
       operationId: CreateDpiApp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -4534,15 +4178,10 @@ paths:
           description: No Content
       tags:
       - DpiApp
-  /s/{siteId}/rest/dpiapp/{id}:
+  /rest/dpiapp/{id}:
     delete:
       operationId: DeleteDpiApp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -4687,11 +4326,6 @@ paths:
       operationId: GetDpiApp
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -4726,11 +4360,6 @@ paths:
     put:
       operationId: UpdateDpiApp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -4876,15 +4505,10 @@ paths:
           description: Created
       tags:
       - DpiApp
-  /s/{siteId}/rest/dpigroup:
+  /rest/dpigroup:
     get:
       operationId: ListDpiGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -5023,11 +4647,6 @@ paths:
     post:
       operationId: CreateDpiGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -5038,15 +4657,10 @@ paths:
           description: No Content
       tags:
       - DpiGroup
-  /s/{siteId}/rest/dpigroup/{id}:
+  /rest/dpigroup/{id}:
     delete:
       operationId: DeleteDpiGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -5191,11 +4805,6 @@ paths:
       operationId: GetDpiGroup
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -5230,11 +4839,6 @@ paths:
     put:
       operationId: UpdateDpiGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -5380,15 +4984,10 @@ paths:
           description: Created
       tags:
       - DpiGroup
-  /s/{siteId}/rest/dynamicdns:
+  /rest/dynamicdns:
     get:
       operationId: ListDynamicDNS
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -5527,11 +5126,6 @@ paths:
     post:
       operationId: CreateDynamicDNS
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -5542,15 +5136,10 @@ paths:
           description: No Content
       tags:
       - DynamicDNS
-  /s/{siteId}/rest/dynamicdns/{id}:
+  /rest/dynamicdns/{id}:
     delete:
       operationId: DeleteDynamicDNS
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -5695,11 +5284,6 @@ paths:
       operationId: GetDynamicDNS
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -5734,11 +5318,6 @@ paths:
     put:
       operationId: UpdateDynamicDNS
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -5884,15 +5463,10 @@ paths:
           description: Created
       tags:
       - DynamicDNS
-  /s/{siteId}/rest/firewallgroup:
+  /rest/firewallgroup:
     get:
       operationId: ListFirewallGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -6031,11 +5605,6 @@ paths:
     post:
       operationId: CreateFirewallGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -6046,15 +5615,10 @@ paths:
           description: No Content
       tags:
       - FirewallGroup
-  /s/{siteId}/rest/firewallgroup/{id}:
+  /rest/firewallgroup/{id}:
     delete:
       operationId: DeleteFirewallGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -6199,11 +5763,6 @@ paths:
       operationId: GetFirewallGroup
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -6238,11 +5797,6 @@ paths:
     put:
       operationId: UpdateFirewallGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -6388,15 +5942,10 @@ paths:
           description: Created
       tags:
       - FirewallGroup
-  /s/{siteId}/rest/firewallrule:
+  /rest/firewallrule:
     get:
       operationId: ListFirewallRule
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -6535,11 +6084,6 @@ paths:
     post:
       operationId: CreateFirewallRule
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -6550,15 +6094,10 @@ paths:
           description: No Content
       tags:
       - FirewallRule
-  /s/{siteId}/rest/firewallrule/{id}:
+  /rest/firewallrule/{id}:
     delete:
       operationId: DeleteFirewallRule
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -6703,11 +6242,6 @@ paths:
       operationId: GetFirewallRule
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -6742,11 +6276,6 @@ paths:
     put:
       operationId: UpdateFirewallRule
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -6892,15 +6421,10 @@ paths:
           description: Created
       tags:
       - FirewallRule
-  /s/{siteId}/rest/heatmap:
+  /rest/heatmap:
     get:
       operationId: ListHeatMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -7039,11 +6563,6 @@ paths:
     post:
       operationId: CreateHeatMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -7054,15 +6573,10 @@ paths:
           description: No Content
       tags:
       - HeatMap
-  /s/{siteId}/rest/heatmap/{id}:
+  /rest/heatmap/{id}:
     delete:
       operationId: DeleteHeatMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -7207,11 +6721,6 @@ paths:
       operationId: GetHeatMap
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -7246,11 +6755,6 @@ paths:
     put:
       operationId: UpdateHeatMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -7396,15 +6900,10 @@ paths:
           description: Created
       tags:
       - HeatMap
-  /s/{siteId}/rest/heatmappoint:
+  /rest/heatmappoint:
     get:
       operationId: ListHeatMapPoint
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -7543,11 +7042,6 @@ paths:
     post:
       operationId: CreateHeatMapPoint
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -7558,15 +7052,10 @@ paths:
           description: No Content
       tags:
       - HeatMapPoint
-  /s/{siteId}/rest/heatmappoint/{id}:
+  /rest/heatmappoint/{id}:
     delete:
       operationId: DeleteHeatMapPoint
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -7711,11 +7200,6 @@ paths:
       operationId: GetHeatMapPoint
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -7750,11 +7234,6 @@ paths:
     put:
       operationId: UpdateHeatMapPoint
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -7900,15 +7379,10 @@ paths:
           description: Created
       tags:
       - HeatMapPoint
-  /s/{siteId}/rest/hotspot2conf:
+  /rest/hotspot2conf:
     get:
       operationId: ListHotspot2Conf
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -8047,11 +7521,6 @@ paths:
     post:
       operationId: CreateHotspot2Conf
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -8062,15 +7531,10 @@ paths:
           description: No Content
       tags:
       - Hotspot2Conf
-  /s/{siteId}/rest/hotspot2conf/{id}:
+  /rest/hotspot2conf/{id}:
     delete:
       operationId: DeleteHotspot2Conf
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -8215,11 +7679,6 @@ paths:
       operationId: GetHotspot2Conf
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -8254,11 +7713,6 @@ paths:
     put:
       operationId: UpdateHotspot2Conf
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -8404,15 +7858,10 @@ paths:
           description: Created
       tags:
       - Hotspot2Conf
-  /s/{siteId}/rest/hotspotop:
+  /rest/hotspotop:
     get:
       operationId: ListHotspotOp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -8551,11 +8000,6 @@ paths:
     post:
       operationId: CreateHotspotOp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -8566,15 +8010,10 @@ paths:
           description: No Content
       tags:
       - HotspotOp
-  /s/{siteId}/rest/hotspotop/{id}:
+  /rest/hotspotop/{id}:
     delete:
       operationId: DeleteHotspotOp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -8719,11 +8158,6 @@ paths:
       operationId: GetHotspotOp
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -8758,11 +8192,6 @@ paths:
     put:
       operationId: UpdateHotspotOp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -8908,15 +8337,10 @@ paths:
           description: Created
       tags:
       - HotspotOp
-  /s/{siteId}/rest/hotspotpackage:
+  /rest/hotspotpackage:
     get:
       operationId: ListHotspotPackage
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -9055,11 +8479,6 @@ paths:
     post:
       operationId: CreateHotspotPackage
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -9070,15 +8489,10 @@ paths:
           description: No Content
       tags:
       - HotspotPackage
-  /s/{siteId}/rest/hotspotpackage/{id}:
+  /rest/hotspotpackage/{id}:
     delete:
       operationId: DeleteHotspotPackage
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -9223,11 +8637,6 @@ paths:
       operationId: GetHotspotPackage
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -9262,11 +8671,6 @@ paths:
     put:
       operationId: UpdateHotspotPackage
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -9412,15 +8816,10 @@ paths:
           description: Created
       tags:
       - HotspotPackage
-  /s/{siteId}/rest/map:
+  /rest/map:
     get:
       operationId: ListMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -9559,11 +8958,6 @@ paths:
     post:
       operationId: CreateMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -9574,15 +8968,10 @@ paths:
           description: No Content
       tags:
       - Map
-  /s/{siteId}/rest/map/{id}:
+  /rest/map/{id}:
     delete:
       operationId: DeleteMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -9727,11 +9116,6 @@ paths:
       operationId: GetMap
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -9766,11 +9150,6 @@ paths:
     put:
       operationId: UpdateMap
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -9916,15 +9295,10 @@ paths:
           description: Created
       tags:
       - Map
-  /s/{siteId}/rest/mediafile:
+  /rest/mediafile:
     get:
       operationId: ListMediaFile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -10063,11 +9437,6 @@ paths:
     post:
       operationId: CreateMediaFile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -10078,15 +9447,10 @@ paths:
           description: No Content
       tags:
       - MediaFile
-  /s/{siteId}/rest/mediafile/{id}:
+  /rest/mediafile/{id}:
     delete:
       operationId: DeleteMediaFile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -10231,11 +9595,6 @@ paths:
       operationId: GetMediaFile
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -10270,11 +9629,6 @@ paths:
     put:
       operationId: UpdateMediaFile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -10420,15 +9774,10 @@ paths:
           description: Created
       tags:
       - MediaFile
-  /s/{siteId}/rest/networkconf:
+  /rest/networkconf:
     get:
       operationId: ListNetwork
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -10567,11 +9916,6 @@ paths:
     post:
       operationId: CreateNetwork
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -10582,15 +9926,10 @@ paths:
           description: No Content
       tags:
       - Network
-  /s/{siteId}/rest/networkconf/{id}:
+  /rest/networkconf/{id}:
     delete:
       operationId: DeleteNetwork
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -10735,11 +10074,6 @@ paths:
       operationId: GetNetwork
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -10774,11 +10108,6 @@ paths:
     put:
       operationId: UpdateNetwork
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -10924,15 +10253,10 @@ paths:
           description: Created
       tags:
       - Network
-  /s/{siteId}/rest/portconf:
+  /rest/portconf:
     get:
       operationId: ListPortProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -11071,11 +10395,6 @@ paths:
     post:
       operationId: CreatePortProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -11086,15 +10405,10 @@ paths:
           description: No Content
       tags:
       - PortProfile
-  /s/{siteId}/rest/portconf/{id}:
+  /rest/portconf/{id}:
     delete:
       operationId: DeletePortProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -11239,11 +10553,6 @@ paths:
       operationId: GetPortProfile
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -11278,11 +10587,6 @@ paths:
     put:
       operationId: UpdatePortProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -11428,15 +10732,10 @@ paths:
           description: Created
       tags:
       - PortProfile
-  /s/{siteId}/rest/portforward:
+  /rest/portforward:
     get:
       operationId: ListPortForward
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -11575,11 +10874,6 @@ paths:
     post:
       operationId: CreatePortForward
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -11590,15 +10884,10 @@ paths:
           description: No Content
       tags:
       - PortForward
-  /s/{siteId}/rest/portforward/{id}:
+  /rest/portforward/{id}:
     delete:
       operationId: DeletePortForward
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -11743,11 +11032,6 @@ paths:
       operationId: GetPortForward
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -11782,11 +11066,6 @@ paths:
     put:
       operationId: UpdatePortForward
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -11932,15 +11211,10 @@ paths:
           description: Created
       tags:
       - PortForward
-  /s/{siteId}/rest/radiusprofile:
+  /rest/radiusprofile:
     get:
       operationId: ListRADIUSProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -12079,11 +11353,6 @@ paths:
     post:
       operationId: CreateRADIUSProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -12094,15 +11363,10 @@ paths:
           description: No Content
       tags:
       - RADIUSProfile
-  /s/{siteId}/rest/radiusprofile/{id}:
+  /rest/radiusprofile/{id}:
     delete:
       operationId: DeleteRADIUSProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -12247,11 +11511,6 @@ paths:
       operationId: GetRADIUSProfile
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -12286,11 +11545,6 @@ paths:
     put:
       operationId: UpdateRADIUSProfile
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -12436,15 +11690,10 @@ paths:
           description: Created
       tags:
       - RADIUSProfile
-  /s/{siteId}/rest/routing:
+  /rest/routing:
     get:
       operationId: ListRouting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -12583,11 +11832,6 @@ paths:
     post:
       operationId: CreateRouting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -12598,15 +11842,10 @@ paths:
           description: No Content
       tags:
       - Routing
-  /s/{siteId}/rest/routing/{id}:
+  /rest/routing/{id}:
     delete:
       operationId: DeleteRouting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -12751,11 +11990,6 @@ paths:
       operationId: GetRouting
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -12790,11 +12024,6 @@ paths:
     put:
       operationId: UpdateRouting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -12940,15 +12169,10 @@ paths:
           description: Created
       tags:
       - Routing
-  /s/{siteId}/rest/scheduletask:
+  /rest/scheduletask:
     get:
       operationId: ListScheduleTask
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -13087,11 +12311,6 @@ paths:
     post:
       operationId: CreateScheduleTask
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -13102,15 +12321,10 @@ paths:
           description: No Content
       tags:
       - ScheduleTask
-  /s/{siteId}/rest/scheduletask/{id}:
+  /rest/scheduletask/{id}:
     delete:
       operationId: DeleteScheduleTask
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -13255,11 +12469,6 @@ paths:
       operationId: GetScheduleTask
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -13294,11 +12503,6 @@ paths:
     put:
       operationId: UpdateScheduleTask
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -13444,15 +12648,10 @@ paths:
           description: Created
       tags:
       - ScheduleTask
-  /s/{siteId}/rest/spatialrecord:
+  /rest/spatialrecord:
     get:
       operationId: ListSpatialRecord
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -13591,11 +12790,6 @@ paths:
     post:
       operationId: CreateSpatialRecord
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -13606,15 +12800,10 @@ paths:
           description: No Content
       tags:
       - SpatialRecord
-  /s/{siteId}/rest/spatialrecord/{id}:
+  /rest/spatialrecord/{id}:
     delete:
       operationId: DeleteSpatialRecord
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -13759,11 +12948,6 @@ paths:
       operationId: GetSpatialRecord
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -13798,11 +12982,6 @@ paths:
     put:
       operationId: UpdateSpatialRecord
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -13948,15 +13127,10 @@ paths:
           description: Created
       tags:
       - SpatialRecord
-  /s/{siteId}/rest/tag:
+  /rest/tag:
     get:
       operationId: ListTag
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -14095,11 +13269,6 @@ paths:
     post:
       operationId: CreateTag
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -14110,15 +13279,10 @@ paths:
           description: No Content
       tags:
       - Tag
-  /s/{siteId}/rest/tag/{id}:
+  /rest/tag/{id}:
     delete:
       operationId: DeleteTag
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -14263,11 +13427,6 @@ paths:
       operationId: GetTag
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -14302,11 +13461,6 @@ paths:
     put:
       operationId: UpdateTag
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -14452,15 +13606,10 @@ paths:
           description: Created
       tags:
       - Tag
-  /s/{siteId}/rest/user:
+  /rest/user:
     get:
       operationId: ListUser
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -14599,11 +13748,6 @@ paths:
     post:
       operationId: CreateUser
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -14614,15 +13758,10 @@ paths:
           description: No Content
       tags:
       - User
-  /s/{siteId}/rest/user/{id}:
+  /rest/user/{id}:
     delete:
       operationId: DeleteUser
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -14767,11 +13906,6 @@ paths:
       operationId: GetUser
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -14806,11 +13940,6 @@ paths:
     put:
       operationId: UpdateUser
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -14956,15 +14085,10 @@ paths:
           description: Created
       tags:
       - User
-  /s/{siteId}/rest/usergroup:
+  /rest/usergroup:
     get:
       operationId: ListUserGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -15103,11 +14227,6 @@ paths:
     post:
       operationId: CreateUserGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -15118,15 +14237,10 @@ paths:
           description: No Content
       tags:
       - UserGroup
-  /s/{siteId}/rest/usergroup/{id}:
+  /rest/usergroup/{id}:
     delete:
       operationId: DeleteUserGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -15271,11 +14385,6 @@ paths:
       operationId: GetUserGroup
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -15310,11 +14419,6 @@ paths:
     put:
       operationId: UpdateUserGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -15460,15 +14564,10 @@ paths:
           description: Created
       tags:
       - UserGroup
-  /s/{siteId}/rest/virtualdevice:
+  /rest/virtualdevice:
     get:
       operationId: ListVirtualDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -15607,11 +14706,6 @@ paths:
     post:
       operationId: CreateVirtualDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -15622,15 +14716,10 @@ paths:
           description: No Content
       tags:
       - VirtualDevice
-  /s/{siteId}/rest/virtualdevice/{id}:
+  /rest/virtualdevice/{id}:
     delete:
       operationId: DeleteVirtualDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -15775,11 +14864,6 @@ paths:
       operationId: GetVirtualDevice
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -15814,11 +14898,6 @@ paths:
     put:
       operationId: UpdateVirtualDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -15964,15 +15043,10 @@ paths:
           description: Created
       tags:
       - VirtualDevice
-  /s/{siteId}/rest/wlanconf:
+  /rest/wlanconf:
     get:
       operationId: ListWLAN
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -16111,11 +15185,6 @@ paths:
     post:
       operationId: CreateWLAN
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -16126,15 +15195,10 @@ paths:
           description: No Content
       tags:
       - WLAN
-  /s/{siteId}/rest/wlanconf/{id}:
+  /rest/wlanconf/{id}:
     delete:
       operationId: DeleteWLAN
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -16279,11 +15343,6 @@ paths:
       operationId: GetWLAN
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -16318,11 +15377,6 @@ paths:
     put:
       operationId: UpdateWLAN
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -16468,15 +15522,10 @@ paths:
           description: Created
       tags:
       - WLAN
-  /s/{siteId}/rest/wlangroup:
+  /rest/wlangroup:
     get:
       operationId: ListWLANGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -16615,11 +15664,6 @@ paths:
     post:
       operationId: CreateWLANGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -16630,15 +15674,10 @@ paths:
           description: No Content
       tags:
       - WLANGroup
-  /s/{siteId}/rest/wlangroup/{id}:
+  /rest/wlangroup/{id}:
     delete:
       operationId: DeleteWLANGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -16783,11 +15822,6 @@ paths:
       operationId: GetWLANGroup
       parameters:
       - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
-      - in: path
         name: id
         required: true
         schema:
@@ -16822,11 +15856,6 @@ paths:
     put:
       operationId: UpdateWLANGroup
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true
@@ -16972,15 +16001,10 @@ paths:
           description: Created
       tags:
       - WLANGroup
-  /s/{siteId}/set/setting/auto_speedtest:
+  /set/setting/auto_speedtest:
     put:
       operationId: UpdateSettingAutoSpeedtest
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17121,15 +16145,10 @@ paths:
           description: Created
       tags:
       - SettingAutoSpeedtest
-  /s/{siteId}/set/setting/baresip:
+  /set/setting/baresip:
     put:
       operationId: UpdateSettingBaresip
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17270,15 +16289,10 @@ paths:
           description: Created
       tags:
       - SettingBaresip
-  /s/{siteId}/set/setting/broadcast:
+  /set/setting/broadcast:
     put:
       operationId: UpdateSettingBroadcast
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17419,15 +16433,10 @@ paths:
           description: Created
       tags:
       - SettingBroadcast
-  /s/{siteId}/set/setting/connectivity:
+  /set/setting/connectivity:
     put:
       operationId: UpdateSettingConnectivity
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17568,15 +16577,10 @@ paths:
           description: Created
       tags:
       - SettingConnectivity
-  /s/{siteId}/set/setting/country:
+  /set/setting/country:
     put:
       operationId: UpdateSettingCountry
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17717,15 +16721,10 @@ paths:
           description: Created
       tags:
       - SettingCountry
-  /s/{siteId}/set/setting/dashboard:
+  /set/setting/dashboard:
     put:
       operationId: UpdateSettingDashboard
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -17866,15 +16865,10 @@ paths:
           description: Created
       tags:
       - SettingDashboard
-  /s/{siteId}/set/setting/doh:
+  /set/setting/doh:
     put:
       operationId: UpdateSettingDoh
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18015,15 +17009,10 @@ paths:
           description: Created
       tags:
       - SettingDoh
-  /s/{siteId}/set/setting/dpi:
+  /set/setting/dpi:
     put:
       operationId: UpdateSettingDpi
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18164,15 +17153,10 @@ paths:
           description: Created
       tags:
       - SettingDpi
-  /s/{siteId}/set/setting/element_adopt:
+  /set/setting/element_adopt:
     put:
       operationId: UpdateSettingElementAdopt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18313,15 +17297,10 @@ paths:
           description: Created
       tags:
       - SettingElementAdopt
-  /s/{siteId}/set/setting/ether_lighting:
+  /set/setting/ether_lighting:
     put:
       operationId: UpdateSettingEtherLighting
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18462,15 +17441,10 @@ paths:
           description: Created
       tags:
       - SettingEtherLighting
-  /s/{siteId}/set/setting/evaluation_score:
+  /set/setting/evaluation_score:
     put:
       operationId: UpdateSettingEvaluationScore
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18611,15 +17585,10 @@ paths:
           description: Created
       tags:
       - SettingEvaluationScore
-  /s/{siteId}/set/setting/global_ap:
+  /set/setting/global_ap:
     put:
       operationId: UpdateSettingGlobalAp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18760,15 +17729,10 @@ paths:
           description: Created
       tags:
       - SettingGlobalAp
-  /s/{siteId}/set/setting/global_nat:
+  /set/setting/global_nat:
     put:
       operationId: UpdateSettingGlobalNat
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -18909,15 +17873,10 @@ paths:
           description: Created
       tags:
       - SettingGlobalNat
-  /s/{siteId}/set/setting/global_switch:
+  /set/setting/global_switch:
     put:
       operationId: UpdateSettingGlobalSwitch
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19058,15 +18017,10 @@ paths:
           description: Created
       tags:
       - SettingGlobalSwitch
-  /s/{siteId}/set/setting/guest_access:
+  /set/setting/guest_access:
     put:
       operationId: UpdateSettingGuestAccess
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19207,15 +18161,10 @@ paths:
           description: Created
       tags:
       - SettingGuestAccess
-  /s/{siteId}/set/setting/ips:
+  /set/setting/ips:
     put:
       operationId: UpdateSettingIps
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19356,15 +18305,10 @@ paths:
           description: Created
       tags:
       - SettingIps
-  /s/{siteId}/set/setting/lcm:
+  /set/setting/lcm:
     put:
       operationId: UpdateSettingLcm
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19505,15 +18449,10 @@ paths:
           description: Created
       tags:
       - SettingLcm
-  /s/{siteId}/set/setting/locale:
+  /set/setting/locale:
     put:
       operationId: UpdateSettingLocale
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19654,15 +18593,10 @@ paths:
           description: Created
       tags:
       - SettingLocale
-  /s/{siteId}/set/setting/magic_site_to_site_vpn:
+  /set/setting/magic_site_to_site_vpn:
     put:
       operationId: UpdateSettingMagicSiteToSiteVpn
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19803,15 +18737,10 @@ paths:
           description: Created
       tags:
       - SettingMagicSiteToSiteVpn
-  /s/{siteId}/set/setting/mdns:
+  /set/setting/mdns:
     put:
       operationId: UpdateSettingMdns
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -19952,15 +18881,10 @@ paths:
           description: Created
       tags:
       - SettingMdns
-  /s/{siteId}/set/setting/mgmt:
+  /set/setting/mgmt:
     put:
       operationId: UpdateSettingMgmt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20101,15 +19025,10 @@ paths:
           description: Created
       tags:
       - SettingMgmt
-  /s/{siteId}/set/setting/netflow:
+  /set/setting/netflow:
     put:
       operationId: UpdateSettingNetflow
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20250,15 +19169,10 @@ paths:
           description: Created
       tags:
       - SettingNetflow
-  /s/{siteId}/set/setting/network_optimization:
+  /set/setting/network_optimization:
     put:
       operationId: UpdateSettingNetworkOptimization
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20399,15 +19313,10 @@ paths:
           description: Created
       tags:
       - SettingNetworkOptimization
-  /s/{siteId}/set/setting/ntp:
+  /set/setting/ntp:
     put:
       operationId: UpdateSettingNtp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20548,15 +19457,10 @@ paths:
           description: Created
       tags:
       - SettingNtp
-  /s/{siteId}/set/setting/porta:
+  /set/setting/porta:
     put:
       operationId: UpdateSettingPorta
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20697,15 +19601,10 @@ paths:
           description: Created
       tags:
       - SettingPorta
-  /s/{siteId}/set/setting/radio_ai:
+  /set/setting/radio_ai:
     put:
       operationId: UpdateSettingRadioAi
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20846,15 +19745,10 @@ paths:
           description: Created
       tags:
       - SettingRadioAi
-  /s/{siteId}/set/setting/radius:
+  /set/setting/radius:
     put:
       operationId: UpdateSettingRadius
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -20995,15 +19889,10 @@ paths:
           description: Created
       tags:
       - SettingRadius
-  /s/{siteId}/set/setting/rsyslogd:
+  /set/setting/rsyslogd:
     put:
       operationId: UpdateSettingRsyslogd
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21144,15 +20033,10 @@ paths:
           description: Created
       tags:
       - SettingRsyslogd
-  /s/{siteId}/set/setting/snmp:
+  /set/setting/snmp:
     put:
       operationId: UpdateSettingSnmp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21293,15 +20177,10 @@ paths:
           description: Created
       tags:
       - SettingSnmp
-  /s/{siteId}/set/setting/ssl_inspection:
+  /set/setting/ssl_inspection:
     put:
       operationId: UpdateSettingSslInspection
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21442,15 +20321,10 @@ paths:
           description: Created
       tags:
       - SettingSslInspection
-  /s/{siteId}/set/setting/super_cloudaccess:
+  /set/setting/super_cloudaccess:
     put:
       operationId: UpdateSettingSuperCloudaccess
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21591,15 +20465,10 @@ paths:
           description: Created
       tags:
       - SettingSuperCloudaccess
-  /s/{siteId}/set/setting/super_events:
+  /set/setting/super_events:
     put:
       operationId: UpdateSettingSuperEvents
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21740,15 +20609,10 @@ paths:
           description: Created
       tags:
       - SettingSuperEvents
-  /s/{siteId}/set/setting/super_fwupdate:
+  /set/setting/super_fwupdate:
     put:
       operationId: UpdateSettingSuperFwupdate
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -21889,15 +20753,10 @@ paths:
           description: Created
       tags:
       - SettingSuperFwupdate
-  /s/{siteId}/set/setting/super_identity:
+  /set/setting/super_identity:
     put:
       operationId: UpdateSettingSuperIdentity
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22038,15 +20897,10 @@ paths:
           description: Created
       tags:
       - SettingSuperIdentity
-  /s/{siteId}/set/setting/super_mail:
+  /set/setting/super_mail:
     put:
       operationId: UpdateSettingSuperMail
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22187,15 +21041,10 @@ paths:
           description: Created
       tags:
       - SettingSuperMail
-  /s/{siteId}/set/setting/super_mgmt:
+  /set/setting/super_mgmt:
     put:
       operationId: UpdateSettingSuperMgmt
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22336,15 +21185,10 @@ paths:
           description: Created
       tags:
       - SettingSuperMgmt
-  /s/{siteId}/set/setting/super_sdn:
+  /set/setting/super_sdn:
     put:
       operationId: UpdateSettingSuperSdn
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22485,15 +21329,10 @@ paths:
           description: Created
       tags:
       - SettingSuperSdn
-  /s/{siteId}/set/setting/super_smtp:
+  /set/setting/super_smtp:
     put:
       operationId: UpdateSettingSuperSmtp
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22634,15 +21473,10 @@ paths:
           description: Created
       tags:
       - SettingSuperSmtp
-  /s/{siteId}/set/setting/teleport:
+  /set/setting/teleport:
     put:
       operationId: UpdateSettingTeleport
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22783,15 +21617,10 @@ paths:
           description: Created
       tags:
       - SettingTeleport
-  /s/{siteId}/set/setting/traffic_flow:
+  /set/setting/traffic_flow:
     put:
       operationId: UpdateSettingTrafficFlow
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -22932,15 +21761,10 @@ paths:
           description: Created
       tags:
       - SettingTrafficFlow
-  /s/{siteId}/set/setting/usg:
+  /set/setting/usg:
     put:
       operationId: UpdateSettingUsg
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -23081,15 +21905,10 @@ paths:
           description: Created
       tags:
       - SettingUsg
-  /s/{siteId}/set/setting/usw:
+  /set/setting/usw:
     put:
       operationId: UpdateSettingUsw
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -23230,15 +22049,10 @@ paths:
           description: Created
       tags:
       - SettingUsw
-  /s/{siteId}/stat/device:
+  /stat/device:
     get:
       operationId: ListDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       responses:
         "400":
           content:
@@ -23374,15 +22188,10 @@ paths:
           description: OK
       tags:
       - Device
-  /s/{siteId}/stat/device/{id}:
+  /stat/device/{id}:
     get:
       operationId: GetDevice
       parameters:
-      - in: path
-        name: siteId
-        required: true
-        schema:
-          type: string
       - in: path
         name: id
         required: true

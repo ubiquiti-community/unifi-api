@@ -84,16 +84,19 @@ type HeatMapResponse struct {
 
 func addHeatMap() {
 	resourceName := strcase.SnakeCase("HeatMap")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/heatmap/{id}")
 	getOp.AddReqStructure(new(HeatMapGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/heatmap/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/heatmap/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -112,6 +115,10 @@ func addHeatMap() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/heatmap/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/heatmap/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -151,6 +158,11 @@ func addHeatMap() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/heatmap",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/heatmap")
 	if err != nil {
 		log.Fatal(err)
@@ -171,6 +183,11 @@ func addHeatMap() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/heatmap/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/heatmap/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -189,4 +206,6 @@ func addHeatMap() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

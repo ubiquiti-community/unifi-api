@@ -122,16 +122,19 @@ type HotspotPackageResponse struct {
 
 func addHotspotPackage() {
 	resourceName := strcase.SnakeCase("HotspotPackage")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/hotspotpackage/{id}")
 	getOp.AddReqStructure(new(HotspotPackageGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotpackage/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/hotspotpackage/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -150,6 +153,10 @@ func addHotspotPackage() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/hotspotpackage/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotpackage/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -189,6 +196,11 @@ func addHotspotPackage() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotpackage",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/hotspotpackage")
 	if err != nil {
 		log.Fatal(err)
@@ -209,6 +221,11 @@ func addHotspotPackage() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotpackage/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/hotspotpackage/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -227,4 +244,6 @@ func addHotspotPackage() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

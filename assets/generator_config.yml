@@ -1,296 +1,1119 @@
 provider:
     name: unifi
-resources: {}
+resources:
+    account:
+        create:
+            method: POST
+            path: /rest/account
+        delete:
+            method: DELETE
+            path: /rest/account/{id}
+        read:
+            method: GET
+            path: /rest/account/{id}
+        update:
+            method: PUT
+            path: /rest/account/{id}
+    broadcast_group:
+        create:
+            method: POST
+            path: /rest/broadcastgroup
+        delete:
+            method: DELETE
+            path: /rest/broadcastgroup/{id}
+        read:
+            method: GET
+            path: /rest/broadcastgroup/{id}
+        update:
+            method: PUT
+            path: /rest/broadcastgroup/{id}
+    channel_plan:
+        create:
+            method: POST
+            path: /rest/channelplan
+        delete:
+            method: DELETE
+            path: /rest/channelplan/{id}
+        read:
+            method: GET
+            path: /rest/channelplan/{id}
+        update:
+            method: PUT
+            path: /rest/channelplan/{id}
+    dashboard:
+        create:
+            method: POST
+            path: /rest/dashboard
+        delete:
+            method: DELETE
+            path: /rest/dashboard/{id}
+        read:
+            method: GET
+            path: /rest/dashboard/{id}
+        update:
+            method: PUT
+            path: /rest/dashboard/{id}
+    device:
+        create:
+            method: POST
+            path: /rest/device
+        delete:
+            method: DELETE
+            path: /rest/device/{id}
+        read:
+            method: GET
+            path: /stat/device/{id}
+        update:
+            method: PUT
+            path: /rest/device/{id}
+    dhcp_option:
+        create:
+            method: POST
+            path: /rest/dhcpoption
+        delete:
+            method: DELETE
+            path: /rest/dhcpoption/{id}
+        read:
+            method: GET
+            path: /rest/dhcpoption/{id}
+        update:
+            method: PUT
+            path: /rest/dhcpoption/{id}
+    dpi_app:
+        create:
+            method: POST
+            path: /rest/dpiapp
+        delete:
+            method: DELETE
+            path: /rest/dpiapp/{id}
+        read:
+            method: GET
+            path: /rest/dpiapp/{id}
+        update:
+            method: PUT
+            path: /rest/dpiapp/{id}
+    dpi_group:
+        create:
+            method: POST
+            path: /rest/dpigroup
+        delete:
+            method: DELETE
+            path: /rest/dpigroup/{id}
+        read:
+            method: GET
+            path: /rest/dpigroup/{id}
+        update:
+            method: PUT
+            path: /rest/dpigroup/{id}
+    dynamic_dns:
+        create:
+            method: POST
+            path: /rest/dynamicdns
+        delete:
+            method: DELETE
+            path: /rest/dynamicdns/{id}
+        read:
+            method: GET
+            path: /rest/dynamicdns/{id}
+        update:
+            method: PUT
+            path: /rest/dynamicdns/{id}
+    firewall_group:
+        create:
+            method: POST
+            path: /rest/firewallgroup
+        delete:
+            method: DELETE
+            path: /rest/firewallgroup/{id}
+        read:
+            method: GET
+            path: /rest/firewallgroup/{id}
+        update:
+            method: PUT
+            path: /rest/firewallgroup/{id}
+    firewall_rule:
+        create:
+            method: POST
+            path: /rest/firewallrule
+        delete:
+            method: DELETE
+            path: /rest/firewallrule/{id}
+        read:
+            method: GET
+            path: /rest/firewallrule/{id}
+        update:
+            method: PUT
+            path: /rest/firewallrule/{id}
+    heat_map:
+        create:
+            method: POST
+            path: /rest/heatmap
+        delete:
+            method: DELETE
+            path: /rest/heatmap/{id}
+        read:
+            method: GET
+            path: /rest/heatmap/{id}
+        update:
+            method: PUT
+            path: /rest/heatmap/{id}
+    heat_map_point:
+        create:
+            method: POST
+            path: /rest/heatmappoint
+        delete:
+            method: DELETE
+            path: /rest/heatmappoint/{id}
+        read:
+            method: GET
+            path: /rest/heatmappoint/{id}
+        update:
+            method: PUT
+            path: /rest/heatmappoint/{id}
+    hotspot_op:
+        create:
+            method: POST
+            path: /rest/hotspotop
+        delete:
+            method: DELETE
+            path: /rest/hotspotop/{id}
+        read:
+            method: GET
+            path: /rest/hotspotop/{id}
+        update:
+            method: PUT
+            path: /rest/hotspotop/{id}
+    hotspot_package:
+        create:
+            method: POST
+            path: /rest/hotspotpackage
+        delete:
+            method: DELETE
+            path: /rest/hotspotpackage/{id}
+        read:
+            method: GET
+            path: /rest/hotspotpackage/{id}
+        update:
+            method: PUT
+            path: /rest/hotspotpackage/{id}
+    hotspot2conf:
+        create:
+            method: POST
+            path: /rest/hotspot2conf
+        delete:
+            method: DELETE
+            path: /rest/hotspot2conf/{id}
+        read:
+            method: GET
+            path: /rest/hotspot2conf/{id}
+        update:
+            method: PUT
+            path: /rest/hotspot2conf/{id}
+    map:
+        create:
+            method: POST
+            path: /rest/map
+        delete:
+            method: DELETE
+            path: /rest/map/{id}
+        read:
+            method: GET
+            path: /rest/map/{id}
+        update:
+            method: PUT
+            path: /rest/map/{id}
+    media_file:
+        create:
+            method: POST
+            path: /rest/mediafile
+        delete:
+            method: DELETE
+            path: /rest/mediafile/{id}
+        read:
+            method: GET
+            path: /rest/mediafile/{id}
+        update:
+            method: PUT
+            path: /rest/mediafile/{id}
+    network:
+        create:
+            method: POST
+            path: /rest/networkconf
+        delete:
+            method: DELETE
+            path: /rest/networkconf/{id}
+        read:
+            method: GET
+            path: /rest/networkconf/{id}
+        update:
+            method: PUT
+            path: /rest/networkconf/{id}
+    port_forward:
+        create:
+            method: POST
+            path: /rest/portforward
+        delete:
+            method: DELETE
+            path: /rest/portforward/{id}
+        read:
+            method: GET
+            path: /rest/portforward/{id}
+        update:
+            method: PUT
+            path: /rest/portforward/{id}
+    port_profile:
+        create:
+            method: POST
+            path: /rest/portconf
+        delete:
+            method: DELETE
+            path: /rest/portconf/{id}
+        read:
+            method: GET
+            path: /rest/portconf/{id}
+        update:
+            method: PUT
+            path: /rest/portconf/{id}
+    radius_profile:
+        create:
+            method: POST
+            path: /rest/radiusprofile
+        delete:
+            method: DELETE
+            path: /rest/radiusprofile/{id}
+        read:
+            method: GET
+            path: /rest/radiusprofile/{id}
+        update:
+            method: PUT
+            path: /rest/radiusprofile/{id}
+    routing:
+        create:
+            method: POST
+            path: /rest/routing
+        delete:
+            method: DELETE
+            path: /rest/routing/{id}
+        read:
+            method: GET
+            path: /rest/routing/{id}
+        update:
+            method: PUT
+            path: /rest/routing/{id}
+    schedule_task:
+        create:
+            method: POST
+            path: /rest/scheduletask
+        delete:
+            method: DELETE
+            path: /rest/scheduletask/{id}
+        read:
+            method: GET
+            path: /rest/scheduletask/{id}
+        update:
+            method: PUT
+            path: /rest/scheduletask/{id}
+    setting_auto_speedtest:
+        create:
+            method: POST
+            path: /set/setting/auto_speedtest
+        read:
+            method: GET
+            path: /get/setting/auto_speedtest
+        update:
+            method: PUT
+            path: /set/setting/auto_speedtest
+    setting_baresip:
+        create:
+            method: POST
+            path: /set/setting/baresip
+        read:
+            method: GET
+            path: /get/setting/baresip
+        update:
+            method: PUT
+            path: /set/setting/baresip
+    setting_broadcast:
+        create:
+            method: POST
+            path: /set/setting/broadcast
+        read:
+            method: GET
+            path: /get/setting/broadcast
+        update:
+            method: PUT
+            path: /set/setting/broadcast
+    setting_connectivity:
+        create:
+            method: POST
+            path: /set/setting/connectivity
+        read:
+            method: GET
+            path: /get/setting/connectivity
+        update:
+            method: PUT
+            path: /set/setting/connectivity
+    setting_country:
+        create:
+            method: POST
+            path: /set/setting/country
+        read:
+            method: GET
+            path: /get/setting/country
+        update:
+            method: PUT
+            path: /set/setting/country
+    setting_dashboard:
+        create:
+            method: POST
+            path: /set/setting/dashboard
+        read:
+            method: GET
+            path: /get/setting/dashboard
+        update:
+            method: PUT
+            path: /set/setting/dashboard
+    setting_doh:
+        create:
+            method: POST
+            path: /set/setting/doh
+        read:
+            method: GET
+            path: /get/setting/doh
+        update:
+            method: PUT
+            path: /set/setting/doh
+    setting_dpi:
+        create:
+            method: POST
+            path: /set/setting/dpi
+        read:
+            method: GET
+            path: /get/setting/dpi
+        update:
+            method: PUT
+            path: /set/setting/dpi
+    setting_element_adopt:
+        create:
+            method: POST
+            path: /set/setting/element_adopt
+        read:
+            method: GET
+            path: /get/setting/element_adopt
+        update:
+            method: PUT
+            path: /set/setting/element_adopt
+    setting_ether_lighting:
+        create:
+            method: POST
+            path: /set/setting/ether_lighting
+        read:
+            method: GET
+            path: /get/setting/ether_lighting
+        update:
+            method: PUT
+            path: /set/setting/ether_lighting
+    setting_evaluation_score:
+        create:
+            method: POST
+            path: /set/setting/evaluation_score
+        read:
+            method: GET
+            path: /get/setting/evaluation_score
+        update:
+            method: PUT
+            path: /set/setting/evaluation_score
+    setting_global_ap:
+        create:
+            method: POST
+            path: /set/setting/global_ap
+        read:
+            method: GET
+            path: /get/setting/global_ap
+        update:
+            method: PUT
+            path: /set/setting/global_ap
+    setting_global_nat:
+        create:
+            method: POST
+            path: /set/setting/global_nat
+        read:
+            method: GET
+            path: /get/setting/global_nat
+        update:
+            method: PUT
+            path: /set/setting/global_nat
+    setting_global_switch:
+        create:
+            method: POST
+            path: /set/setting/global_switch
+        read:
+            method: GET
+            path: /get/setting/global_switch
+        update:
+            method: PUT
+            path: /set/setting/global_switch
+    setting_guest_access:
+        create:
+            method: POST
+            path: /set/setting/guest_access
+        read:
+            method: GET
+            path: /get/setting/guest_access
+        update:
+            method: PUT
+            path: /set/setting/guest_access
+    setting_ips:
+        create:
+            method: POST
+            path: /set/setting/ips
+        read:
+            method: GET
+            path: /get/setting/ips
+        update:
+            method: PUT
+            path: /set/setting/ips
+    setting_lcm:
+        create:
+            method: POST
+            path: /set/setting/lcm
+        read:
+            method: GET
+            path: /get/setting/lcm
+        update:
+            method: PUT
+            path: /set/setting/lcm
+    setting_locale:
+        create:
+            method: POST
+            path: /set/setting/locale
+        read:
+            method: GET
+            path: /get/setting/locale
+        update:
+            method: PUT
+            path: /set/setting/locale
+    setting_magic_site_to_site_vpn:
+        create:
+            method: POST
+            path: /set/setting/magic_site_to_site_vpn
+        read:
+            method: GET
+            path: /get/setting/magic_site_to_site_vpn
+        update:
+            method: PUT
+            path: /set/setting/magic_site_to_site_vpn
+    setting_mdns:
+        create:
+            method: POST
+            path: /set/setting/mdns
+        read:
+            method: GET
+            path: /get/setting/mdns
+        update:
+            method: PUT
+            path: /set/setting/mdns
+    setting_mgmt:
+        create:
+            method: POST
+            path: /set/setting/mgmt
+        read:
+            method: GET
+            path: /get/setting/mgmt
+        update:
+            method: PUT
+            path: /set/setting/mgmt
+    setting_netflow:
+        create:
+            method: POST
+            path: /set/setting/netflow
+        read:
+            method: GET
+            path: /get/setting/netflow
+        update:
+            method: PUT
+            path: /set/setting/netflow
+    setting_network_optimization:
+        create:
+            method: POST
+            path: /set/setting/network_optimization
+        read:
+            method: GET
+            path: /get/setting/network_optimization
+        update:
+            method: PUT
+            path: /set/setting/network_optimization
+    setting_ntp:
+        create:
+            method: POST
+            path: /set/setting/ntp
+        read:
+            method: GET
+            path: /get/setting/ntp
+        update:
+            method: PUT
+            path: /set/setting/ntp
+    setting_porta:
+        create:
+            method: POST
+            path: /set/setting/porta
+        read:
+            method: GET
+            path: /get/setting/porta
+        update:
+            method: PUT
+            path: /set/setting/porta
+    setting_radio_ai:
+        create:
+            method: POST
+            path: /set/setting/radio_ai
+        read:
+            method: GET
+            path: /get/setting/radio_ai
+        update:
+            method: PUT
+            path: /set/setting/radio_ai
+    setting_radius:
+        create:
+            method: POST
+            path: /set/setting/radius
+        read:
+            method: GET
+            path: /get/setting/radius
+        update:
+            method: PUT
+            path: /set/setting/radius
+    setting_rsyslogd:
+        create:
+            method: POST
+            path: /set/setting/rsyslogd
+        read:
+            method: GET
+            path: /get/setting/rsyslogd
+        update:
+            method: PUT
+            path: /set/setting/rsyslogd
+    setting_snmp:
+        create:
+            method: POST
+            path: /set/setting/snmp
+        read:
+            method: GET
+            path: /get/setting/snmp
+        update:
+            method: PUT
+            path: /set/setting/snmp
+    setting_ssl_inspection:
+        create:
+            method: POST
+            path: /set/setting/ssl_inspection
+        read:
+            method: GET
+            path: /get/setting/ssl_inspection
+        update:
+            method: PUT
+            path: /set/setting/ssl_inspection
+    setting_super_cloudaccess:
+        create:
+            method: POST
+            path: /set/setting/super_cloudaccess
+        read:
+            method: GET
+            path: /get/setting/super_cloudaccess
+        update:
+            method: PUT
+            path: /set/setting/super_cloudaccess
+    setting_super_events:
+        create:
+            method: POST
+            path: /set/setting/super_events
+        read:
+            method: GET
+            path: /get/setting/super_events
+        update:
+            method: PUT
+            path: /set/setting/super_events
+    setting_super_fwupdate:
+        create:
+            method: POST
+            path: /set/setting/super_fwupdate
+        read:
+            method: GET
+            path: /get/setting/super_fwupdate
+        update:
+            method: PUT
+            path: /set/setting/super_fwupdate
+    setting_super_identity:
+        create:
+            method: POST
+            path: /set/setting/super_identity
+        read:
+            method: GET
+            path: /get/setting/super_identity
+        update:
+            method: PUT
+            path: /set/setting/super_identity
+    setting_super_mail:
+        create:
+            method: POST
+            path: /set/setting/super_mail
+        read:
+            method: GET
+            path: /get/setting/super_mail
+        update:
+            method: PUT
+            path: /set/setting/super_mail
+    setting_super_mgmt:
+        create:
+            method: POST
+            path: /set/setting/super_mgmt
+        read:
+            method: GET
+            path: /get/setting/super_mgmt
+        update:
+            method: PUT
+            path: /set/setting/super_mgmt
+    setting_super_sdn:
+        create:
+            method: POST
+            path: /set/setting/super_sdn
+        read:
+            method: GET
+            path: /get/setting/super_sdn
+        update:
+            method: PUT
+            path: /set/setting/super_sdn
+    setting_super_smtp:
+        create:
+            method: POST
+            path: /set/setting/super_smtp
+        read:
+            method: GET
+            path: /get/setting/super_smtp
+        update:
+            method: PUT
+            path: /set/setting/super_smtp
+    setting_teleport:
+        create:
+            method: POST
+            path: /set/setting/teleport
+        read:
+            method: GET
+            path: /get/setting/teleport
+        update:
+            method: PUT
+            path: /set/setting/teleport
+    setting_traffic_flow:
+        create:
+            method: POST
+            path: /set/setting/traffic_flow
+        read:
+            method: GET
+            path: /get/setting/traffic_flow
+        update:
+            method: PUT
+            path: /set/setting/traffic_flow
+    setting_usg:
+        create:
+            method: POST
+            path: /set/setting/usg
+        read:
+            method: GET
+            path: /get/setting/usg
+        update:
+            method: PUT
+            path: /set/setting/usg
+    setting_usw:
+        create:
+            method: POST
+            path: /set/setting/usw
+        read:
+            method: GET
+            path: /get/setting/usw
+        update:
+            method: PUT
+            path: /set/setting/usw
+    spatial_record:
+        create:
+            method: POST
+            path: /rest/spatialrecord
+        delete:
+            method: DELETE
+            path: /rest/spatialrecord/{id}
+        read:
+            method: GET
+            path: /rest/spatialrecord/{id}
+        update:
+            method: PUT
+            path: /rest/spatialrecord/{id}
+    tag:
+        create:
+            method: POST
+            path: /rest/tag
+        delete:
+            method: DELETE
+            path: /rest/tag/{id}
+        read:
+            method: GET
+            path: /rest/tag/{id}
+        update:
+            method: PUT
+            path: /rest/tag/{id}
+    user:
+        create:
+            method: POST
+            path: /rest/user
+        delete:
+            method: DELETE
+            path: /rest/user/{id}
+        read:
+            method: GET
+            path: /rest/user/{id}
+        update:
+            method: PUT
+            path: /rest/user/{id}
+    user_group:
+        create:
+            method: POST
+            path: /rest/usergroup
+        delete:
+            method: DELETE
+            path: /rest/usergroup/{id}
+        read:
+            method: GET
+            path: /rest/usergroup/{id}
+        update:
+            method: PUT
+            path: /rest/usergroup/{id}
+    virtual_device:
+        create:
+            method: POST
+            path: /rest/virtualdevice
+        delete:
+            method: DELETE
+            path: /rest/virtualdevice/{id}
+        read:
+            method: GET
+            path: /rest/virtualdevice/{id}
+        update:
+            method: PUT
+            path: /rest/virtualdevice/{id}
+    wlan:
+        create:
+            method: POST
+            path: /rest/wlanconf
+        delete:
+            method: DELETE
+            path: /rest/wlanconf/{id}
+        read:
+            method: GET
+            path: /rest/wlanconf/{id}
+        update:
+            method: PUT
+            path: /rest/wlanconf/{id}
+    wlan_group:
+        create:
+            method: POST
+            path: /rest/wlangroup
+        delete:
+            method: DELETE
+            path: /rest/wlangroup/{id}
+        read:
+            method: GET
+            path: /rest/wlangroup/{id}
+        update:
+            method: PUT
+            path: /rest/wlangroup/{id}
 data_sources:
     account:
         read:
             method: GET
-            path: /s/{siteId}/rest/account/{id}
+            path: /rest/account/{id}
     broadcast_group:
         read:
             method: GET
-            path: /s/{siteId}/rest/broadcastgroup/{id}
+            path: /rest/broadcastgroup/{id}
     channel_plan:
         read:
             method: GET
-            path: /s/{siteId}/rest/channelplan/{id}
+            path: /rest/channelplan/{id}
     dashboard:
         read:
             method: GET
-            path: /s/{siteId}/rest/dashboard/{id}
+            path: /rest/dashboard/{id}
     device:
         read:
             method: GET
-            path: /s/{siteId}/stat/device/{id}
+            path: /stat/device/{id}
     dhcp_option:
         read:
             method: GET
-            path: /s/{siteId}/rest/dhcpoption/{id}
+            path: /rest/dhcpoption/{id}
     dpi_app:
         read:
             method: GET
-            path: /s/{siteId}/rest/dpiapp/{id}
+            path: /rest/dpiapp/{id}
     dpi_group:
         read:
             method: GET
-            path: /s/{siteId}/rest/dpigroup/{id}
+            path: /rest/dpigroup/{id}
     dynamic_dns:
         read:
             method: GET
-            path: /s/{siteId}/rest/dynamicdns/{id}
+            path: /rest/dynamicdns/{id}
     firewall_group:
         read:
             method: GET
-            path: /s/{siteId}/rest/firewallgroup/{id}
+            path: /rest/firewallgroup/{id}
     firewall_rule:
         read:
             method: GET
-            path: /s/{siteId}/rest/firewallrule/{id}
+            path: /rest/firewallrule/{id}
     heat_map:
         read:
             method: GET
-            path: /s/{siteId}/rest/heatmap/{id}
+            path: /rest/heatmap/{id}
     heat_map_point:
         read:
             method: GET
-            path: /s/{siteId}/rest/heatmappoint/{id}
+            path: /rest/heatmappoint/{id}
     hotspot_op:
         read:
             method: GET
-            path: /s/{siteId}/rest/hotspotop/{id}
+            path: /rest/hotspotop/{id}
     hotspot_package:
         read:
             method: GET
-            path: /s/{siteId}/rest/hotspotpackage/{id}
+            path: /rest/hotspotpackage/{id}
     hotspot2conf:
         read:
             method: GET
-            path: /s/{siteId}/rest/hotspot2conf/{id}
+            path: /rest/hotspot2conf/{id}
     map:
         read:
             method: GET
-            path: /s/{siteId}/rest/map/{id}
+            path: /rest/map/{id}
     media_file:
         read:
             method: GET
-            path: /s/{siteId}/rest/mediafile/{id}
+            path: /rest/mediafile/{id}
     network:
         read:
             method: GET
-            path: /s/{siteId}/rest/networkconf/{id}
+            path: /rest/networkconf/{id}
     port_forward:
         read:
             method: GET
-            path: /s/{siteId}/rest/portforward/{id}
+            path: /rest/portforward/{id}
     port_profile:
         read:
             method: GET
-            path: /s/{siteId}/rest/portconf/{id}
+            path: /rest/portconf/{id}
     radius_profile:
         read:
             method: GET
-            path: /s/{siteId}/rest/radiusprofile/{id}
+            path: /rest/radiusprofile/{id}
     routing:
         read:
             method: GET
-            path: /s/{siteId}/rest/routing/{id}
+            path: /rest/routing/{id}
     schedule_task:
         read:
             method: GET
-            path: /s/{siteId}/rest/scheduletask/{id}
+            path: /rest/scheduletask/{id}
     setting_auto_speedtest:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/auto_speedtest
+            path: /get/setting/auto_speedtest
     setting_baresip:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/baresip
+            path: /get/setting/baresip
     setting_broadcast:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/broadcast
+            path: /get/setting/broadcast
     setting_connectivity:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/connectivity
+            path: /get/setting/connectivity
     setting_country:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/country
+            path: /get/setting/country
     setting_dashboard:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/dashboard
+            path: /get/setting/dashboard
     setting_doh:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/doh
+            path: /get/setting/doh
     setting_dpi:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/dpi
+            path: /get/setting/dpi
     setting_element_adopt:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/element_adopt
+            path: /get/setting/element_adopt
     setting_ether_lighting:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/ether_lighting
+            path: /get/setting/ether_lighting
     setting_evaluation_score:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/evaluation_score
+            path: /get/setting/evaluation_score
     setting_global_ap:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/global_ap
+            path: /get/setting/global_ap
     setting_global_nat:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/global_nat
+            path: /get/setting/global_nat
     setting_global_switch:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/global_switch
+            path: /get/setting/global_switch
     setting_guest_access:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/guest_access
+            path: /get/setting/guest_access
     setting_ips:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/ips
+            path: /get/setting/ips
     setting_lcm:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/lcm
+            path: /get/setting/lcm
     setting_locale:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/locale
+            path: /get/setting/locale
     setting_magic_site_to_site_vpn:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/magic_site_to_site_vpn
+            path: /get/setting/magic_site_to_site_vpn
     setting_mdns:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/mdns
+            path: /get/setting/mdns
     setting_mgmt:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/mgmt
+            path: /get/setting/mgmt
     setting_netflow:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/netflow
+            path: /get/setting/netflow
     setting_network_optimization:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/network_optimization
+            path: /get/setting/network_optimization
     setting_ntp:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/ntp
+            path: /get/setting/ntp
     setting_porta:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/porta
+            path: /get/setting/porta
     setting_radio_ai:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/radio_ai
+            path: /get/setting/radio_ai
     setting_radius:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/radius
+            path: /get/setting/radius
     setting_rsyslogd:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/rsyslogd
+            path: /get/setting/rsyslogd
     setting_snmp:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/snmp
+            path: /get/setting/snmp
     setting_ssl_inspection:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/ssl_inspection
+            path: /get/setting/ssl_inspection
     setting_super_cloudaccess:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_cloudaccess
+            path: /get/setting/super_cloudaccess
     setting_super_events:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_events
+            path: /get/setting/super_events
     setting_super_fwupdate:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_fwupdate
+            path: /get/setting/super_fwupdate
     setting_super_identity:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_identity
+            path: /get/setting/super_identity
     setting_super_mail:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_mail
+            path: /get/setting/super_mail
     setting_super_mgmt:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_mgmt
+            path: /get/setting/super_mgmt
     setting_super_sdn:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_sdn
+            path: /get/setting/super_sdn
     setting_super_smtp:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/super_smtp
+            path: /get/setting/super_smtp
     setting_teleport:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/teleport
+            path: /get/setting/teleport
     setting_traffic_flow:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/traffic_flow
+            path: /get/setting/traffic_flow
     setting_usg:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/usg
+            path: /get/setting/usg
     setting_usw:
         read:
             method: GET
-            path: /s/{siteId}/get/setting/usw
+            path: /get/setting/usw
     spatial_record:
         read:
             method: GET
-            path: /s/{siteId}/rest/spatialrecord/{id}
+            path: /rest/spatialrecord/{id}
     tag:
         read:
             method: GET
-            path: /s/{siteId}/rest/tag/{id}
+            path: /rest/tag/{id}
     user:
         read:
             method: GET
-            path: /s/{siteId}/rest/user/{id}
+            path: /rest/user/{id}
     user_group:
         read:
             method: GET
-            path: /s/{siteId}/rest/usergroup/{id}
+            path: /rest/usergroup/{id}
     virtual_device:
         read:
             method: GET
-            path: /s/{siteId}/rest/virtualdevice/{id}
+            path: /rest/virtualdevice/{id}
     wlan:
         read:
             method: GET
-            path: /s/{siteId}/rest/wlanconf/{id}
+            path: /rest/wlanconf/{id}
     wlan_group:
         read:
             method: GET
-            path: /s/{siteId}/rest/wlangroup/{id}
+            path: /rest/wlangroup/{id}

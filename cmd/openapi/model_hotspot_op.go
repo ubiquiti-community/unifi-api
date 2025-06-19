@@ -83,16 +83,19 @@ type HotspotOpResponse struct {
 
 func addHotspotOp() {
 	resourceName := strcase.SnakeCase("HotspotOp")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/hotspotop/{id}")
 	getOp.AddReqStructure(new(HotspotOpGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotop/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/hotspotop/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -111,6 +114,10 @@ func addHotspotOp() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/hotspotop/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotop/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -150,6 +157,11 @@ func addHotspotOp() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotop",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/hotspotop")
 	if err != nil {
 		log.Fatal(err)
@@ -170,6 +182,11 @@ func addHotspotOp() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/hotspotop/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/hotspotop/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -188,4 +205,6 @@ func addHotspotOp() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

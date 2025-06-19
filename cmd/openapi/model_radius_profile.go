@@ -171,16 +171,19 @@ type RADIUSProfileResponse struct {
 
 func addRADIUSProfile() {
 	resourceName := strcase.SnakeCase("RADIUSProfile")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/radiusprofile/{id}")
 	getOp.AddReqStructure(new(RADIUSProfileGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/radiusprofile/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/radiusprofile/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -199,6 +202,10 @@ func addRADIUSProfile() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/radiusprofile/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/radiusprofile/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -238,6 +245,11 @@ func addRADIUSProfile() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/radiusprofile",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/radiusprofile")
 	if err != nil {
 		log.Fatal(err)
@@ -258,6 +270,11 @@ func addRADIUSProfile() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/radiusprofile/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/radiusprofile/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -276,4 +293,6 @@ func addRADIUSProfile() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }

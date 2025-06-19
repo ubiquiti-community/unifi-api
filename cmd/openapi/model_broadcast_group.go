@@ -82,16 +82,19 @@ type BroadcastGroupResponse struct {
 
 func addBroadcastGroup() {
 	resourceName := strcase.SnakeCase("BroadcastGroup")
+	resourceObj, getObj := map[string]any{}, map[string]any{}
 
 	// Get
 
 	getOp, err := reflector.NewOperationContext(http.MethodGet, "/s/{siteId}/rest/broadcastgroup/{id}")
 	getOp.AddReqStructure(new(BroadcastGroupGetRequest))
+	getObj = map[string]any{
+		"path":   "/s/{siteId}/rest/broadcastgroup/{id}",
+		"method": "GET",
+	}
+	resourceObj["read"] = getObj
 	generatorConfig.DataSources[resourceName] = map[string]any{
-		"read": map[string]any{
-			"path":   "/s/{siteId}/rest/broadcastgroup/{id}",
-			"method": "GET",
-		},
+		"read": getObj,
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -110,6 +113,10 @@ func addBroadcastGroup() {
 	// Update
 
 	updateOp, err := reflector.NewOperationContext(http.MethodPut, "/s/{siteId}/rest/broadcastgroup/{id}")
+	resourceObj["update"] = map[string]any{
+		"path":   "/s/{siteId}/rest/broadcastgroup/{id}",
+		"method": "PUT",
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -149,6 +156,11 @@ func addBroadcastGroup() {
 	}
 
 	// Create
+	resourceObj["create"] = map[string]any{
+		"path":   "/s/{siteId}/rest/broadcastgroup",
+		"method": "POST",
+	}
+
 	createOp, err := reflector.NewOperationContext(http.MethodPost, "/s/{siteId}/rest/broadcastgroup")
 	if err != nil {
 		log.Fatal(err)
@@ -169,6 +181,11 @@ func addBroadcastGroup() {
 	}
 
 	// Delete
+	resourceObj["delete"] = map[string]any{
+		"path":   "/s/{siteId}/rest/broadcastgroup/{id}",
+		"method": "DELETE",
+	}
+
 	deleteOp, err := reflector.NewOperationContext(http.MethodDelete, "/s/{siteId}/rest/broadcastgroup/{id}")
 	if err != nil {
 		log.Fatal(err)
@@ -187,4 +204,6 @@ func addBroadcastGroup() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	generatorConfig.Resources[resourceName] = resourceObj
 }
