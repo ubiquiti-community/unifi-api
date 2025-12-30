@@ -80,6 +80,7 @@ func TestResourceTypes(t *testing.T) {
 		"Boolean": NewFieldInfo("Boolean", "boolean", "bool", "", false, false, ""),
 		"NestedType": {
 			FieldName:       "NestedType",
+			PathName:        "",
 			JSONName:        "nested_type",
 			FieldType:       "StructNestedType",
 			FieldValidation: "",

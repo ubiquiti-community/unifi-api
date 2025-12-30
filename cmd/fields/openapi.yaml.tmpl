@@ -1,0 +1,386 @@
+openapi: 3.1.0
+info:
+  description: Unifi Controller API
+  title: Unifi API
+  version: {{ .Version }}
+servers:
+- description: Unifi Controller API
+  url: https://{host}:{port}/proxy/network/api
+  variables:
+    host:
+      default: unifi.ui.com
+    port:
+      default: "4443"
+- description: Unifi Controller API
+  url: https://{host}:{port}/api
+  variables:
+    host:
+      default: unifi.ui.com
+    port:
+      default: "4443"
+paths:
+{{- range .Resources }}
+{{- if .IsSetting }}
+  /s/{siteId}/get/setting/{{ .ResourcePath }}:
+    get:
+      operationId: Get{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Get {{ .StructName }} settings
+      tags:
+      - {{ .StructName }}
+  /s/{siteId}/set/setting/{{ .ResourcePath }}:
+    put:
+      operationId: Update{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/{{ .StructName }}'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Update {{ .StructName }} settings
+      tags:
+      - {{ .StructName }}
+{{- else }}
+{{- if eq .StructName "Device" }}
+  /s/{siteId}/stat/device:
+    get:
+      operationId: List{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: List all {{ .StructName }} resources
+      tags:
+      - {{ .StructName }}
+  /s/{siteId}/stat/device/{id}:
+    get:
+      operationId: Get{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Get a specific {{ .StructName }}
+      tags:
+      - {{ .StructName }}
+{{- else }}
+  /s/{siteId}/rest/{{ .ResourcePath }}:
+    get:
+      operationId: List{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: List all {{ .StructName }} resources
+      tags:
+      - {{ .StructName }}
+  /s/{siteId}/rest/{{ .ResourcePath }}/{id}:
+    get:
+      operationId: Get{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Get a specific {{ .StructName }}
+      tags:
+      - {{ .StructName }}
+{{- end }}
+  /s/{siteId}/rest/{{ .ResourcePath }}:
+    post:
+      operationId: Create{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/{{ .StructName }}'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Resource created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Create a new {{ .StructName }}
+      tags:
+      - {{ .StructName }}
+  /s/{siteId}/rest/{{ .ResourcePath }}/{id}:
+    delete:
+      operationId: Delete{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Delete a {{ .StructName }}
+      tags:
+      - {{ .StructName }}
+    put:
+      operationId: Update{{ .StructName }}
+      parameters:
+      - description: Site ID
+        in: path
+        name: siteId
+        required: true
+        schema:
+          type: string
+      - description: Resource ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/{{ .StructName }}'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/{{ .StructName }}Response'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Error response
+      summary: Update a {{ .StructName }}
+      tags:
+      - {{ .StructName }}
+{{- end }}
+{{- end }}
+components:
+  schemas:
+{{- range .Resources }}
+{{- range $typeName, $typeInfo := .Types }}
+    {{ $typeName }}:
+      type: object
+      properties:
+{{- range $field := $typeInfo.SortedFields }}
+{{- if $field }}
+        {{ $field.JSONName }}:
+{{- if $field.IsArray }}
+          type: array
+          items:
+{{- if eq $field.FieldType "string" }}
+            type: string
+{{- else if eq $field.FieldType "int" }}
+            type: integer
+{{- else if eq $field.FieldType "bool" }}
+            type: boolean
+{{- else if eq $field.FieldType "float64" }}
+            type: number
+{{- else }}
+            $ref: '#/components/schemas/{{ $field.FieldType }}'
+{{- end }}
+{{- else if eq $field.FieldType "string" }}
+          type: string
+{{- if $field.FieldValidation }}
+          pattern: {{ $field.FieldValidation | printf "%q" }}
+{{- end }}
+{{- else if eq $field.FieldType "int" "emptyStringInt" }}
+          type: integer
+{{- else if eq $field.FieldType "bool" "booleanishString" }}
+          type: boolean
+{{- else if eq $field.FieldType "float64" }}
+          type: number
+{{- else if eq $field.FieldType "numberOrString" }}
+          oneOf:
+          - type: string
+          - type: number
+{{- else if eq $field.FieldType "DeviceState" }}
+          type: integer
+          enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+{{- else }}
+          $ref: '#/components/schemas/{{ $field.FieldType }}'
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+    {{ .StructName }}Response:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/{{ .StructName }}'
+{{- end }}
+    Meta:
+      type: object
+      properties:
+        rc:
+          type: string
+        msg:
+          type: string
+    Error:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              meta:
+                $ref: '#/components/schemas/Meta'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

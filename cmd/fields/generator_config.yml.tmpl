@@ -1,0 +1,48 @@
+provider:
+  name: unifi
+resources:
+{{- range .Resources }}
+{{- if not .IsSetting }}
+  {{ snake .StructName }}:
+    create:
+      method: POST
+      path: /s/{siteId}/rest/{{ .ResourcePath }}
+    delete:
+      method: DELETE
+      path: /s/{siteId}/rest/{{ .ResourcePath }}/{id}
+    read:
+      method: GET
+{{- if eq .StructName "Device" }}
+      path: /s/{siteId}/stat/device/{id}
+{{- else }}
+      path: /s/{siteId}/rest/{{ .ResourcePath }}/{id}
+{{- end }}
+    update:
+      method: PUT
+      path: /s/{siteId}/rest/{{ .ResourcePath }}/{id}
+{{- else }}
+  {{ snake .StructName }}:
+    create:
+      method: POST
+      path: /s/{siteId}/set/setting/{{ .ResourcePath }}
+    read:
+      method: GET
+      path: /s/{siteId}/get/setting/{{ .ResourcePath }}
+    update:
+      method: PUT
+      path: /s/{siteId}/set/setting/{{ .ResourcePath }}
+{{- end }}
+{{- end }}
+data_sources:
+{{- range .Resources }}
+  {{ snake .StructName }}:
+    read:
+      method: GET
+{{- if .IsSetting }}
+      path: /s/{siteId}/get/setting/{{ .ResourcePath }}
+{{- else if eq .StructName "Device" }}
+      path: /s/{siteId}/stat/device/{id}
+{{- else }}
+      path: /s/{siteId}/rest/{{ .ResourcePath }}/{id}
+{{- end }}
+{{- end }}

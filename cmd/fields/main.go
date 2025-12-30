@@ -7,13 +7,13 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"go/format"
 	"io"
 	"net/url"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"text/template"
@@ -104,6 +104,7 @@ type Resource struct {
 
 type FieldInfo struct {
 	FieldName           string
+	PathName            string // used for nested types
 	JSONName            string
 	FieldType           string
 	FieldValidation     string
@@ -112,6 +113,27 @@ type FieldInfo struct {
 	Fields              map[string]*FieldInfo
 	CustomUnmarshalType string
 	CustomUnmarshalFunc string
+}
+
+// SortedFields returns fields sorted by field name for stable iteration
+func (f *FieldInfo) SortedFields() []*FieldInfo {
+	if f.Fields == nil {
+		return nil
+	}
+	
+	// Get keys in sorted order
+	keys := make([]string, 0, len(f.Fields))
+	for k := range f.Fields {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	
+	// Build sorted slice
+	result := make([]*FieldInfo, 0, len(f.Fields))
+	for _, k := range keys {
+		result = append(result, f.Fields[k])
+	}
+	return result
 }
 
 func NewResource(structName string, resourcePath string) *Resource {
@@ -199,7 +221,6 @@ func main() {
 	flag.Usage = usage
 
 	versionBaseDirFlag := flag.String("version-base-dir", "assets", "The base directory for version JSON files")
-	outputDirFlag := flag.String("output-dir", "cmd/openapi", "The output directory of the generated Go code")
 	downloadOnly := flag.Bool("download-only", false, "Only download and build the fields JSON directory, do not generate")
 	useLatestVersion := flag.Bool("latest", false, "Use the latest available version")
 
@@ -244,7 +265,6 @@ func main() {
 	}
 
 	fieldsDir := filepath.Join(wd, *versionBaseDirFlag, fmt.Sprintf("v%s", unifiVersion))
-	outDir := filepath.Join(wd, *outputDirFlag)
 
 	fieldsInfo, err := os.Stat(fieldsDir)
 	if err != nil {
@@ -289,7 +309,7 @@ func main() {
 		panic(err)
 	}
 
-	var structs []string = []string{}
+	var resources []*Resource
 
 	for _, fieldsFile := range fieldsFiles {
 		name := fieldsFile.Name()
@@ -309,7 +329,6 @@ func main() {
 		urlPath := strings.ToLower(name)
 		structName := cleanName(name, fileReps)
 
-		goFile := "model_" + strcase.ToSnake(structName) + ".go"
 		fieldsFilePath := filepath.Join(fieldsDir, fieldsFile.Name())
 		b, err := os.ReadFile(fieldsFilePath)
 		if err != nil {
@@ -437,58 +456,57 @@ func main() {
 			continue
 		}
 
-		var code string
-		if code, err = resource.generateCode(); err != nil {
-			panic(err)
-		}
-
-		_ = os.Remove(filepath.Join(outDir, goFile))
-		if err = os.WriteFile(filepath.Join(outDir, goFile), ([]byte)(code), WRITE_FILE_PERM); err != nil {
-			panic(err)
-		}
-
-		structs = append(structs, structName)
+		resources = append(resources, resource)
 	}
 
-	openApiFile := filepath.Join(outDir, "main.go")
-
-	oapiData, err := generateOpenApi(&structs)
+	// Generate OpenAPI spec
+	openApiYaml, err := generateOpenApiYaml(resources, unifiVersion.String())
 	if err != nil {
 		panic(err)
 	}
 
+	openApiFile := filepath.Join(wd, "assets", "openapi.yaml")
 	_ = os.Remove(openApiFile)
-	if err := os.WriteFile(openApiFile, ([]byte)(oapiData), WRITE_FILE_PERM); err != nil {
+	if err := os.WriteFile(openApiFile, []byte(openApiYaml), WRITE_FILE_PERM); err != nil {
 		panic(err)
 	}
 
-	// Write version file.
-	versionGo := fmt.Appendf(nil, `
-// Generated code. DO NOT EDIT.
-
-package main
-
-const UnifiVersion = %q
-`, unifiVersion)
-
-	versionGo, err = format.Source(versionGo)
+	// Generate generator config
+	generatorConfigYaml, err := generateGeneratorConfigYaml(resources)
 	if err != nil {
 		panic(err)
 	}
 
-	if err := os.WriteFile(filepath.Join(outDir, "version.generated.go"), versionGo, WRITE_FILE_PERM); err != nil {
+	generatorConfigFile := filepath.Join(wd, "assets", "generator_config.yml")
+	_ = os.Remove(generatorConfigFile)
+	if err := os.WriteFile(generatorConfigFile, []byte(generatorConfigYaml), WRITE_FILE_PERM); err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("%s\n", outDir)
+	fmt.Printf("Generated OpenAPI spec: %s\n", openApiFile)
+	fmt.Printf("Generated generator config: %s\n", generatorConfigFile)
 }
 
-var funcMap = map[string]any{"list": func(args ...any) []any {
-	return args
-}}
+var funcMap = map[string]any{
+	"list": func(args ...any) []any {
+		return args
+	},
+	"snake": func(s string) string {
+		return strcase.ToSnake(s)
+	},
+}
 
 func (r *Resource) IsSetting() bool {
 	return strings.HasPrefix(r.StructName, "Setting")
+}
+
+// SortedFields returns fields of the base type sorted by field name for stable iteration
+func (r *Resource) SortedFields() []*FieldInfo {
+	baseType := r.Types[r.StructName]
+	if baseType == nil {
+		return nil
+	}
+	return baseType.SortedFields()
 }
 
 func (r *Resource) processFields(fields map[string]any) {
@@ -607,54 +625,43 @@ func (r *Resource) processJSON(b []byte) error {
 	return nil
 }
 
-//go:embed field.go.tmpl
-var fieldGoTemplate string
+//go:embed openapi.yaml.tmpl
+var openapiYamlTemplate string
 
-func (r *Resource) generateCode() (string, error) {
-	var err error
+//go:embed generator_config.yml.tmpl
+var generatorConfigTemplate string
+
+func generateOpenApiYaml(resources []*Resource, version string) (string, error) {
 	var buf bytes.Buffer
 	writer := io.Writer(&buf)
 
-	tpl := template.Must(template.New("field.go.tmpl").Parse(fieldGoTemplate))
+	tpl := template.Must(template.New("openapi.yaml.tmpl").Funcs(template.FuncMap(funcMap)).Parse(openapiYamlTemplate))
 
-	tpl.Funcs(template.FuncMap(funcMap))
-
-	err = tpl.Execute(writer, r)
-	if err != nil {
-		return "", fmt.Errorf("failed to render template: %w", err)
-	}
-
-	src, err := format.Source(buf.Bytes())
-	if err != nil {
-		return "", fmt.Errorf("failed to format source: %w", err)
-	}
-
-	return string(src), err
-}
-
-//go:embed openapi.go.tmpl
-var openapiTemplate string
-
-func generateOpenApi(stubs *[]string) (string, error) {
-	var err error
-	var buf bytes.Buffer
-	writer := io.Writer(&buf)
-
-	tpl := template.Must(template.New("openapi.go.tmpl").Parse(openapiTemplate))
-
-	err = tpl.Execute(writer, map[string]any{
-		"Structs": stubs,
+	err := tpl.Execute(writer, map[string]any{
+		"Resources": resources,
+		"Version":   version,
 	})
 	if err != nil {
-		return "", fmt.Errorf("failed to render template: %w", err)
+		return "", fmt.Errorf("failed to render OpenAPI template: %w", err)
 	}
 
-	src, err := format.Source(buf.Bytes())
+	return buf.String(), nil
+}
+
+func generateGeneratorConfigYaml(resources []*Resource) (string, error) {
+	var buf bytes.Buffer
+	writer := io.Writer(&buf)
+
+	tpl := template.Must(template.New("generator_config.yml.tmpl").Funcs(template.FuncMap(funcMap)).Parse(generatorConfigTemplate))
+
+	err := tpl.Execute(writer, map[string]any{
+		"Resources": resources,
+	})
 	if err != nil {
-		return "", fmt.Errorf("failed to format source: %w", err)
+		return "", fmt.Errorf("failed to render generator config template: %w", err)
 	}
 
-	return string(src), err
+	return buf.String(), nil
 }
 
 func normalizeValidation(re string) string {
