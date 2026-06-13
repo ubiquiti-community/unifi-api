@@ -11039,7 +11039,8 @@
 					{
 						"name": "site_id",
 						"string": {
-							"computed_optional_required": "computed_optional"
+							"computed_optional_required": "computed_optional",
+							"description": "Site ID"
 						}
 					},
 					{
@@ -12659,13 +12660,6 @@
 									}
 								}
 							]
-						}
-					},
-					{
-						"name": "site_id",
-						"string": {
-							"computed_optional_required": "computed_optional",
-							"description": "Site ID"
 						}
 					},
 					{

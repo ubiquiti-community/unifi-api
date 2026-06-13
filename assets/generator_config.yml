@@ -14,6 +14,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/account/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   broadcast_group:
     create:
       method: POST
@@ -27,6 +34,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/broadcastgroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   channel_plan:
     create:
       method: POST
@@ -40,6 +54,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/channelplan/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   dashboard:
     create:
       method: POST
@@ -53,6 +74,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/dashboard/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   device:
     create:
       method: POST
@@ -66,6 +94,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/device/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   dhcp_option:
     create:
       method: POST
@@ -79,6 +114,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/dhcpoption/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   dpi_app:
     create:
       method: POST
@@ -92,6 +134,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/dpiapp/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   dpi_group:
     create:
       method: POST
@@ -105,6 +154,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/dpigroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   dynamic_dns:
     create:
       method: POST
@@ -118,6 +174,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/dynamicdns/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   firewall_group:
     create:
       method: POST
@@ -131,6 +194,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/firewallgroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   firewall_rule:
     create:
       method: POST
@@ -144,6 +214,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/firewallrule/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   heat_map:
     create:
       method: POST
@@ -157,6 +234,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/heatmap/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   heat_map_point:
     create:
       method: POST
@@ -170,6 +254,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/heatmappoint/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   hotspot_2_conf:
     create:
       method: POST
@@ -183,6 +274,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/hotspot2conf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   hotspot_op:
     create:
       method: POST
@@ -196,6 +294,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/hotspotop/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   hotspot_package:
     create:
       method: POST
@@ -209,6 +314,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/hotspotpackage/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   map:
     create:
       method: POST
@@ -222,6 +334,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/map/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   media_file:
     create:
       method: POST
@@ -235,6 +354,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/mediafile/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   network:
     create:
       method: POST
@@ -248,6 +374,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/networkconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   port_profile:
     create:
       method: POST
@@ -261,6 +394,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/portconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   port_forward:
     create:
       method: POST
@@ -274,6 +414,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/portforward/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   radius_profile:
     create:
       method: POST
@@ -287,6 +434,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/radiusprofile/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   routing:
     create:
       method: POST
@@ -300,6 +454,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/routing/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   schedule_task:
     create:
       method: POST
@@ -313,6 +474,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/scheduletask/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_auto_speedtest:
     create:
       method: POST
@@ -323,6 +491,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/auto_speedtest
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_baresip:
     create:
       method: POST
@@ -333,6 +508,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/baresip
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_broadcast:
     create:
       method: POST
@@ -343,6 +525,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/broadcast
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_connectivity:
     create:
       method: POST
@@ -353,6 +542,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/connectivity
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_country:
     create:
       method: POST
@@ -363,6 +559,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/country
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_dashboard:
     create:
       method: POST
@@ -373,6 +576,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/dashboard
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_doh:
     create:
       method: POST
@@ -383,6 +593,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/doh
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_dpi:
     create:
       method: POST
@@ -393,6 +610,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/dpi
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_element_adopt:
     create:
       method: POST
@@ -403,6 +627,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/element_adopt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ether_lighting:
     create:
       method: POST
@@ -413,6 +644,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/ether_lighting
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_evaluation_score:
     create:
       method: POST
@@ -423,6 +661,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/evaluation_score
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_ap:
     create:
       method: POST
@@ -433,6 +678,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/global_ap
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_nat:
     create:
       method: POST
@@ -443,6 +695,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/global_nat
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_switch:
     create:
       method: POST
@@ -453,6 +712,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/global_switch
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_guest_access:
     create:
       method: POST
@@ -463,6 +729,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/guest_access
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ips:
     create:
       method: POST
@@ -473,6 +746,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/ips
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_lcm:
     create:
       method: POST
@@ -483,6 +763,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/lcm
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_locale:
     create:
       method: POST
@@ -493,6 +780,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/locale
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_magic_site_to_site_vpn:
     create:
       method: POST
@@ -503,6 +797,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/magic_site_to_site_vpn
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_mdns:
     create:
       method: POST
@@ -513,6 +814,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/mdns
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_mgmt:
     create:
       method: POST
@@ -523,6 +831,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/mgmt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_netflow:
     create:
       method: POST
@@ -533,6 +848,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/netflow
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_network_optimization:
     create:
       method: POST
@@ -543,6 +865,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/network_optimization
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ntp:
     create:
       method: POST
@@ -553,6 +882,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/ntp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_porta:
     create:
       method: POST
@@ -563,6 +899,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/porta
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_radio_ai:
     create:
       method: POST
@@ -573,6 +916,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/radio_ai
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_radius:
     create:
       method: POST
@@ -583,6 +933,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/radius
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_roaming_assistant:
     create:
       method: POST
@@ -593,6 +950,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/roaming_assistant
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_rsyslogd:
     create:
       method: POST
@@ -603,6 +967,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/rsyslogd
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_snmp:
     create:
       method: POST
@@ -613,6 +984,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/snmp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ssl_inspection:
     create:
       method: POST
@@ -623,6 +1001,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/ssl_inspection
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_cloudaccess:
     create:
       method: POST
@@ -633,6 +1018,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_cloudaccess
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_events:
     create:
       method: POST
@@ -643,6 +1035,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_events
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_fwupdate:
     create:
       method: POST
@@ -653,6 +1052,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_fwupdate
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_identity:
     create:
       method: POST
@@ -663,6 +1069,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_identity
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_mail:
     create:
       method: POST
@@ -673,6 +1086,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_mail
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_mgmt:
     create:
       method: POST
@@ -683,6 +1103,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_mgmt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_sdn:
     create:
       method: POST
@@ -693,6 +1120,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_sdn
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_smtp:
     create:
       method: POST
@@ -703,6 +1137,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/super_smtp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_teleport:
     create:
       method: POST
@@ -713,6 +1154,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/teleport
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_traffic_flow:
     create:
       method: POST
@@ -723,6 +1171,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/traffic_flow
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_usg:
     create:
       method: POST
@@ -733,6 +1188,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/usg
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_usw:
     create:
       method: POST
@@ -743,6 +1205,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/set/setting/usw
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   spatial_record:
     create:
       method: POST
@@ -756,6 +1225,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/spatialrecord/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   tag:
     create:
       method: POST
@@ -769,6 +1245,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/tag/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   user:
     create:
       method: POST
@@ -782,6 +1265,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/user/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   user_group:
     create:
       method: POST
@@ -795,6 +1285,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/usergroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   virtual_device:
     create:
       method: POST
@@ -808,6 +1305,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/virtualdevice/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   wlan:
     create:
       method: POST
@@ -821,6 +1325,13 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/wlanconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   wlan_group:
     create:
       method: POST
@@ -834,300 +1345,856 @@ resources:
     update:
       method: PUT
       path: /s/{siteId}/rest/wlangroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
 data_sources:
   account:
     read:
       method: GET
       path: /s/{siteId}/rest/account/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   broadcast_group:
     read:
       method: GET
       path: /s/{siteId}/rest/broadcastgroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   channel_plan:
     read:
       method: GET
       path: /s/{siteId}/rest/channelplan/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   dashboard:
     read:
       method: GET
       path: /s/{siteId}/rest/dashboard/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   device:
     read:
       method: GET
       path: /s/{siteId}/stat/device/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   dhcp_option:
     read:
       method: GET
       path: /s/{siteId}/rest/dhcpoption/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   dpi_app:
     read:
       method: GET
       path: /s/{siteId}/rest/dpiapp/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   dpi_group:
     read:
       method: GET
       path: /s/{siteId}/rest/dpigroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   dynamic_dns:
     read:
       method: GET
       path: /s/{siteId}/rest/dynamicdns/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   firewall_group:
     read:
       method: GET
       path: /s/{siteId}/rest/firewallgroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   firewall_rule:
     read:
       method: GET
       path: /s/{siteId}/rest/firewallrule/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   heat_map:
     read:
       method: GET
       path: /s/{siteId}/rest/heatmap/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   heat_map_point:
     read:
       method: GET
       path: /s/{siteId}/rest/heatmappoint/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   hotspot_2_conf:
     read:
       method: GET
       path: /s/{siteId}/rest/hotspot2conf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   hotspot_op:
     read:
       method: GET
       path: /s/{siteId}/rest/hotspotop/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   hotspot_package:
     read:
       method: GET
       path: /s/{siteId}/rest/hotspotpackage/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   map:
     read:
       method: GET
       path: /s/{siteId}/rest/map/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   media_file:
     read:
       method: GET
       path: /s/{siteId}/rest/mediafile/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   network:
     read:
       method: GET
       path: /s/{siteId}/rest/networkconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   port_profile:
     read:
       method: GET
       path: /s/{siteId}/rest/portconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   port_forward:
     read:
       method: GET
       path: /s/{siteId}/rest/portforward/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   radius_profile:
     read:
       method: GET
       path: /s/{siteId}/rest/radiusprofile/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   routing:
     read:
       method: GET
       path: /s/{siteId}/rest/routing/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   schedule_task:
     read:
       method: GET
       path: /s/{siteId}/rest/scheduletask/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   setting_auto_speedtest:
     read:
       method: GET
       path: /s/{siteId}/get/setting/auto_speedtest
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_baresip:
     read:
       method: GET
       path: /s/{siteId}/get/setting/baresip
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_broadcast:
     read:
       method: GET
       path: /s/{siteId}/get/setting/broadcast
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_connectivity:
     read:
       method: GET
       path: /s/{siteId}/get/setting/connectivity
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_country:
     read:
       method: GET
       path: /s/{siteId}/get/setting/country
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_dashboard:
     read:
       method: GET
       path: /s/{siteId}/get/setting/dashboard
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_doh:
     read:
       method: GET
       path: /s/{siteId}/get/setting/doh
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_dpi:
     read:
       method: GET
       path: /s/{siteId}/get/setting/dpi
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_element_adopt:
     read:
       method: GET
       path: /s/{siteId}/get/setting/element_adopt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ether_lighting:
     read:
       method: GET
       path: /s/{siteId}/get/setting/ether_lighting
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_evaluation_score:
     read:
       method: GET
       path: /s/{siteId}/get/setting/evaluation_score
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_ap:
     read:
       method: GET
       path: /s/{siteId}/get/setting/global_ap
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_nat:
     read:
       method: GET
       path: /s/{siteId}/get/setting/global_nat
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_global_switch:
     read:
       method: GET
       path: /s/{siteId}/get/setting/global_switch
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_guest_access:
     read:
       method: GET
       path: /s/{siteId}/get/setting/guest_access
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ips:
     read:
       method: GET
       path: /s/{siteId}/get/setting/ips
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_lcm:
     read:
       method: GET
       path: /s/{siteId}/get/setting/lcm
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_locale:
     read:
       method: GET
       path: /s/{siteId}/get/setting/locale
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_magic_site_to_site_vpn:
     read:
       method: GET
       path: /s/{siteId}/get/setting/magic_site_to_site_vpn
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_mdns:
     read:
       method: GET
       path: /s/{siteId}/get/setting/mdns
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_mgmt:
     read:
       method: GET
       path: /s/{siteId}/get/setting/mgmt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_netflow:
     read:
       method: GET
       path: /s/{siteId}/get/setting/netflow
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_network_optimization:
     read:
       method: GET
       path: /s/{siteId}/get/setting/network_optimization
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ntp:
     read:
       method: GET
       path: /s/{siteId}/get/setting/ntp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_porta:
     read:
       method: GET
       path: /s/{siteId}/get/setting/porta
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_radio_ai:
     read:
       method: GET
       path: /s/{siteId}/get/setting/radio_ai
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_radius:
     read:
       method: GET
       path: /s/{siteId}/get/setting/radius
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_roaming_assistant:
     read:
       method: GET
       path: /s/{siteId}/get/setting/roaming_assistant
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_rsyslogd:
     read:
       method: GET
       path: /s/{siteId}/get/setting/rsyslogd
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_snmp:
     read:
       method: GET
       path: /s/{siteId}/get/setting/snmp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_ssl_inspection:
     read:
       method: GET
       path: /s/{siteId}/get/setting/ssl_inspection
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_cloudaccess:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_cloudaccess
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_events:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_events
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_fwupdate:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_fwupdate
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_identity:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_identity
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_mail:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_mail
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_mgmt:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_mgmt
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_sdn:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_sdn
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_super_smtp:
     read:
       method: GET
       path: /s/{siteId}/get/setting/super_smtp
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_teleport:
     read:
       method: GET
       path: /s/{siteId}/get/setting/teleport
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_traffic_flow:
     read:
       method: GET
       path: /s/{siteId}/get/setting/traffic_flow
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_usg:
     read:
       method: GET
       path: /s/{siteId}/get/setting/usg
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   setting_usw:
     read:
       method: GET
       path: /s/{siteId}/get/setting/usw
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
   spatial_record:
     read:
       method: GET
       path: /s/{siteId}/rest/spatialrecord/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   tag:
     read:
       method: GET
       path: /s/{siteId}/rest/tag/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   user:
     read:
       method: GET
       path: /s/{siteId}/rest/user/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   user_group:
     read:
       method: GET
       path: /s/{siteId}/rest/usergroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   virtual_device:
     read:
       method: GET
       path: /s/{siteId}/rest/virtualdevice/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   wlan:
     read:
       method: GET
       path: /s/{siteId}/rest/wlanconf/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id
   wlan_group:
     read:
       method: GET
       path: /s/{siteId}/rest/wlangroup/{id}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          id: _id
+          siteId: site_id

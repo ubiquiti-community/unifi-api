@@ -32,6 +32,13 @@ resources:
       method: PUT
       path: /s/{siteId}/set/setting/{{ .ResourcePath }}
 {{- end }}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+          siteId: site_id
 {{- end }}
 data_sources:
 {{- range .Resources }}
@@ -45,4 +52,14 @@ data_sources:
 {{- else }}
       path: /s/{siteId}/rest/{{ .ResourcePath }}/{id}
 {{- end }}
+    schema:
+      ignores:
+        - meta
+        - data
+      attributes:
+        aliases:
+{{- if not .IsSetting }}
+          id: _id
+{{- end }}
+          siteId: site_id
 {{- end }}
