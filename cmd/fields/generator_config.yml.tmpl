@@ -38,6 +38,9 @@ resources:
         - data
       attributes:
         aliases:
+{{- if not .IsSetting }}
+          id: _id
+{{- end }}
           siteId: site_id
 {{- end }}
 data_sources:

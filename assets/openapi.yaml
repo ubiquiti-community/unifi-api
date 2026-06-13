@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountResponse'
+                $ref: '#/components/schemas/AccountListResponse'
           description: Successful response
         default:
           content:
@@ -193,7 +193,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BroadcastGroupResponse'
+                $ref: '#/components/schemas/BroadcastGroupListResponse'
           description: Successful response
         default:
           content:
@@ -352,7 +352,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChannelPlanResponse'
+                $ref: '#/components/schemas/ChannelPlanListResponse'
           description: Successful response
         default:
           content:
@@ -511,7 +511,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DashboardResponse'
+                $ref: '#/components/schemas/DashboardListResponse'
           description: Successful response
         default:
           content:
@@ -670,7 +670,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceResponse'
+                $ref: '#/components/schemas/DeviceListResponse'
           description: Successful response
         default:
           content:
@@ -829,7 +829,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DHCPOptionResponse'
+                $ref: '#/components/schemas/DHCPOptionListResponse'
           description: Successful response
         default:
           content:
@@ -988,7 +988,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DpiAppResponse'
+                $ref: '#/components/schemas/DpiAppListResponse'
           description: Successful response
         default:
           content:
@@ -1147,7 +1147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DpiGroupResponse'
+                $ref: '#/components/schemas/DpiGroupListResponse'
           description: Successful response
         default:
           content:
@@ -1306,7 +1306,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DynamicDNSResponse'
+                $ref: '#/components/schemas/DynamicDNSListResponse'
           description: Successful response
         default:
           content:
@@ -1465,7 +1465,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FirewallGroupResponse'
+                $ref: '#/components/schemas/FirewallGroupListResponse'
           description: Successful response
         default:
           content:
@@ -1624,7 +1624,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FirewallRuleResponse'
+                $ref: '#/components/schemas/FirewallRuleListResponse'
           description: Successful response
         default:
           content:
@@ -1783,7 +1783,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HeatMapResponse'
+                $ref: '#/components/schemas/HeatMapListResponse'
           description: Successful response
         default:
           content:
@@ -1942,7 +1942,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HeatMapPointResponse'
+                $ref: '#/components/schemas/HeatMapPointListResponse'
           description: Successful response
         default:
           content:
@@ -2101,7 +2101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hotspot2ConfResponse'
+                $ref: '#/components/schemas/Hotspot2ConfListResponse'
           description: Successful response
         default:
           content:
@@ -2260,7 +2260,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HotspotOpResponse'
+                $ref: '#/components/schemas/HotspotOpListResponse'
           description: Successful response
         default:
           content:
@@ -2419,7 +2419,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HotspotPackageResponse'
+                $ref: '#/components/schemas/HotspotPackageListResponse'
           description: Successful response
         default:
           content:
@@ -2578,7 +2578,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MapResponse'
+                $ref: '#/components/schemas/MapListResponse'
           description: Successful response
         default:
           content:
@@ -2737,7 +2737,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MediaFileResponse'
+                $ref: '#/components/schemas/MediaFileListResponse'
           description: Successful response
         default:
           content:
@@ -2896,7 +2896,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NetworkResponse'
+                $ref: '#/components/schemas/NetworkListResponse'
           description: Successful response
         default:
           content:
@@ -3055,7 +3055,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PortProfileResponse'
+                $ref: '#/components/schemas/PortProfileListResponse'
           description: Successful response
         default:
           content:
@@ -3214,7 +3214,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PortForwardResponse'
+                $ref: '#/components/schemas/PortForwardListResponse'
           description: Successful response
         default:
           content:
@@ -3373,7 +3373,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RADIUSProfileResponse'
+                $ref: '#/components/schemas/RADIUSProfileListResponse'
           description: Successful response
         default:
           content:
@@ -3532,7 +3532,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoutingResponse'
+                $ref: '#/components/schemas/RoutingListResponse'
           description: Successful response
         default:
           content:
@@ -3691,7 +3691,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScheduleTaskResponse'
+                $ref: '#/components/schemas/ScheduleTaskListResponse'
           description: Successful response
         default:
           content:
@@ -6344,7 +6344,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SpatialRecordResponse'
+                $ref: '#/components/schemas/SpatialRecordListResponse'
           description: Successful response
         default:
           content:
@@ -6503,7 +6503,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TagResponse'
+                $ref: '#/components/schemas/TagListResponse'
           description: Successful response
         default:
           content:
@@ -6662,7 +6662,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
+                $ref: '#/components/schemas/UserListResponse'
           description: Successful response
         default:
           content:
@@ -6821,7 +6821,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserGroupResponse'
+                $ref: '#/components/schemas/UserGroupListResponse'
           description: Successful response
         default:
           content:
@@ -6980,7 +6980,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VirtualDeviceResponse'
+                $ref: '#/components/schemas/VirtualDeviceListResponse'
           description: Successful response
         default:
           content:
@@ -7139,7 +7139,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WLANResponse'
+                $ref: '#/components/schemas/WLANListResponse'
           description: Successful response
         default:
           content:
@@ -7298,7 +7298,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WLANGroupResponse'
+                $ref: '#/components/schemas/WLANGroupListResponse'
           description: Successful response
         default:
           content:
@@ -7484,15 +7484,6 @@ components:
           type: integer
         x_password:
           type: string
-    AccountResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
     BroadcastGroup:
       type: object
       properties:
@@ -7514,15 +7505,6 @@ components:
             type: string
         name:
           type: string
-    BroadcastGroupResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/BroadcastGroup'
     ChannelPlan:
       type: object
       properties:
@@ -7565,15 +7547,6 @@ components:
           pattern: "auto|medium|high|low|custom"
         width:
           type: integer
-    ChannelPlanResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ChannelPlan'
     Dashboard:
       type: object
       properties:
@@ -7612,15 +7585,6 @@ components:
           type: string
         restrictions:
           type: string
-    DashboardResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dashboard'
     Device:
       type: object
       properties:
@@ -8209,15 +8173,6 @@ components:
           type: integer
         use_custom_apn:
           type: boolean
-    DeviceResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Device'
     DHCPOption:
       type: object
       properties:
@@ -8246,15 +8201,6 @@ components:
           pattern: "^(boolean|hexarray|integer|ipaddress|macaddress|text)$"
         width:
           type: integer
-    DHCPOptionResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DHCPOption'
     DpiApp:
       type: object
       properties:
@@ -8291,15 +8237,6 @@ components:
           type: integer
         qos_rate_max_up:
           type: integer
-    DpiAppResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DpiApp'
     DpiGroup:
       type: object
       properties:
@@ -8324,15 +8261,6 @@ components:
         name:
           type: string
           pattern: ".{1,128}"
-    DpiGroupResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DpiGroup'
     DynamicDNS:
       type: object
       properties:
@@ -8373,15 +8301,6 @@ components:
         x_password:
           type: string
           pattern: "^[^\"' ]+$"
-    DynamicDNSResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/DynamicDNS'
     FirewallGroup:
       type: object
       properties:
@@ -8407,15 +8326,6 @@ components:
         name:
           type: string
           pattern: ".{1,64}"
-    FirewallGroupResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FirewallGroup'
     FirewallRule:
       type: object
       properties:
@@ -8509,15 +8419,6 @@ components:
           type: boolean
         state_related:
           type: boolean
-    FirewallRuleResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FirewallRule'
     HeatMap:
       type: object
       properties:
@@ -8543,15 +8444,6 @@ components:
         type:
           type: string
           pattern: "download|upload"
-    HeatMapResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HeatMap'
     HeatMapPoint:
       type: object
       properties:
@@ -8577,15 +8469,6 @@ components:
           type: number
         y:
           type: number
-    HeatMapPointResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HeatMapPoint'
     Hotspot2Conf:
       type: object
       properties:
@@ -8872,15 +8755,6 @@ components:
           type: string
         url:
           type: string
-    Hotspot2ConfResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Hotspot2Conf'
     HotspotOp:
       type: object
       properties:
@@ -8904,15 +8778,6 @@ components:
         x_password:
           type: string
           pattern: ".{1,256}"
-    HotspotOpResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HotspotOp'
     HotspotPackage:
       type: object
       properties:
@@ -8987,15 +8852,6 @@ components:
           type: integer
         trial_reset:
           type: number
-    HotspotPackageResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HotspotPackage'
     Map:
       type: object
       properties:
@@ -9042,15 +8898,6 @@ components:
           type: number
         zoom:
           type: integer
-    MapResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Map'
     MediaFile:
       type: object
       properties:
@@ -9068,15 +8915,6 @@ components:
           type: boolean
         name:
           type: string
-    MediaFileResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MediaFile'
     Network:
       type: object
       properties:
@@ -9730,15 +9568,6 @@ components:
           type: integer
         upload_kilobits_per_second:
           type: integer
-    NetworkResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Network'
     PortProfile:
       type: object
       properties:
@@ -9892,15 +9721,6 @@ components:
         qos_profile_mode:
           type: string
           pattern: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio"
-    PortProfileResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortProfile'
     PortForward:
       type: object
       properties:
@@ -9964,15 +9784,6 @@ components:
         interface:
           type: string
           pattern: "wan[2-9]?"
-    PortForwardResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortForward'
     RADIUSProfile:
       type: object
       properties:
@@ -10057,15 +9868,6 @@ components:
           type: string
         x_ca_crt:
           type: string
-    RADIUSProfileResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/RADIUSProfile'
     Routing:
       type: object
       properties:
@@ -10109,15 +9911,6 @@ components:
         type:
           type: string
           pattern: "static-route"
-    RoutingResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Routing'
     ScheduleTask:
       type: object
       properties:
@@ -10152,15 +9945,6 @@ components:
         mac:
           type: string
           pattern: "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$"
-    ScheduleTaskResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScheduleTask'
     SettingAutoSpeedtest:
       type: object
       properties:
@@ -10182,15 +9966,6 @@ components:
           type: string
         enabled:
           type: boolean
-    SettingAutoSpeedtestResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingAutoSpeedtest'
     SettingBaresip:
       type: object
       properties:
@@ -10216,15 +9991,6 @@ components:
           type: string
         server:
           type: string
-    SettingBaresipResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingBaresip'
     SettingBroadcast:
       type: object
       properties:
@@ -10256,15 +10022,6 @@ components:
         sound_before_type:
           type: string
           pattern: "sample|media"
-    SettingBroadcastResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingBroadcast'
     SettingConnectivity:
       type: object
       properties:
@@ -10294,15 +10051,6 @@ components:
           type: string
         x_mesh_psk:
           type: string
-    SettingConnectivityResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingConnectivity'
     SettingCountry:
       type: object
       properties:
@@ -10322,15 +10070,6 @@ components:
           type: string
         code:
           type: integer
-    SettingCountryResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingCountry'
     SettingDashboard:
       type: object
       properties:
@@ -10363,15 +10102,6 @@ components:
         name:
           type: string
           pattern: "critical_traffic_prioritization|cybersecure|traffic_identification|wifi_technology|wifi_channels|wifi_client_experience|wifi_tx_retries|most_active_apps_aps_clients|most_active_apps_clients|most_active_aps_clients|most_active_apps_aps|most_active_apps|v2_most_active_aps|v2_most_active_clients|wifi_connectivity|ap_radio_density|wifi_channel_preset_configuration|most_common_client_fingerprints|wan_activity"
-    SettingDashboardResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingDashboard'
     SettingDoh:
       type: object
       properties:
@@ -10409,15 +10139,6 @@ components:
           type: string
         server_name:
           type: string
-    SettingDohResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingDoh'
     SettingDpi:
       type: object
       properties:
@@ -10439,15 +10160,6 @@ components:
           type: boolean
         fingerprintingEnabled:
           type: boolean
-    SettingDpiResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingDpi'
     SettingElementAdopt:
       type: object
       properties:
@@ -10471,15 +10183,6 @@ components:
           type: string
         x_element_psk:
           type: string
-    SettingElementAdoptResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingElementAdopt'
     SettingEtherLighting:
       type: object
       properties:
@@ -10522,15 +10225,6 @@ components:
         raw_color_hex:
           type: string
           pattern: "[0-9A-Fa-f]{6}"
-    SettingEtherLightingResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingEtherLighting'
     SettingEvaluationScore:
       type: object
       properties:
@@ -10552,15 +10246,6 @@ components:
           type: array
           items:
             type: string
-    SettingEvaluationScoreResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingEvaluationScore'
     SettingGlobalAp:
       type: object
       properties:
@@ -10603,15 +10288,6 @@ components:
         6e_tx_power_mode:
           type: string
           pattern: "auto|medium|high|low|custom"
-    SettingGlobalApResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingGlobalAp'
     SettingGlobalNat:
       type: object
       properties:
@@ -10636,15 +10312,6 @@ components:
         mode:
           type: string
           pattern: "auto|custom|off"
-    SettingGlobalNatResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingGlobalNat'
     SettingGlobalSwitch:
       type: object
       properties:
@@ -10703,15 +10370,6 @@ components:
             type: string
         source_network:
           type: string
-    SettingGlobalSwitchResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingGlobalSwitch'
     SettingGuestAccess:
       type: object
       properties:
@@ -10945,15 +10603,6 @@ components:
           type: string
         x_wechat_secret_key:
           type: string
-    SettingGuestAccessResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingGuestAccess'
     SettingIps:
       type: object
       properties:
@@ -11060,15 +10709,6 @@ components:
           pattern: "ip|subnet|network"
         value:
           type: string
-    SettingIpsResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingIps'
     SettingLcm:
       type: object
       properties:
@@ -11096,15 +10736,6 @@ components:
           type: boolean
         touch_event:
           type: boolean
-    SettingLcmResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingLcm'
     SettingLocale:
       type: object
       properties:
@@ -11124,15 +10755,6 @@ components:
           type: string
         timezone:
           type: string
-    SettingLocaleResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingLocale'
     SettingMagicSiteToSiteVpn:
       type: object
       properties:
@@ -11152,15 +10774,6 @@ components:
           type: string
         enabled:
           type: boolean
-    SettingMagicSiteToSiteVpnResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingMagicSiteToSiteVpn'
     SettingMdns:
       type: object
       properties:
@@ -11203,15 +10816,6 @@ components:
         code:
           type: string
           pattern: "amazon_devices|android_tv_remote|apple_airDrop|apple_airPlay|apple_file_sharing|apple_iChat|apple_iTunes|aqara|bose|dns_service_discovery|ftp_servers|google_chromecast|homeKit|matter_network|philips_hue|printers|roku|scanners|sonos|spotify_connect|ssh_servers|time_capsule|web_servers|windows_file_sharing_samba"
-    SettingMdnsResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingMdns'
     SettingMgmt:
       type: object
       properties:
@@ -11289,15 +10893,6 @@ components:
           type: string
         name:
           type: string
-    SettingMgmtResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingMgmt'
     SettingNetflow:
       type: object
       properties:
@@ -11341,15 +10936,6 @@ components:
           pattern: ".{0,252}[^\\.]$"
         version:
           type: integer
-    SettingNetflowResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingNetflow'
     SettingNetworkOptimization:
       type: object
       properties:
@@ -11369,15 +10955,6 @@ components:
           type: string
         enabled:
           type: boolean
-    SettingNetworkOptimizationResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingNetworkOptimization'
     SettingNtp:
       type: object
       properties:
@@ -11406,15 +10983,6 @@ components:
         setting_preference:
           type: string
           pattern: "auto|manual"
-    SettingNtpResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingNtp'
     SettingPorta:
       type: object
       properties:
@@ -11434,15 +11002,6 @@ components:
           type: string
         ugw3_wan2_enabled:
           type: boolean
-    SettingPortaResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingPorta'
     SettingRadioAi:
       type: object
       properties:
@@ -11540,15 +11099,6 @@ components:
         radio:
           type: string
           pattern: "na|ng|6e"
-    SettingRadioAiResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingRadioAi'
     SettingRadius:
       type: object
       properties:
@@ -11583,15 +11133,6 @@ components:
         x_secret:
           type: string
           pattern: "^[^\\\\\"' ]{1,48}$"
-    SettingRadiusResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingRadius'
     SettingRoamingAssistant:
       type: object
       properties:
@@ -11613,15 +11154,6 @@ components:
           type: boolean
         rssi:
           type: integer
-    SettingRoamingAssistantResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingRoamingAssistant'
     SettingRsyslogd:
       type: object
       properties:
@@ -11663,15 +11195,6 @@ components:
           type: boolean
         this_controller_encrypted_only:
           type: boolean
-    SettingRsyslogdResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingRsyslogd'
     SettingSnmp:
       type: object
       properties:
@@ -11702,15 +11225,6 @@ components:
         x_password:
           type: string
           pattern: "[^'\"]{8,32}"
-    SettingSnmpResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSnmp'
     SettingSslInspection:
       type: object
       properties:
@@ -11731,15 +11245,6 @@ components:
         state:
           type: string
           pattern: "off|simple|advanced"
-    SettingSslInspectionResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSslInspection'
     SettingSuperCloudaccess:
       type: object
       properties:
@@ -11771,15 +11276,6 @@ components:
           type: string
         x_private_key:
           type: string
-    SettingSuperCloudaccessResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperCloudaccess'
     SettingSuperEvents:
       type: object
       properties:
@@ -11799,15 +11295,6 @@ components:
           type: string
         _ignored:
           type: string
-    SettingSuperEventsResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperEvents'
     SettingSuperFwupdate:
       type: object
       properties:
@@ -11833,15 +11320,6 @@ components:
           pattern: "internal|alpha|beta|release-candidate|release"
         sso_enabled:
           type: boolean
-    SettingSuperFwupdateResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperFwupdate'
     SettingSuperIdentity:
       type: object
       properties:
@@ -11863,15 +11341,6 @@ components:
           type: string
         name:
           type: string
-    SettingSuperIdentityResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperIdentity'
     SettingSuperMail:
       type: object
       properties:
@@ -11892,15 +11361,6 @@ components:
         provider:
           type: string
           pattern: "smtp|cloud|disabled"
-    SettingSuperMailResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperMail'
     SettingSuperMgmt:
       type: object
       properties:
@@ -12013,15 +11473,6 @@ components:
           type: string
         x_ssh_username:
           type: string
-    SettingSuperMgmtResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperMgmt'
     SettingSuperSdn:
       type: object
       properties:
@@ -12051,15 +11502,6 @@ components:
           type: string
         ubic_uuid:
           type: string
-    SettingSuperSdnResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperSdn'
     SettingSuperSmtp:
       type: object
       properties:
@@ -12095,15 +11537,6 @@ components:
           type: string
         x_password:
           type: string
-    SettingSuperSmtpResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingSuperSmtp'
     SettingTeleport:
       type: object
       properties:
@@ -12126,15 +11559,6 @@ components:
         subnet_cidr:
           type: string
           pattern: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([8-9]|[1-2][0-9]|3[0-2])$|^$"
-    SettingTeleportResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingTeleport'
     SettingTrafficFlow:
       type: object
       properties:
@@ -12160,15 +11584,6 @@ components:
           type: boolean
         unifi_services_enabled:
           type: boolean
-    SettingTrafficFlowResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingTrafficFlow'
     SettingUsg:
       type: object
       properties:
@@ -12322,15 +11737,6 @@ components:
         setting_preference:
           type: string
           pattern: "auto|manual"
-    SettingUsgResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingUsg'
     SettingUsw:
       type: object
       properties:
@@ -12350,15 +11756,6 @@ components:
           type: string
         dhcp_snoop:
           type: boolean
-    SettingUswResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingUsw'
     SpatialRecord:
       type: object
       properties:
@@ -12398,15 +11795,6 @@ components:
           type: number
         z:
           type: number
-    SpatialRecordResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SpatialRecord'
     Tag:
       type: object
       properties:
@@ -12428,15 +11816,6 @@ components:
             type: string
         name:
           type: string
-    TagResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
     User:
       type: object
       properties:
@@ -12495,15 +11874,6 @@ components:
           type: boolean
         virtual_network_override_id:
           type: string
-    UserResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
     UserGroup:
       type: object
       properties:
@@ -12526,15 +11896,6 @@ components:
           type: integer
         qos_rate_max_up:
           type: integer
-    UserGroupResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserGroup'
     VirtualDevice:
       type: object
       properties:
@@ -12563,15 +11924,6 @@ components:
           type: string
         y:
           type: string
-    VirtualDeviceResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/VirtualDevice'
     WLAN:
       type: object
       properties:
@@ -13041,15 +12393,6 @@ components:
           type: string
         url:
           type: string
-    WLANResponse:
-      type: object
-      properties:
-        meta:
-          $ref: '#/components/schemas/Meta'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WLAN'
     WLANGroup:
       type: object
       properties:
@@ -13068,7 +12411,1330 @@ components:
         name:
           type: string
           pattern: ".{1,128}"
+    AccountResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    AccountListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+    BroadcastGroupResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BroadcastGroup'
+    BroadcastGroupListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BroadcastGroup'
+    ChannelPlanResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelPlan'
+    ChannelPlanListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChannelPlan'
+    DashboardResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+    DashboardListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dashboard'
+    DeviceResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+    DeviceListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+    DHCPOptionResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPOption'
+    DHCPOptionListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DHCPOption'
+    DpiAppResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DpiApp'
+    DpiAppListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DpiApp'
+    DpiGroupResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DpiGroup'
+    DpiGroupListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DpiGroup'
+    DynamicDNSResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicDNS'
+    DynamicDNSListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynamicDNS'
+    FirewallGroupResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallGroup'
+    FirewallGroupListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallGroup'
+    FirewallRuleResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
+    FirewallRuleListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FirewallRule'
+    HeatMapResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeatMap'
+    HeatMapListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeatMap'
+    HeatMapPointResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeatMapPoint'
+    HeatMapPointListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeatMapPoint'
+    Hotspot2ConfResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hotspot2Conf'
+    Hotspot2ConfListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hotspot2Conf'
+    HotspotOpResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotspotOp'
+    HotspotOpListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotspotOp'
+    HotspotPackageResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotspotPackage'
+    HotspotPackageListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotspotPackage'
+    MapResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Map'
+    MapListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Map'
+    MediaFileResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaFile'
+    MediaFileListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaFile'
+    NetworkResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Network'
+    NetworkListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Network'
+    PortProfileResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortProfile'
+    PortProfileListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortProfile'
+    PortForwardResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortForward'
+    PortForwardListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortForward'
+    RADIUSProfileResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RADIUSProfile'
+    RADIUSProfileListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RADIUSProfile'
+    RoutingResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Routing'
+    RoutingListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Routing'
+    ScheduleTaskResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleTask'
+    ScheduleTaskListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScheduleTask'
+    SettingAutoSpeedtestResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingAutoSpeedtest'
+    SettingAutoSpeedtestListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingAutoSpeedtest'
+    SettingBaresipResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingBaresip'
+    SettingBaresipListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingBaresip'
+    SettingBroadcastResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingBroadcast'
+    SettingBroadcastListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingBroadcast'
+    SettingConnectivityResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingConnectivity'
+    SettingConnectivityListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingConnectivity'
+    SettingCountryResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingCountry'
+    SettingCountryListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingCountry'
+    SettingDashboardResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDashboard'
+    SettingDashboardListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDashboard'
+    SettingDohResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDoh'
+    SettingDohListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDoh'
+    SettingDpiResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDpi'
+    SettingDpiListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingDpi'
+    SettingElementAdoptResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingElementAdopt'
+    SettingElementAdoptListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingElementAdopt'
+    SettingEtherLightingResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingEtherLighting'
+    SettingEtherLightingListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingEtherLighting'
+    SettingEvaluationScoreResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingEvaluationScore'
+    SettingEvaluationScoreListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingEvaluationScore'
+    SettingGlobalApResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalAp'
+    SettingGlobalApListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalAp'
+    SettingGlobalNatResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalNat'
+    SettingGlobalNatListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalNat'
+    SettingGlobalSwitchResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalSwitch'
+    SettingGlobalSwitchListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGlobalSwitch'
+    SettingGuestAccessResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGuestAccess'
+    SettingGuestAccessListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingGuestAccess'
+    SettingIpsResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingIps'
+    SettingIpsListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingIps'
+    SettingLcmResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingLcm'
+    SettingLcmListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingLcm'
+    SettingLocaleResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingLocale'
+    SettingLocaleListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingLocale'
+    SettingMagicSiteToSiteVpnResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMagicSiteToSiteVpn'
+    SettingMagicSiteToSiteVpnListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMagicSiteToSiteVpn'
+    SettingMdnsResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMdns'
+    SettingMdnsListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMdns'
+    SettingMgmtResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMgmt'
+    SettingMgmtListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingMgmt'
+    SettingNetflowResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNetflow'
+    SettingNetflowListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNetflow'
+    SettingNetworkOptimizationResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNetworkOptimization'
+    SettingNetworkOptimizationListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNetworkOptimization'
+    SettingNtpResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNtp'
+    SettingNtpListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingNtp'
+    SettingPortaResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingPorta'
+    SettingPortaListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingPorta'
+    SettingRadioAiResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRadioAi'
+    SettingRadioAiListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRadioAi'
+    SettingRadiusResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRadius'
+    SettingRadiusListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRadius'
+    SettingRoamingAssistantResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRoamingAssistant'
+    SettingRoamingAssistantListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRoamingAssistant'
+    SettingRsyslogdResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRsyslogd'
+    SettingRsyslogdListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingRsyslogd'
+    SettingSnmpResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSnmp'
+    SettingSnmpListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSnmp'
+    SettingSslInspectionResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSslInspection'
+    SettingSslInspectionListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSslInspection'
+    SettingSuperCloudaccessResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperCloudaccess'
+    SettingSuperCloudaccessListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperCloudaccess'
+    SettingSuperEventsResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperEvents'
+    SettingSuperEventsListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperEvents'
+    SettingSuperFwupdateResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperFwupdate'
+    SettingSuperFwupdateListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperFwupdate'
+    SettingSuperIdentityResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperIdentity'
+    SettingSuperIdentityListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperIdentity'
+    SettingSuperMailResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperMail'
+    SettingSuperMailListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperMail'
+    SettingSuperMgmtResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperMgmt'
+    SettingSuperMgmtListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperMgmt'
+    SettingSuperSdnResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperSdn'
+    SettingSuperSdnListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperSdn'
+    SettingSuperSmtpResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperSmtp'
+    SettingSuperSmtpListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingSuperSmtp'
+    SettingTeleportResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingTeleport'
+    SettingTeleportListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingTeleport'
+    SettingTrafficFlowResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingTrafficFlow'
+    SettingTrafficFlowListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingTrafficFlow'
+    SettingUsgResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingUsg'
+    SettingUsgListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingUsg'
+    SettingUswResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingUsw'
+    SettingUswListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingUsw'
+    SpatialRecordResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpatialRecord'
+    SpatialRecordListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpatialRecord'
+    TagResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    TagListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    UserResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    UserListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    UserGroupResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+    UserGroupListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroup'
+    VirtualDeviceResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualDevice'
+    VirtualDeviceListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VirtualDevice'
+    WLANResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WLAN'
+    WLANListResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WLAN'
     WLANGroupResponse:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/Meta'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WLANGroup'
+    WLANGroupListResponse:
       type: object
       properties:
         meta:

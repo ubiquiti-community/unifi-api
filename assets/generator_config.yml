@@ -20,6 +20,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   broadcast_group:
     create:
@@ -40,6 +41,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   channel_plan:
     create:
@@ -60,6 +62,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   dashboard:
     create:
@@ -80,6 +83,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   device:
     create:
@@ -100,6 +104,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   dhcp_option:
     create:
@@ -120,6 +125,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   dpi_app:
     create:
@@ -140,6 +146,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   dpi_group:
     create:
@@ -160,6 +167,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   dynamic_dns:
     create:
@@ -180,6 +188,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   firewall_group:
     create:
@@ -200,6 +209,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   firewall_rule:
     create:
@@ -220,6 +230,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   heat_map:
     create:
@@ -240,6 +251,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   heat_map_point:
     create:
@@ -260,6 +272,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   hotspot_2_conf:
     create:
@@ -280,6 +293,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   hotspot_op:
     create:
@@ -300,6 +314,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   hotspot_package:
     create:
@@ -320,6 +335,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   map:
     create:
@@ -340,6 +356,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   media_file:
     create:
@@ -360,6 +377,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   network:
     create:
@@ -380,6 +398,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   port_profile:
     create:
@@ -400,6 +419,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   port_forward:
     create:
@@ -420,6 +440,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   radius_profile:
     create:
@@ -440,6 +461,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   routing:
     create:
@@ -460,6 +482,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   schedule_task:
     create:
@@ -480,6 +503,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   setting_auto_speedtest:
     create:
@@ -1231,6 +1255,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   tag:
     create:
@@ -1251,6 +1276,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   user:
     create:
@@ -1271,6 +1297,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   user_group:
     create:
@@ -1291,6 +1318,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   virtual_device:
     create:
@@ -1311,6 +1339,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   wlan:
     create:
@@ -1331,6 +1360,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
   wlan_group:
     create:
@@ -1351,6 +1381,7 @@ resources:
         - data
       attributes:
         aliases:
+          id: _id
           siteId: site_id
 data_sources:
   account:
