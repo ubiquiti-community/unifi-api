@@ -1,0 +1,12 @@
+# OpenAPI Generator config — nested Go models package.
+#
+# The Makefile generates model structs and utils.go into clients/go/models,
+# bundles nested structs into their top-level owner's file, and exposes aliases
+# from the parent unifi package.
+generatorName: go
+additionalProperties:
+  packageName: models
+  generateInterfaces: false
+  enumClassPrefix: true
+  withGoMod: false
+  isGoSubmodule: true
