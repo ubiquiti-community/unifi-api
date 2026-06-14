@@ -1,0 +1,9 @@
+# OpenAPI Generator config — Java client.
+generatorName: java
+additionalProperties:
+  library: native
+  groupId: com.ubiquiti.community
+  artifactId: unifi-client
+  invokerPackage: com.ubiquiti.community.unifi
+  apiPackage: com.ubiquiti.community.unifi.api
+  modelPackage: com.ubiquiti.community.unifi.model

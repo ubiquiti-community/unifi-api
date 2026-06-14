@@ -153,12 +153,104 @@ func extractJSON(jarFile, fieldsDir string) error {
 			return fmt.Errorf("unable to marshal setting %q: %w", k, err)
 		}
 
-		err = os.WriteFile(filepath.Join(fieldsDir, fileName), data, DIR_PERM)
+		err = os.WriteFile(filepath.Join(fieldsDir, fileName), data, 0o755)
 		if err != nil {
 			return fmt.Errorf("unable to write new settings file: %w", err)
 		}
 	}
 
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	rootDir := findModuleRoot(wd)
+	srcDir := path.Join(rootDir, "cmd", "fields")
+
+	files, err := os.ReadDir(path.Join(srcDir, "custom"))
+	if err != nil {
+		return fmt.Errorf("unable to read custom directory: %w", err)
+	}
+
+	for _, file := range files {
+		if !file.IsDir() {
+			fs, err := os.Open(path.Join(srcDir, "custom", file.Name()))
+			if err != nil {
+				return fmt.Errorf("unable to open file: %w", err)
+			}
+			defer fs.Close()
+			rf, err := os.Create(filepath.Join(fieldsDir, file.Name()))
+			if err != nil {
+				return fmt.Errorf("unable to create file: %w", err)
+			}
+			defer rf.Close()
+			_, err = io.Copy(rf, fs)
+			if err != nil {
+				return fmt.Errorf("unable to copy file: %w", err)
+			}
+			_, err = io.ReadAll(fs)
+			if err != nil {
+				return fmt.Errorf("unable to read file: %w", err)
+			}
+		}
+		fmt.Println(file.Name(), file.IsDir())
+	}
+
 	// TODO: cleanup JSON
 	return nil
+}
+
+func copyCustom(fieldsDir string) error {
+	wd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	rootDir := findModuleRoot(wd)
+	srcDir := path.Join(rootDir, "cmd", "fields")
+
+	files, err := os.ReadDir(path.Join(srcDir, "custom"))
+	if err != nil {
+		return fmt.Errorf("unable to read custom directory: %w", err)
+	}
+
+	for _, file := range files {
+		if !file.IsDir() {
+			fs, err := os.Open(path.Join(srcDir, "custom", file.Name()))
+			if err != nil {
+				return fmt.Errorf("unable to open file: %w", err)
+			}
+			defer fs.Close()
+			rf, err := os.Create(filepath.Join(fieldsDir, file.Name()))
+			if err != nil {
+				return fmt.Errorf("unable to create file: %w", err)
+			}
+			defer rf.Close()
+			_, err = io.Copy(rf, fs)
+			if err != nil {
+				return fmt.Errorf("unable to copy file: %w", err)
+			}
+		}
+	}
+
+	return nil
+}
+
+func findModuleRoot(dir string) (roots string) {
+	if dir == "" {
+		panic("dir not set")
+	}
+	dir = filepath.Clean(dir)
+	// Look for enclosing go.mod.
+	for {
+		if fi, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil && !fi.IsDir() {
+			return dir
+		}
+		d := filepath.Dir(dir)
+		if d == dir {
+			break
+		}
+		dir = d
+	}
+	return ""
 }

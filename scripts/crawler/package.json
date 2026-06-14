@@ -1,0 +1,15 @@
+{
+  "name": "unifi-ui-crawler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Recursively drives the UniFi Network Application UI and exports a HAR dump of every XHR for OpenAPI generation.",
+  "scripts": {
+    "setup": "node setup.mjs",
+    "crawl": "node crawl.mjs",
+    "all": "./run.sh"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}

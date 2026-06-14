@@ -14,13 +14,15 @@ import (
 
 func TestLatestUnifiVersion(t *testing.T) {
 	assert := assert.New(t)
-	require := require.New(t)
+	_ = require.New(t)
 
 	fwVersion, err := version.NewVersion("7.3.83+atag-7.3.83-19645")
-	require.NoError(err)
+	assert.NoError(err)
 
-	fwDownload, err := url.Parse("https://fw-download.ubnt.com/data/unifi-controller/c31c-debian-7.3.83-c9249c913b91416693b869b9548850c3.deb")
-	require.NoError(err)
+	fwDownload, err := url.Parse(
+		"https://fw-download.ubnt.com/data/unifi-controller/c31c-debian-7.3.83-c9249c913b91416693b869b9548850c3.deb",
+	)
+	assert.NoError(err)
 
 	respData := firmwareUpdateApiResponse{
 		Embedded: firmwareUpdateApiResponseEmbedded{
@@ -70,8 +72,12 @@ func TestLatestUnifiVersion(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		query := req.URL.Query()
-		assert.Contains(query["filter"], firmwareUpdateApiFilter("channel", releaseChannel))
-		assert.Contains(query["filter"], firmwareUpdateApiFilter("product", unifiControllerProduct))
+		assert.Contains(query["filter"], firmwareUpdateApiFilter("eq", "channel", releaseChannel))
+		assert.Contains(
+			query["filter"],
+			firmwareUpdateApiFilter("eq", "product", unifiControllerProduct),
+		)
+		assert.Contains(query["filter"], firmwareUpdateApiFilter("lt", "version", maxVersion))
 
 		resp, err := json.Marshal(respData)
 		assert.NoError(err)
@@ -83,7 +89,7 @@ func TestLatestUnifiVersion(t *testing.T) {
 
 	firmwareUpdateApi = server.URL
 	gotVersion, gotDownload, err := latestUnifiVersion()
-	require.NoError(err)
+	assert.NoError(err)
 
 	assert.Equal(fwVersion.Core(), gotVersion)
 	assert.Equal(fwDownload, gotDownload)

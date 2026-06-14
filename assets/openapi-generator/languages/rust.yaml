@@ -1,0 +1,6 @@
+# OpenAPI Generator config — Rust client.
+generatorName: rust
+additionalProperties:
+  packageName: unifi-client
+  supportAsync: true
+  library: reqwest

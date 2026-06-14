@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	assert "github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 )
 
 func TestFieldInfoFromValidation(t *testing.T) {
@@ -20,8 +19,8 @@ func TestFieldInfoFromValidation(t *testing.T) {
 		{"string", ".{0,32}", true, ".{0,32}"},
 		{"string", "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$", false, "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"},
 
-		{"int", "^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$", true, "^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"},
-		{"int", "", true, "^[0-9]*$"},
+		{"int64", "^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$", true, "^([1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"},
+		{"int64", "", true, "^[0-9]*$"},
 
 		{"float64", "", true, "[-+]?[0-9]*\\.?[0-9]+"},
 		// this one is really an error as the . is not escaped
@@ -32,7 +31,7 @@ func TestFieldInfoFromValidation(t *testing.T) {
 		{"bool", "", false, "true|false"},
 	} {
 		t.Run(fmt.Sprintf("%d %s %s", i, c.expectedType, c.validation), func(t *testing.T) {
-			resource := &Resource{
+			resource := &ResourceInfo{
 				StructName:     "TestType",
 				Types:          make(map[string]*FieldInfo),
 				FieldProcessor: func(name string, f *FieldInfo) error { return nil },
@@ -73,20 +72,21 @@ func TestResourceTypes(t *testing.T) {
 }
 	`
 	expectedFields := map[string]*FieldInfo{
-		"Note":    NewFieldInfo("Note", "note", "string", ".{0,1024}", true, false, ""),
-		"Date":    NewFieldInfo("Date", "date", "string", "^$|^(20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])Z?$", false, false, ""),
-		"MAC":     NewFieldInfo("MAC", "mac", "string", "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$", true, false, ""),
-		"Number":  NewFieldInfo("Number", "number", "int", "", true, false, "emptyStringInt"),
-		"Boolean": NewFieldInfo("Boolean", "boolean", "bool", "", false, false, ""),
+		"Note":    NewFieldInfo("Note", "note", "string", ".{0,1024}", true, false, false, ""),
+		"Date":    NewFieldInfo("Date", "date", "string", "^$|^(20[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])Z?$", false, false, false, ""),
+		"MAC":     NewFieldInfo("MAC", "mac", "string", "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$", true, false, false, ""),
+		"Number":  NewFieldInfo("Number", "number", "int64", "", true, false, true, "types.Number"),
+		"Boolean": NewFieldInfo("Boolean", "boolean", "bool", "", false, false, false, ""),
 		"NestedType": {
 			FieldName:       "NestedType",
 			JSONName:        "nested_type",
 			FieldType:       "StructNestedType",
 			FieldValidation: "",
 			OmitEmpty:       true,
+			IsPointer:       true,
 			IsArray:         false,
 			Fields: map[string]*FieldInfo{
-				"NestedFieldModified": NewFieldInfo("NestedFieldModified", "nested_field", "string", "^$", false, false, ""),
+				"NestedFieldModified": NewFieldInfo("NestedFieldModified", "nested_field", "string", "^$", false, false, false, ""),
 			},
 		},
 		"NestedTypeArray": {
@@ -95,9 +95,10 @@ func TestResourceTypes(t *testing.T) {
 			FieldType:       "StructNestedTypeArray",
 			FieldValidation: "",
 			OmitEmpty:       true,
+			IsPointer:       false,
 			IsArray:         true,
 			Fields: map[string]*FieldInfo{
-				"NestedFieldModified": NewFieldInfo("NestedFieldModified", "nested_field", "string", "^$", false, false, ""),
+				"NestedFieldModified": NewFieldInfo("NestedFieldModified", "nested_field", "string", "^$", false, false, false, ""),
 			},
 		},
 	}
@@ -111,13 +112,13 @@ func TestResourceTypes(t *testing.T) {
 			OmitEmpty:       false,
 			IsArray:         false,
 			Fields: map[string]*FieldInfo{
-				"   ID":      NewFieldInfo("ID", "_id", "string", "", true, false, ""),
-				"   SiteID":  NewFieldInfo("SiteID", "site_id", "string", "", true, false, ""),
+				"   ID":      NewFieldInfo("ID", "_id", "string", "", true, false, false, ""),
+				"   SiteID":  NewFieldInfo("SiteID", "site_id", "string", "", true, false, false, ""),
 				"   _Spacer": nil,
-				"  Hidden":   NewFieldInfo("Hidden", "attr_hidden", "bool", "", true, false, ""),
-				"  HiddenID": NewFieldInfo("HiddenID", "attr_hidden_id", "string", "", true, false, ""),
-				"  NoDelete": NewFieldInfo("NoDelete", "attr_no_delete", "bool", "", true, false, ""),
-				"  NoEdit":   NewFieldInfo("NoEdit", "attr_no_edit", "bool", "", true, false, ""),
+				"  Hidden":   NewFieldInfo("Hidden", "attr_hidden", "bool", "", true, false, false, ""),
+				"  HiddenID": NewFieldInfo("HiddenID", "attr_hidden_id", "string", "", true, false, false, ""),
+				"  NoDelete": NewFieldInfo("NoDelete", "attr_no_delete", "bool", "", true, false, false, ""),
+				"  NoEdit":   NewFieldInfo("NoEdit", "attr_no_edit", "bool", "", true, false, false, ""),
 				"  _Spacer":  nil,
 				" _Spacer":   nil,
 			},
@@ -128,7 +129,7 @@ func TestResourceTypes(t *testing.T) {
 		expectedStruct["Struct"].Fields[k] = v
 	}
 
-	expectation := &Resource{
+	expectation := &ResourceInfo{
 		StructName:   "Struct",
 		ResourcePath: "path",
 
@@ -152,7 +153,7 @@ func TestResourceTypes(t *testing.T) {
 
 		err := resource.processJSON(([]byte)(testData))
 
-		require.NoError(t, err, "No error processing JSON")
+		assert.NoError(t, err, "No error processing JSON")
 		assert.Equal(t, expectation.StructName, resource.StructName)
 		assert.Equal(t, expectation.ResourcePath, resource.ResourcePath)
 		assert.Equal(t, expectation.Types, resource.Types)

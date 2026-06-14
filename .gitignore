@@ -10,3 +10,5 @@ assets/v*
 _site
 
 hack
+# Generated API clients
+/clients/

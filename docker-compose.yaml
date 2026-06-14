@@ -1,0 +1,31 @@
+---
+services:
+  unifi:
+    image: jacobalberty/unifi:latest
+    init: true
+    container_name: unifi
+    environment:
+      PKGURL: ""
+      UNIFI_STDOUT: "true"
+      TZ: Etc/UTC
+    user: unifi
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-k", "https://localhost:8443/manage/account/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+    # Bind-mount the init script instead of a compose `configs:` entry: the
+    # testcontainers compose-go runtime does not materialize inline config
+    # content under Podman, which left the controller out of simulation mode
+    # (no seeded admin account -> login 400). A bind mount is portable across
+    # Docker and Podman. The :Z suffix relabels for SELinux and is a no-op on
+    # hosts without it.
+    volumes:
+      - ./scripts/init.d/demo-mode:/unifi/init.d/demo-mode:Z
+    ports:
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+    restart: unless-stopped
