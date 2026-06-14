@@ -159,3 +159,29 @@ func TestResourceTypes(t *testing.T) {
 		assert.Equal(t, expectation.Types, resource.Types)
 	})
 }
+
+func TestNewResourcePaths(t *testing.T) {
+	tests := []struct {
+		structName         string
+		resourcePath       string
+		itemResourcePath   string
+		expectedPath       string
+		expectedItemPath   string
+	}{
+		{structName: "APGroup", resourcePath: "apgroups", expectedPath: "/v2/api/site/{site}/apgroups", expectedItemPath: "/v2/api/site/{site}/apgroups/{id}"},
+		{structName: "NetworkMembersGroup", resourcePath: "network-members-groups", itemResourcePath: "network-members-group", expectedPath: "/v2/api/site/{site}/network-members-groups", expectedItemPath: "/v2/api/site/{site}/network-members-group/{id}"},
+		{structName: "PowerSupervisor", resourcePath: "power-supervisors", expectedPath: "/v2/api/site/{site}/power-supervisors", expectedItemPath: "/v2/api/site/{site}/power-supervisors/{id}"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.structName, func(t *testing.T) {
+			resource := &ResourceInfo{
+				StructName:       tt.structName,
+				ResourcePath:     tt.resourcePath,
+				ItemResourcePath: tt.itemResourcePath,
+			}
+			assert.Equal(t, tt.expectedPath, collectionPath(resource))
+			assert.Equal(t, tt.expectedItemPath, itemPath(resource))
+		})
+	}
+}

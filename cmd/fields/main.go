@@ -112,6 +112,7 @@ var fileReps = []replacement{
 type ResourceInfo struct {
 	StructName     string
 	ResourcePath   string
+	ItemResourcePath string
 	Types          map[string]*FieldInfo
 	FieldProcessor func(name string, f *FieldInfo) error
 }
@@ -177,6 +178,13 @@ func NewResource(structName string, resourcePath string) *ResourceInfo {
 		resource.ResourcePath = "firewall-policies"
 	case resource.StructName == "TrafficRoute":
 		resource.ResourcePath = "trafficroutes"
+	case resource.StructName == "APGroup":
+		resource.ResourcePath = "apgroups"
+	case resource.StructName == "NetworkMembersGroup":
+		resource.ResourcePath = "network-members-groups"
+		resource.ItemResourcePath = "network-members-group"
+	case resource.StructName == "PowerSupervisor":
+		resource.ResourcePath = "power-supervisors"
 	case resource.StructName == "Network":
 		baseType.Fields["WANEgressQOSEnabled"] = NewFieldInfo("WANEgressQOSEnabled", "wan_egress_qos_enabled", fields.Bool, "", true, false, true, "")
 		baseType.Fields["UPnPEnabled"] = NewFieldInfo("UPnPEnabled", "upnp_enabled", fields.Bool, "", true, false, true, "")
@@ -621,13 +629,16 @@ func (r *ResourceInfo) IsDevice() bool {
 
 func (r *ResourceInfo) IsV2() bool {
 	return slices.Contains([]string{
+		"APGroup",
 		"ApGroup",
 		"BGPConfig",
 		"DNSRecord",
 		"FirewallPolicy",
 		"FirewallZone",
+		"NetworkMembersGroup",
 		"Nat",
 		"OSPFRouter",
+		"PowerSupervisor",
 		"TrafficRoute",
 	}, r.StructName)
 }

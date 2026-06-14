@@ -25,6 +25,11 @@ security:
   - apiKeyAuth: []
   - cookieAuth: []
 tags:
+  - name: APGroup
+    description: "Manage UniFi AP Group objects (wireless) via the controller API."
+    x-displayName: "AP Group"
+    x-kind: wireless
+    x-parent: Device
   - name: Account
     description: "Manage UniFi Account objects (clients) via the controller API."
     x-displayName: "Account"
@@ -130,6 +135,10 @@ tags:
     description: "Manage UniFi Network objects (network) via the controller API."
     x-displayName: "Network"
     x-kind: network
+  - name: NetworkMembersGroup
+    description: "Manage UniFi Network Members Group objects (network) via the controller API."
+    x-displayName: "Network Members Group"
+    x-kind: network
   - name: OSPFRouter
     description: "Manage UniFi OSPF Router objects (routing) via the controller API."
     x-displayName: "OSPF Router"
@@ -142,6 +151,10 @@ tags:
     description: "Manage UniFi Port Profile objects (devices) via the controller API."
     x-displayName: "Port Profile"
     x-kind: devices
+  - name: PowerSupervisor
+    description: "Manage UniFi Power Supervisor objects (resource) via the controller API."
+    x-displayName: "Power Supervisor"
+    x-kind: resource
   - name: RADIUSProfile
     description: "Manage UniFi RADIUS Profile objects (security) via the controller API."
     x-displayName: "RADIUS Profile"
@@ -352,6 +365,88 @@ tags:
     x-kind: wireless
     x-parent: WLAN
 paths:
+  /v2/api/site/{site}/apgroups:
+    get:
+      tags: [APGroup]
+      summary: List APGroup
+      operationId: listAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of APGroup objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APGroup'
+    post:
+      tags: [APGroup]
+      summary: Create APGroup
+      operationId: createAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APGroup'
+      responses:
+        '200':
+          description: The created APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+  /v2/api/site/{site}/apgroups/{id}:
+    get:
+      tags: [APGroup]
+      summary: Get APGroup by id
+      operationId: getAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+        '404':
+          description: Not found.
+    put:
+      tags: [APGroup]
+      summary: Update APGroup
+      operationId: updateAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APGroup'
+      responses:
+        '200':
+          description: The updated APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+    delete:
+      tags: [APGroup]
+      summary: Delete APGroup
+      operationId: deleteAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
   /api/s/{site}/rest/account:
     get:
       tags: [Account]
@@ -2885,6 +2980,88 @@ paths:
       responses:
         '200':
           description: Deleted.
+  /v2/api/site/{site}/network-members-groups:
+    get:
+      tags: [NetworkMembersGroup]
+      summary: List NetworkMembersGroup
+      operationId: listNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of NetworkMembersGroup objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NetworkMembersGroup'
+    post:
+      tags: [NetworkMembersGroup]
+      summary: Create NetworkMembersGroup
+      operationId: createNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkMembersGroup'
+      responses:
+        '200':
+          description: The created NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+  /v2/api/site/{site}/network-members-group/{id}:
+    get:
+      tags: [NetworkMembersGroup]
+      summary: Get NetworkMembersGroup by id
+      operationId: getNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+        '404':
+          description: Not found.
+    put:
+      tags: [NetworkMembersGroup]
+      summary: Update NetworkMembersGroup
+      operationId: updateNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkMembersGroup'
+      responses:
+        '200':
+          description: The updated NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+    delete:
+      tags: [NetworkMembersGroup]
+      summary: Delete NetworkMembersGroup
+      operationId: deleteNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
   /v2/api/site/{site}/ospf/router:
     get:
       tags: [OSPFRouter]
@@ -3177,6 +3354,88 @@ paths:
       tags: [PortProfile]
       summary: Delete PortProfile
       operationId: deletePortProfile
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
+  /v2/api/site/{site}/power-supervisors:
+    get:
+      tags: [PowerSupervisor]
+      summary: List PowerSupervisor
+      operationId: listPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of PowerSupervisor objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PowerSupervisor'
+    post:
+      tags: [PowerSupervisor]
+      summary: Create PowerSupervisor
+      operationId: createPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PowerSupervisor'
+      responses:
+        '200':
+          description: The created PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+  /v2/api/site/{site}/power-supervisors/{id}:
+    get:
+      tags: [PowerSupervisor]
+      summary: Get PowerSupervisor by id
+      operationId: getPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+        '404':
+          description: Not found.
+    put:
+      tags: [PowerSupervisor]
+      summary: Update PowerSupervisor
+      operationId: updatePowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PowerSupervisor'
+      responses:
+        '200':
+          description: The updated PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+    delete:
+      tags: [PowerSupervisor]
+      summary: Delete PowerSupervisor
+      operationId: deletePowerSupervisor
       parameters:
         - $ref: '#/components/parameters/Site'
         - $ref: '#/components/parameters/Id'
@@ -6241,6 +6500,27 @@ components:
       type: object
       description: Per-port runtime state reported by a device (loose schema).
       additionalProperties: true
+    APGroup:
+      type: object
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        device_macs:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
     Account:
       type: object
       properties:
@@ -9160,6 +9440,33 @@ components:
           type: [integer, "null"]
           format: int64
           description: "^[1-9][0-9]*$"
+    NetworkMembersGroup:
+      type: object
+      required: [id]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        id:
+          type: string
+          description: "^$|.{0,128}"
+        members:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        type:
+          type: string
     OSPFRouter:
       type: object
       required: [announce_default_route, enabled, redistribute_connected_routes, redistribute_static_routes]
@@ -9498,6 +9805,62 @@ components:
         qos_profile_mode:
           type: string
           description: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio"
+    PowerSupervisor:
+      type: object
+      required: [enabled]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        client_mac:
+          type: string
+        consecutive_failures:
+          type: [integer, "null"]
+          format: int64
+        enabled:
+          type: boolean
+        power_sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerSupervisorPowerSources'
+        settings:
+          oneOf:
+            - $ref: '#/components/schemas/PowerSupervisorSettings'
+            - type: "null"
+    PowerSupervisorPowerSources:
+      type: object
+      properties:
+        client_psu_index:
+          type: [integer, "null"]
+          format: int64
+        power_source_index:
+          type: [integer, "null"]
+          format: int64
+        power_source_mac:
+          type: string
+        power_source_type:
+          type: string
+    PowerSupervisorSettings:
+      type: object
+      properties:
+        heartbeat_interval:
+          type: [integer, "null"]
+          format: int64
+        power_off_duration:
+          type: [integer, "null"]
+          format: int64
+        silence_threshold:
+          type: [integer, "null"]
+          format: int64
     RADIUSProfile:
       type: object
       required: [accounting_enabled, interim_update_enabled, tls_enabled, use_usg_acct_server, use_usg_auth_server, vlan_enabled]
