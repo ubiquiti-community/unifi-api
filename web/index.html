@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>UniFi Network Application API — Reference</title>
+    <meta
+      name="description"
+      content="Reference documentation for the UniFi Network Application controller API."
+    />
+
+    <!--
+      Stoplight Elements — https://github.com/stoplightio/elements
+      Renders ./openapi.yaml as interactive, three-column API reference docs.
+      Loaded from the unpkg CDN (the setup shown in the Elements examples). To
+      pin for reproducible builds, replace "@stoplight/elements" with a version,
+      e.g. "@stoplight/elements@8.1.0".
+    -->
+    <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements/styles.min.css" />
+    <script src="https://unpkg.com/@stoplight/elements/web-components.min.js"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      router="hash" keeps deep links working on static hosting (GitHub Pages)
+      without server-side rewrites. layout="sidebar" is the three-column docs
+      view from the Elements examples.
+    -->
+    <elements-api
+      apiDescriptionUrl="openapi.yaml"
+      router="hash"
+      layout="sidebar"
+      tryItCredentialsPolicy="same-origin"
+    ></elements-api>
+  </body>
+</html>
