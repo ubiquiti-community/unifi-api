@@ -1,5 +1,5 @@
 ---
-name: Deploy to GitHub Pages
+name: Deploy API docs to GitHub Pages
 on:
   workflow_dispatch: {}
   pull_request: {}
@@ -9,46 +9,56 @@ on:
     tags:
       - v*
 
+# Least-privilege default; the deploy job elevates what it needs.
+permissions:
+  contents: read
+
+# Allow one concurrent deployment; let an in-progress run finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-go@v5
-      - run: go generate ./...
-      - run: |
-          mkdir -p _site
-          cp assets/openapi.yaml _site/
-          jq --null-input '{url: "http", specPath: "openapi.yaml"}' > ./assets/swagger-config.json
-      - name: Generate Swagger UI
-        uses: Legion2/swagger-ui-action@v1
         with:
-          output: _site
-          swagger-config-file: assets/openapi.yaml
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - uses: hatamiarash7/openapi-generator@v0.3.0
-      #   with:
-      #     generator: html2
-      #     openapi-file: assets/openapi.yaml
-      #     output-dir: _site
+          go-version-file: go.mod
+
+      - name: Regenerate OpenAPI spec
+        run: go generate ./...
+
+      - name: Assemble Stoplight Elements site
+        run: |
+          mkdir -p _site
+          cp web/index.html _site/index.html
+          cp assets/openapi.yaml _site/openapi.yaml
+
       - name: Fix permissions
         run: |
           chmod -c -R +rX "_site/" | while read line; do
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
 
   deploy:
     needs: build
+    # Only publish from main / tags, never from pull requests (which build for
+    # validation only and may originate from forks without Pages permissions).
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
 
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment.
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
 
-    # Deploy to the github-pages environment
+    # Deploy to the github-pages environment.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
