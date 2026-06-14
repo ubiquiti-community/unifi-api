@@ -1,0 +1,18 @@
+{
+  "client_mac": "",
+  "enabled": "true|false",
+  "settings": {
+    "heartbeat_interval": "[0-9]+",
+    "silence_threshold": "[0-9]+",
+    "power_off_duration": "[0-9]+"
+  },
+  "power_sources": [
+    {
+      "client_psu_index": "[0-9]+",
+      "power_source_index": "[0-9]+",
+      "power_source_mac": "",
+      "power_source_type": ""
+    }
+  ],
+  "consecutive_failures": "^$|[0-9]+"
+}

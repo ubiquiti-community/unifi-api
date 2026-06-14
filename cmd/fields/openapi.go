@@ -240,6 +240,15 @@ func collectionPath(r *ResourceInfo) string {
 
 // itemPath returns the single-object path for a resource.
 func itemPath(r *ResourceInfo) string {
+	if r.ItemResourcePath != "" {
+		if r.IsV2() {
+			return "/v2/api/site/{site}/" + r.ItemResourcePath + "/{id}"
+		}
+		if r.IsDevice() {
+			return "/api/s/{site}/stat/" + r.ItemResourcePath + "/{id}"
+		}
+		return "/api/s/{site}/rest/" + r.ItemResourcePath + "/{id}"
+	}
 	return collectionPath(r) + "/{id}"
 }
 
