@@ -1,14 +1,39 @@
-# Cache
-/fields/v*.*.*/
-
-# goreleaser
-/dist/
-.DS_Store
-
-assets/v*
 
 _site
-
-hack
-# Generated API clients
+!command/test-fixtures/**/.terraform/
+!command/test-fixtures/**/*.tfstate
+.*.swp
+./*.tfstate
+.DS_Store
+.idea
+.terraform/
+.vagrant/
+*.backup
+*.bak
+*.dll
+*.exe
+*.iml
+*.log
+*.test
+*.winfile eol=crlf
+*~
 /clients/
+/cmd/fields/v*.*.*/
+/dist/
+/fields/v*.*.*/
+/pkg/
+/scripts
+assets/v*
+bin/
+dist/
+example.tf
+hack
+modules-dev/
+provider
+terraform.tfplan
+terraform.tfstate
+website/.bundle
+website/.vagrant
+website/build
+website/node_modules
+website/vendor

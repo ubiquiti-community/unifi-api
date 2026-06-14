@@ -162,14 +162,20 @@ func TestResourceTypes(t *testing.T) {
 
 func TestNewResourcePaths(t *testing.T) {
 	tests := []struct {
-		structName         string
-		resourcePath       string
-		itemResourcePath   string
-		expectedPath       string
-		expectedItemPath   string
+		structName       string
+		resourcePath     string
+		itemResourcePath string
+		expectedPath     string
+		expectedItemPath string
 	}{
 		{structName: "APGroup", resourcePath: "apgroups", expectedPath: "/v2/api/site/{site}/apgroups", expectedItemPath: "/v2/api/site/{site}/apgroups/{id}"},
-		{structName: "NetworkMembersGroup", resourcePath: "network-members-groups", itemResourcePath: "network-members-group", expectedPath: "/v2/api/site/{site}/network-members-groups", expectedItemPath: "/v2/api/site/{site}/network-members-group/{id}"},
+		{
+			structName:       "NetworkMembersGroup",
+			resourcePath:     "network-members-groups",
+			itemResourcePath: "network-members-group",
+			expectedPath:     "/v2/api/site/{site}/network-members-groups",
+			expectedItemPath: "/v2/api/site/{site}/network-members-group/{id}",
+		},
 		{structName: "PowerSupervisor", resourcePath: "power-supervisors", expectedPath: "/v2/api/site/{site}/power-supervisors", expectedItemPath: "/v2/api/site/{site}/power-supervisors/{id}"},
 	}
 

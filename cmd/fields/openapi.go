@@ -9,8 +9,6 @@ import (
 	"sort"
 	"strings"
 	"text/template"
-
-	"github.com/ubiquiti-community/unifi-api/cmd/fields/internal/fields"
 )
 
 //go:embed openapi.tmpl
@@ -31,7 +29,7 @@ type OpenAPIData struct {
 	Tags      []Tag
 }
 
-// Tag is an OpenAPI 3.2 Tag Object, including the hierarchical/extended fields.
+// Tag is an OpenAPI 3.2 Tag Object, including the hierarchical/extended.
 type Tag struct {
 	Name        string // matches the tag referenced by each operation
 	Summary     string // short, human-readable label
@@ -112,7 +110,7 @@ func tagKind(r *ResourceInfo) string {
 		return "wireless"
 	case containsAny(n, "Device", "Port"):
 		return "devices"
-	case containsAny(n, "Route", "BGP", "OSPF", "VPN", "Vpn", "DynamicDNS", "Dynamicdns"):
+	case containsAny(n, "Route", "BGP", "OSPF", "VPN", "Vpn", "DynamicDNS", "Dynamics"):
 		return "routing"
 	case containsAny(n, "Network", "DHCP", "DNS"):
 		return "network"
@@ -163,12 +161,12 @@ func buildTags(resources []*ResourceInfo) []Tag {
 // to an OpenAPI primitive type. Anything not listed here is treated as a
 // reference to another component schema (see isRefType).
 var primitiveOpenAPIType = map[string]string{
-	fields.String: "string",
-	fields.Int:    "integer", // "int64"
-	fields.Bool:   "boolean",
-	fields.Number: "number",  // "types.Number"
-	"float64":     "number",
-	"int":         "integer",
+	String:    "string",
+	Int:       "integer", // "int64"
+	Bool:      "boolean",
+	Number:    "number", // "types.Number"
+	"float64": "number",
+	"int":     "integer",
 }
 
 // baseType strips a leading "[]" slice marker (some synthetic fields, e.g.
@@ -201,7 +199,7 @@ func openapiType(fieldType string) string {
 // openapiFormat returns the OpenAPI "format" hint for a primitive, if any.
 func openapiFormat(fieldType string) string {
 	switch baseType(fieldType) {
-	case fields.Int, "int":
+	case Int, "int":
 		return "int64"
 	case "float64":
 		return "double"
