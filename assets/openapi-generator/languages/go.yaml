@@ -1,0 +1,13 @@
+# OpenAPI Generator config — Go client.
+#
+# The Makefile additionally passes:
+#   --model-name-mappings @model-name-mappings.cfg   (canonical model names)
+#   --name-mappings       @go-name-mappings.cfg      (go-unifi field-name parity)
+# so generated struct fields match go-unifi exactly (e.g. DHCPDEnabled).
+generatorName: go
+additionalProperties:
+  packageName: unifi
+  generateInterfaces: true
+  enumClassPrefix: true
+  withGoMod: true
+  isGoSubmodule: false

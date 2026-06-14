@@ -1,30 +1,24 @@
 package main
 
 import (
-	"bytes"
-	_ "embed"
 	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
-	"go/format"
-	"io"
 	"net/url"
 	"os"
 	"path"
 	"path/filepath"
 	"regexp"
+	"runtime"
+	"slices"
 	"strconv"
 	"strings"
-	"text/template"
+	"unicode"
 
 	"github.com/hashicorp/go-version"
 	"github.com/iancoleman/strcase"
-)
-
-const (
-	WRITE_FILE_PERM = 0o644
-	DIR_PERM        = 0o755
+	"github.com/ubiquiti-community/unifi-api/cmd/fields/internal/fields"
 )
 
 type replacement struct {
@@ -42,6 +36,9 @@ var fieldReps = []replacement{
 	{"Openvpn", "OpenVPN"},
 	{"Tftp", "TFTP"},
 	{"Wlangroup", "WLANGroup"},
+
+	{"FrrBgpdConfig", "Config"},
+	{"BgpConfig", "BGPConfig"},
 
 	{"Bc", "Broadcast"},
 	{"Dhcp", "DHCP"},
@@ -64,15 +61,18 @@ var fieldReps = []replacement{
 	{"Networkgroup", "NetworkGroup"},
 	{"Pd", "PD"},
 	{"Pmf", "PMF"},
+	{"pnp", "PnP"},
 	{"Portconf", "PortProfile"},
 	{"Qos", "QOS"},
 	{"Radiusprofile", "RADIUSProfile"},
 	{"Radius", "RADIUS"},
 	{"Ssid", "SSID"},
+	{"Smartq", "SmartQ"},
 	{"Startdate", "StartDate"},
 	{"Starttime", "StartTime"},
 	{"Stopdate", "StopDate"},
 	{"Stoptime", "StopTime"},
+	{"Supression", "Suppression"}, //nolint:misspell
 	{"Tcp", "TCP"},
 	{"Udp", "UDP"},
 	{"Usergroup", "UserGroup"},
@@ -83,6 +83,16 @@ var fieldReps = []replacement{
 	{"Wep", "WEP"},
 	{"Wlan", "WLAN"},
 	{"Wpa", "WPA"},
+	{"XWireguardPrivateKey", "WireguardPrivateKey"},
+	{"XSsh", "SSH"},
+	{"XMgmt", "Mgmt"},
+	{"UnifiIDp", "UniFiIdentityProvider"},
+	{"PortStop", "Stop"},
+	{"PortStart", "Start"},
+	{"IPStart", "Start"},
+	{"IPStop", "Stop"},
+	{"IPVersion", "Version"},
+	{"IPOrSubnet", "Address"},
 }
 
 var fileReps = []replacement{
@@ -93,9 +103,13 @@ var fileReps = []replacement{
 	{"PortConf", "PortProfile"},
 	{"RadiusProfile", "RADIUSProfile"},
 	{"ApGroups", "APGroup"},
+	{"DnsRecord", "DNSRecord"},
+	{"BgpConfig", "BGPConfig"},
+	{"User", "Client"},
+	{"UserGroup", "ClientGroup"},
 }
 
-type Resource struct {
+type ResourceInfo struct {
 	StructName     string
 	ResourcePath   string
 	Types          map[string]*FieldInfo
@@ -106,6 +120,7 @@ type FieldInfo struct {
 	FieldName           string
 	JSONName            string
 	FieldType           string
+	IsPointer           bool
 	FieldValidation     string
 	OmitEmpty           bool
 	IsArray             bool
@@ -114,9 +129,9 @@ type FieldInfo struct {
 	CustomUnmarshalFunc string
 }
 
-func NewResource(structName string, resourcePath string) *Resource {
-	baseType := NewFieldInfo(structName, resourcePath, "struct", "", false, false, "")
-	resource := &Resource{
+func NewResource(structName string, resourcePath string) *ResourceInfo {
+	baseType := NewFieldInfo(structName, resourcePath, "struct", "", false, false, false, "")
+	resource := &ResourceInfo{
 		StructName:   structName,
 		ResourcePath: resourcePath,
 		Types: map[string]*FieldInfo{
@@ -131,14 +146,14 @@ func NewResource(structName string, resourcePath string) *Resource {
 	//
 	// This hack is here for stability of the generatd code, but can be removed if desired.
 	baseType.Fields = map[string]*FieldInfo{
-		"   ID":      NewFieldInfo("ID", "_id", "string", "", true, false, ""),
-		"   SiteID":  NewFieldInfo("SiteID", "site_id", "string", "", true, false, ""),
+		"   ID":      NewFieldInfo("ID", "_id", fields.String, "", true, false, false, ""),
+		"   SiteID":  NewFieldInfo("SiteID", "site_id", fields.String, "", true, false, false, ""),
 		"   _Spacer": nil,
 
-		"  Hidden":   NewFieldInfo("Hidden", "attr_hidden", "bool", "", true, false, ""),
-		"  HiddenID": NewFieldInfo("HiddenID", "attr_hidden_id", "string", "", true, false, ""),
-		"  NoDelete": NewFieldInfo("NoDelete", "attr_no_delete", "bool", "", true, false, ""),
-		"  NoEdit":   NewFieldInfo("NoEdit", "attr_no_edit", "bool", "", true, false, ""),
+		"  Hidden":   NewFieldInfo("Hidden", "attr_hidden", fields.Bool, "", true, false, false, ""),
+		"  HiddenID": NewFieldInfo("HiddenID", "attr_hidden_id", fields.String, "", true, false, false, ""),
+		"  NoDelete": NewFieldInfo("NoDelete", "attr_no_delete", fields.Bool, "", true, false, false, ""),
+		"  NoEdit":   NewFieldInfo("NoEdit", "attr_no_edit", fields.Bool, "", true, false, false, ""),
 		"  _Spacer":  nil,
 
 		" _Spacer": nil,
@@ -147,30 +162,70 @@ func NewResource(structName string, resourcePath string) *Resource {
 	switch {
 	case resource.IsSetting():
 		resource.ResourcePath = strcase.ToSnake(strings.TrimPrefix(structName, "Setting"))
-		baseType.Fields[" Key"] = NewFieldInfo("Key", "key", "string", "", false, false, "")
-
+		baseType.Fields[" Key"] = NewFieldInfo("Key", "key", fields.String, "", false, false, false, "")
 		if resource.StructName == "SettingUsg" {
 			// Removed in v7, retaining for backwards compatibility
-			baseType.Fields["MdnsEnabled"] = NewFieldInfo("MdnsEnabled", "mdns_enabled", "bool", "", false, false, "")
+			baseType.Fields["MdnsEnabled"] = NewFieldInfo("MdnsEnabled", "mdns_enabled", fields.Bool, "", false, false, false, "")
 		}
+	case resource.StructName == "DNSRecord":
+		resource.ResourcePath = "static-dns"
+	case resource.StructName == "FirewallZone":
+		resource.ResourcePath = "firewall/zone"
+	case resource.StructName == "OSPFRouter":
+		resource.ResourcePath = "ospf/router"
+	case resource.StructName == "FirewallPolicy":
+		resource.ResourcePath = "firewall-policies"
+	case resource.StructName == "TrafficRoute":
+		resource.ResourcePath = "trafficroutes"
+	case resource.StructName == "Network":
+		baseType.Fields["WANEgressQOSEnabled"] = NewFieldInfo("WANEgressQOSEnabled", "wan_egress_qos_enabled", fields.Bool, "", true, false, true, "")
+		baseType.Fields["UPnPEnabled"] = NewFieldInfo("UPnPEnabled", "upnp_enabled", fields.Bool, "", true, false, true, "")
+		baseType.Fields["UPnPWANInterface"] = NewFieldInfo("UPnPWANInterface", "upnp_wan_interface", fields.String, "", true, false, true, "")
+		baseType.Fields["UPnPNatPMPEnabled"] = NewFieldInfo("UPnPNatPMPEnabled", "upnp_nat_pmp_enabled", fields.Bool, "", true, false, true, "")
+		baseType.Fields["UPnPSecureMode"] = NewFieldInfo("UPnPSecureMode", "upnp_secure_mode", fields.Bool, "", true, false, true, "")
+		baseType.Fields["IPAliases"] = NewFieldInfo("IPAliases", "ip_aliases", fields.String, "", true, true, false, "")
+		baseType.Fields["DHCPRelayServers"] = NewFieldInfo("DHCPRelayServers", "dhcp_relay_servers", fields.String, "", true, true, false, "")
+		baseType.Fields["WireguardInterfaceBindingModeIPVersion"] = NewFieldInfo(
+			"WireguardInterfaceBindingModeIPVersion",
+			"wireguard_interface_binding_mode_ip_version",
+			fields.String,
+			"v4|v6",
+			true,
+			false,
+			true,
+			"",
+		)
 	case resource.StructName == "Device":
-		baseType.Fields[" MAC"] = NewFieldInfo("MAC", "mac", "string", "", true, false, "")
-		baseType.Fields["Adopted"] = NewFieldInfo("Adopted", "adopted", "bool", "", false, false, "")
-		baseType.Fields["Model"] = NewFieldInfo("Model", "model", "string", "", true, false, "")
-		baseType.Fields["State"] = NewFieldInfo("State", "state", "DeviceState", "", false, false, "")
-		baseType.Fields["Type"] = NewFieldInfo("Type", "type", "string", "", true, false, "")
-	case resource.StructName == "User":
-		baseType.Fields[" IP"] = NewFieldInfo("IP", "ip", "string", "non-generated field", true, false, "")
-		baseType.Fields[" DevIdOverride"] = NewFieldInfo("DevIdOverride", "dev_id_override", "int", "non-generated field", true, false, "")
+		baseType.Fields["PortTable"] = NewFieldInfo("PortTable", "port_table", "[]DevicePortTable", "", true, false, false, "")
+		baseType.Fields[" MAC"] = NewFieldInfo("MAC", "mac", fields.String, "", true, false, false, "")
+		baseType.Fields["Adopted"] = NewFieldInfo("Adopted", "adopted", fields.Bool, "", false, false, false, "")
+		baseType.Fields["Model"] = NewFieldInfo("Model", "model", fields.String, "", true, false, false, "")
+		baseType.Fields["State"] = NewFieldInfo("State", "state", "DeviceState", "", false, false, false, "")
+		baseType.Fields["Type"] = NewFieldInfo("Type", "type", fields.String, "", true, false, false, "")
+		baseType.Fields["InformIP"] = NewFieldInfo("InformIP", "inform_ip", fields.String, "", true, false, false, "")
+		baseType.Fields["IP"] = NewFieldInfo("IP", "ip", fields.String, "", true, false, false, "")
+	case resource.StructName == "Client":
+		baseType.Fields[" DisplayName"] = NewFieldInfo("DisplayName", "display_name", fields.String, "non-generated field", true, false, false, "")
 	case resource.StructName == "WLAN":
 		// this field removed in v6, retaining for backwards compatibility
-		baseType.Fields["WLANGroupID"] = NewFieldInfo("WLANGroupID", "wlangroup_id", "string", "", false, false, "")
+		baseType.Fields["WLANGroupID"] = NewFieldInfo("WLANGroupID", "wlangroup_id", fields.String, "", true, false, false, "")
+	case resource.StructName == "BGPConfig":
+		resource.ResourcePath = "bgp/config"
 	}
 
 	return resource
 }
 
-func NewFieldInfo(fieldName string, jsonName string, fieldType string, fieldValidation string, omitempty bool, isArray bool, customUnmarshalType string) *FieldInfo {
+func NewFieldInfo(
+	fieldName string,
+	jsonName string,
+	fieldType string,
+	fieldValidation string,
+	omitempty bool,
+	isArray bool,
+	isPointer bool,
+	customUnmarshalType string,
+) *FieldInfo {
 	return &FieldInfo{
 		FieldName:           fieldName,
 		JSONName:            jsonName,
@@ -178,6 +233,7 @@ func NewFieldInfo(fieldName string, jsonName string, fieldType string, fieldVali
 		FieldValidation:     fieldValidation,
 		OmitEmpty:           omitempty,
 		IsArray:             isArray,
+		IsPointer:           isPointer,
 		CustomUnmarshalType: customUnmarshalType,
 	}
 }
@@ -185,6 +241,10 @@ func NewFieldInfo(fieldName string, jsonName string, fieldType string, fieldVali
 func cleanName(name string, reps []replacement) string {
 	for _, rep := range reps {
 		name = strings.ReplaceAll(name, rep.Old, rep.New)
+	}
+
+	if strings.HasPrefix(name, "X") && len(name) > 1 && unicode.IsUpper(rune(name[1])) {
+		name = name[1:]
 	}
 
 	return name
@@ -197,10 +257,16 @@ func usage() {
 
 func main() {
 	flag.Usage = usage
-
-	versionBaseDirFlag := flag.String("version-base-dir", "assets", "The base directory for version JSON files")
-	outputDirFlag := flag.String("output-dir", "cmd/openapi", "The output directory of the generated Go code")
-	downloadOnly := flag.Bool("download-only", false, "Only download and build the fields JSON directory, do not generate")
+	assetsDirFlag := flag.String(
+		"assets-dir",
+		"assets",
+		"Output directory (relative to the working dir) for the OpenAPI spec and generator config",
+	)
+	downloadOnly := flag.Bool(
+		"download-only",
+		false,
+		"Only download and build the fields JSON directory, do not generate",
+	)
 	useLatestVersion := flag.Bool("latest", false, "Use the latest available version")
 
 	flag.Parse()
@@ -243,8 +309,16 @@ func main() {
 		panic(err)
 	}
 
-	fieldsDir := filepath.Join(wd, *versionBaseDirFlag, fmt.Sprintf("v%s", unifiVersion))
-	outDir := filepath.Join(wd, *outputDirFlag)
+	_, filename, _, ok := runtime.Caller(0)
+	if !ok {
+		panic("Unable to get the current filename")
+	}
+
+	versionBaseDir := filepath.Dir(filename)
+
+	fieldsDir := filepath.Join(versionBaseDir, fmt.Sprintf("v%s", unifiVersion))
+
+	assetsDir := filepath.Join(wd, *assetsDirFlag)
 
 	fieldsInfo, err := os.Stat(fieldsDir)
 	if err != nil {
@@ -252,12 +326,10 @@ func main() {
 			panic(err)
 		}
 
-		err = os.MkdirAll(fieldsDir, DIR_PERM)
+		err = os.MkdirAll(fieldsDir, 0o755)
 		if err != nil {
 			panic(err)
 		}
-
-		defer os.RemoveAll(fieldsDir)
 
 		// download fields, create
 		jarFile, err := downloadJar(unifiDownloadUrl, fieldsDir)
@@ -266,6 +338,18 @@ func main() {
 		}
 
 		err = extractJSON(jarFile, fieldsDir)
+		if err != nil {
+			panic(err)
+		}
+
+		// defer func() {
+		// 	err = os.RemoveAll(fieldsDir)
+		// 	if err != nil {
+		// 		panic(err)
+		// 	}
+		// }()
+
+		err = copyCustom(fieldsDir)
 		if err != nil {
 			panic(err)
 		}
@@ -289,7 +373,8 @@ func main() {
 		panic(err)
 	}
 
-	var structs []string = []string{}
+	// Every resource parsed from the field definitions; fed to both outputs.
+	resources := []*ResourceInfo{}
 
 	for _, fieldsFile := range fieldsFiles {
 		name := fieldsFile.Name()
@@ -309,7 +394,6 @@ func main() {
 		urlPath := strings.ToLower(name)
 		structName := cleanName(name, fileReps)
 
-		goFile := "model_" + strcase.ToSnake(structName) + ".go"
 		fieldsFilePath := filepath.Join(fieldsDir, fieldsFile.Name())
 		b, err := os.ReadFile(fieldsFilePath)
 		if err != nil {
@@ -332,8 +416,8 @@ func main() {
 			resource.FieldProcessor = func(name string, f *FieldInfo) error {
 				switch name {
 				case "Channel", "BackupChannel", "TxPower":
-					if f.FieldType == "string" {
-						f.CustomUnmarshalType = "numberOrString"
+					if f.FieldType == fields.String {
+						f.CustomUnmarshalType = fields.Number
 					}
 				}
 				return nil
@@ -344,16 +428,20 @@ func main() {
 				case "X", "Y":
 					f.FieldType = "float64"
 				case "StpPriority":
-					f.FieldType = "string"
-					f.CustomUnmarshalType = "numberOrString"
+					f.FieldType = fields.Int
+					f.CustomUnmarshalType = fields.Number
+				case "ConfigNetwork", "EtherLighting", "MbbOverrides", "NutServer", "RpsOverride", "QOSProfile":
+					f.IsPointer = true
 				case "Ht":
-					f.FieldType = "int"
-				case "Channel", "BackupChannel", "TxPower":
-					if f.FieldType == "string" {
-						f.CustomUnmarshalType = "numberOrString"
+					// Field within DeviceRadioTable nested type
+					f.CustomUnmarshalType = "types.Number"
+					f.CustomUnmarshalFunc = "types.ToInt64Pointer"
+				case "Channel", "TxPower":
+					// String fields in DeviceRadioTable that newer controllers
+					// (UniFi 10.x) return as numbers; accept either form.
+					if f.FieldType == fields.String {
+						f.CustomUnmarshalType = fields.Number
 					}
-				case "LteExtAnt", "LtePoe":
-					f.CustomUnmarshalType = "booleanishString"
 				}
 
 				f.OmitEmpty = true
@@ -368,9 +456,34 @@ func main() {
 			resource.FieldProcessor = func(name string, f *FieldInfo) error {
 				switch name {
 				case "InternetAccessEnabled", "IntraNetworkAccessEnabled":
-					if f.FieldType == "bool" {
+					if f.FieldType == fields.Bool {
 						f.CustomUnmarshalType = "*bool"
 						f.CustomUnmarshalFunc = "emptyBoolToTrue"
+					}
+				case "DHCPDEnabled":
+					// Some controllers (UniFi Network 10.x) return "true"/"false"
+					// as JSON strings for this flag, which breaks a plain bool.
+					// Decode through the tolerant types.Bool. See
+					// terraform-provider-unifi #65.
+					if f.FieldType == fields.Bool {
+						f.CustomUnmarshalType = "*types.Bool"
+						f.CustomUnmarshalFunc = "boolValue"
+					}
+				case "IPSecEspLifetime", "IPSecIkeLifetime":
+					f.FieldType = fields.Int
+					f.IsPointer = true
+				case "WANDNS1", "WANDNS2", "WANIPV6DNS1", "WANIPV6DNS2", "DHCPDStart", "DHCPDStop", "DHCPDUnifiController",
+					"DHCPDTFTPServer", "DHCPDWins1", "DHCPDWins2", "DHCPDWPAdUrl", "DomainName", "DHCPDGateway", "DHCPDNtp1", "DHCPDNtp2":
+					f.OmitEmpty = true
+					f.IsPointer = true
+				case "Purpose":
+					f.OmitEmpty = false
+					f.IsPointer = false
+				}
+				if f.OmitEmpty && !f.IsArray {
+					switch f.FieldType {
+					case fields.Bool, fields.String:
+						f.IsPointer = true
 					}
 				}
 				return nil
@@ -384,19 +497,19 @@ func main() {
 				return nil
 			}
 		case "SettingMgmt":
-			sshKeyField := NewFieldInfo(resource.StructName+"XSshKeys", "x_ssh_keys", "struct", "", false, false, "")
+			sshKeyField := NewFieldInfo(resource.StructName+"SSHKeys", "x_ssh_keys", "struct", "", false, false, false, "")
 			sshKeyField.Fields = map[string]*FieldInfo{
-				"name":        NewFieldInfo("Name", "name", "string", "", false, false, ""),
-				"keyType":     NewFieldInfo("KeyType", "type", "string", "", false, false, ""),
-				"key":         NewFieldInfo("Key", "key", "string", "", false, false, ""),
-				"comment":     NewFieldInfo("Comment", "comment", "string", "", false, false, ""),
-				"date":        NewFieldInfo("Date", "date", "string", "", false, false, ""),
-				"fingerprint": NewFieldInfo("Fingerprint", "fingerprint", "string", "", false, false, ""),
+				"name":        NewFieldInfo("Name", "name", fields.String, "", false, false, false, ""),
+				"keyType":     NewFieldInfo("KeyType", "type", fields.String, "", false, false, false, ""),
+				"key":         NewFieldInfo("Key", "key", fields.String, "", false, false, false, ""),
+				"comment":     NewFieldInfo("Comment", "comment", fields.String, "", false, false, false, ""),
+				"date":        NewFieldInfo("Date", "date", fields.String, "", false, false, false, ""),
+				"fingerprint": NewFieldInfo("Fingerprint", "fingerprint", fields.String, "", false, false, false, ""),
 			}
 			resource.Types[sshKeyField.FieldName] = sshKeyField
 
 			resource.FieldProcessor = func(name string, f *FieldInfo) error {
-				if name == "XSshKeys" {
+				if name == "SSHKeys" {
 					f.FieldType = sshKeyField.FieldName
 				}
 				return nil
@@ -404,19 +517,39 @@ func main() {
 		case "SettingUsg":
 			resource.FieldProcessor = func(name string, f *FieldInfo) error {
 				if strings.HasSuffix(name, "Timeout") && name != "ArpCacheTimeout" {
-					f.FieldType = "int"
-					f.CustomUnmarshalType = "emptyStringInt"
+					f.FieldType = fields.Int
+					f.CustomUnmarshalType = fields.Number
 				}
 				return nil
 			}
-		case "User":
+		case "Nat":
+			resource.FieldProcessor = func(name string, f *FieldInfo) error {
+				switch name {
+				case "SourceFilter":
+					f.IsPointer = true
+				case "DestinationFilter":
+					f.IsPointer = true
+				}
+				return nil
+			}
+		case "Client":
 			resource.FieldProcessor = func(name string, f *FieldInfo) error {
 				switch name {
 				case "Blocked":
-					f.FieldType = "bool"
+					f.FieldType = fields.Bool
+					f.IsPointer = true
+					// Some controllers return "true"/"false" as JSON strings
+					// for this flag, which breaks a plain *bool. Decode through
+					// the tolerant types.Bool. See terraform-provider-unifi #132.
+					f.CustomUnmarshalType = "*types.Bool"
+					f.CustomUnmarshalFunc = "boolPtrValue"
+				case "VirtualNetworkOverrideEnabled":
+					f.FieldType = fields.Bool
+					f.IsPointer = true
+					f.OmitEmpty = true
 				case "LastSeen":
-					f.FieldType = "int"
-					f.CustomUnmarshalType = "emptyStringInt"
+					f.FieldType = fields.Int
+					f.IsPointer = true
 				}
 				return nil
 			}
@@ -429,6 +562,17 @@ func main() {
 				}
 				return nil
 			}
+		case "DNSRecord":
+			resource.FieldProcessor = func(name string, f *FieldInfo) error {
+				switch name {
+				case "Hidden", "NoDelete", "NoEdit", "Enabled":
+					f.FieldType = fields.Bool
+				case "Priority", "Ttl", "Weight":
+					f.FieldType = fields.Int
+					f.CustomUnmarshalType = fields.Number
+				}
+				return nil
+			}
 		}
 
 		err = resource.processJSON(b)
@@ -437,61 +581,65 @@ func main() {
 			continue
 		}
 
-		var code string
-		if code, err = resource.generateCode(); err != nil {
-			panic(err)
+		// Add fields not present in the JAR schema to nested types.
+		if resource.StructName == "Device" {
+			if portOverrides, ok := resource.Types["DevicePortOverrides"]; ok {
+				portOverrides.Fields["TaggedNetworkIDs"] = NewFieldInfo("TaggedNetworkIDs", "tagged_networkconf_ids", fields.String, "", true, true, false, "")
+			}
 		}
 
-		_ = os.Remove(filepath.Join(outDir, goFile))
-		if err = os.WriteFile(filepath.Join(outDir, goFile), ([]byte)(code), WRITE_FILE_PERM); err != nil {
-			panic(err)
-		}
-
-		structs = append(structs, structName)
+		resources = append(resources, resource)
 	}
 
-	openApiFile := filepath.Join(outDir, "main.go")
-
-	oapiData, err := generateOpenApi(&structs)
-	if err != nil {
+	if err := os.MkdirAll(assetsDir, 0o755); err != nil {
 		panic(err)
 	}
 
-	_ = os.Remove(openApiFile)
-	if err := os.WriteFile(openApiFile, ([]byte)(oapiData), WRITE_FILE_PERM); err != nil {
+	// Output #1: the detailed OpenAPI specification.
+	openAPIFile := filepath.Join(assetsDir, "openapi.yaml")
+	if err := WriteOpenAPI(resources, unifiVersion.String(), openAPIFile); err != nil {
 		panic(err)
 	}
+	fmt.Printf("Generated OpenAPI spec: %s\n", openAPIFile)
 
-	// Write version file.
-	versionGo := fmt.Appendf(nil, `
-// Generated code. DO NOT EDIT.
-
-package main
-
-const UnifiVersion = %q
-`, unifiVersion)
-
-	versionGo, err = format.Source(versionGo)
-	if err != nil {
+	// Output #2: OpenAPI Generator config that reproduces go-unifi's naming
+	// cleanup in generated clients.
+	generatorDir := filepath.Join(assetsDir, "openapi-generator")
+	if err := WriteGeneratorConfig(resources, generatorDir); err != nil {
 		panic(err)
 	}
-
-	if err := os.WriteFile(filepath.Join(outDir, "version.generated.go"), versionGo, WRITE_FILE_PERM); err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("%s\n", outDir)
+	fmt.Printf("Generated OpenAPI Generator config: %s\n", generatorDir)
 }
 
-var funcMap = map[string]any{"list": func(args ...any) []any {
-	return args
-}}
-
-func (r *Resource) IsSetting() bool {
+func (r *ResourceInfo) IsSetting() bool {
 	return strings.HasPrefix(r.StructName, "Setting")
 }
 
-func (r *Resource) processFields(fields map[string]any) {
+func (r *ResourceInfo) IsDevice() bool {
+	return r.StructName == "Device"
+}
+
+func (r *ResourceInfo) IsV2() bool {
+	return slices.Contains([]string{
+		"ApGroup",
+		"BGPConfig",
+		"DNSRecord",
+		"FirewallPolicy",
+		"FirewallZone",
+		"Nat",
+		"OSPFRouter",
+		"TrafficRoute",
+	}, r.StructName)
+}
+
+func (r *ResourceInfo) CleanStructName() string {
+	if r.IsSetting() {
+		return strings.TrimPrefix(r.StructName, "Setting")
+	}
+	return r.StructName
+}
+
+func (r *ResourceInfo) processFields(fields map[string]any) {
 	t := r.Types[r.StructName]
 	for name, validation := range fields {
 		fieldInfo, err := r.fieldInfoFromValidation(name, validation)
@@ -503,7 +651,7 @@ func (r *Resource) processFields(fields map[string]any) {
 	}
 }
 
-func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldInfo, error) {
+func (r *ResourceInfo) fieldInfoFromValidation(name string, validation any) (*FieldInfo, error) {
 	fieldName := strcase.ToCamel(name)
 	fieldName = cleanName(fieldName, fieldReps)
 
@@ -513,7 +661,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 	switch validation := validation.(type) {
 	case []any:
 		if len(validation) == 0 {
-			fieldInfo = NewFieldInfo(fieldName, name, "string", "", false, true, "")
+			fieldInfo = NewFieldInfo(fieldName, name, fields.String, "", false, true, false, "")
 			err := r.FieldProcessor(fieldName, fieldInfo)
 			return fieldInfo, err
 		}
@@ -528,6 +676,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 
 		fieldInfo.OmitEmpty = true
 		fieldInfo.IsArray = true
+		fieldInfo.IsPointer = false
 
 		err = r.FieldProcessor(fieldName, fieldInfo)
 		return fieldInfo, err
@@ -535,7 +684,7 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 	case map[string]any:
 		typeName := r.StructName + fieldName
 
-		result := NewFieldInfo(fieldName, name, typeName, "", true, false, "")
+		result := NewFieldInfo(fieldName, name, typeName, "", true, false, true, "")
 		result.Fields = make(map[string]*FieldInfo)
 
 		for name, fv := range validation {
@@ -557,9 +706,9 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 
 		omitEmpty := false
 
-		switch {
-		case normalized == "falsetrue" || normalized == "truefalse":
-			fieldInfo = NewFieldInfo(fieldName, name, "bool", "", omitEmpty, false, "")
+		switch normalized {
+		case "falsetrue", "truefalse":
+			fieldInfo = NewFieldInfo(fieldName, name, fields.Bool, "", omitEmpty, false, false, "")
 			return fieldInfo, r.FieldProcessor(fieldName, fieldInfo)
 		default:
 			if _, err := strconv.ParseFloat(normalized, 64); err == nil {
@@ -573,13 +722,12 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 					}
 
 					omitEmpty = true
-					fieldInfo = NewFieldInfo(fieldName, name, "float64", fieldValidation, omitEmpty, false, "")
+					fieldInfo = NewFieldInfo(fieldName, name, "float64", fieldValidation, omitEmpty, false, false, "")
 					return fieldInfo, r.FieldProcessor(fieldName, fieldInfo)
 				}
 
 				omitEmpty = true
-				fieldInfo = NewFieldInfo(fieldName, name, "int", fieldValidation, omitEmpty, false, "")
-				fieldInfo.CustomUnmarshalType = "emptyStringInt"
+				fieldInfo = NewFieldInfo(fieldName, name, fields.Int, fieldValidation, omitEmpty, false, true, fields.Number)
 				return fieldInfo, r.FieldProcessor(fieldName, fieldInfo)
 			}
 		}
@@ -587,15 +735,15 @@ func (r *Resource) fieldInfoFromValidation(name string, validation any) (*FieldI
 			fmt.Printf("normalize %q to %q\n", validation, normalized)
 		}
 
-		omitEmpty = omitEmpty || (!strings.Contains(validation, "^$") && !strings.HasSuffix(fieldName, "ID"))
-		fieldInfo = NewFieldInfo(fieldName, name, "string", fieldValidation, omitEmpty, false, "")
+		omitEmpty = omitEmpty || (!strings.Contains(validation, "^$") && !strings.HasSuffix(fieldName, "Id"))
+		fieldInfo = NewFieldInfo(fieldName, name, fields.String, fieldValidation, omitEmpty, false, false, "")
 		return fieldInfo, r.FieldProcessor(fieldName, fieldInfo)
 	}
 
 	return empty, fmt.Errorf("unable to determine type from validation %q", validation)
 }
 
-func (r *Resource) processJSON(b []byte) error {
+func (r *ResourceInfo) processJSON(b []byte) error {
 	var fields map[string]any
 	err := json.Unmarshal(b, &fields)
 	if err != nil {
@@ -605,56 +753,6 @@ func (r *Resource) processJSON(b []byte) error {
 	r.processFields(fields)
 
 	return nil
-}
-
-//go:embed field.go.tmpl
-var fieldGoTemplate string
-
-func (r *Resource) generateCode() (string, error) {
-	var err error
-	var buf bytes.Buffer
-	writer := io.Writer(&buf)
-
-	tpl := template.Must(template.New("field.go.tmpl").Parse(fieldGoTemplate))
-
-	tpl.Funcs(template.FuncMap(funcMap))
-
-	err = tpl.Execute(writer, r)
-	if err != nil {
-		return "", fmt.Errorf("failed to render template: %w", err)
-	}
-
-	src, err := format.Source(buf.Bytes())
-	if err != nil {
-		return "", fmt.Errorf("failed to format source: %w", err)
-	}
-
-	return string(src), err
-}
-
-//go:embed openapi.go.tmpl
-var openapiTemplate string
-
-func generateOpenApi(stubs *[]string) (string, error) {
-	var err error
-	var buf bytes.Buffer
-	writer := io.Writer(&buf)
-
-	tpl := template.Must(template.New("openapi.go.tmpl").Parse(openapiTemplate))
-
-	err = tpl.Execute(writer, map[string]any{
-		"Structs": stubs,
-	})
-	if err != nil {
-		return "", fmt.Errorf("failed to render template: %w", err)
-	}
-
-	src, err := format.Source(buf.Bytes())
-	if err != nil {
-		return "", fmt.Errorf("failed to format source: %w", err)
-	}
-
-	return string(src), err
 }
 
 func normalizeValidation(re string) string {

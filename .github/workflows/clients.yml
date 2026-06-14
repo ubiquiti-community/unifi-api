@@ -1,0 +1,37 @@
+---
+name: Generate API clients
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+    paths:
+      - assets/openapi.yaml
+      - assets/openapi-generator/**
+      - .github/workflows/clients.yml
+      - Makefile
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: [go, python, typescript, java, rust]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate ${{ matrix.lang }} client
+        run: make client-${{ matrix.lang }}
+
+      - name: Upload ${{ matrix.lang }} client
+        uses: actions/upload-artifact@v4
+        with:
+          name: unifi-client-${{ matrix.lang }}
+          path: clients/${{ matrix.lang }}
+          if-no-files-found: error
