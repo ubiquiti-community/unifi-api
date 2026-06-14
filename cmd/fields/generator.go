@@ -21,9 +21,12 @@ import (
 //     it is applied ONLY to the Go client (via --name-mappings). Other languages
 //     keep the spec's clean snake_case property names and apply their own
 //     idiomatic casing.
+//   - model-file-mappings.cfg : nested schema name -> owning top-level schema.
+//     The Go client postprocessor uses this to bundle related structs into one
+//     model file without relying on ambiguous name-prefix matching.
 //
-// Both files use newline-delimited `key=value` pairs; the Makefile joins them
-// into the comma-separated value OpenAPI-Generator expects.
+// All files use newline-delimited `key=value` pairs. The Makefile joins the
+// generator CLI mappings into the comma-separated values it expects.
 func WriteGeneratorConfig(resources []*ResourceInfo, outDir string) error {
 	if err := os.MkdirAll(outDir, 0o755); err != nil {
 		return err
@@ -33,10 +36,22 @@ func WriteGeneratorConfig(resources []*ResourceInfo, outDir string) error {
 	nameMap := map[string]string{}
 	// schema/type name -> itself (lock canonical casing).
 	modelMap := map[string]string{}
+	// nested schema/type name -> top-level owning schema.
+	modelFileMap := map[string]string{}
 
 	for _, r := range resources {
 		for typeName, t := range r.Types {
 			modelMap[typeName] = typeName
+			if typeName != r.StructName {
+				if prev, ok := modelFileMap[typeName]; ok && prev != r.StructName {
+					fmt.Printf(
+						"warning: model %q belongs to both %q and %q; keeping %q\n",
+						typeName, prev, r.StructName, prev,
+					)
+				} else {
+					modelFileMap[typeName] = r.StructName
+				}
+			}
 			for _, f := range t.Fields {
 				if f == nil {
 					continue
@@ -53,6 +68,21 @@ func WriteGeneratorConfig(resources []*ResourceInfo, outDir string) error {
 		}
 	}
 
+	// These Device schemas are synthesized directly by openapi.tmpl rather than
+	// extracted as ResourceInfo types, so assign their naming and ownership here.
+	for _, typeName := range []string{"DevicePortTable", "DeviceState"} {
+		modelMap[typeName] = typeName
+		modelFileMap[typeName] = "Device"
+	}
+
+	// OpenAPI Generator applies name mappings globally and cannot distinguish a
+	// JSON "id" property from "_id" once both are mapped to ID. NetworkMembersGroup
+	// contains both, so keep the controller object identifier as ID and use Id for
+	// plain "id" properties to avoid duplicate fields and methods.
+	if nameMap["_id"] == "ID" && nameMap["id"] == "ID" {
+		nameMap["id"] = "Id"
+	}
+
 	if err := writeMappingFile(
 		filepath.Join(outDir, "go-name-mappings.cfg"),
 		"JSON property name -> go-unifi Go field name (OpenAPI-Generator --name-mappings, Go client only).",
@@ -64,6 +94,13 @@ func WriteGeneratorConfig(resources []*ResourceInfo, outDir string) error {
 		filepath.Join(outDir, "model-name-mappings.cfg"),
 		"Schema name -> preserved model name (OpenAPI-Generator --model-name-mappings, all languages).",
 		modelMap,
+	); err != nil {
+		return err
+	}
+	if err := writeMappingFile(
+		filepath.Join(outDir, "model-file-mappings.cfg"),
+		"Nested schema name -> owning top-level schema (Go model file bundling).",
+		modelFileMap,
 	); err != nil {
 		return err
 	}
