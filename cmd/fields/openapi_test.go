@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ubiquiti-community/unifi-api/cmd/fields/internal/fields"
 	"gopkg.in/yaml.v3"
 )
 
@@ -16,21 +15,21 @@ func sampleResources() []*ResourceInfo {
 	// A v1 REST resource with a nested type.
 	net := NewResource("Network", "networkconf")
 	base := net.Types["Network"]
-	base.Fields["Name"] = NewFieldInfo("Name", "name", fields.String, "", false, false, false, "")
-	base.Fields["VLAN"] = NewFieldInfo("VLAN", "vlan", fields.Int, "[0-9]+", true, false, true, fields.Number)
-	base.Fields["Enabled"] = NewFieldInfo("Enabled", "enabled", fields.Bool, "", true, false, true, "")
-	base.Fields["DNS"] = NewFieldInfo("DNS", "dns", fields.String, "", true, true, false, "")
+	base.Fields["Name"] = NewFieldInfo("Name", "name", String, "", false, false, false, "")
+	base.Fields["VLAN"] = NewFieldInfo("VLAN", "vlan", Int, "[0-9]+", true, false, true, Number)
+	base.Fields["Enabled"] = NewFieldInfo("Enabled", "enabled", Bool, "", true, false, true, "")
+	base.Fields["DNS"] = NewFieldInfo("DNS", "dns", String, "", true, true, false, "")
 	base.Fields["Gateway"] = NewFieldInfo("Gateway", "gateway", "NetworkGateway", "", true, false, false, "")
 
 	gw := NewFieldInfo("NetworkGateway", "gateway", "struct", "", false, false, false, "")
 	gw.Fields = map[string]*FieldInfo{
-		"IP": NewFieldInfo("IP", "ip", fields.String, "", false, false, false, ""),
+		"IP": NewFieldInfo("IP", "ip", String, "", false, false, false, ""),
 	}
 	net.Types["NetworkGateway"] = gw
 
 	// A v2 resource (FirewallPolicy is in the IsV2 allow-list).
 	fp := NewResource("FirewallPolicy", "firewall-policies")
-	fp.Types["FirewallPolicy"].Fields["Action"] = NewFieldInfo("Action", "action", fields.String, "allow|deny", false, false, false, "")
+	fp.Types["FirewallPolicy"].Fields["Action"] = NewFieldInfo("Action", "action", String, "allow|deny", false, false, false, "")
 
 	return []*ResourceInfo{net, fp}
 }

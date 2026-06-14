@@ -1,44 +1,43 @@
----
+version: "2"
+issues:
+  max-same-issues: 0
 linters:
-  enable-all: true
+  enable:
+    - durationcheck
+    - copyloopvar
+    - canonicalheader
+    - errorlint
+    - fatcontext
+    - godot
+    - ineffassign
+    - makezero
+    - misspell
+    - nilerr
+    - predeclared
+    - staticcheck
+    - unconvert
+    - unused
+    - govet
   disable:
-    - 'depguard'
-    - 'tagliatelle'
-
-    # Temporary
-    - 'cyclop'
-    - 'dupl'
-    - 'exhaustruct'
-    - 'forbidigo'
-    - 'funlen'
-    - 'gochecknoglobals'
-    - 'gocognit'
-    - 'goconst'
-    - 'gocritic'
-    - 'gocyclo'
-    - 'godox'
-    - 'goerr113'
-    - 'gomnd'
-    - 'gosec'
-    - 'lll'
-    - 'maintidx'
-    - 'nestif'
-    - 'nlreturn'
-    - 'paralleltest'
-    - 'revive'
-    - 'stylecheck'
-    - 'varnamelen'
-    - 'wrapcheck'
-    - 'wsl'
-
-    # Deprecated
-    - 'deadcode'
-    - 'exhaustivestruct'
-    - 'golint'
-    - 'ifshort'
-    - 'interfacer'
-    - 'maligned'
-    - 'nosnakecase'
-    - 'scopelint'
-    - 'structcheck'
-    - 'varcheck'
+    - errcheck
+  exclusions:
+    generated: lax
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+    - golines
+  settings:
+    gofmt:
+      simplify: true
+      rewrite-rules:
+        - pattern: "interface{}"
+          replacement: "any"
+        - pattern: "a[b:len(a)]"
+          replacement: "a[b:]"
+    golines:
+      max-len: 200
+  exclusions:
+    generated: lax
