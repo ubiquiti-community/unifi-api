@@ -2,7 +2,7 @@
 // mirror go-unifi's internal/fields constants so the ported FieldProcessor
 // logic stays identical; only String/Int/Bool/Number affect OpenAPI output
 // (the "types.*" tokens are inert metadata for this repo).
-package fields
+package main
 
 const (
 	Int    = "int64"
