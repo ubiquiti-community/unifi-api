@@ -616,6 +616,17 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("Generated OpenAPI Generator config: %s\n", generatorDir)
+
+	// Output #3: two consolidated oapi-codegen-exp (V3) configs.
+	// assets/oapi-codegen-exp/unifi.yaml    → clients/go/unifi.gen.go
+	// assets/oapi-codegen-exp/settings.yaml → clients/go/settings/settings.gen.go
+	// Consumed by the static //go:generate directives in the repo-root generate.go.
+	oapiConfigDir := filepath.Join(assetsDir, "oapi-codegen-exp")
+	clientsDir := filepath.Join(wd, "clients", "go")
+	if err := WriteOAPICodegenConfigs(resources, oapiConfigDir, openAPIFile, clientsDir); err != nil {
+		panic(err)
+	}
+	fmt.Printf("Generated oapi-codegen-exp configs: %s/{unifi,settings}.yaml\n", oapiConfigDir)
 }
 
 func (r *ResourceInfo) IsSetting() bool {

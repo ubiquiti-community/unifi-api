@@ -1,7 +1,0 @@
-# OpenAPI Generator config — TypeScript (fetch) client.
-generatorName: typescript-fetch
-additionalProperties:
-  npmName: "@ubiquiti-community/unifi-client"
-  supportsES6: true
-  typescriptThreePlus: true
-  modelPropertyNaming: original
