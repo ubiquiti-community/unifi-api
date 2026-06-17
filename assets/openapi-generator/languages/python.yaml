@@ -1,8 +1,0 @@
-# OpenAPI Generator config — Python client.
-# Property names keep the spec's clean snake_case (idiomatic Python); only the
-# shared model-name mappings are applied so class names stay canonical.
-generatorName: python
-additionalProperties:
-  packageName: unifi
-  projectName: unifi-client
-  library: urllib3
