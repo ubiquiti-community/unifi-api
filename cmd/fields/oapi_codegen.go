@@ -88,6 +88,11 @@ func WriteOAPICodegenConfigs(resources []*ResourceInfo, configDir, specPath, cli
 	if err := os.MkdirAll(configDir, 0o755); err != nil {
 		return fmt.Errorf("mkdir %s: %w", configDir, err)
 	}
+	for _, subdir := range []string{clientsDir, filepath.Join(clientsDir, "settings")} {
+		if err := os.MkdirAll(subdir, 0o755); err != nil {
+			return fmt.Errorf("mkdir %s: %w", subdir, err)
+		}
+	}
 
 	// ── 3. Write the two consolidated config files ────────────────────────────
 
