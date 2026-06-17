@@ -24,7 +24,7 @@ jobs:
       matrix:
         lang: [go, python, typescript, java, rust]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Generate ${{ matrix.lang }} client
         run: make client-${{ matrix.lang }}
