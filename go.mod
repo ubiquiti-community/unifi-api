@@ -6,7 +6,7 @@ require (
 	github.com/hashicorp/go-version v1.7.0
 	github.com/iancoleman/strcase v0.3.0
 	github.com/stretchr/testify v1.11.1
-	github.com/ulikunitz/xz v0.5.12
+	github.com/ulikunitz/xz v0.5.14
 	github.com/xor-gate/ar v0.0.0-20170530204233-5c72ae81e2b7
 	gopkg.in/yaml.v3 v3.0.1
 )
