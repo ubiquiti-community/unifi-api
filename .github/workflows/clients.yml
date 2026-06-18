@@ -30,7 +30,7 @@ jobs:
         run: make client-${{ matrix.lang }}
 
       - name: Upload ${{ matrix.lang }} client
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: unifi-client-${{ matrix.lang }}
           path: clients/${{ matrix.lang }}
