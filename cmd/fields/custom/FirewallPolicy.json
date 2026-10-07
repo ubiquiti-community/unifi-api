@@ -23,8 +23,9 @@
     "match_opposite_networks": "true|false",
     "matching_target": "ANY|DEVICE|IP|NETWORK|CLIENT|MAC|WEB",
     "matching_target_type": "ANY|SPECIFIC|LIST|OBJECT",
-    "port": "[1-9][0-9]{0,4}",
+    "port": "",
     "port_group_id": "",
+    "ip_group_id": "",
     "port_matching_type": "ANY|SPECIFIC|LIST|OBJECT",
     "zone_id": ""
   },
@@ -41,7 +42,9 @@
   "protocol": "all|tcp|udp|tcp_udp",
   "schedule": {
     "date": "",
-    "mode": "ALWAYS|EVERY_DAY|EVERY_WEEK|ONE_TIME_ONLY",
+    "date_start": "",
+    "date_end": "",
+    "mode": "ALWAYS|EVERY_DAY|EVERY_WEEK|ONE_TIME_ONLY|CUSTOM",
     "repeat_on_days": [
       "mon|tue|wed|thu|fri|sat|sun"
     ],
@@ -68,8 +71,9 @@
     "match_opposite_networks": "true|false",
     "matching_target": "ANY|DEVICE|IP|NETWORK|CLIENT|MAC|WEB",
     "matching_target_type": "ANY|SPECIFIC|LIST|OBJECT",
-    "port": "[1-9][0-9]{0,4}",
+    "port": "",
     "port_group_id": "",
+    "ip_group_id": "",
     "port_matching_type": "ANY|SPECIFIC|LIST|OBJECT",
     "zone_id": ""
   }
