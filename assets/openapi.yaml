@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: UniFi Network Application API
-  version: 9.5.21
+  version: 10.5.67
   description: >-
     Auto-generated from the UniFi controller (ace.jar) field-validation
     definitions. Component schemas are derived directly from the same field
@@ -23,13 +23,10 @@ servers:
         default: "8443"
 security:
   - apiKeyAuth: []
-  - cookieAuth: []
+  - tokenCookieAuth: []
+    csrfTokenAuth: []
+  - unifisesCookieAuth: []
 tags:
-  - name: APGroup
-    description: "Manage UniFi AP Group objects (wireless) via the controller API."
-    x-displayName: "AP Group"
-    x-kind: wireless
-    x-parent: Device
   - name: Account
     description: "Manage UniFi Account objects (clients) via the controller API."
     x-displayName: "Account"
@@ -99,14 +96,6 @@ tags:
     description: "Manage UniFi Firewall Zone objects (firewall) via the controller API."
     x-displayName: "Firewall Zone"
     x-kind: firewall
-  - name: HeatMap
-    description: "Manage UniFi Heat Map objects (resource) via the controller API."
-    x-displayName: "Heat Map"
-    x-kind: resource
-  - name: HeatMapPoint
-    description: "Manage UniFi Heat Map Point objects (resource) via the controller API."
-    x-displayName: "Heat Map Point"
-    x-kind: resource
   - name: Hotspot2Conf
     description: "Manage UniFi Hotspot2 Conf objects (wireless) via the controller API."
     x-displayName: "Hotspot2 Conf"
@@ -119,10 +108,6 @@ tags:
     description: "Manage UniFi Hotspot Package objects (wireless) via the controller API."
     x-displayName: "Hotspot Package"
     x-kind: wireless
-  - name: Map
-    description: "Manage UniFi Map objects (resource) via the controller API."
-    x-displayName: "Map"
-    x-kind: resource
   - name: MediaFile
     description: "Manage UniFi Media File objects (resource) via the controller API."
     x-displayName: "Media File"
@@ -134,10 +119,6 @@ tags:
   - name: Network
     description: "Manage UniFi Network objects (network) via the controller API."
     x-displayName: "Network"
-    x-kind: network
-  - name: NetworkMembersGroup
-    description: "Manage UniFi Network Members Group objects (network) via the controller API."
-    x-displayName: "Network Members Group"
     x-kind: network
   - name: OSPFRouter
     description: "Manage UniFi OSPF Router objects (routing) via the controller API."
@@ -151,10 +132,6 @@ tags:
     description: "Manage UniFi Port Profile objects (devices) via the controller API."
     x-displayName: "Port Profile"
     x-kind: devices
-  - name: PowerSupervisor
-    description: "Manage UniFi Power Supervisor objects (resource) via the controller API."
-    x-displayName: "Power Supervisor"
-    x-kind: resource
   - name: RADIUSProfile
     description: "Manage UniFi RADIUS Profile objects (security) via the controller API."
     x-displayName: "RADIUS Profile"
@@ -191,6 +168,10 @@ tags:
     description: "Configure the UniFi Dashboard settings."
     x-displayName: "Dashboard"
     x-kind: settings
+  - name: SettingDeviceSupervision
+    description: "Configure the UniFi Device Supervision settings."
+    x-displayName: "Device Supervision"
+    x-kind: settings
   - name: SettingDoh
     description: "Configure the UniFi Doh settings."
     x-displayName: "Doh"
@@ -206,10 +187,6 @@ tags:
   - name: SettingEtherLighting
     description: "Configure the UniFi Ether Lighting settings."
     x-displayName: "Ether Lighting"
-    x-kind: settings
-  - name: SettingEvaluationScore
-    description: "Configure the UniFi Evaluation Score settings."
-    x-displayName: "Evaluation Score"
     x-kind: settings
   - name: SettingGlobalAp
     description: "Configure the UniFi Global AP settings."
@@ -227,9 +204,17 @@ tags:
     description: "Configure the UniFi Guest Access settings."
     x-displayName: "Guest Access"
     x-kind: settings
+  - name: SettingIgmpSnooping
+    description: "Configure the UniFi IGMP Snooping settings."
+    x-displayName: "IGMP Snooping"
+    x-kind: settings
   - name: SettingIps
     description: "Configure the UniFi Ips settings."
     x-displayName: "Ips"
+    x-kind: settings
+  - name: SettingIpsSuppression
+    description: "Configure the UniFi Ips Suppression settings."
+    x-displayName: "Ips Suppression"
     x-kind: settings
   - name: SettingLcm
     description: "Configure the UniFi Lcm settings."
@@ -275,10 +260,6 @@ tags:
     description: "Configure the UniFi RADIUS settings."
     x-displayName: "RADIUS"
     x-kind: settings
-  - name: SettingRoamingAssistant
-    description: "Configure the UniFi Roaming Assistant settings."
-    x-displayName: "Roaming Assistant"
-    x-kind: settings
   - name: SettingRsyslogd
     description: "Configure the UniFi Rsyslogd settings."
     x-displayName: "Rsyslogd"
@@ -290,6 +271,10 @@ tags:
   - name: SettingSslInspection
     description: "Configure the UniFi Ssl Inspection settings."
     x-displayName: "Ssl Inspection"
+    x-kind: settings
+  - name: SettingSuperApplicationDegradation
+    description: "Configure the UniFi Super Application Degradation settings."
+    x-displayName: "Super Application Degradation"
     x-kind: settings
   - name: SettingSuperCloudaccess
     description: "Configure the UniFi Super Cloudaccess settings."
@@ -327,6 +312,10 @@ tags:
     description: "Configure the UniFi Teleport settings."
     x-displayName: "Teleport"
     x-kind: settings
+  - name: SettingTestAndCommit
+    description: "Configure the UniFi Test And Commit settings."
+    x-displayName: "Test And Commit"
+    x-kind: settings
   - name: SettingTrafficFlow
     description: "Configure the UniFi Traffic Flow settings."
     x-displayName: "Traffic Flow"
@@ -334,6 +323,10 @@ tags:
   - name: SettingUsg
     description: "Configure the UniFi Usg settings."
     x-displayName: "Usg"
+    x-kind: settings
+  - name: SettingUsgGeo
+    description: "Configure the UniFi Usg Geo settings."
+    x-displayName: "Usg Geo"
     x-kind: settings
   - name: SettingUsw
     description: "Configure the UniFi Usw settings."
@@ -343,18 +336,10 @@ tags:
     description: "Manage UniFi Spatial Record objects (resource) via the controller API."
     x-displayName: "Spatial Record"
     x-kind: resource
-  - name: Tag
-    description: "Manage UniFi Tag objects (resource) via the controller API."
-    x-displayName: "Tag"
-    x-kind: resource
   - name: TrafficRoute
     description: "Manage UniFi Traffic Route objects (routing) via the controller API."
     x-displayName: "Traffic Route"
     x-kind: routing
-  - name: VirtualDevice
-    description: "Manage UniFi Virtual Device objects (devices) via the controller API."
-    x-displayName: "Virtual Device"
-    x-kind: devices
   - name: WLAN
     description: "Manage UniFi WLAN objects (wireless) via the controller API."
     x-displayName: "WLAN"
@@ -365,88 +350,6 @@ tags:
     x-kind: wireless
     x-parent: WLAN
 paths:
-  /v2/api/site/{site}/apgroups:
-    get:
-      tags: [APGroup]
-      summary: List APGroup
-      operationId: listAPGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of APGroup objects.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/APGroup'
-    post:
-      tags: [APGroup]
-      summary: Create APGroup
-      operationId: createAPGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APGroup'
-      responses:
-        '200':
-          description: The created APGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APGroup'
-  /v2/api/site/{site}/apgroups/{id}:
-    get:
-      tags: [APGroup]
-      summary: Get APGroup by id
-      operationId: getAPGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested APGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APGroup'
-        '404':
-          description: Not found.
-    put:
-      tags: [APGroup]
-      summary: Update APGroup
-      operationId: updateAPGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/APGroup'
-      responses:
-        '200':
-          description: The updated APGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/APGroup'
-    delete:
-      tags: [APGroup]
-      summary: Delete APGroup
-      operationId: deleteAPGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
   /api/s/{site}/rest/account:
     get:
       tags: [Account]
@@ -2034,222 +1937,6 @@ paths:
       responses:
         '200':
           description: Deleted.
-  /api/s/{site}/rest/heatmap:
-    get:
-      tags: [HeatMap]
-      summary: List HeatMap
-      operationId: listHeatMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of HeatMap objects.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMap'
-    post:
-      tags: [HeatMap]
-      summary: Create HeatMap
-      operationId: createHeatMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HeatMap'
-      responses:
-        '200':
-          description: The created HeatMap.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMap'
-  /api/s/{site}/rest/heatmap/{id}:
-    get:
-      tags: [HeatMap]
-      summary: Get HeatMap by id
-      operationId: getHeatMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested HeatMap.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMap'
-        '404':
-          description: Not found.
-    put:
-      tags: [HeatMap]
-      summary: Update HeatMap
-      operationId: updateHeatMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HeatMap'
-      responses:
-        '200':
-          description: The updated HeatMap.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMap'
-    delete:
-      tags: [HeatMap]
-      summary: Delete HeatMap
-      operationId: deleteHeatMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
-  /api/s/{site}/rest/heatmappoint:
-    get:
-      tags: [HeatMapPoint]
-      summary: List HeatMapPoint
-      operationId: listHeatMapPoint
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of HeatMapPoint objects.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMapPoint'
-    post:
-      tags: [HeatMapPoint]
-      summary: Create HeatMapPoint
-      operationId: createHeatMapPoint
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HeatMapPoint'
-      responses:
-        '200':
-          description: The created HeatMapPoint.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMapPoint'
-  /api/s/{site}/rest/heatmappoint/{id}:
-    get:
-      tags: [HeatMapPoint]
-      summary: Get HeatMapPoint by id
-      operationId: getHeatMapPoint
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested HeatMapPoint.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMapPoint'
-        '404':
-          description: Not found.
-    put:
-      tags: [HeatMapPoint]
-      summary: Update HeatMapPoint
-      operationId: updateHeatMapPoint
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HeatMapPoint'
-      responses:
-        '200':
-          description: The updated HeatMapPoint.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/HeatMapPoint'
-    delete:
-      tags: [HeatMapPoint]
-      summary: Delete HeatMapPoint
-      operationId: deleteHeatMapPoint
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
   /api/s/{site}/rest/hotspot2conf:
     get:
       tags: [Hotspot2Conf]
@@ -2574,114 +2261,6 @@ paths:
       responses:
         '200':
           description: Deleted.
-  /api/s/{site}/rest/map:
-    get:
-      tags: [Map]
-      summary: List Map
-      operationId: listMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of Map objects.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Map'
-    post:
-      tags: [Map]
-      summary: Create Map
-      operationId: createMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Map'
-      responses:
-        '200':
-          description: The created Map.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Map'
-  /api/s/{site}/rest/map/{id}:
-    get:
-      tags: [Map]
-      summary: Get Map by id
-      operationId: getMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested Map.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Map'
-        '404':
-          description: Not found.
-    put:
-      tags: [Map]
-      summary: Update Map
-      operationId: updateMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Map'
-      responses:
-        '200':
-          description: The updated Map.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Map'
-    delete:
-      tags: [Map]
-      summary: Delete Map
-      operationId: deleteMap
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
   /api/s/{site}/rest/mediafile:
     get:
       tags: [MediaFile]
@@ -2980,88 +2559,6 @@ paths:
       responses:
         '200':
           description: Deleted.
-  /v2/api/site/{site}/network-members-groups:
-    get:
-      tags: [NetworkMembersGroup]
-      summary: List NetworkMembersGroup
-      operationId: listNetworkMembersGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of NetworkMembersGroup objects.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/NetworkMembersGroup'
-    post:
-      tags: [NetworkMembersGroup]
-      summary: Create NetworkMembersGroup
-      operationId: createNetworkMembersGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NetworkMembersGroup'
-      responses:
-        '200':
-          description: The created NetworkMembersGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NetworkMembersGroup'
-  /v2/api/site/{site}/network-members-group/{id}:
-    get:
-      tags: [NetworkMembersGroup]
-      summary: Get NetworkMembersGroup by id
-      operationId: getNetworkMembersGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested NetworkMembersGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NetworkMembersGroup'
-        '404':
-          description: Not found.
-    put:
-      tags: [NetworkMembersGroup]
-      summary: Update NetworkMembersGroup
-      operationId: updateNetworkMembersGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NetworkMembersGroup'
-      responses:
-        '200':
-          description: The updated NetworkMembersGroup.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NetworkMembersGroup'
-    delete:
-      tags: [NetworkMembersGroup]
-      summary: Delete NetworkMembersGroup
-      operationId: deleteNetworkMembersGroup
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
   /v2/api/site/{site}/ospf/router:
     get:
       tags: [OSPFRouter]
@@ -3354,88 +2851,6 @@ paths:
       tags: [PortProfile]
       summary: Delete PortProfile
       operationId: deletePortProfile
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
-  /v2/api/site/{site}/power-supervisors:
-    get:
-      tags: [PowerSupervisor]
-      summary: List PowerSupervisor
-      operationId: listPowerSupervisor
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of PowerSupervisor objects.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/PowerSupervisor'
-    post:
-      tags: [PowerSupervisor]
-      summary: Create PowerSupervisor
-      operationId: createPowerSupervisor
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PowerSupervisor'
-      responses:
-        '200':
-          description: The created PowerSupervisor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PowerSupervisor'
-  /v2/api/site/{site}/power-supervisors/{id}:
-    get:
-      tags: [PowerSupervisor]
-      summary: Get PowerSupervisor by id
-      operationId: getPowerSupervisor
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested PowerSupervisor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PowerSupervisor'
-        '404':
-          description: Not found.
-    put:
-      tags: [PowerSupervisor]
-      summary: Update PowerSupervisor
-      operationId: updatePowerSupervisor
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PowerSupervisor'
-      responses:
-        '200':
-          description: The updated PowerSupervisor.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PowerSupervisor'
-    delete:
-      tags: [PowerSupervisor]
-      summary: Delete PowerSupervisor
-      operationId: deletePowerSupervisor
       parameters:
         - $ref: '#/components/parameters/Site'
         - $ref: '#/components/parameters/Id'
@@ -3874,114 +3289,6 @@ paths:
       responses:
         '200':
           description: Deleted.
-  /api/s/{site}/rest/tag:
-    get:
-      tags: [Tag]
-      summary: List Tag
-      operationId: listTag
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of Tag objects.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Tag'
-    post:
-      tags: [Tag]
-      summary: Create Tag
-      operationId: createTag
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-      responses:
-        '200':
-          description: The created Tag.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Tag'
-  /api/s/{site}/rest/tag/{id}:
-    get:
-      tags: [Tag]
-      summary: Get Tag by id
-      operationId: getTag
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested Tag.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Tag'
-        '404':
-          description: Not found.
-    put:
-      tags: [Tag]
-      summary: Update Tag
-      operationId: updateTag
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Tag'
-      responses:
-        '200':
-          description: The updated Tag.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Tag'
-    delete:
-      tags: [Tag]
-      summary: Delete Tag
-      operationId: deleteTag
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
   /v2/api/site/{site}/trafficroutes:
     get:
       tags: [TrafficRoute]
@@ -4058,114 +3365,6 @@ paths:
       tags: [TrafficRoute]
       summary: Delete TrafficRoute
       operationId: deleteTrafficRoute
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: Deleted.
-  /api/s/{site}/rest/virtualdevice:
-    get:
-      tags: [VirtualDevice]
-      summary: List VirtualDevice
-      operationId: listVirtualDevice
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: A list of VirtualDevice objects.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/VirtualDevice'
-    post:
-      tags: [VirtualDevice]
-      summary: Create VirtualDevice
-      operationId: createVirtualDevice
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VirtualDevice'
-      responses:
-        '200':
-          description: The created VirtualDevice.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/VirtualDevice'
-  /api/s/{site}/rest/virtualdevice/{id}:
-    get:
-      tags: [VirtualDevice]
-      summary: Get VirtualDevice by id
-      operationId: getVirtualDevice
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      responses:
-        '200':
-          description: The requested VirtualDevice.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/VirtualDevice'
-        '404':
-          description: Not found.
-    put:
-      tags: [VirtualDevice]
-      summary: Update VirtualDevice
-      operationId: updateVirtualDevice
-      parameters:
-        - $ref: '#/components/parameters/Site'
-        - $ref: '#/components/parameters/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VirtualDevice'
-      responses:
-        '200':
-          description: The updated VirtualDevice.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/VirtualDevice'
-    delete:
-      tags: [VirtualDevice]
-      summary: Delete VirtualDevice
-      operationId: deleteVirtualDevice
       parameters:
         - $ref: '#/components/parameters/Site'
         - $ref: '#/components/parameters/Id'
@@ -4676,6 +3875,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingDashboard'
+  /api/s/{site}/get/setting/device_supervision:
+    get:
+      tags: [SettingDeviceSupervision]
+      summary: Get DeviceSupervision settings
+      operationId: getSettingDeviceSupervision
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current DeviceSupervision settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingDeviceSupervision'
+  /api/s/{site}/set/setting/device_supervision:
+    post:
+      tags: [SettingDeviceSupervision]
+      summary: Update DeviceSupervision settings
+      operationId: updateSettingDeviceSupervision
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingDeviceSupervision'
+      responses:
+        '200':
+          description: The updated DeviceSupervision settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingDeviceSupervision'
   /api/s/{site}/get/setting/doh:
     get:
       tags: [SettingDoh]
@@ -4868,54 +4115,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingEtherLighting'
-  /api/s/{site}/get/setting/evaluation_score:
-    get:
-      tags: [SettingEvaluationScore]
-      summary: Get EvaluationScore settings
-      operationId: getSettingEvaluationScore
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: The current EvaluationScore settings.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SettingEvaluationScore'
-  /api/s/{site}/set/setting/evaluation_score:
-    post:
-      tags: [SettingEvaluationScore]
-      summary: Update EvaluationScore settings
-      operationId: updateSettingEvaluationScore
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SettingEvaluationScore'
-      responses:
-        '200':
-          description: The updated EvaluationScore settings.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SettingEvaluationScore'
   /api/s/{site}/get/setting/global_ap:
     get:
       tags: [SettingGlobalAp]
@@ -5108,6 +4307,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingGuestAccess'
+  /api/s/{site}/get/setting/igmp_snooping:
+    get:
+      tags: [SettingIgmpSnooping]
+      summary: Get IgmpSnooping settings
+      operationId: getSettingIgmpSnooping
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current IgmpSnooping settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingIgmpSnooping'
+  /api/s/{site}/set/setting/igmp_snooping:
+    post:
+      tags: [SettingIgmpSnooping]
+      summary: Update IgmpSnooping settings
+      operationId: updateSettingIgmpSnooping
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingIgmpSnooping'
+      responses:
+        '200':
+          description: The updated IgmpSnooping settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingIgmpSnooping'
   /api/s/{site}/get/setting/ips:
     get:
       tags: [SettingIps]
@@ -5156,6 +4403,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingIps'
+  /api/s/{site}/get/setting/ips_suppression:
+    get:
+      tags: [SettingIpsSuppression]
+      summary: Get IpsSuppression settings
+      operationId: getSettingIpsSuppression
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current IpsSuppression settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingIpsSuppression'
+  /api/s/{site}/set/setting/ips_suppression:
+    post:
+      tags: [SettingIpsSuppression]
+      summary: Update IpsSuppression settings
+      operationId: updateSettingIpsSuppression
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingIpsSuppression'
+      responses:
+        '200':
+          description: The updated IpsSuppression settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingIpsSuppression'
   /api/s/{site}/get/setting/lcm:
     get:
       tags: [SettingLcm]
@@ -5684,54 +4979,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingRadius'
-  /api/s/{site}/get/setting/roaming_assistant:
-    get:
-      tags: [SettingRoamingAssistant]
-      summary: Get RoamingAssistant settings
-      operationId: getSettingRoamingAssistant
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      responses:
-        '200':
-          description: The current RoamingAssistant settings.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SettingRoamingAssistant'
-  /api/s/{site}/set/setting/roaming_assistant:
-    post:
-      tags: [SettingRoamingAssistant]
-      summary: Update RoamingAssistant settings
-      operationId: updateSettingRoamingAssistant
-      parameters:
-        - $ref: '#/components/parameters/Site'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SettingRoamingAssistant'
-      responses:
-        '200':
-          description: The updated RoamingAssistant settings.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  meta:
-                    $ref: '#/components/schemas/Meta'
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/SettingRoamingAssistant'
   /api/s/{site}/get/setting/rsyslogd:
     get:
       tags: [SettingRsyslogd]
@@ -5876,6 +5123,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingSslInspection'
+  /api/s/{site}/get/setting/super_application_degradation:
+    get:
+      tags: [SettingSuperApplicationDegradation]
+      summary: Get SuperApplicationDegradation settings
+      operationId: getSettingSuperApplicationDegradation
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current SuperApplicationDegradation settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingSuperApplicationDegradation'
+  /api/s/{site}/set/setting/super_application_degradation:
+    post:
+      tags: [SettingSuperApplicationDegradation]
+      summary: Update SuperApplicationDegradation settings
+      operationId: updateSettingSuperApplicationDegradation
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingSuperApplicationDegradation'
+      responses:
+        '200':
+          description: The updated SuperApplicationDegradation settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingSuperApplicationDegradation'
   /api/s/{site}/get/setting/super_cloudaccess:
     get:
       tags: [SettingSuperCloudaccess]
@@ -6308,6 +5603,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingTeleport'
+  /api/s/{site}/get/setting/test_and_commit:
+    get:
+      tags: [SettingTestAndCommit]
+      summary: Get TestAndCommit settings
+      operationId: getSettingTestAndCommit
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current TestAndCommit settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingTestAndCommit'
+  /api/s/{site}/set/setting/test_and_commit:
+    post:
+      tags: [SettingTestAndCommit]
+      summary: Update TestAndCommit settings
+      operationId: updateSettingTestAndCommit
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingTestAndCommit'
+      responses:
+        '200':
+          description: The updated TestAndCommit settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingTestAndCommit'
   /api/s/{site}/get/setting/traffic_flow:
     get:
       tags: [SettingTrafficFlow]
@@ -6404,6 +5747,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SettingUsg'
+  /api/s/{site}/get/setting/usg_geo:
+    get:
+      tags: [SettingUsgGeo]
+      summary: Get UsgGeo settings
+      operationId: getSettingUsgGeo
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: The current UsgGeo settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingUsgGeo'
+  /api/s/{site}/set/setting/usg_geo:
+    post:
+      tags: [SettingUsgGeo]
+      summary: Update UsgGeo settings
+      operationId: updateSettingUsgGeo
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettingUsgGeo'
+      responses:
+        '200':
+          description: The updated UsgGeo settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SettingUsgGeo'
   /api/s/{site}/get/setting/usw:
     get:
       tags: [SettingUsw]
@@ -6459,11 +5850,28 @@ components:
       in: header
       name: X-API-KEY
       description: UniFi API key sent in the X-API-KEY header.
-    cookieAuth:
+    tokenCookieAuth:
       type: apiKey
       in: cookie
       name: TOKEN
-      description: Session cookie obtained from POST /api/login (or /api/auth/login).
+      description: >-
+        Session cookie set by POST /api/auth/login on UniFi OS controllers.
+        Must be paired with csrfTokenAuth.
+    csrfTokenAuth:
+      type: apiKey
+      in: header
+      name: X-Csrf-Token
+      description: >-
+        CSRF token obtained from the X-Csrf-Token response header after
+        POST /api/auth/login. Rotated on each response via X-Updated-Csrf-Token.
+        Required alongside tokenCookieAuth for UniFi OS controllers.
+    unifisesCookieAuth:
+      type: apiKey
+      in: cookie
+      name: unifises
+      description: >-
+        Session cookie set by POST /api/login on standalone Network Application
+        controllers (pre-UniFi OS). No CSRF token is required.
   parameters:
     Site:
       name: site
@@ -6500,27 +5908,6 @@ components:
       type: object
       description: Per-port runtime state reported by a device (loose schema).
       additionalProperties: true
-    APGroup:
-      type: object
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        device_macs:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
     Account:
       type: object
       properties:
@@ -6878,6 +6265,10 @@ components:
           type: boolean
         atf_enabled:
           type: boolean
+        audio_info:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceAudioInfo'
+            - type: "null"
         bandsteering_mode:
           type: string
           description: "off|equal|prefer_5g"
@@ -6892,6 +6283,8 @@ components:
         x_baresip_password:
           type: string
           description: "^[a-zA-Z0-9_.\\-!~*'()]*"
+        beep_enabled:
+          type: boolean
         config_network:
           oneOf:
             - $ref: '#/components/schemas/DeviceConfigNetwork'
@@ -6902,9 +6295,12 @@ components:
           type: boolean
         dot1x_fallback_networkconf_id:
           type: string
-          description: "[\\d\\w]+|"
+          description: "[\\d\\w-]+|"
         dot1x_portctrl_enabled:
           type: boolean
+        eav_bridge_role:
+          type: string
+          description: "host|client"
         ether_lighting:
           oneOf:
             - $ref: '#/components/schemas/DeviceEtherLighting'
@@ -6929,9 +6325,10 @@ components:
           type: boolean
         hardware_offload:
           type: boolean
-        heightInMeters:
-          type: number
-          format: double
+        hdmi_ports:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceHdmiPorts'
+            - type: "null"
         hostname:
           type: string
           description: ".{1,128}"
@@ -6955,10 +6352,10 @@ components:
           type: boolean
         lcm_night_mode_begins:
           type: string
-          description: "(^$)|(^(0[1-9])|(1[0-9])|(2[0-3])):([0-5][0-9]$)"
+          description: "(^$)|(^(0[0-9])|(1[0-9])|(2[0-3])):([0-5][0-9]$)"
         lcm_night_mode_ends:
           type: string
-          description: "(^$)|(^(0[1-9])|(1[0-9])|(2[0-3])):([0-5][0-9]$)"
+          description: "(^$)|(^(0[0-9])|(1[0-9])|(2[0-3])):([0-5][0-9]$)"
         lcm_orientation_override:
           type: [integer, "null"]
           format: int64
@@ -6981,6 +6378,8 @@ components:
           format: int64
           description: "^[0-9][0-9]?$|^100$"
         locked:
+          type: boolean
+        loopback_override:
           type: boolean
         lowpfmode_override:
           type: boolean
@@ -7013,17 +6412,17 @@ components:
           format: int64
         lte_username:
           type: string
-        map_id:
-          type: string
         mbb_overrides:
           oneOf:
             - $ref: '#/components/schemas/DeviceMbbOverrides'
             - type: "null"
+        mesh_mlo_enabled:
+          type: boolean
         mesh_sta_vap_enabled:
           type: boolean
         mgmt_network_id:
           type: string
-          description: "[\\d\\w]+"
+          description: "[\\d\\w-]+"
         model:
           type: string
         name:
@@ -7033,6 +6432,10 @@ components:
           oneOf:
             - $ref: '#/components/schemas/DeviceNutServer'
             - type: "null"
+        oob_port_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceOobPortConfig'
         outdoor_mode_override:
           type: string
           description: "default|on|off"
@@ -7044,6 +6447,16 @@ components:
             $ref: '#/components/schemas/DeviceOutletOverrides'
         outlet_power_cycle_enabled:
           type: boolean
+        outlet_power_cycle_on_ac_recovery_enabled:
+          type: boolean
+        outlet_power_cycle_on_ac_recovery_seconds:
+          type: [integer, "null"]
+          format: int64
+          description: "[6-9][0-9]|[1-5][0-9]{2}|600"
+        outlet_power_cycle_on_internet_loss_seconds:
+          type: [integer, "null"]
+          format: int64
+          description: "[5-9]|[1-9][0-9]|[1-8][0-9]{2}|900"
         peer_to_peer_mode:
           type: string
           description: "ap|sta"
@@ -7064,9 +6477,13 @@ components:
         power_source_ctrl_budget:
           type: [integer, "null"]
           format: int64
-          description: "[0-9]|[1-9][0-9]|[1-9][0-9][0-9]"
+          description: "[0-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9]"
         power_source_ctrl_enabled:
           type: boolean
+        precision_time_protocol_config:
+          oneOf:
+            - $ref: '#/components/schemas/DevicePrecisionTimeProtocolConfig'
+            - type: "null"
         ptmp_ap_mac:
           type: string
           description: "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
@@ -7085,6 +6502,10 @@ components:
         rps_override:
           oneOf:
             - $ref: '#/components/schemas/DeviceRpsOverride'
+            - type: "null"
+        sma_port_config:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceSmaPortConfig'
             - type: "null"
         snmp_contact:
           type: string
@@ -7111,16 +6532,32 @@ components:
         ubb_pair_name:
           type: string
           description: ".{1,128}"
+        ups_shutdown_remaining_minutes:
+          type: [integer, "null"]
+          format: int64
+          description: "[1-9]|1[0-5]"
+        vbms_override:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceVbmsOverride'
+            - type: "null"
+        video_info:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceVideoInfo'
+            - type: "null"
         volume:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-9][0-9]|100"
-        x:
-          type: number
-          format: double
-        y:
-          type: number
-          format: double
+    DeviceAudioInfo:
+      type: object
+      properties:
+        channel:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]"
+        role:
+          type: string
+          description: "host|client"
     DeviceConfigNetwork:
       type: object
       properties:
@@ -7189,7 +6626,56 @@ components:
           description: "eth[0-9]{1,2}"
         networkgroup:
           type: string
-          description: "LAN[2-8]?|WAN[2-9]?"
+          description: "LAN[2-8]?|WAN[2-9]?|MGMT"
+    DeviceHdmiPorts:
+      type: object
+      properties:
+        color_format:
+          type: string
+        connected:
+          type: boolean
+        latency:
+          type: string
+        port_index:
+          type: string
+        refresh_rate:
+          type: string
+        resolution:
+          type: string
+        state:
+          type: string
+          description: "CLIENT_STATE_SUSPENDING|WAITING_HOST_MODE|OPERATING"
+        type:
+          type: string
+          description: "in|out"
+        up:
+          type: boolean
+    DeviceIPV6:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: "^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$|^$"
+        netmask:
+          type: [integer, "null"]
+          format: int64
+          description: "^(0|[1-9]|[1-8][0-9]|9[0-9]|1[01][0-9]|12[0-8])$|^$"
+        type:
+          type: string
+          description: "slaac|dhcp|static|none"
+    DeviceIPv4:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+        netmask:
+          type: [integer, "null"]
+          format: int64
+          description: "^(0|[1-9]|1[0-9]|2[0-9]|3[0-2])$|^$"
+        type:
+          type: string
+          description: "dhcp|static"
     DeviceMbbOverrides:
       type: object
       properties:
@@ -7217,6 +6703,23 @@ components:
           format: int64
         username:
           type: string
+    DeviceOobPortConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        ipv6:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceIPV6'
+            - type: "null"
+        ipv4:
+          oneOf:
+            - $ref: '#/components/schemas/DeviceIPv4'
+            - type: "null"
+        unit_id:
+          type: [integer, "null"]
+          format: int64
+          description: "[1-8]"
     DeviceOutletOverrides:
       type: object
       properties:
@@ -7248,6 +6751,8 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]"
+        eee_enabled:
+          type: boolean
         egress_rate_limit_kbps:
           type: [integer, "null"]
           format: int64
@@ -7270,6 +6775,12 @@ components:
           type: boolean
         isolation:
           type: boolean
+        link_debounce:
+          type: [integer, "null"]
+          format: int64
+          description: "0|[1-9]00|[1-4][0-9]00|5000"
+        link_debounce_auto:
+          type: boolean
         lldpmed_enabled:
           type: boolean
         lldpmed_notify_enabled:
@@ -7278,6 +6789,9 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[1-9]|[1-4][0-9]|5[0-6]"
+        multicast_router_mode:
+          type: string
+          description: "ALL|CUSTOM|NONE"
         multicast_router_networkconf_ids:
           type: array
           items:
@@ -7289,7 +6803,7 @@ components:
           description: ".{0,128}"
         op_mode:
           type: string
-          description: "switch|mirror|aggregate"
+          description: "switch|mirror|aggregate|routed|routed_aggregate"
         poe_mode:
           type: string
           description: "auto|pasv24|passthrough|off"
@@ -7301,7 +6815,7 @@ components:
           type: boolean
         portconf_id:
           type: string
-          description: "[\\d\\w]+"
+          description: "[\\d\\w-]+"
         port_security_enabled:
           type: boolean
         port_security_mac_address:
@@ -7309,6 +6823,8 @@ components:
           items:
             type: string
           description: "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
+        precision_time_protocol_enabled:
+          type: boolean
         priority_queue1_level:
           type: [integer, "null"]
           format: int64
@@ -7329,6 +6845,12 @@ components:
           oneOf:
             - $ref: '#/components/schemas/DeviceQOSProfile'
             - type: "null"
+        routed_networkconf_id:
+          type: string
+        sd_wan_underlay_port:
+          type: boolean
+        sd_wan_underlay_port_networkconf_id:
+          type: string
         setting_preference:
           type: string
           description: "auto|manual"
@@ -7336,6 +6858,8 @@ components:
           type: [integer, "null"]
           format: int64
           description: "10|100|1000|2500|5000|10000|20000|25000|40000|50000|100000"
+        stable_port_enabled:
+          type: boolean
         stormctrl_bcast_enabled:
           type: boolean
         stormctrl_bcast_level:
@@ -7369,7 +6893,14 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-9][0-9]{1,6}|1[0-3][0-9]{6}|14[0-7][0-9]{5}|148[0-7][0-9]{4}|14880000"
+        stp_bpdu_guard_enabled:
+          type: boolean
+        stp_edge_state:
+          type: string
+          description: "auto|enabled|disabled"
         stp_port_mode:
+          type: boolean
+        stp_uplink:
           type: boolean
         tagged_networkconf_ids:
           type: array
@@ -7378,8 +6909,54 @@ components:
         tagged_vlan_mgmt:
           type: string
           description: "auto|block_all|custom"
+        unit_id:
+          type: [integer, "null"]
+          format: int64
+          description: "[1-8]"
         voice_networkconf_id:
           type: string
+    DevicePrecisionTimeProtocolConfig:
+      type: object
+      properties:
+        clock_mode:
+          type: string
+          description: "boundary|sma|transparent"
+        custom_announce_interval:
+          type: [integer, "null"]
+          format: int64
+          description: "^(-[1-4]|[0-4])$"
+        custom_announce_timeout:
+          type: [integer, "null"]
+          format: int64
+          description: "^([2-9]|10)$"
+        custom_delay_req_interval:
+          type: [integer, "null"]
+          format: int64
+          description: "^(-[1-7]|[0-4])$"
+        custom_domain:
+          type: [integer, "null"]
+          format: int64
+          description: "^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"
+        custom_sync_interval:
+          type: [integer, "null"]
+          format: int64
+          description: "^(-[1-7]|[0-4])$"
+        enabled:
+          type: boolean
+        priority1:
+          type: [integer, "null"]
+          format: int64
+          description: "^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"
+        priority2:
+          type: [integer, "null"]
+          format: int64
+          description: "^([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"
+        profile:
+          type: string
+          description: "smpte|ieee1588|aes67|aes_r16|custom"
+        transport_type:
+          type: string
+          description: "ipv4|layer2"
     DeviceQOSMarking:
       type: object
       properties:
@@ -7445,7 +7022,7 @@ components:
             $ref: '#/components/schemas/DeviceQOSPolicies'
         qos_profile_mode:
           type: string
-          description: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio"
+          description: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio|smpte_st2110"
     DeviceRadioIDentifiers:
       type: object
       properties:
@@ -7464,12 +7041,6 @@ components:
           type: [integer, "null"]
           format: int64
           description: "-1|[0-9]"
-        assisted_roaming_enabled:
-          type: boolean
-        assisted_roaming_rssi:
-          type: [integer, "null"]
-          format: int64
-          description: "^-([6-7][0-9]|80)$"
         channel:
           type: string
           description: "[0-9]|[1][0-4]|1.5|2.5|3.5|4.5|5.5|6.5|5|16|17|21|25|29|33|34|36|37|38|40|41|42|44|45|46|48|49|52|53|56|57|60|61|64|65|69|73|77|81|85|89|93|97|100|101|104|105|108|109|112|113|117|116|120|121|124|125|128|129|132|133|136|137|140|141|144|145|149|153|157|161|165|169|173|177|181|183|184|185|187|188|189|192|193|196|197|201|205|209|213|217|221|225|229|233|auto"
@@ -7574,6 +7145,77 @@ components:
           description: "1|2"
         use_custom_apn:
           type: boolean
+    DeviceSmaPortConfig:
+      type: object
+      properties:
+        clock_source:
+          type: string
+          description: "gps|external"
+        delay_ns:
+          type: number
+          format: double
+        display:
+          type: string
+          description: "ns|m|ft"
+    DeviceVbmsOverride:
+      type: object
+      properties:
+        epo_enabled:
+          type: boolean
+        input_thd_level:
+          type: [integer, "null"]
+          format: int64
+          description: "[0-2]"
+    DeviceVideoInfo:
+      type: object
+      properties:
+        audio_enabled:
+          type: boolean
+        audio_mode:
+          type: string
+          description: "auto|pcm"
+        channel:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]"
+        color_format:
+          type: string
+          description: "rgb|ycbcr444|ycbcr422"
+        mode:
+          type: string
+          description: "unicast|multicast"
+        refresh_rate:
+          type: string
+        resolution:
+          type: string
+          description: "auto|1080p|1440p|4k"
+        role:
+          type: string
+          description: "host|client"
+        tvwall_end_x:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-5]"
+        tvwall_end_y:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-5]"
+        tvwall_layout_x:
+          type: [integer, "null"]
+          format: int64
+          description: "[1-4]"
+        tvwall_layout_y:
+          type: [integer, "null"]
+          format: int64
+          description: "[1-4]"
+        tvwall_start_x:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-5]"
+        tvwall_start_y:
+          type: [integer, "null"]
+          format: int64
+          description: "[2-5]"
     DpiApp:
       type: object
       required: [blocked, enabled, log]
@@ -7637,7 +7279,7 @@ components:
           type: array
           items:
             type: string
-          description: "[\\d\\w]+"
+          description: "[\\d\\w-]+"
         enabled:
           type: boolean
         name:
@@ -7700,16 +7342,25 @@ components:
           type: boolean
         attr_no_edit:
           type: boolean
+        description:
+          type: string
         group_members:
           type: array
           items:
             type: string
         group_type:
           type: string
-          description: "address-group|port-group|ipv6-address-group"
+          description: "address-group|port-group|ipv6-address-group|domain-group"
         name:
           type: string
           description: ".{1,64}"
+        source:
+          type: string
+          description: "static|dynamic"
+        update_interval_seconds:
+          type: string
+        url:
+          type: string
     FirewallPolicy:
       type: object
       required: [connection_states, create_allow_respond, enabled, logging, match_ip_sec, match_opposite_protocol, predefined]
@@ -7788,6 +7439,8 @@ components:
           type: array
           items:
             type: string
+        ip_group_id:
+          type: string
         ips:
           type: array
           items:
@@ -7811,9 +7464,7 @@ components:
           items:
             type: string
         port:
-          type: [integer, "null"]
-          format: int64
-          description: "[1-9][0-9]{0,4}"
+          type: string
         port_group_id:
           type: string
         port_matching_type:
@@ -7831,9 +7482,13 @@ components:
       properties:
         date:
           type: string
+        date_end:
+          type: string
+        date_start:
+          type: string
         mode:
           type: string
-          description: "ALWAYS|EVERY_DAY|EVERY_WEEK|ONE_TIME_ONLY"
+          description: "ALWAYS|EVERY_DAY|EVERY_WEEK|ONE_TIME_ONLY|CUSTOM"
         repeat_on_days:
           type: array
           items:
@@ -7853,6 +7508,8 @@ components:
           type: array
           items:
             type: string
+        ip_group_id:
+          type: string
         ips:
           type: array
           items:
@@ -7876,9 +7533,7 @@ components:
           items:
             type: string
         port:
-          type: [integer, "null"]
-          format: int64
-          description: "[1-9][0-9]{0,4}"
+          type: string
         port_group_id:
           type: string
         port_matching_type:
@@ -7917,10 +7572,10 @@ components:
           type: array
           items:
             type: string
-          description: "[\\d\\w]+"
+          description: "[\\d\\w-]+"
         dst_networkconf_id:
           type: string
-          description: "[\\d\\w]+|^$"
+          description: "[\\d\\w-]+|^$"
         dst_networkconf_type:
           type: string
           description: "ADDRv4|NETv4"
@@ -7968,13 +7623,13 @@ components:
           type: array
           items:
             type: string
-          description: "[\\d\\w]+"
+          description: "[\\d\\w-]+"
         src_mac_address:
           type: string
           description: "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$|^$"
         src_networkconf_id:
           type: string
-          description: "[\\d\\w]+|^$"
+          description: "[\\d\\w-]+|^$"
         src_networkconf_type:
           type: string
           description: "ADDRv4|NETv4"
@@ -8014,60 +7669,6 @@ components:
             type: string
         zone_key:
           type: string
-    HeatMap:
-      type: object
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        description:
-          type: string
-        map_id:
-          type: string
-        name:
-          type: string
-          description: ".*[^\\s]+.*"
-        type:
-          type: string
-          description: "download|upload"
-    HeatMapPoint:
-      type: object
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        download_speed:
-          type: number
-          format: double
-        heatmap_id:
-          type: string
-        upload_speed:
-          type: number
-          format: double
-        x:
-          type: number
-          format: double
-        y:
-          type: number
-          format: double
     Hotspot2Conf:
       type: object
       required: [disable_dgaf, gas_advanced, hessid, hessid_used, metrics_downlink_load_set, metrics_downlink_speed_set, metrics_info_at_capacity, metrics_info_symmetric, metrics_measurement_set, metrics_status, metrics_uplink_load_set, metrics_uplink_speed_set, network_access_asra, network_access_esr, network_access_internet, network_access_uesa, qos_map_status]
@@ -8504,60 +8105,6 @@ components:
         trial_reset:
           type: number
           format: double
-    Map:
-      type: object
-      required: [selected]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        lat:
-          type: string
-          description: "^([-]?[\\d]+[.]?[\\d]*([eE][-+]?[\\d]+)?)$"
-        lng:
-          type: string
-          description: "^([-]?[\\d]+[.]?[\\d]*([eE][-+]?[\\d]+)?)$"
-        mapTypeId:
-          type: string
-          description: "satellite|roadmap|hybrid|terrain"
-        name:
-          type: string
-        offset_left:
-          type: number
-          format: double
-        offset_top:
-          type: number
-          format: double
-        opacity:
-          type: number
-          format: double
-          description: "^(0(\\.[\\d]{1,2})?|1)$|^$"
-        selected:
-          type: boolean
-        tilt:
-          type: [integer, "null"]
-          format: int64
-        type:
-          type: string
-          description: "designerMap|imageMap|googleMap"
-        unit:
-          type: string
-          description: "m|f"
-        upp:
-          type: number
-          format: double
-        zoom:
-          type: [integer, "null"]
-          format: int64
     MediaFile:
       type: object
       properties:
@@ -8684,7 +8231,7 @@ components:
           description: "[1-9][0-9]{0,4}"
     Network:
       type: object
-      required: [auto_scale_enabled, dhcp_relay_enabled, dhcpd_boot_enabled, dhcpd_boot_server, dhcpd_conflict_checking, dhcpd_dns_1, dhcpd_dns_2, dhcpd_dns_3, dhcpd_dns_4, dhcpd_dns_enabled, dhcpd_enabled, dhcpd_gateway_enabled, dhcpd_ip_1, dhcpd_ip_2, dhcpd_ip_3, dhcpd_mac_1, dhcpd_mac_2, dhcpd_mac_3, dhcpd_ntp_enabled, dhcpd_time_offset_enabled, dhcpd_wins_enabled, dhcpdv6_allow_slaac, dhcpdv6_dns_auto, dhcpdv6_enabled, dhcpguard_enabled, dpi_enabled, dpigroup_id, enabled, exposed_to_site_vpn, gateway_device, igmp_fastleave, igmp_flood_unknown_multicast, igmp_proxy_upstream, igmp_snooping, igmp_supression, interface_mtu_enabled, internet_access_enabled, ipsec_dynamic_routing, ipsec_local_identifier_enabled, ipsec_pfs, ipsec_remote_identifier_enabled, ipsec_separate_ikev2_networks, ipsec_tunnel_ip_enabled, ipv6_pd_auto_prefixid_enabled, ipv6_pd_prefixid, ipv6_ra_enabled, is_nat, l2tp_allow_weak_ciphers, lte_lan_enabled, mac_override, mac_override_enabled, mdns_enabled, network_isolation_enabled, pptpc_require_mppe, purpose, remote_vpn_dynamic_subnets_enabled, report_wan_event, require_mschapv2, uid_policy_enabled, uid_traffic_rules_enabled, uid_vpn_masquerade_enabled, uid_vpn_sync_public_ip, upnp_lan_enabled, vlan_enabled, vpn_client_configuration_remote_ip_override_enabled, vpn_client_default_route, vpn_client_pull_dns, wan_dhcpv6_pd_size_auto, wan_dns3, wan_dns4, wan_dslite_remote_host_auto, wan_gateway_v6, wan_ipv6, wan_pppoe_password_enabled, wan_pppoe_username_enabled, wan_smartq_enabled, wan_username, wan_vlan_enabled, wireguard_client_preshared_key_enabled, x_wan_password]
+      required: [auto_scale_enabled, dhcp_relay_enabled, dhcpd_boot_enabled, dhcpd_boot_server, dhcpd_conflict_checking, dhcpd_dns_3, dhcpd_dns_4, dhcpd_dns_enabled, dhcpd_enabled, dhcpd_gateway_enabled, dhcpd_ip_1, dhcpd_ip_2, dhcpd_ip_3, dhcpd_mac_1, dhcpd_mac_2, dhcpd_mac_3, dhcpd_ntp_enabled, dhcpd_time_offset_enabled, dhcpd_wins_enabled, dhcpdv6_allow_slaac, dhcpdv6_dns_auto, dhcpdv6_enabled, dhcpguard_enabled, dpi_enabled, dpigroup_id, enabled, exposed_to_site_vpn, gateway_device, igmp_fastleave, igmp_flood_unknown_multicast, igmp_proxy_upstream, igmp_snooping, igmp_supression, interface_mtu_enabled, internet_access_enabled, ipsec_dynamic_routing, ipsec_local_identifier_enabled, ipsec_pfs, ipsec_remote_identifier_enabled, ipsec_separate_ikev2_networks, ipsec_tunnel_ip_enabled, ipv6_pd_auto_prefixid_enabled, ipv6_pd_prefixid, ipv6_ra_enabled, is_nat, is_wifi_tethering, l2tp_allow_weak_ciphers, lte_lan_enabled, mac_override, mac_override_enabled, network_isolation_enabled, pptpc_require_mppe, purpose, remote_vpn_dynamic_subnets_enabled, report_wan_event, require_mschapv2, sdwan_underlay, uid_policy_enabled, uid_traffic_rules_enabled, uid_vpn_masquerade_enabled, uid_vpn_sync_public_ip, upnp_lan_enabled, vlan_enabled, vpn_client_configuration_remote_ip_override_enabled, vpn_client_default_route, vpn_client_pull_dns, wan_dhcpv6_pd_size_auto, wan_dns3, wan_dns4, wan_dslite_remote_host_auto, wan_gateway_v6, wan_ipv6, wan_pppoe_password_enabled, wan_pppoe_rfc4638_enabled, wan_pppoe_username_enabled, wan_smartq_enabled, wan_username, wan_vlan_enabled, wireguard_client_preshared_key_enabled, x_wan_password]
       properties:
         _id:
           type: string
@@ -8717,11 +8264,9 @@ components:
         dhcpd_conflict_checking:
           type: boolean
         dhcpd_dns_1:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
+          type: [string, "null"]
         dhcpd_dns_2:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
+          type: [string, "null"]
         dhcpd_dns_3:
           type: string
           description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
@@ -8820,13 +8365,14 @@ components:
           type: array
           items:
             type: string
+          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
         dhcpguard_enabled:
           type: boolean
         dpi_enabled:
           type: boolean
         dpigroup_id:
           type: string
-          description: "[\\d\\w]+|^$"
+          description: "[\\d\\w-]+|^$"
         x_dh_key:
           type: [string, "null"]
         domain_name:
@@ -8881,6 +8427,7 @@ components:
           type: array
           items:
             type: string
+          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([8-9]|[1-2][0-9]|3[0-2])$|^$"
         ipsec_dh_group:
           type: [integer, "null"]
           format: int64
@@ -8958,6 +8505,10 @@ components:
         ip_subnet:
           type: [string, "null"]
           description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([1-9]|[1-2][0-9]|3[0-2])$"
+        ipv6_aliases:
+          type: array
+          items:
+            type: string
         ipv6_client_address_assignment:
           type: [string, "null"]
           description: "slaac|dhcpv6"
@@ -9002,12 +8553,14 @@ components:
         interface_mtu:
           type: [integer, "null"]
           format: int64
-          description: "^(6[89]|[7-9][0-9]|[1-9][0-9]{2,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|65500)$"
+          description: "^(6[89]|[7-9][0-9]|[1-9][0-9]{2,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-6])$"
         interface_mtu_enabled:
           type: boolean
         internet_access_enabled:
           type: boolean
         is_nat:
+          type: boolean
+        is_wifi_tethering:
           type: boolean
         l2tp_allow_weak_ciphers:
           type: boolean
@@ -9017,10 +8570,26 @@ components:
         l2tp_local_wan_ip:
           type: [string, "null"]
           description: "^any$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+        l3_interface_type:
+          type: [string, "null"]
+          description: "vlan|port|lag"
         local_port:
           type: [integer, "null"]
           format: int64
           description: "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|[6][0-4][0-9]{3}|[6][5][0-4][0-9]{2}|[6][5][5][0-2][0-9]|[6][5][5][3][0-5])$"
+        local_vpn_networkconf_ids:
+          type: array
+          items:
+            type: string
+          description: "[\\d\\w-]+|^$"
+        local_vpn_subnets:
+          type: array
+          items:
+            type: string
+          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([1-9]|[1-2][0-9]|3[0-2])$|^$"
+        local_vpn_subnets_mode:
+          type: [string, "null"]
+          description: "all|selected_networks|custom"
         lte_lan_enabled:
           type: boolean
         mac_override:
@@ -9028,8 +8597,20 @@ components:
           description: "(^$|^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$)"
         mac_override_enabled:
           type: boolean
-        mdns_enabled:
-          type: boolean
+        mss_clamp:
+          type: [string, "null"]
+          description: "auto|custom|disabled"
+        mss_clamp_ipv6:
+          type: [string, "null"]
+          description: "auto|custom|disabled"
+        mss_clamp_mss:
+          type: [integer, "null"]
+          format: int64
+          description: "^(50[0-9]|5[1-9][0-9]|[6-9][0-9]{2}|[1-7][0-9]{3}|8[0-8][0-9]{2}|89[0-5][0-9]|8960)$"
+        mss_clamp_mss_ipv6:
+          type: [integer, "null"]
+          format: int64
+          description: "^(50[0-9]|5[1-9][0-9]|[6-9][0-9]{2}|[1-7][0-9]{3}|8[0-8][0-9]{2}|89[0-5][0-9]|8960)$"
         nat_outbound_ip_addresses:
           type: array
           items:
@@ -9048,7 +8629,7 @@ components:
           type: [string, "null"]
         openvpn_encryption_cipher:
           type: [string, "null"]
-          description: "AES_256_GCM|AES_256_CBC|BF_CBC"
+          description: "AES_256_CBC|BF_CBC"
         openvpn_interface:
           type: [string, "null"]
           description: "wan[2-9]?"
@@ -9128,8 +8709,18 @@ components:
           type: [integer, "null"]
           format: int64
           description: "^[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]$|^$"
+        routed_lag_idx:
+          type: [integer, "null"]
+          format: int64
+          description: "([0-9]|[1-9][0-9])"
+        routed_port_idx:
+          type: [integer, "null"]
+          format: int64
+          description: "([0-9]|[1-9][0-9])"
         sdwan_remote_site_id:
           type: [string, "null"]
+        sdwan_underlay:
+          type: boolean
         x_server_crt:
           type: [string, "null"]
         x_server_key:
@@ -9187,6 +8778,21 @@ components:
           description: "openvpn|wireguard"
         uid_workspace_url:
           type: [string, "null"]
+        uplink_band:
+          type: [string, "null"]
+          description: "ng|na|6e"
+        uplink_identity:
+          type: [string, "null"]
+          description: "^.{0,128}$"
+        x_uplink_password:
+          type: [string, "null"]
+          description: "^.{0,256}$"
+        uplink_ssid:
+          type: [string, "null"]
+          description: "^.{0,32}$"
+        uplink_security:
+          type: [string, "null"]
+          description: "Open|WEP|WPA2-Personal|WPA3-Personal|WPA2-Enterprise|WPA3-Enterprise"
         usergroup_id:
           type: [string, "null"]
         vlan:
@@ -9195,6 +8801,9 @@ components:
           description: "[2-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|400[0-9]|401[0-8]|^$"
         vlan_enabled:
           type: boolean
+        vpn_binding_mode:
+          type: [string, "null"]
+          description: "static|interface|any"
         vpn_client_configuration_remote_ip_override:
           type: [string, "null"]
         vpn_client_configuration_remote_ip_override_enabled:
@@ -9314,6 +8923,8 @@ components:
           description: "[^\"' ]+|^$"
         wan_pppoe_password_enabled:
           type: boolean
+        wan_pppoe_rfc4638_enabled:
+          type: boolean
         wan_pppoe_username_enabled:
           type: boolean
         wan_prefixlen:
@@ -9329,13 +8940,13 @@ components:
         wan_smartq_down_rate:
           type: [integer, "null"]
           format: int64
-          description: "[0-9]{1,6}|1000000"
+          description: "[0-9]{1,9}|1000000000"
         wan_smartq_enabled:
           type: boolean
         wan_smartq_up_rate:
           type: [integer, "null"]
           format: int64
-          description: "[0-9]{1,6}|1000000"
+          description: "[0-9]{1,9}|1000000000"
         wan_type:
           type: [string, "null"]
           description: "disabled|dhcp|static|pppoe|dslite|map-e,hubspoke|map-e,jpix|map-e,ntt|dslite-over-pppoe"
@@ -9376,9 +8987,11 @@ components:
         wireguard_interface_binding_mode_ip_version:
           type: [string, "null"]
           description: "v4|v6"
+        wireguard_interface_binding_mode_ip_version:
+          type: [string, "null"]
+          description: "^(v4|v6)$"
         wireguard_local_wan_ip:
           type: [string, "null"]
-          description: "^any$|^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
         x_wireguard_private_key:
           type: [string, "null"]
         wireguard_public_key:
@@ -9440,33 +9053,6 @@ components:
           type: [integer, "null"]
           format: int64
           description: "^[1-9][0-9]*$"
-    NetworkMembersGroup:
-      type: object
-      required: [id]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        id:
-          type: string
-          description: "^$|.{0,128}"
-        members:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
-        type:
-          type: string
     OSPFRouter:
       type: object
       required: [announce_default_route, enabled, redistribute_connected_routes, redistribute_static_routes]
@@ -9602,7 +9188,7 @@ components:
           description: "wan[2-9]?"
     PortProfile:
       type: object
-      required: [autoneg, egress_rate_limit_kbps_enabled, full_duplex, isolation, lldpmed_enabled, lldpmed_notify_enabled, port_keepalive_enabled, port_security_enabled, stormctrl_bcast_enabled, stormctrl_mcast_enabled, stormctrl_ucast_enabled, stp_port_mode]
+      required: [autoneg, eee_enabled, egress_rate_limit_kbps_enabled, flow_control_enabled, full_duplex, isolation, link_debounce_auto, lldpmed_enabled, lldpmed_notify_enabled, port_keepalive_enabled, port_security_enabled, precision_time_protocol_enabled, stable_port_enabled, stormctrl_bcast_enabled, stormctrl_mcast_enabled, stormctrl_ucast_enabled, stp_bpdu_guard_enabled, stp_port_mode, stp_uplink]
       properties:
         _id:
           type: string
@@ -9625,6 +9211,8 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]"
+        eee_enabled:
+          type: boolean
         egress_rate_limit_kbps:
           type: [integer, "null"]
           format: int64
@@ -9638,6 +9226,8 @@ components:
         fec_mode:
           type: string
           description: "rs-fec|fc-fec|default|disabled"
+        flow_control_enabled:
+          type: boolean
         forward:
           type: string
           description: "all|native|customize|disabled"
@@ -9645,10 +9235,19 @@ components:
           type: boolean
         isolation:
           type: boolean
+        link_debounce:
+          type: [integer, "null"]
+          format: int64
+          description: "0|[1-9]00|[1-4][0-9]00|5000"
+        link_debounce_auto:
+          type: boolean
         lldpmed_enabled:
           type: boolean
         lldpmed_notify_enabled:
           type: boolean
+        multicast_router_mode:
+          type: string
+          description: "ALL|CUSTOM|NONE"
         multicast_router_networkconf_ids:
           type: array
           items:
@@ -9672,6 +9271,8 @@ components:
           items:
             type: string
           description: "^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$"
+        precision_time_protocol_enabled:
+          type: boolean
         priority_queue1_level:
           type: [integer, "null"]
           format: int64
@@ -9699,6 +9300,8 @@ components:
           type: [integer, "null"]
           format: int64
           description: "10|100|1000|2500|5000|10000|20000|25000|40000|50000|100000"
+        stable_port_enabled:
+          type: boolean
         stormctrl_bcast_enabled:
           type: boolean
         stormctrl_bcast_level:
@@ -9732,7 +9335,14 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-9][0-9]{1,6}|1[0-3][0-9]{6}|14[0-7][0-9]{5}|148[0-7][0-9]{4}|14880000"
+        stp_bpdu_guard_enabled:
+          type: boolean
+        stp_edge_state:
+          type: string
+          description: "enabled|disabled"
         stp_port_mode:
+          type: boolean
+        stp_uplink:
           type: boolean
         tagged_vlan_mgmt:
           type: string
@@ -9805,62 +9415,6 @@ components:
         qos_profile_mode:
           type: string
           description: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio"
-    PowerSupervisor:
-      type: object
-      required: [enabled]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        client_mac:
-          type: string
-        consecutive_failures:
-          type: [integer, "null"]
-          format: int64
-        enabled:
-          type: boolean
-        power_sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/PowerSupervisorPowerSources'
-        settings:
-          oneOf:
-            - $ref: '#/components/schemas/PowerSupervisorSettings'
-            - type: "null"
-    PowerSupervisorPowerSources:
-      type: object
-      properties:
-        client_psu_index:
-          type: [integer, "null"]
-          format: int64
-        power_source_index:
-          type: [integer, "null"]
-          format: int64
-        power_source_mac:
-          type: string
-        power_source_type:
-          type: string
-    PowerSupervisorSettings:
-      type: object
-      properties:
-        heartbeat_interval:
-          type: [integer, "null"]
-          format: int64
-        power_off_duration:
-          type: [integer, "null"]
-          format: int64
-        silence_threshold:
-          type: [integer, "null"]
-          format: int64
     RADIUSProfile:
       type: object
       required: [accounting_enabled, interim_update_enabled, tls_enabled, use_usg_acct_server, use_usg_auth_server, vlan_enabled]
@@ -9985,7 +9539,7 @@ components:
           description: "^[1-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]$|^$"
         static-route_interface:
           type: string
-          description: "WAN[1-9]?|[\\d\\w]+|^$"
+          description: "WAN[1-9]?|[\\d\\w-]+|^$"
         static-route_network:
           type: string
           description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([1-9]|[1-2][0-9]|3[0-2])$|^([a-fA-F0-9:]+\\/(([1-9]|[1-8][0-9]|9[0-9]|1[01][0-9]|12[0-8])))$"
@@ -10115,7 +9669,7 @@ components:
           description: "sample|media"
     SettingConnectivity:
       type: object
-      required: [enable_isolated_wlan, enabled, key]
+      required: [enable_isolated_wlan, enabled, key, mlo_mesh_enabled]
       properties:
         _id:
           type: string
@@ -10139,6 +9693,8 @@ components:
           type: string
         x_mesh_psk:
           type: string
+        mlo_mesh_enabled:
+          type: boolean
         uplink_host:
           type: string
         uplink_type:
@@ -10198,6 +9754,38 @@ components:
         name:
           type: string
           description: "critical_traffic_prioritization|cybersecure|traffic_identification|wifi_technology|wifi_channels|wifi_client_experience|wifi_tx_retries|most_active_apps_aps_clients|most_active_apps_clients|most_active_aps_clients|most_active_apps_aps|most_active_apps|v2_most_active_aps|v2_most_active_clients|wifi_connectivity|ap_radio_density|wifi_channel_preset_configuration|most_common_client_fingerprints|wan_activity"
+    SettingDeviceSupervision:
+      type: object
+      required: [global_supervision_enabled, key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        global_supervision_enabled:
+          type: boolean
+        heartbeat_interval_seconds:
+          type: [integer, "null"]
+          format: int64
+          description: "^([6-9][0-9]|[1-2][0-9][0-9]|300)$"
+        power_off_duration_seconds:
+          type: [integer, "null"]
+          format: int64
+          description: "^([6-9][0-9]|[1-9][0-9]{2}|[1-8][0-9]{3}|9000)$"
+        silence_threshold_seconds:
+          type: [integer, "null"]
+          format: int64
+          description: "^(300|[3-9][0-9][0-9]|[1-8][0-9]{3}|9000)$"
     SettingDoh:
       type: object
       required: [key]
@@ -10326,29 +9914,6 @@ components:
         raw_color_hex:
           type: string
           description: "[0-9A-Fa-f]{6}"
-    SettingEvaluationScore:
-      type: object
-      required: [key]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        key:
-          type: string
-        dismissed_ids:
-          type: array
-          items:
-            type: string
-          description: "^[a-zA-Z]{2}[0-9]{2,3}$|^$"
     SettingGlobalAp:
       type: object
       required: [key]
@@ -10432,7 +9997,7 @@ components:
           description: "auto|custom|off"
     SettingGlobalSwitch:
       type: object
-      required: [dhcp_snoop, dot1x_portctrl_enabled, flood_known_protocols, flowctrl_enabled, forward_unknown_mcast_router_ports, jumboframe_enabled, key]
+      required: [auto_stp_edge_detection_enabled, dhcp_snoop, dot1x_portctrl_enabled, flood_known_protocols, flowctrl_enabled, forward_unknown_mcast_router_ports, jumboframe_enabled, key]
       properties:
         _id:
           type: string
@@ -10456,11 +10021,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SettingGlobalSwitchAclL3Isolation'
+        auto_stp_edge_detection_enabled:
+          type: boolean
         dhcp_snoop:
           type: boolean
         dot1x_fallback_networkconf_id:
           type: string
-          description: "[\\d\\w]+|"
+          description: "[\\d\\w-]+|"
         dot1x_portctrl_enabled:
           type: boolean
         flood_known_protocols:
@@ -10471,6 +10038,14 @@ components:
           type: boolean
         jumboframe_enabled:
           type: boolean
+        link_debounce:
+          type: [integer, "null"]
+          format: int64
+          description: "0|[1-9]00|[1-4][0-9]00|5000"
+        poe_staging_delay_msec:
+          type: [integer, "null"]
+          format: int64
+          description: "0|200|400|600|800|1000|1200|1400|1600|1800|2000"
         radiusprofile_id:
           type: string
         stp_version:
@@ -10492,7 +10067,7 @@ components:
           type: string
     SettingGuestAccess:
       type: object
-      required: [authorize_use_sandbox, custom_ip, ec_enabled, facebook_enabled, facebook_scope_email, facebook_wifi_block_https, google_enabled, google_scope_email, ippay_use_sandbox, key, merchantwarrior_use_sandbox, password_enabled, payment_enabled, paypal_use_sandbox, portal_customized, portal_customized_bg_color, portal_customized_bg_image_enabled, portal_customized_bg_image_tile, portal_customized_box_color, portal_customized_box_link_color, portal_customized_box_text_color, portal_customized_button_color, portal_customized_button_text_color, portal_customized_link_color, portal_customized_logo_enabled, portal_customized_text_color, portal_customized_tos_enabled, portal_customized_welcome_text_enabled, portal_enabled, portal_hostname, portal_use_hostname, quickpay_testmode, radius_disconnect_enabled, radius_enabled, redirect_enabled, redirect_https, redirect_to_https, restricted_dns_enabled, voucher_customized, voucher_enabled, wechat_enabled]
+      required: [authorize_use_sandbox, custom_ip, ec_enabled, facebook_enabled, facebook_scope_email, google_enabled, google_scope_email, ippay_use_sandbox, key, merchantwarrior_use_sandbox, password_enabled, payment_enabled, paypal_use_sandbox, portal_customized, portal_customized_bg_color, portal_customized_bg_image_enabled, portal_customized_bg_image_tile, portal_customized_box_color, portal_customized_box_link_color, portal_customized_box_text_color, portal_customized_button_color, portal_customized_button_text_color, portal_customized_link_color, portal_customized_logo_enabled, portal_customized_text_color, portal_customized_tos_enabled, portal_customized_welcome_text_enabled, portal_enabled, portal_hostname, portal_use_hostname, quickpay_testmode, radius_disconnect_enabled, radius_enabled, redirect_enabled, redirect_https, redirect_to_https, restricted_dns_enabled, voucher_customized, voucher_enabled, wechat_enabled]
       properties:
         _id:
           type: string
@@ -10512,7 +10087,7 @@ components:
           type: string
         auth:
           type: string
-          description: "none|hotspot|facebook_wifi|custom"
+          description: "none|hotspot|custom"
         auth_url:
           type: string
         x_authorize_loginid:
@@ -10545,14 +10120,6 @@ components:
           type: boolean
         facebook_scope_email:
           type: boolean
-        facebook_wifi_block_https:
-          type: boolean
-        facebook_wifi_gw_id:
-          type: string
-        facebook_wifi_gw_name:
-          type: string
-        x_facebook_wifi_gw_secret:
-          type: string
         gateway:
           type: string
           description: "paypal|stripe|authorize|quickpay|merchantwarrior|ippay"
@@ -10721,9 +10288,6 @@ components:
           type: string
         x_stripe_api_key:
           type: string
-        template_engine:
-          type: string
-          description: "jsp|angular"
         voucher_customized:
           type: boolean
         voucher_enabled:
@@ -10738,6 +10302,82 @@ components:
           type: string
         wechat_shop_id:
           type: string
+    SettingIgmpSnooping:
+      type: object
+      required: [auto_unknown_traffic_handling, enabled, flood_known_protocols, forward_unknown_mcast_router_ports, key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        auto_unknown_traffic_handling:
+          type: boolean
+        enabled:
+          type: boolean
+        failover_querier:
+          type: string
+        fastleave_for_network_ids:
+          type: array
+          items:
+            type: string
+        flood_known_protocols:
+          type: boolean
+        flood_unknown_multicast_for_network_ids:
+          type: array
+          items:
+            type: string
+        forward_unknown_mcast_router_ports:
+          type: boolean
+        network_ids:
+          type: array
+          items:
+            type: string
+        primary_querier:
+          type: string
+        querier_addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingIgmpSnoopingQuerierAddresses'
+        querier_mode:
+          type: string
+          description: "PRIMARY_AND_FAILOVER|CUSTOM|OFF"
+        querier_subscription_mode:
+          type: string
+          description: "ALL|CUSTOM"
+        querier_switches:
+          type: array
+          items:
+            type: string
+        subscription_mode:
+          type: string
+          description: "ALL|CUSTOM"
+        switches:
+          type: array
+          items:
+            type: string
+    SettingIgmpSnoopingQuerierAddresses:
+      type: object
+      properties:
+        mac:
+          type: string
+        network_id:
+          type: string
+        querier_address:
+          type: string
+        query_interval:
+          type: [integer, "null"]
+          format: int64
+          description: "[3-9][0-9]|1[0-7][0-9]|180"
     SettingIps:
       type: object
       required: [content_filtering_blocking_page_enabled, honeypot_enabled, key, memory_optimized, restrict_torrents]
@@ -10765,7 +10405,7 @@ components:
           type: array
           items:
             type: string
-          description: "emerging-activex|emerging-attackresponse|botcc|emerging-chat|ciarmy|compromised|emerging-dns|emerging-dos|dshield|emerging-exploit|emerging-ftp|emerging-games|emerging-icmp|emerging-icmpinfo|emerging-imap|emerging-inappropriate|emerging-info|emerging-malware|emerging-misc|emerging-mobile|emerging-netbios|emerging-p2p|emerging-policy|emerging-pop3|emerging-rpc|emerging-scada|emerging-scan|emerging-shellcode|emerging-smtp|emerging-snmp|emerging-sql|emerging-telnet|emerging-tftp|tor|emerging-useragent|emerging-voip|emerging-webapps|emerging-webclient|emerging-webserver|emerging-worm|exploit-kit|adware-pup|botcc-portgrouped|phishing|threatview-cs-c2|3coresec|chat|coinminer|current-events|drop|hunting|icmp-info|inappropriate|info|ja3|policy|scada|dark-web-blocker-list|malicious-hosts"
+          description: "emerging-activex|emerging-attackresponse|botcc|emerging-chat|ciarmy|compromised|emerging-dns|emerging-dos|dshield|emerging-exploit|emerging-ftp|emerging-games|emerging-icmp|emerging-icmpinfo|emerging-imap|emerging-inappropriate|emerging-info|emerging-malware|emerging-misc|emerging-mobile|emerging-netbios|emerging-p2p|emerging-policy|emerging-pop3|emerging-rpc|emerging-scada|emerging-scan|emerging-shellcode|emerging-smtp|emerging-snmp|emerging-sql|emerging-telnet|emerging-tftp|tor|emerging-useragent|emerging-voip|emerging-webapps|emerging-webclient|emerging-webserver|emerging-worm|exploit-kit|adware-pup|botcc-portgrouped|phishing|threatview-cs-c2|3coresec|chat|coinminer|current-events|drop|hunting|icmp-info|inappropriate|info|ja3|policy|scada|dark-web-blocker-list|malicious-hosts|dyn_dns|file_sharing|remote_access|ta_abused_services"
         enabled_networks:
           type: array
           items:
@@ -10783,11 +10423,43 @@ components:
           type: boolean
         restrict_torrents:
           type: boolean
-        suppression:
-          oneOf:
-            - $ref: '#/components/schemas/SettingIpsSuppression'
-            - type: "null"
-    SettingIpsAlerts:
+    SettingIpsHoneypot:
+      type: object
+      properties:
+        ip_address:
+          type: string
+        network_id:
+          type: string
+        version:
+          type: string
+          description: "v4|v6"
+    SettingIpsSuppression:
+      type: object
+      required: [key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        alerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingIpsSuppressionAlerts'
+        whitelist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SettingIpsSuppressionWhitelist'
+    SettingIpsSuppressionAlerts:
       type: object
       properties:
         category:
@@ -10803,32 +10475,11 @@ components:
         tracking:
           type: array
           items:
-            $ref: '#/components/schemas/SettingIpsTracking'
+            $ref: '#/components/schemas/SettingIpsSuppressionTracking'
         type:
           type: string
           description: "all|track"
-    SettingIpsHoneypot:
-      type: object
-      properties:
-        ip_address:
-          type: string
-        network_id:
-          type: string
-        version:
-          type: string
-          description: "v4|v6"
-    SettingIpsSuppression:
-      type: object
-      properties:
-        alerts:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingIpsAlerts'
-        whitelist:
-          type: array
-          items:
-            $ref: '#/components/schemas/SettingIpsWhitelist'
-    SettingIpsTracking:
+    SettingIpsSuppressionTracking:
       type: object
       properties:
         direction:
@@ -10839,7 +10490,7 @@ components:
           description: "ip|subnet|network"
         value:
           type: string
-    SettingIpsWhitelist:
+    SettingIpsSuppressionWhitelist:
       type: object
       properties:
         direction:
@@ -10964,7 +10615,7 @@ components:
       properties:
         code:
           type: string
-          description: "amazon_devices|android_tv_remote|apple_airDrop|apple_airPlay|apple_file_sharing|apple_iChat|apple_iTunes|aqara|bose|dns_service_discovery|ftp_servers|google_chromecast|homeKit|matter_network|philips_hue|printers|roku|scanners|sonos|spotify_connect|ssh_servers|time_capsule|web_servers|windows_file_sharing_samba"
+          description: "amazon_devices|android_tv_remote|apple_airDrop|apple_airPlay|apple_file_sharing|apple_iChat|apple_iTunes|aqara|bose|dns_service_discovery|ftp_servers|google_chromecast|homeKit|matter_network|philips_hue|printers|roku|scanners|shelly|sonos|spotify_connect|ssh_servers|time_capsule|web_servers|windows_file_sharing_samba"
     SettingMgmt:
       type: object
       required: [advanced_feature_enabled, alert_enabled, auto_upgrade, boot_sound, debug_tools_enabled, direct_connect_enabled, key, led_enabled, outdoor_mode_enabled, unifi_idp_enabled, wifiman_enabled, x_ssh_auth_password_enabled, x_ssh_bind_wildcard, x_ssh_enabled]
@@ -11329,30 +10980,6 @@ components:
           description: "^[^\\\\\"' ]{1,48}$"
         tunneled_reply:
           type: boolean
-    SettingRoamingAssistant:
-      type: object
-      required: [enabled, key]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        key:
-          type: string
-        enabled:
-          type: boolean
-        rssi:
-          type: [integer, "null"]
-          format: int64
-          description: "^-([6-7][0-9]|80)$"
     SettingRsyslogd:
       type: object
       required: [debug, enabled, key, log_all_contents, netconsole_enabled, this_controller, this_controller_encrypted_only]
@@ -11375,7 +11002,7 @@ components:
           type: array
           items:
             type: string
-          description: "device|client|firewall_default_policy|triggers|updates|admin_activity|critical|security_detections|vpn"
+          description: "device|client|firewall_default_policy|triggers|updates|admin_activity|critical|security_detections|vpn|gateway|access_points|switches"
         debug:
           type: boolean
         enabled:
@@ -11452,6 +11079,26 @@ components:
         state:
           type: string
           description: "off|simple|advanced"
+    SettingSuperApplicationDegradation:
+      type: object
+      required: [enabled, key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        enabled:
+          type: boolean
     SettingSuperCloudaccess:
       type: object
       required: [enabled, key]
@@ -11602,10 +11249,6 @@ components:
           format: int64
         autobackup_enabled:
           type: boolean
-        autobackup_gcs_bucket:
-          type: string
-        autobackup_gcs_certificate_path:
-          type: string
         autobackup_local_path:
           type: string
         autobackup_max_files:
@@ -11615,7 +11258,7 @@ components:
           type: array
           items:
             type: string
-          description: "copy_local|copy_gcs|copy_cloud"
+          description: "copy_local|copy_cloud"
         autobackup_timezone:
           type: string
         backup_to_cloud_enabled:
@@ -11672,9 +11315,6 @@ components:
         live_chat:
           type: string
           description: "disabled|super-only|everyone"
-        live_updates:
-          type: string
-          description: "disabled|live|auto"
         minimum_usable_hd_space:
           type: [integer, "null"]
           format: int64
@@ -11787,6 +11427,45 @@ components:
         subnet_cidr:
           type: string
           description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\/([8-9]|[1-2][0-9]|3[0-2])$|^$"
+    SettingTestAndCommit:
+      type: object
+      required: [device_vlan_testing, enabled, key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        device_vlan_testing:
+          type: boolean
+        enabled:
+          type: boolean
+        mode:
+          type: string
+          description: "auto|custom"
+        pages:
+          oneOf:
+            - $ref: '#/components/schemas/SettingTestAndCommitPages'
+            - type: "null"
+    SettingTestAndCommitPages:
+      type: object
+      required: [internet, network_settings, vpn]
+      properties:
+        internet:
+          type: boolean
+        network_settings:
+          type: boolean
+        vpn:
+          type: boolean
     SettingTrafficFlow:
       type: object
       required: [enabled_allowed_traffic, gateway_dns_enabled, key, unifi_device_management_enabled, unifi_services_enabled]
@@ -11815,7 +11494,7 @@ components:
           type: boolean
     SettingUsg:
       type: object
-      required: [broadcast_ping, dhcp_relay_agents_packets, dhcp_relay_server_1, dhcp_relay_server_2, dhcp_relay_server_3, dhcp_relay_server_4, dhcp_relay_server_5, dhcpd_hostfile_update, dhcpd_use_dnsmasq, dnsmasq_all_servers, ftp_module, geo_ip_filtering_enabled, gre_module, h323_module, key, lldp_enable_all, mdns_enabled, offload_accounting, offload_l2_blocking, offload_sch, pptp_module, receive_redirects, send_redirects, sip_module, syn_cookies, tftp_module, unbind_wan_monitors, upnp_enabled, upnp_nat_pmp_enabled, upnp_secure_mode]
+      required: [broadcast_ping, dhcp_relay_agents_packets, dhcpd_hostfile_update, dhcpd_use_dnsmasq, dnsmasq_all_servers, ftp_module, gre_module, h323_module, key, lldp_enable_all, mdns_enabled, offload_accounting, offload_l2_blocking, offload_sch, pptp_module, receive_redirects, send_redirects, sip_module, syn_cookies, tftp_module, unbind_wan_monitors, upnp_enabled, upnp_nat_pmp_enabled, upnp_secure_mode]
       properties:
         _id:
           type: string
@@ -11859,21 +11538,6 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[1-9][0-9]{0,3}|[1-5][0-9]{4}|[6][0-4][0-9]{3}|[6][5][0-4][0-9]{2}|[6][5][5][0-2][0-9]|[6][5][5][3][0-5]|^$"
-        dhcp_relay_server_1:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
-        dhcp_relay_server_2:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
-        dhcp_relay_server_3:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
-        dhcp_relay_server_4:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
-        dhcp_relay_server_5:
-          type: string
-          description: "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^$"
         dns_verification:
           oneOf:
             - $ref: '#/components/schemas/SettingUsgDNSVerification'
@@ -11885,17 +11549,6 @@ components:
           description: "[^\\\"\\' ]{1,255}"
         ftp_module:
           type: boolean
-        geo_ip_filtering_block:
-          type: string
-          description: "block|allow"
-        geo_ip_filtering_countries:
-          type: string
-          description: "^([A-Z]{2})?(,[A-Z]{2}){0,149}$"
-        geo_ip_filtering_enabled:
-          type: boolean
-        geo_ip_filtering_traffic_direction:
-          type: string
-          description: "^(both|ingress|egress)$"
         gre_module:
           type: boolean
         h323_module:
@@ -11961,7 +11614,7 @@ components:
           type: boolean
         timeout_setting_preference:
           type: string
-          description: "auto|manual"
+          description: "auto|reduced|manual"
         udp_other_timeout:
           type: integer
           format: int64
@@ -11991,6 +11644,43 @@ components:
         setting_preference:
           type: string
           description: "auto|manual"
+    SettingUsgGeo:
+      type: object
+      required: [key]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        key:
+          type: string
+        ip_filtering:
+          oneOf:
+            - $ref: '#/components/schemas/SettingUsgGeoIPFiltering'
+            - type: "null"
+    SettingUsgGeoIPFiltering:
+      type: object
+      required: [enabled]
+      properties:
+        action:
+          type: string
+          description: "block|allow"
+        countries:
+          type: string
+          description: "^([A-Z]{2})?(,[A-Z]{2}){0,149}$"
+        enabled:
+          type: boolean
+        traffic_direction:
+          type: string
+          description: "^(both|ingress|egress)$"
     SettingUsw:
       type: object
       required: [dhcp_snoop, key]
@@ -12058,27 +11748,6 @@ components:
           type: number
           format: double
           description: "(^([-]?[\\d]+)$)|(^([-]?[\\d]+[.]?[\\d]+)$)"
-    Tag:
-      type: object
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        member_table:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
     TrafficRoute:
       type: object
       required: [enabled, kill_switch_enabled]
@@ -12194,39 +11863,9 @@ components:
         type:
           type: string
           description: "ALL_CLIENTS|CLIENT|NETWORK"
-    VirtualDevice:
-      type: object
-      required: [locked]
-      properties:
-        _id:
-          type: string
-        site_id:
-          type: string
-        attr_hidden:
-          type: boolean
-        attr_hidden_id:
-          type: string
-        attr_no_delete:
-          type: boolean
-        attr_no_edit:
-          type: boolean
-        heightInMeters:
-          type: number
-          format: double
-        locked:
-          type: boolean
-        map_id:
-          type: string
-        type:
-          type: string
-          description: "uap|usg|usw"
-        x:
-          type: string
-        y:
-          type: string
     WLAN:
       type: object
-      required: [auth_cache, b_supported, bc_filter_enabled, bss_transition, country_beacon, dpi_enabled, dpigroup_id, element_adopt, enabled, enhanced_iot, fast_roaming_enabled, hide_ssid, hotspot2conf_enabled, iapp_enabled, is_guest, l2_isolation, mac_filter_enabled, mcastenhance_enabled, minrate_na_advertising_rates, minrate_na_enabled, minrate_ng_advertising_rates, minrate_ng_enabled, mlo_enabled, name_combine_enabled, no2ghz_oui, optimize_iot_wifi_connectivity, p2p, p2p_cross_connect, private_preshared_keys_enabled, proxy_arp, radius_das_enabled, radius_mac_auth_enabled, radius_macacl_empty_password, rrm_enabled, sae_psk_vlan_required, schedule_enabled, schedule_reversed, schedule_with_duration, tdls_prohibit, uapsd_enabled, vlan_enabled, wpa3_enhanced_192, wpa3_fast_roaming, wpa3_support, wpa3_transition]
+      required: [advertise_device_name_in_beacon, auth_cache, b_supported, bc_filter_enabled, bss_transition, country_beacon, dpi_enabled, dpigroup_id, element_adopt, enabled, enhanced_iot, fast_roaming_enabled, hide_ssid, hotspot2conf_enabled, iapp_enabled, iot_channel_lock, iot_dtim_lock, is_guest, l2_isolation, mac_filter_enabled, mcastenhance_enabled, minrate_na_advertising_rates, minrate_na_enabled, minrate_ng_advertising_rates, minrate_ng_enabled, mlo_enabled, name_combine_enabled, no2ghz_oui, optimize_iot_wifi_connectivity, p2p, p2p_cross_connect, private_preshared_keys_enabled, proxy_arp, radius_das_enabled, radius_mac_auth_enabled, radius_macacl_empty_password, roaming_assistant_6e_enabled, roaming_assistant_na_enabled, rrm_enabled, sae_psk_vlan_required, schedule_enabled, schedule_reversed, schedule_with_duration, tdls_prohibit, uapsd_enabled, vlan_enabled, wpa3_enhanced_192, wpa3_fast_roaming, wpa3_support, wpa3_transition]
       properties:
         _id:
           type: string
@@ -12239,6 +11878,8 @@ components:
         attr_no_delete:
           type: boolean
         attr_no_edit:
+          type: boolean
+        advertise_device_name_in_beacon:
           type: boolean
         ap_group_ids:
           type: array
@@ -12262,11 +11903,19 @@ components:
           type: boolean
         country_beacon:
           type: boolean
+        dns_assistance_mode:
+          type: string
+          description: "off|auto|manual"
+        dns_assistance_servers:
+          type: array
+          items:
+            type: string
+          description: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
         dpi_enabled:
           type: boolean
         dpigroup_id:
           type: string
-          description: "[\\d\\w]+|^$"
+          description: "[\\d\\w-]+|^$"
         dtim_6e:
           type: [integer, "null"]
           format: int64
@@ -12307,6 +11956,10 @@ components:
         x_iapp_key:
           type: string
           description: "[0-9A-Fa-f]{32}"
+        iot_channel_lock:
+          type: boolean
+        iot_dtim_lock:
+          type: boolean
         is_guest:
           type: boolean
         l2_isolation:
@@ -12410,6 +12063,18 @@ components:
           type: [integer, "null"]
           format: int64
           description: "[0-9]|[1-2][0-9]|[3][0-1]|^$"
+        roaming_assistant_6e_enabled:
+          type: boolean
+        roaming_assistant_6e_rssi:
+          type: [integer, "null"]
+          format: int64
+          description: "^-([7-8][0-9]|90)$"
+        roaming_assistant_na_enabled:
+          type: boolean
+        roaming_assistant_na_rssi:
+          type: [integer, "null"]
+          format: int64
+          description: "^-([6-7][0-9]|80)$"
         rrm_enabled:
           type: boolean
         sae_anti_clogging:
@@ -12695,7 +12360,7 @@ components:
       properties:
         code:
           type: string
-          description: "amazon_devices|android_tv_remote|apple_airDrop|apple_airPlay|apple_file_sharing|apple_iChat|apple_iTunes|aqara|bose|dns_service_discovery|ftp_servers|google_chromecast|homeKit|matter_network|philips_hue|printers|roku|scanners|sonos|spotify_connect|ssh_servers|time_capsule|web_servers|windows_file_sharing_samba"
+          description: "amazon_devices|android_tv_remote|apple_airDrop|apple_airPlay|apple_file_sharing|apple_iChat|apple_iTunes|aqara|bose|dns_service_discovery|ftp_servers|google_chromecast|homeKit|matter_network|philips_hue|printers|roku|scanners|shelly|sonos|spotify_connect|ssh_servers|time_capsule|web_servers|windows_file_sharing_samba"
     WLANPrivatePresharedKeys:
       type: object
       properties:
