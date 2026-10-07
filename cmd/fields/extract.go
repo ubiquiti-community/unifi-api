@@ -171,7 +171,8 @@ func downloadJars(url *url.URL, outputDir string) ([]string, error) {
 			continue
 		}
 
-		dstPath := filepath.Join(outputDir, filepath.Base(header.Name))
+		// Name the file after the allowlisted entry, not the archive header.
+		dstPath := filepath.Join(outputDir, filepath.Base(fieldsJarPaths[idx]))
 		if err := extractTarFile(tarReader, dstPath); err != nil {
 			return nil, err
 		}
