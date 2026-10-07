@@ -23,12 +23,9 @@ output-options:
         - FirewallPolicy
         - FirewallRule
         - FirewallZone
-        - HeatMap
-        - HeatMapPoint
         - Hotspot2Conf
         - HotspotOp
         - HotspotPackage
-        - Map
         - MediaFile
         - Nat
         - Network
@@ -41,9 +38,7 @@ output-options:
         - Routing
         - ScheduleTask
         - SpatialRecord
-        - Tag
         - TrafficRoute
-        - VirtualDevice
         - WLAN
         - WLANGroup
 name-substitutions:
@@ -61,14 +56,20 @@ name-substitutions:
         Dashboard: Dashboard
         DashboardModules: DashboardModules
         Device: Device
+        DeviceAudioInfo: DeviceAudioInfo
         DeviceConfigNetwork: DeviceConfigNetwork
         DeviceCurrentApn: DeviceCurrentApn
         DeviceEtherLighting: DeviceEtherLighting
         DeviceEthernetOverrides: DeviceEthernetOverrides
+        DeviceHdmiPorts: DeviceHdmiPorts
+        DeviceIPV6: DeviceIPV6
+        DeviceIPv4: DeviceIPv4
         DeviceMbbOverrides: DeviceMbbOverrides
         DeviceNutServer: DeviceNutServer
+        DeviceOobPortConfig: DeviceOobPortConfig
         DeviceOutletOverrides: DeviceOutletOverrides
         DevicePortOverrides: DevicePortOverrides
+        DevicePrecisionTimeProtocolConfig: DevicePrecisionTimeProtocolConfig
         DeviceQOSMarking: DeviceQOSMarking
         DeviceQOSMatching: DeviceQOSMatching
         DeviceQOSPolicies: DeviceQOSPolicies
@@ -78,6 +79,9 @@ name-substitutions:
         DeviceRpsOverride: DeviceRpsOverride
         DeviceRpsPortTable: DeviceRpsPortTable
         DeviceSim: DeviceSim
+        DeviceSmaPortConfig: DeviceSmaPortConfig
+        DeviceVbmsOverride: DeviceVbmsOverride
+        DeviceVideoInfo: DeviceVideoInfo
         DpiApp: DpiApp
         DpiGroup: DpiGroup
         DynamicDNS: DynamicDNS
@@ -88,8 +92,6 @@ name-substitutions:
         FirewallPolicySource: FirewallPolicySource
         FirewallRule: FirewallRule
         FirewallZone: FirewallZone
-        HeatMap: HeatMap
-        HeatMapPoint: HeatMapPoint
         Hotspot2Conf: Hotspot2Conf
         Hotspot2ConfCapab: Hotspot2ConfCapab
         Hotspot2ConfCellularNetworkList: Hotspot2ConfCellularNetworkList
@@ -105,7 +107,6 @@ name-substitutions:
         Hotspot2ConfVenueName: Hotspot2ConfVenueName
         HotspotOp: HotspotOp
         HotspotPackage: HotspotPackage
-        Map: Map
         MediaFile: MediaFile
         Nat: Nat
         NatDestinationFilter: NatDestinationFilter
@@ -144,6 +145,7 @@ name-substitutions:
         SettingCountry: SettingCountry
         SettingDashboard: SettingDashboard
         SettingDashboardWidgets: SettingDashboardWidgets
+        SettingDeviceSupervision: SettingDeviceSupervision
         SettingDoh: SettingDoh
         SettingDohCustomServers: SettingDohCustomServers
         SettingDpi: SettingDpi
@@ -151,18 +153,19 @@ name-substitutions:
         SettingEtherLighting: SettingEtherLighting
         SettingEtherLightingNetworkOverrides: SettingEtherLightingNetworkOverrides
         SettingEtherLightingSpeedOverrides: SettingEtherLightingSpeedOverrides
-        SettingEvaluationScore: SettingEvaluationScore
         SettingGlobalAp: SettingGlobalAp
         SettingGlobalNat: SettingGlobalNat
         SettingGlobalSwitch: SettingGlobalSwitch
         SettingGlobalSwitchAclL3Isolation: SettingGlobalSwitchAclL3Isolation
         SettingGuestAccess: SettingGuestAccess
+        SettingIgmpSnooping: SettingIgmpSnooping
+        SettingIgmpSnoopingQuerierAddresses: SettingIgmpSnoopingQuerierAddresses
         SettingIps: SettingIps
-        SettingIpsAlerts: SettingIpsAlerts
         SettingIpsHoneypot: SettingIpsHoneypot
         SettingIpsSuppression: SettingIpsSuppression
-        SettingIpsTracking: SettingIpsTracking
-        SettingIpsWhitelist: SettingIpsWhitelist
+        SettingIpsSuppressionAlerts: SettingIpsSuppressionAlerts
+        SettingIpsSuppressionTracking: SettingIpsSuppressionTracking
+        SettingIpsSuppressionWhitelist: SettingIpsSuppressionWhitelist
         SettingLcm: SettingLcm
         SettingLocale: SettingLocale
         SettingMagicSiteToSiteVpn: SettingMagicSiteToSiteVpn
@@ -179,10 +182,10 @@ name-substitutions:
         SettingRadioAiChannelsBlacklist: SettingRadioAiChannelsBlacklist
         SettingRadioAiRadiosConfiguration: SettingRadioAiRadiosConfiguration
         SettingRadius: SettingRadius
-        SettingRoamingAssistant: SettingRoamingAssistant
         SettingRsyslogd: SettingRsyslogd
         SettingSnmp: SettingSnmp
         SettingSslInspection: SettingSslInspection
+        SettingSuperApplicationDegradation: SettingSuperApplicationDegradation
         SettingSuperCloudaccess: SettingSuperCloudaccess
         SettingSuperEvents: SettingSuperEvents
         SettingSuperFwupdate: SettingSuperFwupdate
@@ -192,21 +195,23 @@ name-substitutions:
         SettingSuperSdn: SettingSuperSdn
         SettingSuperSmtp: SettingSuperSmtp
         SettingTeleport: SettingTeleport
+        SettingTestAndCommit: SettingTestAndCommit
+        SettingTestAndCommitPages: SettingTestAndCommitPages
         SettingTrafficFlow: SettingTrafficFlow
         SettingUsg: SettingUsg
         SettingUsgDNSVerification: SettingUsgDNSVerification
+        SettingUsgGeo: SettingUsgGeo
+        SettingUsgGeoIPFiltering: SettingUsgGeoIPFiltering
         SettingUsw: SettingUsw
         SpatialRecord: SpatialRecord
         SpatialRecordDevices: SpatialRecordDevices
         SpatialRecordPosition: SpatialRecordPosition
-        Tag: Tag
         TrafficRoute: TrafficRoute
         TrafficRouteDomains: TrafficRouteDomains
         TrafficRouteIPAddresses: TrafficRouteIPAddresses
         TrafficRouteIPRanges: TrafficRouteIPRanges
         TrafficRoutePortRanges: TrafficRoutePortRanges
         TrafficRouteTargetDevices: TrafficRouteTargetDevices
-        VirtualDevice: VirtualDevice
         WLAN: WLAN
         WLANCapab: WLANCapab
         WLANCellularNetworkList: WLANCellularNetworkList
@@ -238,6 +243,7 @@ name-substitutions:
         adopted: Adopted
         advanced_feature_enabled: AdvancedFeatureEnabled
         advanced_filtering_preference: AdvancedFilteringPreference
+        advertise_device_name_in_beacon: AdvertiseDeviceNameInBeacon
         afc_enabled: AfcEnabled
         aggregate_members: AggregateMembers
         alert_enabled: AlertEnabled
@@ -261,13 +267,14 @@ name-substitutions:
         areas: Areas
         arp_cache_base_reachable: ArpCacheBaseReachable
         arp_cache_timeout: ArpCacheTimeout
-        assisted_roaming_enabled: AssistedRoamingEnabled
-        assisted_roaming_rssi: AssistedRoamingRssi
         atf_enabled: AtfEnabled
         attr_hidden: Hidden
         attr_hidden_id: HiddenID
         attr_no_delete: NoDelete
         attr_no_edit: NoEdit
+        audio_enabled: AudioEnabled
+        audio_info: AudioInfo
+        audio_mode: AudioMode
         auth: Auth
         auth_cache: AuthCache
         auth_ids: AuthIDs
@@ -283,13 +290,13 @@ name-substitutions:
         auto_channel_presets_type: AutoChannelPresetsType
         auto_engine_id_enabled: AutoEngineIDEnabled
         auto_scale_enabled: AutoScaleEnabled
+        auto_stp_edge_detection_enabled: AutoStpEdgeDetectionEnabled
+        auto_unknown_traffic_handling: AutoUnknownTrafficHandling
         auto_upgrade: AutoUpgrade
         auto_upgrade_hour: AutoUpgradeHour
         autobackup_cron_expr: AutobackupCronExpr
         autobackup_days: AutobackupDays
         autobackup_enabled: AutobackupEnabled
-        autobackup_gcs_bucket: AutobackupGcsBucket
-        autobackup_gcs_certificate_path: AutobackupGcsCertificatePath
         autobackup_local_path: AutobackupLocalPath
         autobackup_max_files: AutobackupMaxFiles
         autobackup_post_actions: AutobackupPostActions
@@ -303,6 +310,7 @@ name-substitutions:
         baresip_extension: BaresipExtension
         bc_filter_enabled: BroadcastFilterEnabled
         bc_filter_list: BroadcastFilterList
+        beep_enabled: BeepEnabled
         behavior: Behavior
         blocked: Blocked
         bonding_enabled: BondingEnabled
@@ -324,12 +332,16 @@ name-substitutions:
         client_mac: ClientMAC
         client_macs: ClientMACs
         client_psu_index: ClientPsuIndex
+        clock_mode: ClockMode
+        clock_source: ClockSource
         code: Code
+        color_format: ColorFormat
         comment: Comment
         community: Community
         config: Config
         config_network: ConfigNetwork
         configure_whole_network: ConfigureWholeNetwork
+        connected: Connected
         connection_state_type: ConnectionStateType
         connection_states: ConnectionStates
         consecutive_failures: ConsecutiveFailures
@@ -348,6 +360,7 @@ name-substitutions:
         controller_version: ControllerVersion
         cos_code: CosCode
         cost: Cost
+        countries: Countries
         country_beacon: CountryBeacon
         country_code: CountryCode
         create_allow_respond: CreateAllowRespond
@@ -355,11 +368,16 @@ name-substitutions:
         cron_expr: CronExpr
         currency: Currency
         current_apn: CurrentApn
+        custom_announce_interval: CustomAnnounceInterval
+        custom_announce_timeout: CustomAnnounceTimeout
+        custom_delay_req_interval: CustomDelayReqInterval
+        custom_domain: CustomDomain
         custom_ip: CustomIP
         custom_payment_fields_enabled: CustomPaymentFieldsEnabled
         custom_servers: CustomServers
         custom_service: CustomService
         custom_services: CustomServices
+        custom_sync_interval: CustomSyncInterval
         cycle_enabled: CycleEnabled
         data: Data
         data_hard_limit_bytes: DataHardLimitBytes
@@ -374,6 +392,8 @@ name-substitutions:
         data_soft_limit_display_unit: DataSoftLimitDisplayUnit
         data_warning_threshold: DataWarningThreshold
         date: Date
+        date_end: DateEnd
+        date_start: DateStart
         dcsp: Dcsp
         dead_interval: DeadInterval
         deauth_req_timeout: DeauthReqTimeout
@@ -382,6 +402,7 @@ name-substitutions:
         default: Default
         default_site_device_auth_password_alert: DefaultSiteDeviceAuthPasswordAlert
         default_zone: DefaultZone
+        delay_ns: DelayNs
         desc: Desc
         description: Description
         destination: Destination
@@ -393,6 +414,7 @@ name-substitutions:
         device_id: DeviceID
         device_mac: DeviceMAC
         device_macs: DeviceMACs
+        device_vlan_testing: DeviceVLANTesting
         devices: Devices
         dfs: Dfs
         dhcp_relay_agents_packets: DHCPRelayAgentsPackets
@@ -400,11 +422,6 @@ name-substitutions:
         dhcp_relay_hop_count: DHCPRelayHopCount
         dhcp_relay_max_size: DHCPRelayMaxSize
         dhcp_relay_port: DHCPRelayPort
-        dhcp_relay_server_1: DHCPRelayServer1
-        dhcp_relay_server_2: DHCPRelayServer2
-        dhcp_relay_server_3: DHCPRelayServer3
-        dhcp_relay_server_4: DHCPRelayServer4
-        dhcp_relay_server_5: DHCPRelayServer5
         dhcp_relay_servers: DHCPRelayServers
         dhcp_snoop: DHCPSnoop
         dhcpd_boot_enabled: DHCPDBootEnabled
@@ -457,8 +474,10 @@ name-substitutions:
         disable_dgaf: DisableDgaf
         disabled: Disabled
         discoverable: Discoverable
-        dismissed_ids: DismissedIDs
+        display: Display
         display_name: DisplayName
+        dns_assistance_mode: DNSAssistanceMode
+        dns_assistance_servers: DNSAssistanceServers
         dns_verification: DNSVerification
         dns1: DNS1
         dns2: DNS2
@@ -473,7 +492,6 @@ name-substitutions:
         dot1x_idle_timeout: Dot1XIDleTimeout
         dot1x_portctrl_enabled: Dot1XPortctrlEnabled
         download_kilobits_per_second: DownloadKilobitsPerSecond
-        download_speed: DownloadSpeed
         dpi_enabled: DPIEnabled
         dpiapp_ids: DPIappIDs
         dpigroup_id: DPIgroupID
@@ -490,8 +508,10 @@ name-substitutions:
         dtim_ng: DTIMNg
         duration_minutes: DurationMinutes
         eap_method: EapMethod
+        eav_bridge_role: EavBridgeRole
         ec_enabled: EcEnabled
         echo_server: EchoServer
+        eee_enabled: EeeEnabled
         egress_rate_limit_kbps: EgressRateLimitKbps
         egress_rate_limit_kbps_enabled: EgressRateLimitKbpsEnabled
         element_adopt: ElementAdopt
@@ -505,6 +525,7 @@ name-substitutions:
         encoding: Encoding
         engine_id: EngineID
         enhanced_iot: EnhancedIot
+        epo_enabled: EpoEnabled
         ether_lighting: EtherLighting
         ethernet_overrides: EthernetOverrides
         exclude: Exclude
@@ -520,11 +541,10 @@ name-substitutions:
         facebook_app_id: FacebookAppID
         facebook_enabled: FacebookEnabled
         facebook_scope_email: FacebookScopeEmail
-        facebook_wifi_block_https: FacebookWifiBlockHttps
-        facebook_wifi_gw_id: FacebookWifiGwID
-        facebook_wifi_gw_name: FacebookWifiGwName
+        failover_querier: FailoverQuerier
         fan_mode_override: FanModeOverride
         fast_roaming_enabled: FastRoamingEnabled
+        fastleave_for_network_ids: FastleaveForNetworkIDs
         fec_mode: FecMode
         filename: Filename
         filter_ids: FilterIDs
@@ -538,6 +558,7 @@ name-substitutions:
         fixed_ap_mac: FixedApMAC
         fixed_ip: FixedIP
         flood_known_protocols: FloodKnownProtocols
+        flood_unknown_multicast_for_network_ids: FloodUnknownMulticastForNetworkIDs
         flow_control_enabled: FlowControlEnabled
         flowctrl_enabled: FlowctrlEnabled
         forward: Forward
@@ -557,11 +578,8 @@ name-substitutions:
         gateway_type: GatewayType
         gateway_vrrp_mode: GatewayVrrpMode
         gateway_vrrp_priority: GatewayVrrpPriority
-        geo_ip_filtering_block: GeoIPFilteringBlock
-        geo_ip_filtering_countries: GeoIPFilteringCountries
-        geo_ip_filtering_enabled: GeoIPFilteringEnabled
-        geo_ip_filtering_traffic_direction: GeoIPFilteringTrafficDirection
         gid: Gid
+        global_supervision_enabled: GlobalSupervisionEnabled
         google_client_id: GoogleClientID
         google_domain: GoogleDomain
         google_enabled: GoogleEnabled
@@ -575,10 +593,10 @@ name-substitutions:
         h323_module: H323Module
         hard_noise_floor_enabled: HardNoiseFloorEnabled
         hardware_offload: HardwareOffload
+        hdmi_ports: HdmiPorts
         heartbeat_interval: HeartbeatInterval
-        heatmap_id: HeatmapID
+        heartbeat_interval_seconds: HeartbeatIntervalSeconds
         height: Height
-        heightInMeters: HeightInMeters
         hello_interval: HelloInterval
         hessid: Hessid
         hessid_used: HessidUsed
@@ -621,20 +639,26 @@ name-substitutions:
         in_interface: InInterface
         index: Index
         inform_ip: InformIP
+        input_thd_level: InputThdLevel
         interface: Interface
         interface_mtu: InterfaceMtu
         interface_mtu_enabled: InterfaceMtuEnabled
         interfaces: Interfaces
         interim_update_enabled: InterimUpdateEnabled
         interim_update_interval: InterimUpdateInterval
+        internet: Internet
         internet_access_enabled: InternetAccessEnabled
         invert_address: InvertAddress
         invert_port: InvertPort
+        iot_channel_lock: IotChannelLock
+        iot_dtim_lock: IotDTIMLock
         ip: IP
         ip_address: IPAddress
         ip_address_pool: IPAddressPool
         ip_addresses: IPAddresses
         ip_aliases: IPAliases
+        ip_filtering: IPFiltering
+        ip_group_id: IPGroupID
         ip_or_subnet: Address
         ip_precedence_code: IPPrecedenceCode
         ip_ranges: IPRanges
@@ -673,6 +697,9 @@ name-substitutions:
         ipsec_separate_ikev2_networks: IPSecSeparateIkev2Networks
         ipsec_tunnel_ip: IPSecTunnelIP
         ipsec_tunnel_ip_enabled: IPSecTunnelIPEnabled
+        ipv4: IPv4
+        ipv6: IPV6
+        ipv6_aliases: IPV6Aliases
         ipv6_client_address_assignment: IPV6ClientAddressAssignment
         ipv6_interface_type: IPV6InterfaceType
         ipv6_pd_auto_prefixid_enabled: IPV6PDAutoPrefixidEnabled
@@ -692,6 +719,7 @@ name-substitutions:
         is_nat: IsNAT
         is_predefined: IsPredefined
         is_public: IsPublic
+        is_wifi_tethering: IsWifiTethering
         isolation: Isolation
         isolation_enabled: IsolationEnabled
         jumboframe_enabled: JumboframeEnabled
@@ -701,9 +729,10 @@ name-substitutions:
         l2tp_interface: L2TpInterface
         l2tp_local_wan_ip: L2TpLocalWANIP
         l2_isolation: L2Isolation
+        l3_interface_type: L3InterfaceType
         language: Language
         last_seen: LastSeen
-        lat: Lat
+        latency: Latency
         layout_preference: LayoutPreference
         lcm_brightness: LcmBrightness
         lcm_brightness_override: LcmBrightnessOverride
@@ -713,8 +742,10 @@ name-substitutions:
         lcm_night_mode_ends: LcmNightModeEnds
         lcm_orientation_override: LcmOrientationOverride
         lcm_settings_restricted_access: LcmSettingsRestrictedAccess
+        lcm_status: LcmStatus
         lcm_tracker_enabled: LcmTrackerEnabled
         lcm_tracker_seed: LcmTrackerSeed
+        ld_status: LdStatus
         led_enabled: LedEnabled
         led_mode: LedMode
         led_override: LedOverride
@@ -724,22 +755,26 @@ name-substitutions:
         limit_overwrite: LimitOverwrite
         limit_quota: LimitQuota
         limit_up: LimitUp
+        link_debounce: LinkDebounce
+        link_debounce_auto: LinkDebounceAuto
         live_chat: LiveChat
-        live_updates: LiveUpdates
         lldp_enable_all: LldpEnableAll
         lldpmed_enabled: LldpmedEnabled
         lldpmed_notify_enabled: LldpmedNotifyEnabled
-        lng: Lng
         loadbalance_enabled: LoadbalanceEnabled
         local_dns_record: LocalDNSRecord
         local_dns_record_enabled: LocalDNSRecordEnabled
         local_port: LocalPort
+        local_vpn_networkconf_ids: LocalVPNNetworkIDs
+        local_vpn_subnets: LocalVPNSubnets
+        local_vpn_subnets_mode: LocalVPNSubnetsMode
         locked: Locked
         log: Log
         log_all_contents: LogAllContents
         log_level: LogLevel
         logging: Logging
         login: Login
+        loopback_override: LoopbackOverride
         low: Low
         lowpfmode_override: LowpfmodeOverride
         lte_apn: LteApn
@@ -761,8 +796,6 @@ name-substitutions:
         mac_filter_policy: MACFilterPolicy
         mac_override: MACOverride
         mac_override_enabled: MACOverrideEnabled
-        map_id: MapID
-        mapTypeId: MapTypeID
         match_ip_sec: MatchIPSec
         match_mac: MatchMAC
         match_opposite_ips: MatchOppositeIPs
@@ -783,6 +816,7 @@ name-substitutions:
         members: Members
         memory_optimized: MemoryOptimized
         merchantwarrior_use_sandbox: MerchantwarriorUseSandbox
+        mesh_mlo_enabled: MeshMloEnabled
         mesh_sta_vap_enabled: MeshStaVapEnabled
         method_oma_dm: MethodOmaDm
         method_soap_xml_spp: MethodSoapXmlSpp
@@ -815,14 +849,19 @@ name-substitutions:
         minrate_setting_preference: MinrateSettingPreference
         mirror_port_idx: MirrorPortIDX
         mlo_enabled: MloEnabled
+        mlo_mesh_enabled: MloMeshEnabled
         mnc: Mnc
         mode: Mode
         model: Model
         module_id: ModuleID
         modules: Modules
         mss_clamp: MssClamp
+        mss_clamp_ipv6: MssClampIPV6
         mss_clamp_mss: MssClampMss
+        mss_clamp_mss_ipv6: MssClampMssIPV6
+        multicast_router_mode: MulticastRouterMode
         multicast_router_networkconf_ids: MulticastRouterNetworkIDs
+        multicast_suppressor_mode: MulticastSuppressorMode
         multiple_sites_enabled: MultipleSitesEnabled
         na_channel_size: NaChannelSize
         na_tx_power: NaTxPower
@@ -853,6 +892,7 @@ name-substitutions:
         network_isolation_enabled: NetworkIsolationEnabled
         network_members_group_ids: NetworkMembersGroupIDs
         network_overrides: NetworkOverrides
+        network_settings: NetworkSettings
         network_type: NetworkType
         networkconf_id: NetworkID
         networkconf_ids: NetworkIDs
@@ -871,11 +911,10 @@ name-substitutions:
         offload_accounting: OffloadAccounting
         offload_l2_blocking: OffloadL2Blocking
         offload_sch: OffloadSch
-        offset_left: OffsetLeft
-        offset_top: OffsetTop
         oid: Oid
+        oob_port_config: OobPortConfig
         op_mode: OpMode
-        opacity: Opacity
+        openvpn_compression_disabled: OpenVPNCompressionDisabled
         openvpn_configuration: OpenVPNConfiguration
         openvpn_configuration_filename: OpenVPNConfigurationFilename
         openvpn_encryption_cipher: OpenVPNEncryptionCipher
@@ -903,11 +942,15 @@ name-substitutions:
         outlet_enabled: OutletEnabled
         outlet_overrides: OutletOverrides
         outlet_power_cycle_enabled: OutletPowerCycleEnabled
+        outlet_power_cycle_on_ac_recovery_enabled: OutletPowerCycleOnAcRecoveryEnabled
+        outlet_power_cycle_on_ac_recovery_seconds: OutletPowerCycleOnAcRecoverySeconds
+        outlet_power_cycle_on_internet_loss_seconds: OutletPowerCycleOnInternetLossSeconds
         override_inform_host: OverrideInformHost
         override_inform_host_location: OverrideInformHostLocation
         p2p: P2P
         p2p_cross_connect: P2PCrossConnect
         package_url: PackageUrl
+        pages: Pages
         passive_interface: PassiveInterface
         password: Password
         password_enabled: PasswordEnabled
@@ -935,9 +978,11 @@ name-substitutions:
         pmf_cipher: PMFCipher
         pmf_mode: PMFMode
         poe_mode: PoeMode
+        poe_staging_delay_msec: PoeStagingDelayMsec
         port: Port
         port_group_id: PortGroupID
         port_idx: PortIDX
+        port_index: PortIndex
         port_keepalive_enabled: PortKeepaliveEnabled
         port_matching_type: PortMatchingType
         port_mode: PortMode
@@ -987,6 +1032,7 @@ name-substitutions:
         position: Position
         power_management_mode: PowerManagementMode
         power_off_duration: PowerOffDuration
+        power_off_duration_seconds: PowerOffDurationSeconds
         power_source_ctrl: PowerSourceCtrl
         power_source_ctrl_budget: PowerSourceCtrlBudget
         power_source_ctrl_enabled: PowerSourceCtrlEnabled
@@ -1000,17 +1046,23 @@ name-substitutions:
         pptpc_route_distance: PptpcRouteDistance
         pptpc_server_ip: PptpcServerIP
         pptpc_username: PptpcUsername
+        precision_time_protocol_config: PrecisionTimeProtocolConfig
+        precision_time_protocol_enabled: PrecisionTimeProtocolEnabled
         predefined: Predefined
         predefined_services: PredefinedServices
         primary_dns_server: PrimaryDNSServer
+        primary_querier: PrimaryQuerier
         primary_slot: PrimarySlot
         priority: Priority
         priority_queue1_level: PriorityQueue1Level
         priority_queue2_level: PriorityQueue2Level
         priority_queue3_level: PriorityQueue3Level
         priority_queue4_level: PriorityQueue4Level
+        priority1: Priority1
+        priority2: Priority2
         private_preshared_keys: PrivatePresharedKeys
         private_preshared_keys_enabled: PrivatePresharedKeysEnabled
+        profile: Profile
         proto: Proto
         protocol: Protocol
         protocol_match_excepted: ProtocolMatchExcepted
@@ -1032,6 +1084,11 @@ name-substitutions:
         qos_rate_max_down: QOSRateMaxDown
         qos_rate_max_up: QOSRateMaxUp
         querier_address: QuerierAddress
+        querier_addresses: QuerierAddresses
+        querier_mode: QuerierMode
+        querier_subscription_mode: QuerierSubscriptionMode
+        querier_switches: QuerierSwitches
+        query_interval: QueryInterval
         queue: Queue
         quickpay_testmode: QuickpayTestmode
         radio: Radio
@@ -1073,6 +1130,7 @@ name-substitutions:
         reset_date: ResetDate
         reset_policy: ResetPolicy
         resetbtn_enabled: ResetbtnEnabled
+        resolution: Resolution
         restrict_torrents: RestrictTorrents
         restricted_dns_enabled: RestrictedDNSEnabled
         restricted_dns_servers: RestrictedDNSServers
@@ -1080,13 +1138,20 @@ name-substitutions:
         restrictions: Restrictions
         roam_cluster_id: RoamClusterID
         roaming: Roaming
+        roaming_assistant_6e_enabled: RoamingAssistant6EEnabled
+        roaming_assistant_6e_rssi: RoamingAssistant6ERssi
+        roaming_assistant_na_enabled: RoamingAssistantNaEnabled
+        roaming_assistant_na_rssi: RoamingAssistantNaRssi
         roaming_consortium_list: RoamingConsortiumList
+        role: Role
         route_distance: RouteDistance
+        routed_lag_idx: RoutedLagIDX
+        routed_networkconf_id: RoutedNetworkID
+        routed_port_idx: RoutedPortIDX
         router_id: RouterID
         rps_override: RpsOverride
         rps_port_table: RpsPortTable
         rrm_enabled: RrmEnabled
-        rssi: Rssi
         rule_index: RuleIndex
         ruleset: Ruleset
         sae_anti_clogging: SaeAntiClogging
@@ -1101,11 +1166,13 @@ name-substitutions:
         schedule_enabled: ScheduleEnabled
         schedule_reversed: ScheduleReversed
         schedule_with_duration: ScheduleWithDuration
+        sd_wan_underlay_port: SdWANUnderlayPort
+        sd_wan_underlay_port_networkconf_id: SdWANUnderlayPortNetworkID
         sdns_stamp: SdnsStamp
         sdwan_remote_site_id: SdwanRemoteSiteID
+        sdwan_underlay: SdwanUnderlay
         secondary_dns_server: SecondaryDNSServer
         security: Security
-        selected: Selected
         send_redirects: SendRedirects
         sender: Sender
         sens_level: SensLevel
@@ -1121,12 +1188,14 @@ name-substitutions:
         signature: Signature
         signed: Signed
         silence_threshold: SilenceThreshold
+        silence_threshold_seconds: SilenceThresholdSeconds
         sim: Sim
         single_network_lan: SingleNetworkLan
         sip_module: SipModule
         site_id: SiteID
         size: Size
         slot: Slot
+        sma_port_config: SmaPortConfig
         snmp_contact: SnmpContact
         snmp_location: SnmpLocation
         sound_after_enabled: SoundAfterEnabled
@@ -1140,6 +1209,7 @@ name-substitutions:
         source_network: SourceNetwork
         speed: Speed
         speed_overrides: SpeedOverrides
+        speed_test_mode: SpeedTestMode
         src: Src
         src_address: SrcAddress
         src_address_ipv6: SrcAddressIPV6
@@ -1153,6 +1223,7 @@ name-substitutions:
         src_port: SrcPort
         sso_enabled: SsoEnabled
         sso_login_enabled: SsoLoginEnabled
+        stable_port_enabled: StablePortEnabled
         start_days_of_week: StartDaysOfWeek
         start_hour: StartHour
         start_minute: StartMinute
@@ -1179,14 +1250,18 @@ name-substitutions:
         stormctrl_ucast_enabled: StormctrlUcastEnabled
         stormctrl_ucast_level: StormctrlUcastLevel
         stormctrl_ucast_rate: StormctrlUcastRate
+        stp_bpdu_guard_enabled: StpBpduGuardEnabled
+        stp_edge_state: StpEdgeState
         stp_port_mode: StpPortMode
         stp_priority: StpPriority
+        stp_uplink: StpUplink
         stp_version: StpVersion
         subnet_cidr: SubnetCidr
-        suppression: Suppression
+        subscription_mode: SubscriptionMode
         switch_exclusions: SwitchExclusions
         switch_mac: SwitchMAC
         switch_vlan_enabled: SwitchVLANEnabled
+        switches: Switches
         syn_cookies: SynCookies
         sync: Sync
         t_c_filename: TCFilename
@@ -1203,12 +1278,10 @@ name-substitutions:
         tcp_syn_sent_timeout: TCPSynSentTimeout
         tcp_time_wait_timeout: TCPTimeWaitTimeout
         tdls_prohibit: TdlsProhibit
-        template_engine: TemplateEngine
         text: Text
         tftp_module: TFTPModule
         this_controller: ThisController
         this_controller_encrypted_only: ThisControllerEncryptedOnly
-        tilt: Tilt
         time_all_day: TimeAllDay
         time_range_end: TimeRangeEnd
         time_range_start: TimeRangeStart
@@ -1218,13 +1291,22 @@ name-substitutions:
         tls_enabled: TlsEnabled
         touch_event: TouchEvent
         tracking: Tracking
+        traffic_direction: TrafficDirection
+        transport_type: TransportType
         trial_duration_minutes: TrialDurationMinutes
         trial_reset: TrialReset
+        trusted_port_mac: TrustedPortMAC
         ttl: Ttl
         tunnel_config_type: TunnelConfigType
         tunnel_medium_type: TunnelMediumType
         tunnel_type: TunnelType
         tunneled_reply: TunneledReply
+        tvwall_end_x: TvwallEndX
+        tvwall_end_y: TvwallEndY
+        tvwall_layout_x: TvwallLayoutX
+        tvwall_layout_y: TvwallLayoutY
+        tvwall_start_x: TvwallStartX
+        tvwall_start_y: TvwallStartY
         tx_power: TxPower
         tx_power_mode: TxPowerMode
         type: Type
@@ -1251,20 +1333,24 @@ name-substitutions:
         unifi_device_management_enabled: UnifiDeviceManagementEnabled
         unifi_idp_enabled: UniFiIdentityProviderEnabled
         unifi_services_enabled: UnifiServicesEnabled
-        unit: Unit
+        unit_id: UnitID
         up: Up
+        update_interval_seconds: UpdateIntervalSeconds
         upgrade_targets: UpgradeTargets
+        uplink_band: UplinkBand
         uplink_host: UplinkHost
+        uplink_identity: UplinkIDentity
+        uplink_security: UplinkSecurity
+        uplink_ssid: UplinkSSID
         uplink_type: UplinkType
         upload_kilobits_per_second: UploadKilobitsPerSecond
-        upload_speed: UploadSpeed
         uploaded_file_name: UploadedFileName
         upnp_enabled: UPnPEnabled
         upnp_lan_enabled: UPnPLanEnabled
         upnp_nat_pmp_enabled: UPnPNatPMPEnabled
         upnp_secure_mode: UPnPSecureMode
         upnp_wan_interface: UPnPWANInterface
-        upp: Upp
+        ups_shutdown_remaining_minutes: UpsShutdownRemainingMinutes
         url: Url
         use_auth: UseAuth
         use_custom_apn: UseCustomApn
@@ -1277,10 +1363,12 @@ name-substitutions:
         usergroup_id: UserGroupID
         username: Username
         value: Value
+        vbms_override: VbmsOverride
         venue_group: VenueGroup
         venue_name: VenueName
         venue_type: VenueType
         version: Version
+        video_info: VideoInfo
         virtual_network_override_enabled: VirtualNetworkOverrideEnabled
         virtual_network_override_id: VirtualNetworkOverrideID
         vlan: VLAN
@@ -1290,6 +1378,8 @@ name-substitutions:
         volume: Volume
         voucher_customized: VoucherCustomized
         voucher_enabled: VoucherEnabled
+        vpn: VPN
+        vpn_binding_mode: VPNBindingMode
         vpn_client_configuration_remote_ip_override: VPNClientConfigurationRemoteIPOverride
         vpn_client_configuration_remote_ip_override_enabled: VPNClientConfigurationRemoteIPOverrideEnabled
         vpn_client_default_route: VPNClientDefaultRoute
@@ -1324,12 +1414,14 @@ name-substitutions:
         wan_ipv6_dns_preference: WANIPV6DNSPreference
         wan_ipv6_dns1: WANIPV6DNS1
         wan_ipv6_dns2: WANIPV6DNS2
+        wan_list: WANList
         wan_load_balance_type: WANLoadBalanceType
         wan_load_balance_weight: WANLoadBalanceWeight
         wan_netmask: WANNetmask
         wan_network_group: WANNetworkGroup
         wan_networkgroup: WANNetworkGroup
         wan_pppoe_password_enabled: WANPppoePasswordEnabled
+        wan_pppoe_rfc4638_enabled: WANPppoeRfc4638Enabled
         wan_pppoe_username_enabled: WANPppoeUsernameEnabled
         wan_prefixlen: WANPrefixlen
         wan_provider_capabilities: WANProviderCapabilities
@@ -1393,7 +1485,6 @@ name-substitutions:
         x_element_essid: ElementEssid
         x_element_psk: ElementPsk
         x_facebook_app_secret: FacebookAppSecret
-        x_facebook_wifi_gw_secret: FacebookWifiGwSecret
         x_google_client_secret: GoogleClientSecret
         x_iapp_key: IappKey
         x_ippay_terminalid: IPpayTerminalid
@@ -1430,6 +1521,7 @@ name-substitutions:
         x_ssh_sha512passwd: SSHSha512Passwd
         x_ssh_username: SSHUsername
         x_stripe_api_key: StripeApiKey
+        x_uplink_password: UplinkPassword
         x_wan_password: WANPassword
         x_wechat_app_secret: WechatAppSecret
         x_wechat_secret_key: WechatSecretKey
@@ -1439,4 +1531,3 @@ name-substitutions:
         z: Z
         zone_id: ZoneID
         zone_key: ZoneKey
-        zoom: Zoom

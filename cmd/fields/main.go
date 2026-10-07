@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"net/url"
@@ -327,47 +326,8 @@ func main() {
 
 	assetsDir := filepath.Join(wd, *assetsDirFlag)
 
-	fieldsInfo, err := os.Stat(fieldsDir)
-	if err != nil {
-		if !errors.Is(err, os.ErrNotExist) {
-			panic(err)
-		}
-
-		err = os.MkdirAll(fieldsDir, 0o755)
-		if err != nil {
-			panic(err)
-		}
-
-		// download fields, create
-		jarFile, err := downloadJar(unifiDownloadUrl, fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		err = extractJSON(jarFile, fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		// defer func() {
-		// 	err = os.RemoveAll(fieldsDir)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// }()
-
-		err = copyCustom(fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		fieldsInfo, err = os.Stat(fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-	}
-	if !fieldsInfo.IsDir() {
-		panic("version info isn't a directory")
+	if err := DownloadAndExtract(unifiDownloadUrl, fieldsDir); err != nil {
+		panic(err)
 	}
 
 	if *downloadOnly {
@@ -662,9 +622,27 @@ func (r *ResourceInfo) CleanStructName() string {
 
 func (r *ResourceInfo) processFields(fields map[string]any) {
 	t := r.Types[r.StructName]
+
+	// Fields added by hand in NewResource exist for controllers whose
+	// definitions predate them and carry their go-unifi names. Once a
+	// controller ships the same property natively (10.6 added
+	// wireguard_interface_binding_mode_ip_version and upnp_nat_pmp_enabled),
+	// the derived name can differ, and emitting both would duplicate the JSON
+	// property in the spec. The hand-added field wins.
+	byJSONName := make(map[string]string, len(t.Fields))
+	for key, f := range t.Fields {
+		if f != nil {
+			byJSONName[f.JSONName] = key
+		}
+	}
+
 	for name, validation := range fields {
 		fieldInfo, err := r.fieldInfoFromValidation(name, validation)
 		if err != nil {
+			continue
+		}
+
+		if key, ok := byJSONName[fieldInfo.JSONName]; ok && key != fieldInfo.FieldName {
 			continue
 		}
 

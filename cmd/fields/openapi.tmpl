@@ -23,7 +23,9 @@ servers:
         default: "8443"
 security:
   - apiKeyAuth: []
-  - cookieAuth: []
+  - tokenCookieAuth: []
+    csrfTokenAuth: []
+  - unifisesCookieAuth: []
 tags:
 {{- range .Tags }}
   - name: {{ .Name }}
@@ -229,11 +231,28 @@ components:
       in: header
       name: X-API-KEY
       description: UniFi API key sent in the X-API-KEY header.
-    cookieAuth:
+    tokenCookieAuth:
       type: apiKey
       in: cookie
       name: TOKEN
-      description: Session cookie obtained from POST /api/login (or /api/auth/login).
+      description: >-
+        Session cookie set by POST /api/auth/login on UniFi OS controllers.
+        Must be paired with csrfTokenAuth.
+    csrfTokenAuth:
+      type: apiKey
+      in: header
+      name: X-Csrf-Token
+      description: >-
+        CSRF token obtained from the X-Csrf-Token response header after
+        POST /api/auth/login. Rotated on each response via X-Updated-Csrf-Token.
+        Required alongside tokenCookieAuth for UniFi OS controllers.
+    unifisesCookieAuth:
+      type: apiKey
+      in: cookie
+      name: unifises
+      description: >-
+        Session cookie set by POST /api/login on standalone Network Application
+        controllers (pre-UniFi OS). No CSRF token is required.
   parameters:
     Site:
       name: site
