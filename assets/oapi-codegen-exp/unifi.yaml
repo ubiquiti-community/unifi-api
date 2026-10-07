@@ -5,6 +5,7 @@ generation:
     client: true
 output-options:
     include-tags:
+        - APGroup
         - Account
         - BGPConfig
         - BroadcastGroup
@@ -28,9 +29,11 @@ output-options:
         - MediaFile
         - Nat
         - Network
+        - NetworkMembersGroup
         - OSPFRouter
         - PortForward
         - PortProfile
+        - PowerSupervisor
         - RADIUSProfile
         - Routing
         - ScheduleTask
@@ -40,6 +43,7 @@ output-options:
         - WLANGroup
 name-substitutions:
     type-names:
+        APGroup: APGroup
         Account: Account
         BGPConfig: BGPConfig
         BroadcastGroup: BroadcastGroup
@@ -109,6 +113,7 @@ name-substitutions:
         NatSourceFilter: NatSourceFilter
         Network: Network
         NetworkIGMPQuerierSwitches: NetworkIGMPQuerierSwitches
+        NetworkMembersGroup: NetworkMembersGroup
         NetworkNATOutboundIPAddresses: NetworkNATOutboundIPAddresses
         NetworkWANDHCPOptions: NetworkWANDHCPOptions
         NetworkWANDHCPv6Options: NetworkWANDHCPv6Options
@@ -123,6 +128,9 @@ name-substitutions:
         PortProfileQOSMatching: PortProfileQOSMatching
         PortProfileQOSPolicies: PortProfileQOSPolicies
         PortProfileQOSProfile: PortProfileQOSProfile
+        PowerSupervisor: PowerSupervisor
+        PowerSupervisorPowerSources: PowerSupervisorPowerSources
+        PowerSupervisorSettings: PowerSupervisorSettings
         RADIUSProfile: RADIUSProfile
         RADIUSProfileAcctServers: RADIUSProfileAcctServers
         RADIUSProfileAuthServers: RADIUSProfileAuthServers
@@ -323,6 +331,7 @@ name-substitutions:
         charged_as: ChargedAs
         client_mac: ClientMAC
         client_macs: ClientMACs
+        client_psu_index: ClientPsuIndex
         clock_mode: ClockMode
         clock_source: ClockSource
         code: Code
@@ -335,6 +344,7 @@ name-substitutions:
         connected: Connected
         connection_state_type: ConnectionStateType
         connection_states: ConnectionStates
+        consecutive_failures: ConsecutiveFailures
         contact_info_city: ContactInfoCity
         contact_info_company_name: ContactInfoCompanyName
         contact_info_country: ContactInfoCountry
@@ -403,6 +413,7 @@ name-substitutions:
         device_auth: DeviceAuth
         device_id: DeviceID
         device_mac: DeviceMAC
+        device_macs: DeviceMACs
         device_vlan_testing: DeviceVLANTesting
         devices: Devices
         dfs: Dfs
@@ -583,6 +594,7 @@ name-substitutions:
         hard_noise_floor_enabled: HardNoiseFloorEnabled
         hardware_offload: HardwareOffload
         hdmi_ports: HdmiPorts
+        heartbeat_interval: HeartbeatInterval
         heartbeat_interval_seconds: HeartbeatIntervalSeconds
         height: Height
         hello_interval: HelloInterval
@@ -730,8 +742,10 @@ name-substitutions:
         lcm_night_mode_ends: LcmNightModeEnds
         lcm_orientation_override: LcmOrientationOverride
         lcm_settings_restricted_access: LcmSettingsRestrictedAccess
+        lcm_status: LcmStatus
         lcm_tracker_enabled: LcmTrackerEnabled
         lcm_tracker_seed: LcmTrackerSeed
+        ld_status: LdStatus
         led_enabled: LedEnabled
         led_mode: LedMode
         led_override: LedOverride
@@ -799,6 +813,7 @@ name-substitutions:
         mdns_proxy_mode: MdnsProxyMode
         media: Media
         member_table: MemberTable
+        members: Members
         memory_optimized: MemoryOptimized
         merchantwarrior_use_sandbox: MerchantwarriorUseSandbox
         mesh_mlo_enabled: MeshMloEnabled
@@ -846,6 +861,7 @@ name-substitutions:
         mss_clamp_mss_ipv6: MssClampMssIPV6
         multicast_router_mode: MulticastRouterMode
         multicast_router_networkconf_ids: MulticastRouterNetworkIDs
+        multicast_suppressor_mode: MulticastSuppressorMode
         multiple_sites_enabled: MultipleSitesEnabled
         na_channel_size: NaChannelSize
         na_tx_power: NaTxPower
@@ -898,6 +914,7 @@ name-substitutions:
         oid: Oid
         oob_port_config: OobPortConfig
         op_mode: OpMode
+        openvpn_compression_disabled: OpenVPNCompressionDisabled
         openvpn_configuration: OpenVPNConfiguration
         openvpn_configuration_filename: OpenVPNConfigurationFilename
         openvpn_encryption_cipher: OpenVPNEncryptionCipher
@@ -1014,10 +1031,15 @@ name-substitutions:
         ports: Ports
         position: Position
         power_management_mode: PowerManagementMode
+        power_off_duration: PowerOffDuration
         power_off_duration_seconds: PowerOffDurationSeconds
         power_source_ctrl: PowerSourceCtrl
         power_source_ctrl_budget: PowerSourceCtrlBudget
         power_source_ctrl_enabled: PowerSourceCtrlEnabled
+        power_source_index: PowerSourceIndex
+        power_source_mac: PowerSourceMAC
+        power_source_type: PowerSourceType
+        power_sources: PowerSources
         pppoe_use_base_interface: PppoeUseBaseInterface
         pptp_module: PptpModule
         pptpc_require_mppe: PptpcRequireMppe
@@ -1162,8 +1184,10 @@ name-substitutions:
         service: Service
         services_mode: ServicesMode
         setting_preference: SettingPreference
+        settings: Settings
         signature: Signature
         signed: Signed
+        silence_threshold: SilenceThreshold
         silence_threshold_seconds: SilenceThresholdSeconds
         sim: Sim
         single_network_lan: SingleNetworkLan
@@ -1185,6 +1209,7 @@ name-substitutions:
         source_network: SourceNetwork
         speed: Speed
         speed_overrides: SpeedOverrides
+        speed_test_mode: SpeedTestMode
         src: Src
         src_address: SrcAddress
         src_address_ipv6: SrcAddressIPV6
@@ -1270,6 +1295,7 @@ name-substitutions:
         transport_type: TransportType
         trial_duration_minutes: TrialDurationMinutes
         trial_reset: TrialReset
+        trusted_port_mac: TrustedPortMAC
         ttl: Ttl
         tunnel_config_type: TunnelConfigType
         tunnel_medium_type: TunnelMediumType
@@ -1388,6 +1414,7 @@ name-substitutions:
         wan_ipv6_dns_preference: WANIPV6DNSPreference
         wan_ipv6_dns1: WANIPV6DNS1
         wan_ipv6_dns2: WANIPV6DNS2
+        wan_list: WANList
         wan_load_balance_type: WANLoadBalanceType
         wan_load_balance_weight: WANLoadBalanceWeight
         wan_netmask: WANNetmask
@@ -1426,7 +1453,7 @@ name-substitutions:
         wireguard_client_preshared_key: WireguardClientPresharedKey
         wireguard_client_preshared_key_enabled: WireguardClientPresharedKeyEnabled
         wireguard_interface: WireguardInterface
-        wireguard_interface_binding_mode_ip_version: WireguardInterfaceBindingModeVersion
+        wireguard_interface_binding_mode_ip_version: WireguardInterfaceBindingModeIPVersion
         wireguard_local_wan_ip: WireguardLocalWANIP
         wireguard_public_key: WireguardPublicKey
         wlan_band: WLANBand

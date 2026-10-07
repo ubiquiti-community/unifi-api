@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: UniFi Network Application API
-  version: 10.5.67
+  version: 10.6.106
   description: >-
     Auto-generated from the UniFi controller (ace.jar) field-validation
     definitions. Component schemas are derived directly from the same field
@@ -27,6 +27,11 @@ security:
     csrfTokenAuth: []
   - unifisesCookieAuth: []
 tags:
+  - name: APGroup
+    description: "Manage UniFi AP Group objects (wireless) via the controller API."
+    x-displayName: "AP Group"
+    x-kind: wireless
+    x-parent: Device
   - name: Account
     description: "Manage UniFi Account objects (clients) via the controller API."
     x-displayName: "Account"
@@ -120,6 +125,10 @@ tags:
     description: "Manage UniFi Network objects (network) via the controller API."
     x-displayName: "Network"
     x-kind: network
+  - name: NetworkMembersGroup
+    description: "Manage UniFi Network Members Group objects (network) via the controller API."
+    x-displayName: "Network Members Group"
+    x-kind: network
   - name: OSPFRouter
     description: "Manage UniFi OSPF Router objects (routing) via the controller API."
     x-displayName: "OSPF Router"
@@ -132,6 +141,10 @@ tags:
     description: "Manage UniFi Port Profile objects (devices) via the controller API."
     x-displayName: "Port Profile"
     x-kind: devices
+  - name: PowerSupervisor
+    description: "Manage UniFi Power Supervisor objects (resource) via the controller API."
+    x-displayName: "Power Supervisor"
+    x-kind: resource
   - name: RADIUSProfile
     description: "Manage UniFi RADIUS Profile objects (security) via the controller API."
     x-displayName: "RADIUS Profile"
@@ -350,6 +363,88 @@ tags:
     x-kind: wireless
     x-parent: WLAN
 paths:
+  /v2/api/site/{site}/apgroups:
+    get:
+      tags: [APGroup]
+      summary: List APGroup
+      operationId: listAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of APGroup objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/APGroup'
+    post:
+      tags: [APGroup]
+      summary: Create APGroup
+      operationId: createAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APGroup'
+      responses:
+        '200':
+          description: The created APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+  /v2/api/site/{site}/apgroups/{id}:
+    get:
+      tags: [APGroup]
+      summary: Get APGroup by id
+      operationId: getAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+        '404':
+          description: Not found.
+    put:
+      tags: [APGroup]
+      summary: Update APGroup
+      operationId: updateAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APGroup'
+      responses:
+        '200':
+          description: The updated APGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APGroup'
+    delete:
+      tags: [APGroup]
+      summary: Delete APGroup
+      operationId: deleteAPGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
   /api/s/{site}/rest/account:
     get:
       tags: [Account]
@@ -2559,6 +2654,88 @@ paths:
       responses:
         '200':
           description: Deleted.
+  /v2/api/site/{site}/network-members-groups:
+    get:
+      tags: [NetworkMembersGroup]
+      summary: List NetworkMembersGroup
+      operationId: listNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of NetworkMembersGroup objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NetworkMembersGroup'
+    post:
+      tags: [NetworkMembersGroup]
+      summary: Create NetworkMembersGroup
+      operationId: createNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkMembersGroup'
+      responses:
+        '200':
+          description: The created NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+  /v2/api/site/{site}/network-members-group/{id}:
+    get:
+      tags: [NetworkMembersGroup]
+      summary: Get NetworkMembersGroup by id
+      operationId: getNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+        '404':
+          description: Not found.
+    put:
+      tags: [NetworkMembersGroup]
+      summary: Update NetworkMembersGroup
+      operationId: updateNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkMembersGroup'
+      responses:
+        '200':
+          description: The updated NetworkMembersGroup.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkMembersGroup'
+    delete:
+      tags: [NetworkMembersGroup]
+      summary: Delete NetworkMembersGroup
+      operationId: deleteNetworkMembersGroup
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
   /v2/api/site/{site}/ospf/router:
     get:
       tags: [OSPFRouter]
@@ -2851,6 +3028,88 @@ paths:
       tags: [PortProfile]
       summary: Delete PortProfile
       operationId: deletePortProfile
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Deleted.
+  /v2/api/site/{site}/power-supervisors:
+    get:
+      tags: [PowerSupervisor]
+      summary: List PowerSupervisor
+      operationId: listPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      responses:
+        '200':
+          description: A list of PowerSupervisor objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PowerSupervisor'
+    post:
+      tags: [PowerSupervisor]
+      summary: Create PowerSupervisor
+      operationId: createPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PowerSupervisor'
+      responses:
+        '200':
+          description: The created PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+  /v2/api/site/{site}/power-supervisors/{id}:
+    get:
+      tags: [PowerSupervisor]
+      summary: Get PowerSupervisor by id
+      operationId: getPowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: The requested PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+        '404':
+          description: Not found.
+    put:
+      tags: [PowerSupervisor]
+      summary: Update PowerSupervisor
+      operationId: updatePowerSupervisor
+      parameters:
+        - $ref: '#/components/parameters/Site'
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PowerSupervisor'
+      responses:
+        '200':
+          description: The updated PowerSupervisor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PowerSupervisor'
+    delete:
+      tags: [PowerSupervisor]
+      summary: Delete PowerSupervisor
+      operationId: deletePowerSupervisor
       parameters:
         - $ref: '#/components/parameters/Site'
         - $ref: '#/components/parameters/Id'
@@ -5908,6 +6167,27 @@ components:
       type: object
       description: Per-port runtime state reported by a device (loose schema).
       additionalProperties: true
+    APGroup:
+      type: object
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        device_macs:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
     Account:
       type: object
       properties:
@@ -6362,6 +6642,8 @@ components:
           description: "0|90|180|270"
         lcm_settings_restricted_access:
           type: boolean
+        lcm_status:
+          type: boolean
         lcm_tracker_enabled:
           type: boolean
         lcm_tracker_seed:
@@ -6775,6 +7057,8 @@ components:
           type: boolean
         isolation:
           type: boolean
+        ld_status:
+          type: boolean
         link_debounce:
           type: [integer, "null"]
           format: int64
@@ -6909,6 +7193,9 @@ components:
         tagged_vlan_mgmt:
           type: string
           description: "auto|block_all|custom"
+        trusted_port_mac:
+          type: string
+          description: "(^$|^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$)"
         unit_id:
           type: [integer, "null"]
           format: int64
@@ -8231,7 +8518,7 @@ components:
           description: "[1-9][0-9]{0,4}"
     Network:
       type: object
-      required: [auto_scale_enabled, dhcp_relay_enabled, dhcpd_boot_enabled, dhcpd_boot_server, dhcpd_conflict_checking, dhcpd_dns_3, dhcpd_dns_4, dhcpd_dns_enabled, dhcpd_enabled, dhcpd_gateway_enabled, dhcpd_ip_1, dhcpd_ip_2, dhcpd_ip_3, dhcpd_mac_1, dhcpd_mac_2, dhcpd_mac_3, dhcpd_ntp_enabled, dhcpd_time_offset_enabled, dhcpd_wins_enabled, dhcpdv6_allow_slaac, dhcpdv6_dns_auto, dhcpdv6_enabled, dhcpguard_enabled, dpi_enabled, dpigroup_id, enabled, exposed_to_site_vpn, gateway_device, igmp_fastleave, igmp_flood_unknown_multicast, igmp_proxy_upstream, igmp_snooping, igmp_supression, interface_mtu_enabled, internet_access_enabled, ipsec_dynamic_routing, ipsec_local_identifier_enabled, ipsec_pfs, ipsec_remote_identifier_enabled, ipsec_separate_ikev2_networks, ipsec_tunnel_ip_enabled, ipv6_pd_auto_prefixid_enabled, ipv6_pd_prefixid, ipv6_ra_enabled, is_nat, is_wifi_tethering, l2tp_allow_weak_ciphers, lte_lan_enabled, mac_override, mac_override_enabled, network_isolation_enabled, pptpc_require_mppe, purpose, remote_vpn_dynamic_subnets_enabled, report_wan_event, require_mschapv2, sdwan_underlay, uid_policy_enabled, uid_traffic_rules_enabled, uid_vpn_masquerade_enabled, uid_vpn_sync_public_ip, upnp_lan_enabled, vlan_enabled, vpn_client_configuration_remote_ip_override_enabled, vpn_client_default_route, vpn_client_pull_dns, wan_dhcpv6_pd_size_auto, wan_dns3, wan_dns4, wan_dslite_remote_host_auto, wan_gateway_v6, wan_ipv6, wan_pppoe_password_enabled, wan_pppoe_rfc4638_enabled, wan_pppoe_username_enabled, wan_smartq_enabled, wan_username, wan_vlan_enabled, wireguard_client_preshared_key_enabled, x_wan_password]
+      required: [auto_scale_enabled, dhcp_relay_enabled, dhcpd_boot_enabled, dhcpd_boot_server, dhcpd_conflict_checking, dhcpd_dns_3, dhcpd_dns_4, dhcpd_dns_enabled, dhcpd_enabled, dhcpd_gateway_enabled, dhcpd_ip_1, dhcpd_ip_2, dhcpd_ip_3, dhcpd_mac_1, dhcpd_mac_2, dhcpd_mac_3, dhcpd_ntp_enabled, dhcpd_time_offset_enabled, dhcpd_wins_enabled, dhcpdv6_allow_slaac, dhcpdv6_dns_auto, dhcpdv6_enabled, dhcpguard_enabled, dpi_enabled, dpigroup_id, enabled, exposed_to_site_vpn, gateway_device, igmp_fastleave, igmp_flood_unknown_multicast, igmp_proxy_upstream, igmp_snooping, igmp_supression, interface_mtu_enabled, internet_access_enabled, ipsec_dynamic_routing, ipsec_local_identifier_enabled, ipsec_pfs, ipsec_remote_identifier_enabled, ipsec_separate_ikev2_networks, ipsec_tunnel_ip_enabled, ipv6_pd_auto_prefixid_enabled, ipv6_pd_prefixid, ipv6_ra_enabled, is_nat, is_wifi_tethering, l2tp_allow_weak_ciphers, lte_lan_enabled, mac_override, mac_override_enabled, network_isolation_enabled, openvpn_compression_disabled, pptpc_require_mppe, purpose, remote_vpn_dynamic_subnets_enabled, report_wan_event, require_mschapv2, sdwan_underlay, uid_policy_enabled, uid_traffic_rules_enabled, uid_vpn_masquerade_enabled, uid_vpn_sync_public_ip, upnp_lan_enabled, vlan_enabled, vpn_client_configuration_remote_ip_override_enabled, vpn_client_default_route, vpn_client_pull_dns, wan_dhcpv6_pd_size_auto, wan_dns3, wan_dns4, wan_dslite_remote_host_auto, wan_gateway_v6, wan_ipv6, wan_pppoe_password_enabled, wan_pppoe_rfc4638_enabled, wan_pppoe_username_enabled, wan_smartq_enabled, wan_username, wan_vlan_enabled, wireguard_client_preshared_key_enabled, x_wan_password]
       properties:
         _id:
           type: string
@@ -8623,6 +8910,8 @@ components:
           description: "LAN[2-8]?"
         network_isolation_enabled:
           type: boolean
+        openvpn_compression_disabled:
+          type: boolean
         openvpn_configuration:
           type: [string, "null"]
         openvpn_configuration_filename:
@@ -8987,9 +9276,6 @@ components:
         wireguard_interface_binding_mode_ip_version:
           type: [string, "null"]
           description: "v4|v6"
-        wireguard_interface_binding_mode_ip_version:
-          type: [string, "null"]
-          description: "^(v4|v6)$"
         wireguard_local_wan_ip:
           type: [string, "null"]
         x_wireguard_private_key:
@@ -9053,6 +9339,33 @@ components:
           type: [integer, "null"]
           format: int64
           description: "^[1-9][0-9]*$"
+    NetworkMembersGroup:
+      type: object
+      required: [id]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        id:
+          type: string
+          description: "^$|.{0,128}"
+        members:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        type:
+          type: string
     OSPFRouter:
       type: object
       required: [announce_default_route, enabled, redistribute_connected_routes, redistribute_static_routes]
@@ -9188,7 +9501,7 @@ components:
           description: "wan[2-9]?"
     PortProfile:
       type: object
-      required: [autoneg, eee_enabled, egress_rate_limit_kbps_enabled, flow_control_enabled, full_duplex, isolation, link_debounce_auto, lldpmed_enabled, lldpmed_notify_enabled, port_keepalive_enabled, port_security_enabled, precision_time_protocol_enabled, stable_port_enabled, stormctrl_bcast_enabled, stormctrl_mcast_enabled, stormctrl_ucast_enabled, stp_bpdu_guard_enabled, stp_port_mode, stp_uplink]
+      required: [autoneg, eee_enabled, egress_rate_limit_kbps_enabled, flow_control_enabled, full_duplex, isolation, ld_status, link_debounce_auto, lldpmed_enabled, lldpmed_notify_enabled, port_keepalive_enabled, port_security_enabled, precision_time_protocol_enabled, stable_port_enabled, stormctrl_bcast_enabled, stormctrl_mcast_enabled, stormctrl_ucast_enabled, stp_bpdu_guard_enabled, stp_port_mode, stp_uplink]
       properties:
         _id:
           type: string
@@ -9234,6 +9547,8 @@ components:
         full_duplex:
           type: boolean
         isolation:
+          type: boolean
+        ld_status:
           type: boolean
         link_debounce:
           type: [integer, "null"]
@@ -9415,6 +9730,62 @@ components:
         qos_profile_mode:
           type: string
           description: "custom|unifi_play|aes67_audio|crestron_audio_video|dante_audio|ndi_aes67_audio|ndi_dante_audio|qsys_audio_video|qsys_video_dante_audio|sdvoe_aes67_audio|sdvoe_dante_audio|shure_audio"
+    PowerSupervisor:
+      type: object
+      required: [enabled]
+      properties:
+        _id:
+          type: string
+        site_id:
+          type: string
+        attr_hidden:
+          type: boolean
+        attr_hidden_id:
+          type: string
+        attr_no_delete:
+          type: boolean
+        attr_no_edit:
+          type: boolean
+        client_mac:
+          type: string
+        consecutive_failures:
+          type: [integer, "null"]
+          format: int64
+        enabled:
+          type: boolean
+        power_sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/PowerSupervisorPowerSources'
+        settings:
+          oneOf:
+            - $ref: '#/components/schemas/PowerSupervisorSettings'
+            - type: "null"
+    PowerSupervisorPowerSources:
+      type: object
+      properties:
+        client_psu_index:
+          type: [integer, "null"]
+          format: int64
+        power_source_index:
+          type: [integer, "null"]
+          format: int64
+        power_source_mac:
+          type: string
+        power_source_type:
+          type: string
+    PowerSupervisorSettings:
+      type: object
+      properties:
+        heartbeat_interval:
+          type: [integer, "null"]
+          format: int64
+        power_off_duration:
+          type: [integer, "null"]
+          format: int64
+        silence_threshold:
+          type: [integer, "null"]
+          format: int64
     RADIUSProfile:
       type: object
       required: [accounting_enabled, interim_update_enabled, tls_enabled, use_usg_acct_server, use_usg_auth_server, vlan_enabled]
@@ -9609,6 +9980,14 @@ components:
           type: string
         enabled:
           type: boolean
+        speed_test_mode:
+          type: string
+          description: "ALL|CUSTOM"
+        wan_list:
+          type: array
+          items:
+            type: string
+          description: "WAN[2-9]?"
     SettingBaresip:
       type: object
       required: [enabled, key]
@@ -12004,6 +12383,9 @@ components:
           type: boolean
         mcastenhance_enabled:
           type: boolean
+        multicast_suppressor_mode:
+          type: string
+          description: "off|conservative|aggressive"
         name:
           type: string
           description: ".{1,32}"
