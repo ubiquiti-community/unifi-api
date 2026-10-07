@@ -160,6 +160,12 @@ func TestResourceTypes(t *testing.T) {
 	})
 }
 
+func TestCleanNameStripsGenericXPrefix(t *testing.T) {
+	assert.Equal(t, "Custom", cleanName("XCustom", nil))
+	assert.Equal(t, "Xlowercase", cleanName("Xlowercase", nil)) // no uppercase after X -> not stripped
+	assert.Equal(t, "X", cleanName("X", nil))                   // len == 1 -> not stripped
+}
+
 func TestNewResourcePaths(t *testing.T) {
 	tests := []struct {
 		structName       string

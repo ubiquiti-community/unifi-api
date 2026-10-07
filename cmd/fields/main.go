@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"net/url"
@@ -327,47 +326,8 @@ func main() {
 
 	assetsDir := filepath.Join(wd, *assetsDirFlag)
 
-	fieldsInfo, err := os.Stat(fieldsDir)
-	if err != nil {
-		if !errors.Is(err, os.ErrNotExist) {
-			panic(err)
-		}
-
-		err = os.MkdirAll(fieldsDir, 0o755)
-		if err != nil {
-			panic(err)
-		}
-
-		// download fields, create
-		jarFile, err := downloadJar(unifiDownloadUrl, fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		err = extractJSON(jarFile, fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		// defer func() {
-		// 	err = os.RemoveAll(fieldsDir)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// }()
-
-		err = copyCustom(fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-
-		fieldsInfo, err = os.Stat(fieldsDir)
-		if err != nil {
-			panic(err)
-		}
-	}
-	if !fieldsInfo.IsDir() {
-		panic("version info isn't a directory")
+	if err := DownloadAndExtract(unifiDownloadUrl, fieldsDir); err != nil {
+		panic(err)
 	}
 
 	if *downloadOnly {

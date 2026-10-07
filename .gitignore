@@ -37,3 +37,5 @@ website/.vagrant
 website/build
 website/node_modules
 website/vendor
+# compiled output of `go build ./cmd/fields`
+/fields
